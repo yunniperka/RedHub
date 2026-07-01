@@ -5,22 +5,24 @@ site_author: yunniperka
 
 theme:
   name: material
-  # Custom fonts to give it a sharp, clean, developer/hacking look
   font:
     text: JetBrains Mono
     code: Fira Code
   palette:
-    # Deep, dark crimson theme (Darker Red accent)
     - scheme: slate
       primary: pink
       accent: purple
   features:
-    - navigation.expand     # Forces all folders/categories to stay expanded by default
-    - navigation.sections   # Visually groups navigation into distinct sections
-    - toc.integrate         # Merges the Table of Contents directly into the left sidebar
+    - navigation.expand     # Wymusza rozszerzenie folderów
+    - navigation.sections   # Grupuje sekcje wizualnie (dodaje linie/odstępy między głównymi działami)
+    - navigation.indexes    # Pozwala na lepsze mapowanie folderów jako linków
+    - toc.integrate         # Scala spis treści z lewym paskiem
     - navigation.tabs.sticky
 
-# Strictly maps your exact Red Team taxonomy
+# Dodajemy obsługę niestandardowego stylu dla rozróżnienia podmenu
+extra_css:
+  - stylesheets/custom.css
+
 nav:
   - Home: index.md
   - Windows Infrastructure:
