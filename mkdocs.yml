@@ -28,11 +28,18 @@ nav:
     - Persistence: Windows/persistence.md
     - Lateral Movement: Windows/lateral-movement.md
     - Evasion: Windows/evasion.md
-  - Linux Infrastructure:
-    - Privilege Escalation: Linux/privilege-escalation.md
-    - Persistence: Linux/persistence.md
-    - Lateral Movement: Linux/lateral-movement.md
-    - Evasion: Linux/evasion.md
+  - Linux:
+      - Evasion: Linux/evasion.md
+      - Lateral Movement: Linux/lateral-movement.md
+      - Persistence: Linux/persistence.md
+      - Privilege Escalation:
+          - Przegląd: Linux/privilege-escalation/index.md
+          - Enumerating Attack Vectors: Linux/privilege-escalation/Enumerating_Attack_Vectors.md
+          - Privileged Groups: Linux/privilege-escalation/Privileged_Groups.md
+          - Environment Variables Abuse: Linux/privilege-escalation/Environment_Variables_Abuse.md
+          - Capabilities Abuse: Linux/privilege-escalation/Capabilities_Abuse.md
+          - Programs, Jobs and Services: Linux/privilege-escalation/Programs_Jobs_and_Services.md
+          - Miscellaneous Techniques: Linux/privilege-escalation/Miscellaneous_Techniques.md
   - Enterprise Environments:
     - Active Directory: AD/README.md
   - Web Security:
