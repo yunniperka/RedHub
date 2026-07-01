@@ -1,29 +1,59 @@
-site_name: RedHub
+ksite_name: RedHub
+site_url: https://yunniperka.github.io/RedHub/
 site_description: An educational Red Team & Pentesting knowledge base.
 site_author: yunniperka
 
 theme:
-  name: material  # This gives you the beautiful, dark-mode friendly infosec theme
+  name: material
+  # Custom fonts to give it a sharp, clean, developer/hacking look
+  font:
+    text: JetBrains Mono
+    code: Fira Code
   palette:
-    - scheme: slate # Dark mode by default
+    # Deep, dark crimson theme (Darker Red accent)
+    - scheme: slate
       primary: red
       accent: red
   features:
-    - navigation.tabs
-    - search.suggest
-    - search.highlight
+    - navigation.expand     # Forces all folders/categories to stay expanded by default
+    - navigation.sections   # Visually groups navigation into distinct sections
+    - toc.integrate         # Merges the Table of Contents directly into the left sidebar
+    - navigation.tabs.sticky
 
+# Strictly maps your exact Red Team taxonomy
 nav:
   - Home: index.md
-  - Windows:
+  - Windows Infrastructure:
     - Privilege Escalation: Windows/privilege-escalation.md
     - Persistence: Windows/persistence.md
     - Lateral Movement: Windows/lateral-movement.md
     - Evasion: Windows/evasion.md
-  - Linux:
+  - Linux Infrastructure:
     - Privilege Escalation: Linux/privilege-escalation.md
     - Persistence: Linux/persistence.md
     - Lateral Movement: Linux/lateral-movement.md
     - Evasion: Linux/evasion.md
-  - Active Directory: AD/README.md
-  - Web Attacks: Web/attacks.md
+  - Enterprise Environments:
+    - Active Directory: AD/README.md
+  - Web Security:
+    - Different Attacks: Web/attacks.md
+  - Networking & Infrastructure:
+    - Network Architecture: Networking/README.md
+  - Modern Architecture:
+    - Cloud Platforms: Cloud/README.md
+    - Containers & Docker: Containers/README.md
+    - Virtualization: Virtualization/README.md
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: bash
+          class: bash
+        - name: powershell
+          class: powershell
