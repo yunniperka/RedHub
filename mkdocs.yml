@@ -1,0 +1,29 @@
+site_name: RedHub
+site_description: An educational Red Team & Pentesting knowledge base.
+site_author: yunniperka
+
+theme:
+  name: material  # This gives you the beautiful, dark-mode friendly infosec theme
+  palette:
+    - scheme: slate # Dark mode by default
+      primary: red
+      accent: red
+  features:
+    - navigation.tabs
+    - search.suggest
+    - search.highlight
+
+nav:
+  - Home: index.md
+  - Windows:
+    - Privilege Escalation: Windows/privilege-escalation.md
+    - Persistence: Windows/persistence.md
+    - Lateral Movement: Windows/lateral-movement.md
+    - Evasion: Windows/evasion.md
+  - Linux:
+    - Privilege Escalation: Linux/privilege-escalation.md
+    - Persistence: Linux/persistence.md
+    - Lateral Movement: Linux/lateral-movement.md
+    - Evasion: Linux/evasion.md
+  - Active Directory: AD/README.md
+  - Web Attacks: Web/attacks.md
