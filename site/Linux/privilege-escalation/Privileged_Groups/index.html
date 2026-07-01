@@ -12,31 +12,31 @@
         <meta name="author" content="yunniperka">
       
       
-        <link rel="canonical" href="https://yunniperka.github.io/RedHub/Networking/">
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/Linux/privilege-escalation/Privileged_Groups/">
       
       
-        <link rel="prev" href="../Web/attacks/">
+        <link rel="prev" href="../Enumerating_Attack_Vectors/">
       
       
-        <link rel="next" href="../Cloud/">
+        <link rel="next" href="../Environment_Variables_Abuse/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Network Architecture - RedHub</title>
+        <title>Privileged Groups - RedHub</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -55,9 +55,9 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/custom.css">
+      <link rel="stylesheet" href="../../../stylesheets/custom.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -81,6 +81,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#privileged-groups" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -93,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+    <a href="../../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -113,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Network Architecture
+              Privileged Groups
             
           </span>
         </div>
@@ -207,7 +212,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+    <a href="../../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -225,7 +230,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -379,7 +384,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
+      <a href="../../../Windows/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
         
   
   
@@ -407,7 +412,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/Built-in-Groups_Abuse/" class="md-nav__link">
+      <a href="../../../Windows/privilege-escalation/Built-in-Groups_Abuse/" class="md-nav__link">
         
   
   
@@ -435,7 +440,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/Excessive_User_Rights_Abuse/" class="md-nav__link">
+      <a href="../../../Windows/privilege-escalation/Excessive_User_Rights_Abuse/" class="md-nav__link">
         
   
   
@@ -463,7 +468,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/File_System_ACLs/" class="md-nav__link">
+      <a href="../../../Windows/privilege-escalation/File_System_ACLs/" class="md-nav__link">
         
   
   
@@ -491,7 +496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/Living_off_the_Land/" class="md-nav__link">
+      <a href="../../../Windows/privilege-escalation/Living_off_the_Land/" class="md-nav__link">
         
   
   
@@ -519,7 +524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/Services_Hijacking/" class="md-nav__link">
+      <a href="../../../Windows/privilege-escalation/Services_Hijacking/" class="md-nav__link">
         
   
   
@@ -547,7 +552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/User_Account_Control_%28UAC%29/" class="md-nav__link">
+      <a href="../../../Windows/privilege-escalation/User_Account_Control_%28UAC%29/" class="md-nav__link">
         
   
   
@@ -583,7 +588,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/persistence/" class="md-nav__link">
+      <a href="../../../Windows/persistence/" class="md-nav__link">
         
   
   
@@ -611,7 +616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/lateral-movement/" class="md-nav__link">
+      <a href="../../../Windows/lateral-movement/" class="md-nav__link">
         
   
   
@@ -639,7 +644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/evasion/" class="md-nav__link">
+      <a href="../../../Windows/evasion/" class="md-nav__link">
         
   
   
@@ -671,8 +676,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -693,11 +700,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -718,7 +725,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -736,7 +743,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/evasion/" class="md-nav__link">
+      <a href="../../evasion/" class="md-nav__link">
         
   
   
@@ -764,7 +771,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/lateral-movement/" class="md-nav__link">
+      <a href="../../lateral-movement/" class="md-nav__link">
         
   
   
@@ -792,7 +799,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/persistence/" class="md-nav__link">
+      <a href="../../persistence/" class="md-nav__link">
         
   
   
@@ -817,8 +824,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -840,11 +849,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
         
           
           <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
@@ -865,7 +874,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -883,7 +892,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
+      <a href="../Enumerating_Attack_Vectors/" class="md-nav__link">
         
   
   
@@ -908,10 +917,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Privileged_Groups/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privileged Groups
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -927,6 +963,70 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#adm-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADM Group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lxc-and-lxd-groups-linux-containers-privilege-escalation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LXC and LXD groups (Linux Containers) Privilege Escalation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Docker Group
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disk-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disk Group
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -939,7 +1039,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Environment_Variables_Abuse/" class="md-nav__link">
+      <a href="../Environment_Variables_Abuse/" class="md-nav__link">
         
   
   
@@ -967,7 +1067,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Capabilities_Abuse/" class="md-nav__link">
+      <a href="../Capabilities_Abuse/" class="md-nav__link">
         
   
   
@@ -995,7 +1095,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Programs_Jobs_and_Services/" class="md-nav__link">
+      <a href="../Programs_Jobs_and_Services/" class="md-nav__link">
         
   
   
@@ -1023,7 +1123,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Miscellaneous_Techniques/" class="md-nav__link">
+      <a href="../Miscellaneous_Techniques/" class="md-nav__link">
         
   
   
@@ -1089,7 +1189,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../AD/" class="md-nav__link ">
+            <a href="../../../AD/" class="md-nav__link ">
               
   
   
@@ -1191,7 +1291,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Web/attacks/" class="md-nav__link">
+      <a href="../../../Web/attacks/" class="md-nav__link">
         
   
   
@@ -1223,8 +1323,6 @@
       
   
   
-    
-  
   
   
     
@@ -1243,15 +1341,15 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../../../Networking/" class="md-nav__link ">
               
   
   
@@ -1270,7 +1368,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1324,7 +1422,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../Cloud/" class="md-nav__link ">
+            <a href="../../../Cloud/" class="md-nav__link ">
               
   
   
@@ -1368,7 +1466,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Containers/" class="md-nav__link">
+      <a href="../../../Containers/" class="md-nav__link">
         
   
   
@@ -1396,7 +1494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Virtualization/" class="md-nav__link">
+      <a href="../../../Virtualization/" class="md-nav__link">
         
   
   
@@ -1441,9 +1539,55 @@
 
 
 
-  <h1>Network Architecture</h1>
-
-
+<h1 id="privileged-groups">Privileged Groups</h1>
+<h2 id="adm-group"><strong>ADM Group</strong></h2>
+<blockquote>
+<p>Members of the adm group are able to read all logs stored in /var/log.</p>
+<p>This does not directly grant root access, but could be leveraged to gather sensitive data stored in log files or enumerate user actions and running cron jobs.
+</p>
+</blockquote>
+<hr />
+<h2 id="lxc-and-lxd-groups-linux-containers-privilege-escalation"><strong>LXC and LXD groups (Linux Containers) Privilege Escalation</strong></h2>
+<blockquote>
+<p>Prerequisites: the current used needs to be a member of the lxc or lxd groups</p>
+<p><strong>Description:</strong> it is possible to grant ourselves root privileges by editing the container template (often forgot on the target machine)
+</p>
+</blockquote>
+<p><strong>Attack Path:</strong></p>
+<ol>
+<li>Suppose we found a folder named <code>ContainerImages</code> where the container image is stored (without any password protection)</li>
+<li>Import the container as an image: <code>lxc image import container-template-name.tar.xz --alias temp</code></li>
+<li>Ensure the container was imported: <code>lxc image list</code></li>
+<li>Start a privileged container named <code>r00t</code>: <code>lxc init temp r00t -c security.privileged=true</code><ul>
+<li>This will start a privileged container with the <code>security.privileged</code> set to <code>true</code> to run the container without a UID mapping, making the root user in the container the same as the root user on the host.</li>
+</ul>
+</li>
+<li>Mount the host file system: <code>lxc config device add r00t mydev disk source=/ path=/mnt/root recursive=true</code></li>
+<li>Start the container: <code>lxc start r00t</code></li>
+<li>The host filesystem will be mounted inside the container at the previously specified path (e.g. <code>/mnt/root</code>)</li>
+</ol>
+<hr />
+<h2 id="docker-group"><strong>Docker Group</strong></h2>
+<blockquote>
+<p>Placing a user in the docker group is essentially equivalent to root level access to the file system without requiring a password.</p>
+<p>Members of the docker group can spawn new docker containers.
+</p>
+</blockquote>
+<p><strong>Example:</strong></p>
+<ul>
+<li>One example would be running the command <code>docker run -v /root:/mnt -it ubuntu</code></li>
+<li>This command creates a new Docker instance with the <code>/root</code> directory on the host file system mounted as a volume.</li>
+<li>This way, it is possible to browse to the mounted directory(holding the entire filesystem) and retrieve or add SSH keys for the root user or retrieve the contents of the <code>/etc/shadow</code> file for offline password cracking or adding a privileged user.</li>
+</ul>
+<hr />
+<h2 id="disk-group"><strong>Disk Group</strong></h2>
+<blockquote>
+<p>Users within the disk group have full access to any devices contained within /dev</p>
+<p>Such as <code>/dev/sda1</code>, which is typically the main device used by the operating system.</p>
+<p>An attacker with these privileges can use <code>debugfs</code> to access the entire file system with root level privileges.</p>
+<p>This could be leveraged to retrieve SSH keys, credentials or to add a new user.
+</p>
+</blockquote>
 
 
 
@@ -1479,7 +1623,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../Web/attacks/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Different Attacks">
+          <a href="../Enumerating_Attack_Vectors/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Enumerating Attack Vectors">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1489,20 +1633,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Different Attacks
+                Enumerating Attack Vectors
               </div>
             </div>
           </a>
         
         
           
-          <a href="../Cloud/" class="md-footer__link md-footer__link--next" aria-label="Next: Cloud Platforms">
+          <a href="../Environment_Variables_Abuse/" class="md-footer__link md-footer__link--next" aria-label="Next: Environment Variables Abuse">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Cloud Platforms
+                Environment Variables Abuse
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1539,10 +1683,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.indexes", "toc.integrate", "navigation.tabs.sticky", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.indexes", "toc.integrate", "navigation.tabs.sticky", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

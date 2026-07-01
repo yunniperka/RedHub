@@ -1,6 +1,5 @@
 site_name: RedHub
 site_url: https://yunniperka.github.io/RedHub/
-site_description: An educational Red Team & Pentesting knowledge base.
 site_author: yunniperka
 
 theme:
@@ -9,19 +8,24 @@ theme:
     text: JetBrains Mono
     code: Fira Code
   palette:
-    # Powrót do jednego, stałego trybu ciemnego ze zmienną custom
     - scheme: slate
       primary: custom
       accent: custom
+
   features:
-    # - navigation.expand     <-- USUŃ LUB ZAKOMENTUJ TĘ LINIĘ!
     - navigation.sections   # Grupuje sekcje wizualnie
     - navigation.indexes    # Pozwala na lepsze mapowanie folderów jako linków
     - toc.integrate         # Scala spis treści z lewym paskiem
     - navigation.tabs.sticky
     - navigation.tracking   # Dynamicznie aktualizuje pozycję podczas czytania
-    
-# Obsługa niestandardowego stylu dla rozróżnienia podmenu i kolorów
+    - content.code.copy    # 🚀 UX: Dodaje przycisk "Kopiuj" do bloków kodu
+    - content.code.annotate # UX: Pozwala na dodawanie komentarzy wewnątrz kodu
+    - navigation.top       # 🚀 UX: Pływający przycisk "Wróć na górę" (Back to top)
+    - navigation.footer    # 🚀 UX: Kafelki "Następny / Poprzedni artykuł" na dole strony
+    - search.suggest      # 🚀 UX: Podpowiedzi w wyszukiwarce w locie
+    - search.highlight    # 🚀 UX: Podświetlanie szukanych fraz na stronie
+
+# Obsługa niestandardowego stylu dla rozróżnienia podmenu, wielkości czcionek i tabel
 extra_css:
   - stylesheets/custom.css
 
@@ -62,10 +66,13 @@ nav:
     - Virtualization: Virtualization/README.md
 
 markdown_extensions:
+  - admonition            # 🚀 UX: Włącza obsługę bloków !!! note, !!! danger itd.
+  - pymdownx.details      # 🚀 UX: Pozwala na tworzenie rozwijanych sekcji/bloków
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
+      auto_title: true    # Automatycznie dodaje mały tag z nazwą języka nad blokiem kodu
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences:
@@ -74,3 +81,10 @@ markdown_extensions:
           class: bash
         - name: powershell
           class: powershell
+
+extra:
+  generator: false
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js
+  - data:text/javascript,$(document).ready(function(){var base="https://yunniperka.github.io/RedHub/stylesheets/";var batCont=$('<div id="runaway-pixel-bat" style="position:absolute;right:60px;top:10px;width:32px;height:32px;cursor:pointer;transition:left 0.2s ease-out, top 0.2s ease-out;z-index:9999;user-select:none;"><img class="bat-state-hovering" src="'+base+'iq0iz4r72ghf1.gif" style="position:absolute;width:32px;height:32px;visibility:visible;opacity:1;" alt="pixel bat hovering"/><img class="bat-state-uniting" src="'+base+'cc6t74r72ghf1.gif" style="position:absolute;width:32px;height:32px;visibility:hidden;opacity:0;" alt="pixel bat uniting"/></div>');$('.md-header__inner').append(batCont);var hBat=$('.bat-state-hovering');var uBat=$('.bat-state-uniting');batCont.on('mouseenter',function(){uBat.css({visibility:'visible',opacity:1});hBat.css({visibility:'hidden',opacity:0});var headerWidth=$('.md-header__inner').width();var randomX=Math.floor(Math.random()*(headerWidth-120));var randomY=Math.floor(Math.random()*15)+5;batCont.css({right:'auto',left:randomX+'px',top:randomY+'px'});});batCont.on('transitionend webkitTransitionEnd oTransitionEnd',function(){hBat.css({visibility:'visible',opacity:1});uBat.css({visibility:'hidden',opacity:0});});});

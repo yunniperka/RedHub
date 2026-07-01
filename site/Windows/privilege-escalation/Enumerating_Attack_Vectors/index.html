@@ -12,31 +12,31 @@
         <meta name="author" content="yunniperka">
       
       
-        <link rel="canonical" href="https://yunniperka.github.io/RedHub/Networking/">
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/Windows/privilege-escalation/Enumerating_Attack_Vectors/">
       
       
-        <link rel="prev" href="../Web/attacks/">
+        <link rel="prev" href="../../..">
       
       
-        <link rel="next" href="../Cloud/">
+        <link rel="next" href="../Built-in-Groups_Abuse/">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Network Architecture - RedHub</title>
+        <title>Enumerating Attack Vectors - RedHub</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -55,9 +55,9 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/custom.css">
+      <link rel="stylesheet" href="../../../stylesheets/custom.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -81,6 +81,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#enumerating-attack-vectors" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -93,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+    <a href="../../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -113,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Network Architecture
+              Enumerating Attack Vectors
             
           </span>
         </div>
@@ -207,7 +212,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+    <a href="../../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -225,7 +230,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -249,8 +254,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -271,11 +278,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
@@ -296,7 +303,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -311,8 +318,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -336,11 +345,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
         
           
           <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
@@ -361,7 +370,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -376,10 +385,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enumerating Attack Vectors
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -395,6 +431,125 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#helpful-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Helpful Tools
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enumerating-windows-protection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumerating Windows Protection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#processes-jobs-scheduled-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processes, Jobs, Scheduled Tasks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-and-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kernel and OS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#registries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Registries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#users-and-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Users and Groups
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network-Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installed-applications" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installed Applications
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credential-hunting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credential Hunting
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -407,7 +562,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/Built-in-Groups_Abuse/" class="md-nav__link">
+      <a href="../Built-in-Groups_Abuse/" class="md-nav__link">
         
   
   
@@ -435,7 +590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/Excessive_User_Rights_Abuse/" class="md-nav__link">
+      <a href="../Excessive_User_Rights_Abuse/" class="md-nav__link">
         
   
   
@@ -463,7 +618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/File_System_ACLs/" class="md-nav__link">
+      <a href="../File_System_ACLs/" class="md-nav__link">
         
   
   
@@ -491,7 +646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/Living_off_the_Land/" class="md-nav__link">
+      <a href="../Living_off_the_Land/" class="md-nav__link">
         
   
   
@@ -519,7 +674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/Services_Hijacking/" class="md-nav__link">
+      <a href="../Services_Hijacking/" class="md-nav__link">
         
   
   
@@ -547,7 +702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/privilege-escalation/User_Account_Control_%28UAC%29/" class="md-nav__link">
+      <a href="../User_Account_Control_%28UAC%29/" class="md-nav__link">
         
   
   
@@ -583,7 +738,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/persistence/" class="md-nav__link">
+      <a href="../../persistence/" class="md-nav__link">
         
   
   
@@ -611,7 +766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/lateral-movement/" class="md-nav__link">
+      <a href="../../lateral-movement/" class="md-nav__link">
         
   
   
@@ -639,7 +794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Windows/evasion/" class="md-nav__link">
+      <a href="../../evasion/" class="md-nav__link">
         
   
   
@@ -736,7 +891,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/evasion/" class="md-nav__link">
+      <a href="../../../Linux/evasion/" class="md-nav__link">
         
   
   
@@ -764,7 +919,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/lateral-movement/" class="md-nav__link">
+      <a href="../../../Linux/lateral-movement/" class="md-nav__link">
         
   
   
@@ -792,7 +947,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/persistence/" class="md-nav__link">
+      <a href="../../../Linux/persistence/" class="md-nav__link">
         
   
   
@@ -883,7 +1038,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
         
   
   
@@ -911,7 +1066,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Privileged_Groups/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Privileged_Groups/" class="md-nav__link">
         
   
   
@@ -939,7 +1094,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Environment_Variables_Abuse/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Environment_Variables_Abuse/" class="md-nav__link">
         
   
   
@@ -967,7 +1122,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Capabilities_Abuse/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Capabilities_Abuse/" class="md-nav__link">
         
   
   
@@ -995,7 +1150,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Programs_Jobs_and_Services/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Programs_Jobs_and_Services/" class="md-nav__link">
         
   
   
@@ -1023,7 +1178,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Linux/privilege-escalation/Miscellaneous_Techniques/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Miscellaneous_Techniques/" class="md-nav__link">
         
   
   
@@ -1089,7 +1244,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../AD/" class="md-nav__link ">
+            <a href="../../../AD/" class="md-nav__link ">
               
   
   
@@ -1191,7 +1346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Web/attacks/" class="md-nav__link">
+      <a href="../../../Web/attacks/" class="md-nav__link">
         
   
   
@@ -1223,8 +1378,6 @@
       
   
   
-    
-  
   
   
     
@@ -1243,15 +1396,15 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../../../Networking/" class="md-nav__link ">
               
   
   
@@ -1270,7 +1423,7 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1324,7 +1477,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../Cloud/" class="md-nav__link ">
+            <a href="../../../Cloud/" class="md-nav__link ">
               
   
   
@@ -1368,7 +1521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Containers/" class="md-nav__link">
+      <a href="../../../Containers/" class="md-nav__link">
         
   
   
@@ -1396,7 +1549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../Virtualization/" class="md-nav__link">
+      <a href="../../../Virtualization/" class="md-nav__link">
         
   
   
@@ -1441,9 +1594,131 @@
 
 
 
-  <h1>Network Architecture</h1>
-
-
+<h1 id="enumerating-attack-vectors">Enumerating Attack Vectors</h1>
+<h2 id="helpful-tools"><strong>Helpful Tools</strong></h2>
+<p><strong>Miscellaneous:</strong></p>
+<ul>
+<li><a href="https://github.com/r3motecontrol/Ghostpack-CompiledBinaries"><strong>Ghostpack Compiled Binaries</strong></a></li>
+<li><a href="https://github.com/hfiref0x/UACME"><strong>UAC (User Account Control) Bypasses</strong></a></li>
+<li><a href="https://github.com/fortra/impacket/tree/master/examples"><strong>Impacket Tools</strong></a></li>
+<li><a href="https://github.com/int0x33/nc.exe/"><strong>NetCat for Windows</strong></a></li>
+</ul>
+<p><strong>Exploit Suggesters:</strong></p>
+<ul>
+<li><a href="https://github.com/carlospolop/PEASS-ng/releases"><strong>winPEAS</strong></a>: Windows local Privilege Escalation Awesome Script.</li>
+<li><a href="https://github.com/r3motecontrol/Ghostpack-CompiledBinaries"><strong>Seatbelt</strong></a>: C# local privilege escalation checks.</li>
+<li><a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Privesc/PowerUp.ps1"><strong>PowerUp</strong></a>: PowerShell script for finding common Windows privilege escalation vectors that rely on misconfigurations.</li>
+<li><a href="https://github.com/r3motecontrol/Ghostpack-CompiledBinaries"><strong>SharpUp</strong></a>: C# version of PowerUp .</li>
+<li><a href="https://github.com/411Hall/JAWS/tree/master"><strong>JAWS</strong></a>: PowerShell script for enumerating privilege escalation vectors written in PowerShell 2.0 .</li>
+<li><a href="https://github.com/rasta-mouse/Watson"><strong>Watson</strong></a>: .NET tool to enumerate missing KBs and suggest exploits.</li>
+<li><a href="https://github.com/bitsadmin/wesng"><strong>Windows Exploit Suggester Next Generation</strong></a></li>
+<li><strong>Metasploit Local Exploit Suggester</strong>: <code>use post/multi/recon/local_exploit_suggester</code> on a backgrounded meterpreter sessions .</li>
+</ul>
+<p><strong>Credentials:</strong></p>
+<ul>
+<li><a href="https://github.com/AlessandroZ/LaZagne/releases/"><strong>LaZagne</strong></a>: Retrieve passwords stored on a local machine from Windows password storage mechanisms and many different sources.</li>
+<li><a href="https://github.com/ParrotSec/mimikatz"><strong>MimiKatz</strong></a>: Extract credentials, perform PtH, PtT, craft golden tickets and more.</li>
+<li><a href="https://github.com/Arvanaghi/SessionGopher"><strong>SessionGopher</strong></a>: PowerShell tool to find and decrypt saved session information for remote access tools.</li>
+</ul>
+<hr />
+<h2 id="enumerating-windows-protection"><strong>Enumerating Windows Protection</strong></h2>
+<ul>
+<li>Check Windows Defender status: <code>Get-MpComputerStatus</code></li>
+<li>List AppLocker rules: <code>Get-AppLockerPolicy -Effective \| select -ExpandProperty RuleCollections</code></li>
+<li>Test AppLocker policy: <code>Get-AppLockerPolicy -Local \| Test-AppLockerPolicy -path C:\Windows\System32\cmd.exe -User Everyone</code></li>
+</ul>
+<hr />
+<h2 id="processes-jobs-scheduled-tasks"><strong>Processes, Jobs, Scheduled Tasks</strong></h2>
+<ul>
+<li>Dislpay all running processes (PowerShell): <code>Get-Process</code></li>
+<li>List named pipes: <code>pipelist.exe /accepteula</code></li>
+<li>List named pipes with PowerShell: <code>gci \\.\pipe\</code></li>
+<li>Review permissions on a named pipe: <code>accesschk.exe /accepteula \\.\Pipe\lsass -v</code></li>
+<li>Display running processes: <code>tasklist /svc</code></li>
+<li>Enumerate scheduled tasks: <code>schtasks /query /fo LIST /v</code></li>
+<li>Get ACLs for a specific scheduled task:
+<code>icacls C:\Users\dude\Desktop\example.exe</code></li>
+<li>Enumerate scheduled tasks with PowerShell: <code>Get-ScheduledTask \| select TaskName,State</code></li>
+<li>Enumerate all Unquoted Service Paths: <code>wmic service get name,displayname,pathname,startmode \| findstr /i "auto" \| findstr /i /v "c:\windows\\" \| findstr /i /v """</code></li>
+</ul>
+<hr />
+<h2 id="kernel-and-os"><strong>Kernel and OS</strong></h2>
+<ul>
+<li>Display all environment variables: <code>set</code></li>
+<li>View detailed system configuration information: <code>systeminfo</code></li>
+<li>Get patches and updates: <code>wmic qfe</code></li>
+<li>Get installed programs: <code>wmic product get name</code></li>
+<li>Get Installed programs in PowerShell: <code>Get-WmiObject -Class Win32_Product \| select Name, Version</code></li>
+<li>Enumerate computer description field: <code>Get-WmiObject -Class Win32_OperatingSystem \| select Description</code></li>
+</ul>
+<hr />
+<h2 id="registries"><strong>Registries</strong></h2>
+<ul>
+<li>Query for always install elevated registry key (1): <code>reg query HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Installer</code></li>
+<li>Query for always install elevated registry key (2): <code>reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer</code></li>
+<li>Find PuTTY clear-text credentials: <code>reg query HKEY_CURRENT_USER\Software\SimonTatham\PuTTY\Session\</code></li>
+</ul>
+<hr />
+<h2 id="users-and-groups"><strong>Users and Groups</strong></h2>
+<ul>
+<li>Get logged-in users: <code>query user</code></li>
+<li>Get current user: <code>echo %USERNAME%</code></li>
+<li>View current user privileges: <code>whoami /priv</code></li>
+<li>View current user group information: <code>whoami /groups</code></li>
+<li>Get all system user: <code>net user</code></li>
+<li>Get all system groups: <code>net localgroup</code></li>
+<li>View details about a group: <code>net localgroup administrators</code></li>
+<li>Get password policy: <code>net accounts</code></li>
+<li>Check permissions on a directory: <code>.\accesschk64.exe /accepteula -s -d C:\Scripts\</code></li>
+<li>Check local user description field: <code>Get-LocalUser</code></li>
+<li>Run commands as another user (requires their password): <code>runas /user:backupadmin cmd</code></li>
+</ul>
+<hr />
+<h2 id="network-related"><strong>Network-Related</strong></h2>
+<ul>
+<li>Display active network connections: <code>netstat -ano</code></li>
+<li>Get interface, IP address and DNS information: <code>ipconfig /all</code></li>
+<li>Review ARP table: <code>arp -a</code></li>
+<li>Review routing table: <code>route print</code></li>
+</ul>
+<hr />
+<h2 id="installed-applications"><strong>Installed Applications</strong></h2>
+<p>check installed applications:
+<code>Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname</code></p>
+<p>check installed applications (alternative):
+<code>Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname</code></p>
+<hr />
+<h2 id="credential-hunting"><strong>Credential Hunting</strong></h2>
+<ul>
+<li>Search common configuration files containing the word "password":
+<code>findstr /SIM /C:"password" *.txt *.ini *.cfg *.config *.xml</code></li>
+<li>Searching file contents for a string: <code>findstr /spin "password" *.*</code></li>
+<li>Search file contents with PowerShell:
+<code>select-string -Path C:\Users\htb-student\Documents\*.txt -Pattern password</code></li>
+<li>Search for file extensions:
+<code>dir /S /B *pass*.txt == *pass*.xml == *pass*.ini == *cred* == *vnc* == *.config*</code></li>
+<li>Search for file extensions (alternative):
+<code>Get-ChildItem -Path C:\ -Include *.txt,*.ini -File -Recurse -ErrorAction SilentlyContinue</code></li>
+<li>Search for file extensions using PowerShell:
+<code>Get-ChildItem C:\ -Recurse -Include *.rdp, *.config, *.vnc, *.cred -ErrorAction Ignore</code></li>
+<li>List <code>cmdkey</code> saved credentials (in memory): <code>cmdkey /list</code></li>
+<li>Run SessionGopher to extract credentials:
+<code>Import-Module .\SessionGopher.ps1</code> → <code>Invoke-SessionGopher -Target WINLPE-SRV01</code></li>
+<li>Retrieve saved Chrome credentials: <code>.\SharpChrome.exe logins /unprotect</code></li>
+<li>Search Chrome Dictionary Files containing passwords:
+<code>gc 'C:\Users\username\AppData\Local\Google\Chrome\User Data\Default\Custom Dictionary.txt' \| Select-String password</code></li>
+<li>Read the PowerShell History File: <code>gc (Get-PSReadLineOption).HistorySavePath</code></li>
+<li>Retrieve saved wireless passwords: <code>netsh wlan show profile WIFINAME key=clear</code></li>
+<li>Enumerate unattended installation files (files named <code>unattend.xml</code>) which may contain passwords, which are stored in plaintext or base64</li>
+<li>Enumerate <code>.kdbx</code> KeePass files and extract credentials using <code>python2.7 keepass2john.py file.kdbx</code>, followed by <code>hashcat -m 13400</code></li>
+<li>Extract clipboard (copy-paste) data: <code>git clone https://github.com/inguardians/Invoke-Clipboard/blob/master/Invoke-Clipboard.ps1</code></li>
+<li>Search current user's history file content (PowerShell): <code>Get-History</code></li>
+<li>Find all accessible PowerShell history files: <code>foreach($user in ((ls C:\users).fullname)){cat "$user\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt" -ErrorAction SilentlyContinue}</code></li>
+<li>Display a user's specific history file's content:
+<code>type C:\Users\{USERNAME}\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt</code></li>
+<li>Retrieve password from Windows Sticky Notes:
+<code>C:\Users\&lt;user&gt;\AppData\Local\Packages\Microsoft.MicrosoftStickyNotes_8wekyb3d8bbwe\LocalState\plum.sqlite</code></li>
+</ul>
 
 
 
@@ -1479,7 +1754,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../Web/attacks/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Different Attacks">
+          <a href="../../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
@@ -1489,20 +1764,20 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Different Attacks
+                Home
               </div>
             </div>
           </a>
         
         
           
-          <a href="../Cloud/" class="md-footer__link md-footer__link--next" aria-label="Next: Cloud Platforms">
+          <a href="../Built-in-Groups_Abuse/" class="md-footer__link md-footer__link--next" aria-label="Next: Built-in-Groups Abuse">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Cloud Platforms
+                Built-in-Groups Abuse
               </div>
             </div>
             <div class="md-footer__button md-icon">
@@ -1539,10 +1814,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.indexes", "toc.integrate", "navigation.tabs.sticky", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.indexes", "toc.integrate", "navigation.tabs.sticky", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
