@@ -29,29 +29,23 @@
     font-size: 0.85rem !important;
     line-height: 1.5 !important;
 }
-
-/* Wyróżnienia w tekście (inline code) – skorygowane do 0.78rem, 
-   ponieważ font Fira Code jest optycznie większy i szerszy od JetBrains Mono. 
-   Dzięki temu zabiegowi wysokość i optyczna wielkość liter są identyczne ze zwykłym tekstem. */
 .md-typeset code {
     font-size: 0.78rem !important; 
     line-height: 1.5 !important;
-    color: #e09ba7 !important;     /* Czysty brudny róż */
+    color: #e09ba7 !important; 
     background-color: rgba(176, 102, 116, 0.12) !important; 
-    padding: 0.05rem 0.2rem !important; /* Maksymalnie ciasny padding, by nie rozpychał linii w pionie */
+    padding: 0.05rem 0.2rem !important; 
     margin: 0 !important;
     border-radius: 4px !important;
     word-break: break-word !important;
-    vertical-align: baseline !important; /* Wyrównanie do równej dolnej linii tekstu */
+    vertical-align: baseline !important; 
 }
 
-/* Poprawka dla wyróżnień kodu, na które najedzie się myszką (hover effect) */
 .md-typeset a code:hover {
     background-color: rgba(176, 102, 116, 0.25) !important;
     color: #fff !important;
 }
 
-/* Duże, wielolinijkowe bloki kodu (składnia z potrójnym backtickiem) */
 .md-typeset pre code {
     font-size: 0.78rem !important; 
     line-height: 1.4 !important;
@@ -59,10 +53,6 @@
     color: inherit !important;
     padding: 0 !important;
 }
-
-/* ==========================================================================
-   3. STRUKTURA I CZYSZCZENIE NAWIGACJI BOCZNEJ
-   ========================================================================== */
 
 .md-nav__title {
     font-weight: 700 !important;
@@ -93,7 +83,6 @@
     border-left: none !important;
 }
 
-/* Usunięcie pionowych pasków z lewej strony */
 .md-nav__list {
     border-left: none !important;
 }
@@ -107,7 +96,7 @@
 }
 
 /* ==========================================================================
-   4. DYNAMICZNE PODŚWIETLENIA I ŚLEDZENIE POSTĘPU (Scrollspy)
+   Scrollspy
    ========================================================================== */
 
 .md-nav__item--active > .md-nav__link:not(.md-nav__link--active) {
@@ -131,9 +120,6 @@
     font-weight: 600 !important;
 }
 
-/* ==========================================================================
-   5. ODBLOKOWANIE I NAPRAWA AUTO-SCROLLA LEWEGO MENU
-   ========================================================================== */
 .md-sidebar--primary .md-sidebar__scrollwrap {
     overflow-y: auto;
     scroll-behavior: smooth;
@@ -145,50 +131,31 @@
 }
 
 /* ==========================================================================
-   PIXEL ART BAT - FLIGHT & EVASION CYCLE
-   ========================================================================= */
-.md-header__inner {
-    position: relative !important;
-}
-
-/* Kontener główny - delikatne, retro-bujanie w pionie dla pixel artu */
-#runaway-pixel-bat {
-    animation: pixelBatFloat 2s ease-in-out infinite !important;
-    display: inline-block;
-}
-
-/* Przejścia stanów (lot/unik) - płynne zanikanie i pojawianie się wewnątrz kontenera */
-.bat-state-hovering,
-.bat-state-uniting {
-    transition: opacity 0.15s linear, visibility 0.15s linear !important;
-}
-
-/* --- LEKKIE I BEZPIECZNE ANIMACJE TRANSFORMACJI --- */
-@keyframes pixelBatFloat {
-    0% { transform: translateY(0px) scale(1); }
-    50% { transform: translateY(-4px) scale(1.02); }
-    100% { transform: translateY(0px) scale(1); }
-}
-
-/* ==========================================================================
-   PIXEL ART BAT - STYLIZACJA I ODCHUDZANIE TŁA
+   PIXEL BAT
    ========================================================================= */
 .md-header__inner {
     position: relative !important;
 }
 
 #runaway-pixel-bat {
-    animation: pixelBatFloat 2s ease-in-out infinite !important;
+    animation: batSmoothFloat 2s ease-in-out infinite !important;
     display: inline-block;
+    background-image: url('bat.gif') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    image-rendering: pixelated !important;
+    image-rendering: crisp-edges !important;
+    
+    /* Płynny lot (lewo/prawo i góra/dół przy zmianie pozycji) */
+    transition: left 0.45s ease-out, top 0.45s ease-out !important;
 }
 
-/* Usuwa białe tło z gifów (odfiltrowuje czerń/biel dopasowując do ciemnego paska) */
-.bat-state-hovering,
-.bat-state-uniting {
-    mix-blend-mode: screen !important;
-}
+/* Obroty bez psucia animacji lotu */
+#runaway-pixel-bat.go-right { transform: scaleX(1); }
+#runaway-pixel-bat.go-left { transform: scaleX(-1); }
 
-@keyframes pixelBatFloat {
+@keyframes batSmoothFloat {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-4px); }
     100% { transform: translateY(0px); }

@@ -139,3 +139,57 @@
     scroll-behavior: smooth;
     overscroll-behavior: contain;
 }
+
+.md-footer-meta__generator {
+    display: none !important;
+}
+
+/* ==========================================================================
+   PIXEL ART BAT - FLIGHT & EVASION CYCLE
+   ========================================================================= */
+.md-header__inner {
+    position: relative !important;
+}
+
+/* Kontener główny - delikatne, retro-bujanie w pionie dla pixel artu */
+#runaway-pixel-bat {
+    animation: pixelBatFloat 2s ease-in-out infinite !important;
+    display: inline-block;
+}
+
+/* Przejścia stanów (lot/unik) - płynne zanikanie i pojawianie się wewnątrz kontenera */
+.bat-state-hovering,
+.bat-state-uniting {
+    transition: opacity 0.15s linear, visibility 0.15s linear !important;
+}
+
+/* --- LEKKIE I BEZPIECZNE ANIMACJE TRANSFORMACJI --- */
+@keyframes pixelBatFloat {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-4px) scale(1.02); }
+    100% { transform: translateY(0px) scale(1); }
+}
+
+/* ==========================================================================
+   PIXEL ART BAT - STYLIZACJA I ODCHUDZANIE TŁA
+   ========================================================================= */
+.md-header__inner {
+    position: relative !important;
+}
+
+#runaway-pixel-bat {
+    animation: pixelBatFloat 2s ease-in-out infinite !important;
+    display: inline-block;
+}
+
+/* Usuwa białe tło z gifów (odfiltrowuje czerń/biel dopasowując do ciemnego paska) */
+.bat-state-hovering,
+.bat-state-uniting {
+    mix-blend-mode: screen !important;
+}
+
+@keyframes pixelBatFloat {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-4px); }
+    100% { transform: translateY(0px); }
+}
