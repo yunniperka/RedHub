@@ -1,39 +1,141 @@
-/* Główne sekcje menu (np. Windows Infrastructure, Linux) */
+/* ==========================================================================
+   1. GLOBALNA PALETA I NAGŁÓWEK REDHUB (Dirty Pink)
+   ========================================================================== */
+:root {
+    --md-primary-fg-color: #b06674 !important;
+    --md-primary-fg-color--dark: #94515f !important;
+    --md-primary-fg-color--light: #cfa0a9 !important;
+    --md-accent-fg-color: #6a6073 !important;
+}
+
+.md-header {
+    background-color: var(--md-primary-fg-color) !important; 
+}
+
+/* ==========================================================================
+   2. BEZWZGLĘDNA UNIFIKACJA CZCIONEK (Wszystko identycznej wielkości)
+   ========================================================================== */
+
+/* Wymuszenie identycznego rozmiaru (0.85rem) i interlinii (1.5) dla absolutnie każdego elementu tekstowego */
+.md-typeset,
+.md-typeset p,
+.md-typeset ul,
+.md-typeset ol,
+.md-typeset li,
+.md-typeset a,
+.md-typeset table,
+.md-typeset table th,
+.md-typeset table td {
+    font-size: 0.85rem !important;
+    line-height: 1.5 !important;
+}
+
+/* Wyróżnienia w tekście (inline code) – skorygowane do 0.78rem, 
+   ponieważ font Fira Code jest optycznie większy i szerszy od JetBrains Mono. 
+   Dzięki temu zabiegowi wysokość i optyczna wielkość liter są identyczne ze zwykłym tekstem. */
+.md-typeset code {
+    font-size: 0.78rem !important; 
+    line-height: 1.5 !important;
+    color: #e09ba7 !important;     /* Czysty brudny róż */
+    background-color: rgba(176, 102, 116, 0.12) !important; 
+    padding: 0.05rem 0.2rem !important; /* Maksymalnie ciasny padding, by nie rozpychał linii w pionie */
+    margin: 0 !important;
+    border-radius: 4px !important;
+    word-break: break-word !important;
+    vertical-align: baseline !important; /* Wyrównanie do równej dolnej linii tekstu */
+}
+
+/* Poprawka dla wyróżnień kodu, na które najedzie się myszką (hover effect) */
+.md-typeset a code:hover {
+    background-color: rgba(176, 102, 116, 0.25) !important;
+    color: #fff !important;
+}
+
+/* Duże, wielolinijkowe bloki kodu (składnia z potrójnym backtickiem) */
+.md-typeset pre code {
+    font-size: 0.78rem !important; 
+    line-height: 1.4 !important;
+    background-color: transparent !important; 
+    color: inherit !important;
+    padding: 0 !important;
+}
+
+/* ==========================================================================
+   3. STRUKTURA I CZYSZCZENIE NAWIGACJI BOCZNEJ
+   ========================================================================== */
+
 .md-nav__title {
-    font-weight: 800 !important;
+    font-weight: 700 !important;
+    font-size: 0.8rem !important;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--md-default-foreground-color);
-    padding-bottom: 0.5rem;
-    border-bottom: 1px dashed rgba(233, 30, 99, 0.3); /* Delikatna różowa linia pod sekcjami */
+    padding-bottom: 0.4rem;
+    border-bottom: 1px dashed rgba(176, 102, 116, 0.3);
 }
 
-/* Kategorie pierwszego poziomu (np. Evasion, Privilege Escalation) */
-.md-nav__list > .md-nav__item > .md-nav__link {
-    font-weight: 700 !important;
-    font-size: 0.95rem;
-    color: var(--md-typeset-color) !important;
+.md-nav__item {
+    padding: 0 !important;
 }
 
-/* Głębokie podkategorie (np. Built-in-Groups Abuse, Capabilities Abuse) */
+.md-nav__link {
+    font-size: 0.78rem !important;
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+    color: rgba(255, 255, 255, 0.55); 
+    border-left: none !important;
+}
+
 .md-nav__list .md-nav__list .md-nav__link {
     font-weight: 400 !important;
-    font-size: 0.85rem;
-    padding-left: 1.5rem !important; /* Wyraźne przesunięcie w prawo dla rozróżnienia */
-    border-left: 2px solid rgba(156, 39, 176, 0.2); /* Fioletowy pionowy pasek z lewej strony */
-    margin-left: 0.5rem;
+    font-size: 0.75rem !important;
+    padding-left: 1rem !important;
+    color: rgba(255, 255, 255, 0.45);
+    border-left: none !important;
 }
 
-/* Podświetlenie aktywnej podkategorii, na której aktualnie znajduje się użytkownik */
-.md-nav__list .md-nav__list .md-nav__item--active > .md-nav__link {
-    color: var(--md-accent-purple-color) !important;
+/* Usunięcie pionowych pasków z lewej strony */
+.md-nav__list {
+    border-left: none !important;
+}
+.md-nav__list::before, 
+.md-nav__list::after,
+.md-nav__item::before,
+.md-nav__item::after {
+    display: none !important;
+    border-left: none !important;
+    width: 0 !important;
+}
+
+/* ==========================================================================
+   4. DYNAMICZNE PODŚWIETLENIA I ŚLEDZENIE POSTĘPU (Scrollspy)
+   ========================================================================== */
+
+.md-nav__item--active > .md-nav__link:not(.md-nav__link--active) {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 500 !important;
+    background-color: transparent !important;
+}
+
+.md-nav__item--active > .md-nav__link--active {
     font-weight: 600 !important;
-    border-left: 2px solid var(--md-accent-purple-color) !important; /* Aktywuje mocny fioletowy wskaźnik */
-    background-color: rgba(156, 39, 176, 0.05); /* Delikatne tło pod aktywnym elementem */
+    background-color: rgba(176, 102, 116, 0.08) !important; 
 }
 
-/* Lekkie podbicie odstępów między elementami menu dla lepszej czytelności */
-.md-nav__item {
-    padding-top: 0.15rem;
-    padding-bottom: 0.15rem;
+.md-nav__link--passed {
+    color: rgba(255, 255, 255, 0.55) !important;
+    font-weight: 400 !important;
+}
+
+.md-nav__link--active {
+    color: var(--md-primary-fg-color) !important;
+    font-weight: 600 !important;
+}
+
+/* ==========================================================================
+   5. ODBLOKOWANIE I NAPRAWA AUTO-SCROLLA LEWEGO MENU
+   ========================================================================== */
+.md-sidebar--primary .md-sidebar__scrollwrap {
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
 }

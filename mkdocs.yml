@@ -9,17 +9,19 @@ theme:
     text: JetBrains Mono
     code: Fira Code
   palette:
+    # Powrót do jednego, stałego trybu ciemnego ze zmienną custom
     - scheme: slate
-      primary: pink
-      accent: purple
+      primary: custom
+      accent: custom
   features:
-    - navigation.expand     # Wymusza rozszerzenie folderów
-    - navigation.sections   # Grupuje sekcje wizualnie (dodaje linie/odstępy między głównymi działami)
+    # - navigation.expand     <-- USUŃ LUB ZAKOMENTUJ TĘ LINIĘ!
+    - navigation.sections   # Grupuje sekcje wizualnie
     - navigation.indexes    # Pozwala na lepsze mapowanie folderów jako linków
     - toc.integrate         # Scala spis treści z lewym paskiem
     - navigation.tabs.sticky
-
-# Dodajemy obsługę niestandardowego stylu dla rozróżnienia podmenu
+    - navigation.tracking   # Dynamicznie aktualizuje pozycję podczas czytania
+    
+# Obsługa niestandardowego stylu dla rozróżnienia podmenu i kolorów
 extra_css:
   - stylesheets/custom.css
 
