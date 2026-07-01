@@ -1,0 +1,14 @@
+# Python Virtual Environment
+venv/
+ENV/
+
+# Python caching
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# macOS specific files
+.DS_Store
+.AppleDouble
+.LSOverride
