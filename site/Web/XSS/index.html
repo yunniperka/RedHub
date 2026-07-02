@@ -1,0 +1,2926 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="yunniperka">
+      
+      
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/Web/XSS/">
+      
+      
+        <link rel="prev" href="../../AD/">
+      
+      
+        <link rel="next" href="../../Networking/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>XSS - RedHub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains+Mono:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"JetBrains Mono";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cross-site-scripting-xss-enhanced-notes" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RedHub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              XSS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RedHub
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privilege Escalation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Privilege Escalation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enumerating Attack Vectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/privilege-escalation/Built-in-Groups_Abuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Built-in-Groups Abuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/privilege-escalation/Excessive_User_Rights_Abuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excessive User Rights Abuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/privilege-escalation/File_System_ACLs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File System ACLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/privilege-escalation/Living_off_the_Land/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Living-off-the-Land
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/privilege-escalation/Services_Hijacking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services Hijacking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/privilege-escalation/User_Account_Control_%28UAC%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Account Control (UAC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/persistence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/lateral-movement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lateral Movement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/evasion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evasion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/evasion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evasion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/lateral-movement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lateral Movement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/persistence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privilege Escalation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Privilege Escalation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enumerating Attack Vectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/privilege-escalation/Privileged_Groups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privileged Groups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/privilege-escalation/Environment_Variables_Abuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Variables Abuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/privilege-escalation/Capabilities_Abuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capabilities Abuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/privilege-escalation/Programs_Jobs_and_Services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programs, Jobs and Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/privilege-escalation/Miscellaneous_Techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Miscellaneous Techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../AD/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise Environments
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Enterprise Environments
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XSS
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XSS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-xss-is" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What XSS is
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-xss-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main XSS types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-testing-methodology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core testing methodology
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core testing methodology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-find-controllable-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Find controllable input
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-identify-the-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Identify the context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-test-which-characters-survive" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Test which characters survive
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-use-a-safe-proof-of-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4 — Use a safe proof of execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-safe-payloads-by-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful safe payloads by context
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Useful safe payloads by context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#html-body-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTML body context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inside-an-html-attribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inside an HTML attribute
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#url-attribute-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        URL attribute context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#javascript-string-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript string context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#javascript-template-literal-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript template literal context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#html-comment-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTML comment context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markdown-or-rich-text-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Markdown or rich text context
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dom-xss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DOM XSS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DOM XSS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-sources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common sources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dangerous-sinks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dangerous sinks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#safer-alternatives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safer alternatives
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postmessage-xss-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        postMessage XSS checks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blind-xss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blind XSS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filter-and-waf-bypass-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter and WAF bypass notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xss-in-file-upload-svg-markdown-and-generated-reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XSS in file upload, SVG, Markdown, and generated reports
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="XSS in file upload, SVG, Markdown, and generated reports">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#uploaded-htmlsvg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uploaded HTML/SVG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#markdown-and-wysiwyg-editors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Markdown and WYSIWYG editors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generated-reports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generated reports
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xss-and-csrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XSS and CSRF
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context analysis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exploit-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exploit validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools-and-labs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tools and labs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-links" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference links
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Networking/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking & Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking & Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Cloud/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modern Architecture
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modern Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containers & Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Virtualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="cross-site-scripting-xss-enhanced-notes">Cross-Site Scripting (XSS) — Enhanced Notes</h1>
+<h2 id="what-xss-is">What XSS is</h2>
+<p>Cross-Site Scripting (XSS) happens when an application lets attacker-controlled input become executable code in a victim's browser. The browser runs the injected code that can usually do anything the real page can do for that user.</p>
+<p>Typical impact:</p>
+<ul>
+<li>
+<p>Act as the victim inside the application.</p>
+</li>
+<li>
+<p>Read or change page content.</p>
+</li>
+<li>
+<p>Read data exposed to JavaScript, such as DOM data, <code>localStorage</code>, <code>sessionStorage</code>, and non-<code>HttpOnly</code> cookies.</p>
+</li>
+<li>
+<p>Send same-origin requests with the victim's cookies/session.</p>
+</li>
+<li>
+<p>Change account data if the application lacks extra controls.</p>
+</li>
+<li>
+<p>Create phishing UI inside the trusted application.</p>
+</li>
+<li>
+<p>Attack admins through stored or blind XSS.</p>
+</li>
+</ul>
+<p>Important nuance:</p>
+<ul>
+<li>
+<p><code>HttpOnly</code> protects a cookie from <code>document.cookie</code>, but it does <strong>not</strong> stop XSS from making authenticated requests as the user.</p>
+</li>
+<li>
+<p><code>SameSite</code> helps against CSRF, but it does <strong>not</strong> fix XSS.</p>
+</li>
+<li>
+<p>CSP helps reduce impact, but it is not a replacement for correct encoding, sanitization, and safe DOM APIs.</p>
+</li>
+</ul>
+<hr />
+<h2 id="main-xss-types">Main XSS types</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+<th>Typical place to test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reflected XSS</td>
+<td>Payload comes from the current request and is immediately reflected in the response.</td>
+<td>Query parameters, path, search fields, error messages, redirects.</td>
+</tr>
+<tr>
+<td>Stored XSS</td>
+<td>Payload is saved by the application and later shown to users.</td>
+<td>Comments, profiles, tickets, chat, product descriptions, admin panels.</td>
+</tr>
+<tr>
+<td>DOM-based XSS</td>
+<td>Client-side JavaScript reads attacker-controlled data and passes it to a dangerous sink.</td>
+<td><code>location</code>, hash fragments, <code>postMessage</code>, storage, client-side routing.</td>
+</tr>
+<tr>
+<td>Blind XSS</td>
+<td>Stored XSS that triggers somewhere you cannot directly see, usually in an admin/backend panel.</td>
+<td>Contact forms, logs, support tickets, CRM/admin views, import jobs.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="core-testing-methodology">Core testing methodology</h2>
+<h3 id="step-1-find-controllable-input">Step 1 — Find controllable input</h3>
+<p>Test all input locations, not only obvious form fields:</p>
+<ul>
+<li>
+<p>URL query parameters: <code>?q=test</code></p>
+</li>
+<li>
+<p>URL path segments: <code>/search/test</code></p>
+</li>
+<li>
+<p>URL fragment/hash: <code>#test</code></p>
+</li>
+<li>
+<p>POST/JSON/form fields</p>
+</li>
+<li>
+<p>Cookies</p>
+</li>
+<li>
+<p>Headers that may be reflected, for example <code>User-Agent</code>, <code>Referer</code>, <code>X-Forwarded-For</code></p>
+</li>
+<li>
+<p>File names and file metadata</p>
+</li>
+<li>
+<p>Uploaded SVG/HTML/Markdown/CSV content</p>
+</li>
+<li>
+<p>Profile fields, comments, tickets, logs, chat messages</p>
+</li>
+<li>
+<p>Import/export fields shown later in reports</p>
+</li>
+<li>
+<p><code>postMessage</code> data</p>
+</li>
+<li>
+<p>WebSocket or SSE messages</p>
+</li>
+<li>
+<p><code>localStorage</code> / <code>sessionStorage</code> values</p>
+</li>
+</ul>
+<p>Use a unique canary string first:</p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>xssprobe-73921
+</span></code></pre></div>
+<p>Then search for it in:</p>
+<ul>
+<li>
+<p>The raw HTTP response.</p>
+</li>
+<li>
+<p>The browser DOM using DevTools.</p>
+</li>
+<li>
+<p>Later pages where stored data may appear.</p>
+</li>
+<li>
+<p>Admin/report views if in scope.</p>
+</li>
+</ul>
+<h3 id="step-2-identify-the-context">Step 2 — Identify the context</h3>
+<p>Do not throw random payloads. First identify where your input lands:</p>
+<table>
+<thead>
+<tr>
+<th>Context</th>
+<th>Example reflection</th>
+<th>Main question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTML body</td>
+<td><code>&lt;div&gt;INPUT&lt;/div&gt;</code></td>
+<td>Can you create a new tag or event?</td>
+</tr>
+<tr>
+<td>HTML attribute</td>
+<td><code>&lt;input value="INPUT"&gt;</code></td>
+<td>Can you break out of the attribute or inject a new attribute?</td>
+</tr>
+<tr>
+<td>URL attribute</td>
+<td><code>&lt;a href="INPUT"&gt;</code></td>
+<td>Can you control the protocol or full URL?</td>
+</tr>
+<tr>
+<td>JavaScript string</td>
+<td><code>var x = 'INPUT';</code></td>
+<td>Can you break out of the string and repair syntax?</td>
+</tr>
+<tr>
+<td>JavaScript template literal</td>
+<td><code>const x = `INPUT`;</code></td>
+<td>Can <code>${...}</code> be evaluated?</td>
+</tr>
+<tr>
+<td>CSS</td>
+<td><code>&lt;style&gt;.x{color:INPUT}&lt;/style&gt;</code></td>
+<td>Is the value constrained to a safe property/value?</td>
+</tr>
+<tr>
+<td>HTML comment</td>
+<td><code>&lt;!-- INPUT --&gt;</code></td>
+<td>Can you close the comment?</td>
+</tr>
+<tr>
+<td>Markdown/rich text</td>
+<td><code>INPUT</code> rendered through a parser</td>
+<td>Does the renderer allow raw HTML or unsafe links?</td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-3-test-which-characters-survive">Step 3 — Test which characters survive</h3>
+<p>Check how the application handles important characters:</p>
+<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&lt; &gt; &quot; &#39; ` / \ = ( ) { } [ ] ; : &amp; # %
+</span></code></pre></div>
+<p>Also check whether the application:</p>
+<ul>
+<li>
+<p>Encodes characters.</p>
+</li>
+<li>
+<p>Removes characters.</p>
+</li>
+<li>
+<p>Normalizes Unicode.</p>
+</li>
+<li>
+<p>Double-decodes input.</p>
+</li>
+<li>
+<p>Decodes HTML entities inside attributes.</p>
+</li>
+<li>
+<p>Rewrites only the first occurrence of a character.</p>
+</li>
+<li>
+<p>Sanitizes before later modifying the HTML again.</p>
+</li>
+</ul>
+<h3 id="step-4-use-a-safe-proof-of-execution">Step 4 — Use a safe proof of execution</h3>
+<p>Good safe proof-of-concept payloads:</p>
+<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">domain</span><span class="p">)&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">&lt;</span><span class="nt">img</span>  <span class="na">src</span><span class="o">=</span><span class="s">x</span>  <span class="na">onerror</span><span class="o">=</span><span class="s">alert(1)</span><span class="p">&gt;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p">&lt;</span><span class="nt">svg</span>  <span class="na">onload</span><span class="o">=</span><span class="s">alert(1)</span><span class="p">&gt;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">print</span><span class="p">()&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>For professional reports, <code>alert(1)</code> is often enough to prove execution. For stronger proof without stealing data, show:</p>
+<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nx">alert</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">origin</span><span class="p">)</span>
+</span></code></pre></div>
+<p>or modify harmless page text:</p>
+<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;XSS confirmed on &#39;</span><span class="w">  </span><span class="o">+</span><span class="w">  </span><span class="nx">location</span><span class="p">.</span><span class="nx">origin</span><span class="p">)</span>
+</span></code></pre></div>
+<hr />
+<h2 id="useful-safe-payloads-by-context">Useful safe payloads by context</h2>
+<h3 id="html-body-context">HTML body context</h3>
+<p>Reflection:</p>
+<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>INPUT<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Payloads:</p>
+<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="mf">1</span><span class="p">)&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">&lt;</span><span class="nt">img</span>  <span class="na">src</span><span class="o">=</span><span class="s">x</span>  <span class="na">onerror</span><span class="o">=</span><span class="s">alert(1)</span><span class="p">&gt;</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="p">&lt;</span><span class="nt">svg</span>  <span class="na">onload</span><span class="o">=</span><span class="s">alert(1)</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<h3 id="inside-an-html-attribute">Inside an HTML attribute</h3>
+<p>Reflection:</p>
+<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">&lt;</span><span class="nt">input</span>  <span class="na">value</span><span class="o">=</span><span class="s">&quot;INPUT&quot;</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Payloads:</p>
+<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>&quot; autofocus onfocus=alert(1) x=&quot;
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>&quot;&gt;<span class="p">&lt;</span><span class="nt">img</span>  <span class="na">src</span><span class="o">=</span><span class="s">x</span>  <span class="na">onerror</span><span class="o">=</span><span class="s">alert(1)</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Notes:</p>
+<ul>
+<li>
+<p>Try the matching quote first: <code>"</code> for double-quoted attributes, <code>'</code> for single-quoted attributes.</p>
+</li>
+<li>
+<p>If <code>&gt;</code> is blocked, you may still be able to inject a new event attribute inside the same tag.</p>
+</li>
+<li>
+<p>Event attributes such as <code>onfocus</code>, <code>onerror</code>, <code>onclick</code>, <code>onmouseover</code>, and <code>onanimationstart</code> are dangerous when attacker-controlled.</p>
+</li>
+</ul>
+<h3 id="url-attribute-context">URL attribute context</h3>
+<p>Reflection:</p>
+<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">&lt;</span><span class="nt">a</span>  <span class="na">href</span><span class="o">=</span><span class="s">&quot;INPUT&quot;</span><span class="p">&gt;</span>link<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Payload:</p>
+<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>javascript:alert(1)
+</span></code></pre></div>
+<p>Defensive note: applications should validate URL schemes. Usually allow only <code>http:</code>, <code>https:</code>, and sometimes relative URLs. Block <code>javascript:</code>, dangerous <code>data:</code> values, and malformed protocol tricks.</p>
+<h3 id="javascript-string-context">JavaScript string context</h3>
+<p>Reflection:</p>
+<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kd">var</span><span class="w">  </span><span class="nx">name</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="s1">&#39;INPUT&#39;</span><span class="p">;</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Payload examples:</p>
+<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="s1">&#39;;alert(1);//</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="s1">&#39;</span><span class="o">-</span><span class="nx">alert</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span><span class="o">-</span><span class="err">&#39;</span>
+</span></code></pre></div>
+<p>What matters:</p>
+<ul>
+<li>
+<p>Break out of the string.</p>
+</li>
+<li>
+<p>Execute JavaScript.</p>
+</li>
+<li>
+<p>Comment out or repair the remaining syntax.</p>
+</li>
+</ul>
+<h3 id="javascript-template-literal-context">JavaScript template literal context</h3>
+<p>Reflection:</p>
+<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kd">const</span><span class="w">  </span><span class="nx">message</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="sb">`Welcome INPUT`</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Payload:</p>
+<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nx">$</span><span class="p">{</span><span class="nx">alert</span><span class="p">(</span><span class="mf">1</span><span class="p">)}</span>
+</span></code></pre></div>
+<p>Template literals are important because code inside <code>${...}</code> is evaluated as JavaScript.</p>
+<h3 id="html-comment-context">HTML comment context</h3>
+<p>Reflection:</p>
+<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="cm">&lt;!-- INPUT --&gt;</span>
+</span></code></pre></div>
+<p>Payload:</p>
+<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>--&gt;<span class="p">&lt;</span><span class="nt">img</span>  <span class="na">src</span><span class="o">=</span><span class="s">x</span>  <span class="na">onerror</span><span class="o">=</span><span class="s">alert(1)</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<h3 id="markdown-or-rich-text-context">Markdown or rich text context</h3>
+<p>Test whether raw HTML is allowed:</p>
+<div class="language-markdown highlight"><span class="filename">Markdown</span><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>&lt;img  src=x  onerror=alert(1)&gt;
+</span></code></pre></div>
+<p>Test unsafe links:</p>
+<div class="language-markdown highlight"><span class="filename">Markdown</span><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>[<span class="nt">click</span>](<span class="na">javascript:alert(1</span>))
+</span></code></pre></div>
+<p>Defensive note: safe Markdown renderers should block raw HTML by default or sanitize it, and they must validate link protocols.</p>
+<hr />
+<h2 id="dom-xss">DOM XSS</h2>
+<p>DOM XSS happens when browser-side JavaScript reads attacker-controlled data from a <strong>source</strong> and writes it into a dangerous <strong>sink</strong>.</p>
+<h3 id="common-sources">Common sources</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>URL query</td>
+<td><code>location.search</code></td>
+</tr>
+<tr>
+<td>URL hash</td>
+<td><code>location.hash</code></td>
+</tr>
+<tr>
+<td>URL path</td>
+<td><code>location.pathname</code></td>
+</tr>
+<tr>
+<td>Full URL</td>
+<td><code>location.href</code></td>
+</tr>
+<tr>
+<td>Referrer</td>
+<td><code>document.referrer</code></td>
+</tr>
+<tr>
+<td>Window name</td>
+<td><code>window.name</code></td>
+</tr>
+<tr>
+<td>Messages</td>
+<td><code>window.addEventListener('message', ...)</code></td>
+</tr>
+<tr>
+<td>Storage</td>
+<td><code>localStorage</code>, <code>sessionStorage</code></td>
+</tr>
+<tr>
+<td>Cookies</td>
+<td><code>document.cookie</code></td>
+</tr>
+<tr>
+<td>DOM inputs</td>
+<td><code>input.value</code>, <code>element.dataset.*</code></td>
+</tr>
+<tr>
+<td>Network data</td>
+<td>WebSocket, SSE, API responses</td>
+</tr>
+<tr>
+<td>Client-side router state</td>
+<td>route params, query params</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dangerous-sinks">Dangerous sinks</h3>
+<table>
+<thead>
+<tr>
+<th>Sink</th>
+<th>Why risky</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>innerHTML</code> / <code>outerHTML</code></td>
+<td>Parses string as HTML.</td>
+</tr>
+<tr>
+<td><code>insertAdjacentHTML()</code></td>
+<td>Parses string as HTML.</td>
+</tr>
+<tr>
+<td><code>document.write()</code> / <code>writeln()</code></td>
+<td>Writes HTML/JS into the page.</td>
+</tr>
+<tr>
+<td><code>eval()</code></td>
+<td>Executes string as JavaScript.</td>
+</tr>
+<tr>
+<td><code>Function()</code></td>
+<td>Builds executable JavaScript from a string.</td>
+</tr>
+<tr>
+<td><code>setTimeout(string)</code> / <code>setInterval(string)</code></td>
+<td>Executes string as JavaScript.</td>
+</tr>
+<tr>
+<td><code>location = ...</code> / <code>href = ...</code></td>
+<td>Dangerous if <code>javascript:</code> URLs are possible.</td>
+</tr>
+<tr>
+<td><code>setAttribute()</code></td>
+<td>Risky with <code>on*</code> attributes, <code>src</code>, <code>href</code>, <code>srcdoc</code>.</td>
+</tr>
+<tr>
+<td><code>iframe.srcdoc</code></td>
+<td>Direct HTML execution context.</td>
+</tr>
+<tr>
+<td><code>script.src</code></td>
+<td>Loads external JavaScript.</td>
+</tr>
+<tr>
+<td>jQuery <code>.html()</code></td>
+<td>Parses string as HTML.</td>
+</tr>
+<tr>
+<td>jQuery <code>.append()</code> / <code>.prepend()</code> / <code>.before()</code> / <code>.after()</code></td>
+<td>Dangerous when passed HTML strings.</td>
+</tr>
+<tr>
+<td>jQuery <code>.attr('href', userInput)</code></td>
+<td>Dangerous if protocol is not validated.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="safer-alternatives">Safer alternatives</h3>
+<p>Prefer APIs that treat data as text:</p>
+<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1">// Unsafe</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">userInput</span><span class="p">;</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="c1">// Safer</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="nx">element</span><span class="p">.</span><span class="nx">textContent</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">userInput</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Other safer sinks:</p>
+<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nx">element</span><span class="p">.</span><span class="nx">textContent</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">value</span><span class="p">;</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="nx">element</span><span class="p">.</span><span class="nx">insertAdjacentText</span><span class="p">(</span><span class="s1">&#39;beforeend&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">);</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">value</span><span class="p">;</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="nx">element</span><span class="p">.</span><span class="nx">className</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">safeClassName</span><span class="p">;</span>
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="nx">element</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">safeId</span><span class="p">);</span><span class="w"> </span><span class="c1">// only with hardcoded safe attribute names</span>
+</span></code></pre></div>
+<p>If HTML is genuinely required, sanitize it first:</p>
+<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kd">const</span><span class="w">  </span><span class="nx">clean</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">DOMPurify</span><span class="p">.</span><span class="nx">sanitize</span><span class="p">(</span><span class="nx">dirtyHtml</span><span class="p">);</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">clean</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Important: do not sanitize and then later concatenate or modify the sanitized HTML in unsafe ways.</p>
+<hr />
+<h2 id="postmessage-xss-checks"><code>postMessage</code> XSS checks</h2>
+<p><code>postMessage</code> is common in widgets, SSO flows, embedded tools, analytics scripts, and iframes.</p>
+<p>Look for code like this:</p>
+<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;output&#39;</span><span class="p">).</span><span class="nx">innerHTML</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="p">});</span>
+</span></code></pre></div>
+<p>Problems to check:</p>
+<ul>
+<li>
+<p>No <code>event.origin</code> validation.</p>
+</li>
+<li>
+<p>Origin validation uses weak checks like <code>includes()</code> or <code>endsWith()</code> incorrectly.</p>
+</li>
+<li>
+<p>No schema/type validation of <code>event.data</code>.</p>
+</li>
+<li>
+<p>Message data is passed to <code>innerHTML</code>, <code>eval</code>, <code>location</code>, <code>script.src</code>, or iframe <code>srcdoc</code>.</p>
+</li>
+<li>
+<p>Trusted origin is stored and later reused to load scripts or build URLs.</p>
+</li>
+</ul>
+<p>Safer pattern:</p>
+<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kd">const</span><span class="w">  </span><span class="nx">allowedOrigins</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="ow">new</span><span class="w">  </span><span class="nb">Set</span><span class="p">([</span><span class="s1">&#39;https://trusted.example&#39;</span><span class="p">]);</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">allowedOrigins</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">origin</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>
+</span><span id="__span-23-9"><a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="ow">typeof</span><span class="w">  </span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="w">  </span><span class="o">!==</span><span class="w">  </span><span class="s1">&#39;object&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+</span><span id="__span-23-10"><a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>
+</span><span id="__span-23-11"><a id="__codelineno-23-11" name="__codelineno-23-11" href="#__codelineno-23-11"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">type</span><span class="w">  </span><span class="o">!==</span><span class="w">  </span><span class="s1">&#39;set-title&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="p">;</span>
+</span><span id="__span-23-12"><a id="__codelineno-23-12" name="__codelineno-23-12" href="#__codelineno-23-12"></a>
+</span><span id="__span-23-13"><a id="__codelineno-23-13" name="__codelineno-23-13" href="#__codelineno-23-13"></a>
+</span><span id="__span-23-14"><a id="__codelineno-23-14" name="__codelineno-23-14" href="#__codelineno-23-14"></a>
+</span><span id="__span-23-15"><a id="__codelineno-23-15" name="__codelineno-23-15" href="#__codelineno-23-15"></a><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#title&#39;</span><span class="p">).</span><span class="nx">textContent</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
+</span><span id="__span-23-16"><a id="__codelineno-23-16" name="__codelineno-23-16" href="#__codelineno-23-16"></a>
+</span><span id="__span-23-17"><a id="__codelineno-23-17" name="__codelineno-23-17" href="#__codelineno-23-17"></a><span class="p">});</span>
+</span></code></pre></div>
+<hr />
+<h2 id="blind-xss">Blind XSS</h2>
+<p>Blind XSS is usually stored XSS that runs in a place you cannot directly observe, such as:</p>
+<ul>
+<li>
+<p>Admin panels.</p>
+</li>
+<li>
+<p>Support ticket systems.</p>
+</li>
+<li>
+<p>CRM systems.</p>
+</li>
+<li>
+<p>Log viewers.</p>
+</li>
+<li>
+<p>SIEM dashboards.</p>
+</li>
+<li>
+<p>Email preview tools.</p>
+</li>
+<li>
+<p>Report generators.</p>
+</li>
+<li>
+<p>File import review screens.</p>
+</li>
+</ul>
+<p>Safe blind XSS testing approach:</p>
+<ol>
+<li>
+<p>Use a unique payload ID per input field.</p>
+</li>
+<li>
+<p>Use a callback domain controlled by you or by an approved tool.</p>
+</li>
+<li>
+<p>Capture only minimum proof: timestamp, URL, user agent, page title if allowed.</p>
+</li>
+<li>
+<p>Do not capture cookies, tokens, credentials, page body, or keystrokes unless explicitly authorized and necessary.</p>
+</li>
+<li>
+<p>Correlate the callback with the submitted field.</p>
+</li>
+<li>
+<p>Report where it was submitted and where it executed, if known.</p>
+</li>
+</ol>
+<p>Example harmless callback idea:</p>
+<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="p">&lt;</span><span class="nt">img</span>  <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://your-callback.example/xss?id=contact-name-001&quot;</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>This proves that HTML injection rendered, but it does not prove JavaScript execution. To prove JavaScript execution in an authorized lab, use a callback that only sends a non-sensitive marker.</p>
+<hr />
+<h2 id="filter-and-waf-bypass-notes">Filter and WAF bypass notes</h2>
+<p>The best XSS testing comes from understanding the context. WAF bypass lists are secondary.</p>
+<p>Common bypass ideas in authorized testing:</p>
+<ul>
+<li>
+<p>Use a different tag: <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>, <code>&lt;iframe&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;audio&gt;</code>.</p>
+</li>
+<li>
+<p>Use a different event: <code>onerror</code>, <code>onload</code>, <code>onfocus</code>, <code>onanimationstart</code>.</p>
+</li>
+<li>
+<p>Use mixed case if filtering is case-sensitive.</p>
+</li>
+<li>
+<p>Use HTML entities in HTML/attribute contexts.</p>
+</li>
+<li>
+<p>Use URL encoding in URL contexts.</p>
+</li>
+<li>
+<p>Use JavaScript escapes in JS string contexts.</p>
+</li>
+<li>
+<p>Try backticks where parentheses are filtered, for example: <code>alert`1`</code>.</p>
+</li>
+<li>
+<p>Test whether filtering removes only the first occurrence.</p>
+</li>
+<li>
+<p>Test whether the application decodes input more than once.</p>
+</li>
+<li>
+<p>Test Unicode normalization issues if the stack normalizes after filtering.</p>
+</li>
+</ul>
+<p>Small character reference table:</p>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>HTML entity</th>
+<th>Decimal</th>
+<th>URL encoded</th>
+<th>JavaScript escape</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;</code></td>
+<td><code>&amp;lt;</code></td>
+<td><code>&amp;#60;</code></td>
+<td><code>%3C</code></td>
+<td><code>\u003c</code></td>
+</tr>
+<tr>
+<td><code>&gt;</code></td>
+<td><code>&amp;gt;</code></td>
+<td><code>&amp;#62;</code></td>
+<td><code>%3E</code></td>
+<td><code>\u003e</code></td>
+</tr>
+<tr>
+<td><code>"</code></td>
+<td><code>&amp;quot;</code></td>
+<td><code>&amp;#34;</code></td>
+<td><code>%22</code></td>
+<td><code>\u0022</code></td>
+</tr>
+<tr>
+<td><code>'</code></td>
+<td><code>&amp;#x27;</code></td>
+<td><code>&amp;#39;</code></td>
+<td><code>%27</code></td>
+<td><code>\u0027</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td><code>&amp;#x2F;</code></td>
+<td><code>&amp;#47;</code></td>
+<td><code>%2F</code></td>
+<td><code>\u002f</code></td>
+</tr>
+<tr>
+<td><code>=</code></td>
+<td><code>&amp;#x3D;</code></td>
+<td><code>&amp;#61;</code></td>
+<td><code>%3D</code></td>
+<td><code>\u003d</code></td>
+</tr>
+<tr>
+<td><code>&amp;</code></td>
+<td><code>&amp;amp;</code></td>
+<td><code>&amp;#38;</code></td>
+<td><code>%26</code></td>
+<td><code>\u0026</code></td>
+</tr>
+</tbody>
+</table>
+<p>Do not rely on blacklist filtering. It is usually bypassable and often breaks legitimate input.</p>
+<hr />
+<h2 id="xss-in-file-upload-svg-markdown-and-generated-reports">XSS in file upload, SVG, Markdown, and generated reports</h2>
+<h3 id="uploaded-htmlsvg">Uploaded HTML/SVG</h3>
+<p>SVG is XML and can contain scriptable content depending on how it is served and embedded.</p>
+<p>Check:</p>
+<ul>
+<li>
+<p>Can users upload <code>.svg</code>, <code>.html</code>, <code>.xml</code>, <code>.mht</code>, or similar active content?</p>
+</li>
+<li>
+<p>Is uploaded content served from the main application origin?</p>
+</li>
+<li>
+<p>Is the response <code>Content-Type</code> correct?</p>
+</li>
+<li>
+<p>Is <code>Content-Disposition: attachment</code> used for untrusted active files?</p>
+</li>
+<li>
+<p>Are uploaded files served from a separate static/download domain with no application cookies?</p>
+</li>
+</ul>
+<p>Safer design:</p>
+<ul>
+<li>
+<p>Store untrusted uploads on a separate origin.</p>
+</li>
+<li>
+<p>Use strict content types.</p>
+</li>
+<li>
+<p>Add <code>X-Content-Type-Options: nosniff</code>.</p>
+</li>
+<li>
+<p>Force download for risky file types.</p>
+</li>
+<li>
+<p>Strip or rasterize SVGs if they must be displayed.</p>
+</li>
+</ul>
+<h3 id="markdown-and-wysiwyg-editors">Markdown and WYSIWYG editors</h3>
+<p>Common mistakes:</p>
+<ul>
+<li>
+<p>Raw HTML enabled by default.</p>
+</li>
+<li>
+<p><code>javascript:</code> links allowed.</p>
+</li>
+<li>
+<p>Sanitizer applied before Markdown rendering instead of after.</p>
+</li>
+<li>
+<p>Sanitizer output later modified with unsafe DOM APIs.</p>
+</li>
+<li>
+<p>Old sanitizer version.</p>
+</li>
+</ul>
+<h3 id="generated-reports">Generated reports</h3>
+<p>Stored XSS often appears in reports generated from imported files:</p>
+<ul>
+<li>
+<p>XML/JSON/CSV metadata.</p>
+</li>
+<li>
+<p>Scan results.</p>
+</li>
+<li>
+<p>Asset names.</p>
+</li>
+<li>
+<p>Hostnames.</p>
+</li>
+<li>
+<p>User display names.</p>
+</li>
+<li>
+<p>PDF/HTML reports.</p>
+</li>
+</ul>
+<p>If a template uses an equivalent of <code>safe</code>, <code>raw</code>, or unescaped output for imported values, treat every imported field as a potential stored XSS source.</p>
+<hr />
+<h2 id="xss-and-csrf">XSS and CSRF</h2>
+<p>XSS can often bypass CSRF protection because injected JavaScript runs inside the trusted origin.</p>
+<p>With XSS, JavaScript may be able to:</p>
+<ul>
+<li>
+<p>Read CSRF tokens from forms or meta tags.</p>
+</li>
+<li>
+<p>Send same-origin requests with the victim's cookies.</p>
+</li>
+<li>
+<p>Call internal APIs available to the page.</p>
+</li>
+</ul>
+<p>CSRF tokens are still important, but they are not a complete defense against XSS.</p>
+<p>Good additional controls:</p>
+<ul>
+<li>
+<p>Re-authentication for sensitive actions.</p>
+</li>
+<li>
+<p>Step-up MFA for critical changes.</p>
+</li>
+<li>
+<p>Server-side authorization checks.</p>
+</li>
+<li>
+<p>Transaction signing or confirmation for high-risk operations.</p>
+</li>
+<li>
+<p>Audit logging and anomaly detection.</p>
+</li>
+</ul>
+<hr />
+<h2 id="practical-checklist">Practical checklist</h2>
+<h3 id="discovery">Discovery</h3>
+<ul>
+<li>
+<p>Crawled application manually and automatically.</p>
+</li>
+<li>
+<p>Tested query parameters.</p>
+</li>
+<li>
+<p>Tested path parameters.</p>
+</li>
+<li>
+<p>Tested POST/form/JSON fields.</p>
+</li>
+<li>
+<p>Tested file names and metadata.</p>
+</li>
+<li>
+<p>Tested profile/comment/ticket fields.</p>
+</li>
+<li>
+<p>Tested admin/backend rendering if in scope.</p>
+</li>
+<li>
+<p>Tested headers that may be logged or reflected.</p>
+</li>
+<li>
+<p>Tested Markdown/WYSIWYG fields.</p>
+</li>
+<li>
+<p>Tested uploaded SVG/HTML behavior.</p>
+</li>
+<li>
+<p>Tested client-side route/hash inputs.</p>
+</li>
+<li>
+<p>Reviewed JavaScript for DOM sources and sinks.</p>
+</li>
+<li>
+<p>Reviewed <code>postMessage</code> handlers.</p>
+</li>
+</ul>
+<h3 id="context-analysis">Context analysis</h3>
+<ul>
+<li>
+<p>Located canary in raw response.</p>
+</li>
+<li>
+<p>Located canary in live DOM.</p>
+</li>
+<li>
+<p>Identified HTML/attribute/URL/JS/CSS/comment context.</p>
+</li>
+<li>
+<p>Tested quote and angle bracket handling.</p>
+</li>
+<li>
+<p>Tested encoding/decoding behavior.</p>
+</li>
+<li>
+<p>Tested whether stored value appears in other views.</p>
+</li>
+</ul>
+<h3 id="exploit-validation">Exploit validation</h3>
+<ul>
+<li>
+<p>Used harmless proof of execution.</p>
+</li>
+<li>
+<p>Confirmed affected origin.</p>
+</li>
+<li>
+<p>Confirmed victim role required.</p>
+</li>
+<li>
+<p>Confirmed whether interaction is required.</p>
+</li>
+<li>
+<p>Checked CSP behavior.</p>
+</li>
+<li>
+<p>Checked token/cookie exposure without collecting secrets.</p>
+</li>
+<li>
+<p>Confirmed whether same-origin requests are possible on a test account.</p>
+</li>
+</ul>
+<hr />
+<h2 id="tools-and-labs">Tools and labs</h2>
+<p>Use tools to assist, not to replace manual context analysis.</p>
+<p>Useful practice/lab resources:</p>
+<ul>
+<li>
+<p>PortSwigger Web Security Academy XSS labs: https://portswigger.net/web-security/cross-site-scripting</p>
+</li>
+<li>
+<p>PortSwigger XSS cheat sheet: https://portswigger.net/web-security/cross-site-scripting/cheat-sheet</p>
+</li>
+<li>
+<p>xssy: https://xssy.uk/</p>
+</li>
+<li>
+<p>PayloadsAllTheThings XSS: https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XSS%20Injection</p>
+</li>
+</ul>
+<p>Useful testing tools:</p>
+<ul>
+<li>
+<p>Burp Suite DOM Invader for DOM XSS analysis.</p>
+</li>
+<li>
+<p>Burp Collaborator or an approved internal callback service for blind XSS.</p>
+</li>
+<li>
+<p>XSStrike for assisted discovery: https://github.com/s0md3v/XSStrike</p>
+</li>
+<li>
+<p><code>wafw00f</code> for WAF fingerprinting: https://github.com/EnableSecurity/wafw00f</p>
+</li>
+</ul>
+<p>Always verify findings manually and keep payloads safe for the agreed scope.</p>
+<hr />
+<h2 id="reference-links">Reference links</h2>
+<ul>
+<li>
+<p>HackTricks XSS: https://hacktricks.wiki/en/pentesting-web/xss-cross-site-scripting/index.html</p>
+</li>
+<li>
+<p>OWASP XSS Prevention Cheat Sheet: https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html</p>
+</li>
+<li>
+<p>OWASP CSP Cheat Sheet: https://cheatsheetseries.owasp.org/cheatsheets/Content_Security_Policy_Cheat_Sheet.html</p>
+</li>
+<li>
+<p>PortSwigger XSS: https://portswigger.net/web-security/cross-site-scripting</p>
+</li>
+<li>
+<p>PortSwigger XSS contexts: https://portswigger.net/web-security/cross-site-scripting/contexts</p>
+</li>
+<li>
+<p>PortSwigger DOM XSS: https://portswigger.net/web-security/cross-site-scripting/dom-based</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../../AD/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Active Directory">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Active Directory
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../Networking/" class="md-footer__link md-footer__link--next" aria-label="Next: Network Architecture">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Network Architecture
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.indexes", "toc.integrate", "navigation.tabs.sticky", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      
+        <script src="data:text/javascript,$(document).ready(function(){var search=$(&#39;.md-search&#39;);if(search.length){var minX=240;var batCont=$(&#39;&lt;div id=&#34;runaway-pixel-bat&#34; class=&#34;go-right&#34; style=&#34;position:absolute;left:&#39;+minX+&#39;px;top:2px;width:70px;height:50px;cursor:default;z-index:9999;user-select:none;&#34;&gt;&lt;/div&gt;&#39;);$(&#39;.md-header__inner&#39;).append(batCont);batCont.on(&#39;mouseenter&#39;,function(){var maxX=search.position().left-110;if(maxX&lt;=minX){maxX=minX+100;}var randomX=Math.floor(Math.random()*(maxX-minX))+minX;var randomY=Math.floor(Math.random()*10)-5;var currentX=batCont.position().left;if(randomX&lt;currentX){batCont.removeClass(&#39;go-right&#39;).addClass(&#39;go-left&#39;);}else{batCont.removeClass(&#39;go-left&#39;).addClass(&#39;go-right&#39;);}batCont.css({left:randomX+&#39;px&#39;,top:randomY+&#39;px&#39;});});}});"></script>
+      
+    
+  </body>
+</html>

@@ -2,118 +2,122 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://yunniperka.github.io/RedHub/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/AD/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Cloud/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Containers/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Linux/evasion/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Linux/lateral-movement/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Linux/persistence/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Linux/privilege-escalation/Capabilities_Abuse/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Linux/privilege-escalation/Enumerating_Attack_Vectors/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Linux/privilege-escalation/Environment_Variables_Abuse/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Linux/privilege-escalation/Linux_Privilege_Escalation/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Linux/privilege-escalation/Miscellaneous_Techniques/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Linux/privilege-escalation/Privileged_Groups/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Linux/privilege-escalation/Programs_Jobs_and_Services/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Linux/privilege-escalation/privilege-escalation/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Networking/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Virtualization/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
+    </url>
+    <url>
+         <loc>https://yunniperka.github.io/RedHub/Web/XSS/</loc>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Web/attacks/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Windows/evasion/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Windows/lateral-movement/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Windows/persistence/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Windows/privilege-escalation/Built-in-Groups_Abuse/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Windows/privilege-escalation/Enumerating_Attack_Vectors/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Windows/privilege-escalation/Excessive_User_Rights_Abuse/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Windows/privilege-escalation/File_System_ACLs/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Windows/privilege-escalation/Living_off_the_Land/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Windows/privilege-escalation/Services_Hijacking/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Windows/privilege-escalation/User_Account_Control_%28UAC%29/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
     <url>
          <loc>https://yunniperka.github.io/RedHub/Windows/privilege-escalation/privilege-escalation/</loc>
-         <lastmod>2026-07-01</lastmod>
+         <lastmod>2026-07-02</lastmod>
     </url>
 </urlset>

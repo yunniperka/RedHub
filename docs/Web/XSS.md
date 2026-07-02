@@ -1,5 +1,5 @@
 
-# Cross-Site Scripting (XSS) — Enhanced Notes
+# Cross-Site Scripting (XSS)
 
  
 
