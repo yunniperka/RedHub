@@ -69,6 +69,18 @@
          <lastmod>2026-07-02</lastmod>
     </url>
     <url>
+         <loc>https://yunniperka.github.io/RedHub/Web/CSRF/</loc>
+         <lastmod>2026-07-02</lastmod>
+    </url>
+    <url>
+         <loc>https://yunniperka.github.io/RedHub/Web/Command_Injection/</loc>
+         <lastmod>2026-07-02</lastmod>
+    </url>
+    <url>
+         <loc>https://yunniperka.github.io/RedHub/Web/Cypher_Injection/</loc>
+         <lastmod>2026-07-02</lastmod>
+    </url>
+    <url>
          <loc>https://yunniperka.github.io/RedHub/Web/Initial_Reconnaissance/</loc>
          <lastmod>2026-07-02</lastmod>
     </url>
@@ -77,11 +89,19 @@
          <lastmod>2026-07-02</lastmod>
     </url>
     <url>
+         <loc>https://yunniperka.github.io/RedHub/Web/SSRF/</loc>
+         <lastmod>2026-07-02</lastmod>
+    </url>
+    <url>
+         <loc>https://yunniperka.github.io/RedHub/Web/SSTI/</loc>
+         <lastmod>2026-07-02</lastmod>
+    </url>
+    <url>
          <loc>https://yunniperka.github.io/RedHub/Web/XSS/</loc>
          <lastmod>2026-07-02</lastmod>
     </url>
     <url>
-         <loc>https://yunniperka.github.io/RedHub/Web/attacks/</loc>
+         <loc>https://yunniperka.github.io/RedHub/Web/XXE/</loc>
          <lastmod>2026-07-02</lastmod>
     </url>
     <url>
