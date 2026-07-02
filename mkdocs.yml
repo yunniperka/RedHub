@@ -31,7 +31,9 @@ extra_css:
 nav:
   - Home: index.md
   - Windows Infrastructure:
+    - Dupa: dupa
   - Linux:
+    - Dupa: dupa
   - Enterprise Environments:
     - Active Directory: AD/README.md
   - Web Security:
