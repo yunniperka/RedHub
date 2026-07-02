@@ -22,7 +22,7 @@
     line-height: 1.5 !important;
 }
 
-/* Offset anchors below the sticky header. */
+/* Keep anchors below the sticky header. */
 .md-typeset h1,
 .md-typeset h2,
 .md-typeset h3,
@@ -48,7 +48,7 @@
     vertical-align: baseline !important;
 }
 
-/* Let long inline code wrap inside tables. */
+/* Allow long inline code to wrap in tables. */
 .md-typeset td code {
     white-space: normal !important;
     word-break: break-word !important;
@@ -115,7 +115,7 @@
     font-weight: 400 !important;
 }
 
-/* Keep inactive nested links muted. */
+/* Inactive nested links stay muted. */
 .md-nav__list .md-nav__list .md-nav__link:not(.md-nav__link--active):not([aria-current]) {
     font-weight: 400 !important;
     font-size: 0.75rem !important;
@@ -250,18 +250,19 @@
     }
 }
 
-/* Page-level collapse controls. */
+/* Page-level collapse arrows. */
 .md-sidebar--primary .rh-collapsible-page {
     position: relative !important;
 }
 
+.md-sidebar--primary .md-nav--primary .md-nav__list .md-nav__list .rh-collapsible-page > .md-nav__link,
 .md-sidebar--primary .rh-collapsible-page > .md-nav__link {
-    padding-left: 1.75rem !important;
+    padding-left: 1.85rem !important;
 }
 
 .md-sidebar--primary .rh-page-toggle {
     position: absolute !important;
-    left: 0.42rem !important;
+    left: 0.62rem !important;
     top: 0 !important;
     width: 0.95rem !important;
     height: 1.72rem !important;
@@ -295,14 +296,10 @@
 }
 
 .md-sidebar--primary .rh-page-collapsed > .rh-page-toggle::before {
-    content: "" !important;
-    width: 0 !important;
-    height: 0 !important;
     border-top: 0.28rem solid transparent !important;
     border-bottom: 0.28rem solid transparent !important;
     border-left: 0.38rem solid currentColor !important;
     border-right: 0 !important;
-    display: block !important;
     transform: translateX(0.03rem) translateY(-0.07rem) !important;
 }
 
@@ -311,13 +308,24 @@
     display: none !important;
 }
 
-.md-sidebar--primary .rh-page-collapsed > .md-nav__link {
-    background-color: rgba(176, 102, 116, 0.06) !important;
+/* Headings below the active page. */
+.md-sidebar--primary .rh-collapsible-page > .md-nav .md-nav__link,
+.md-sidebar--primary .rh-collapsible-page > .md-nav__list .md-nav__link {
+    padding-left: 2.65rem !important;
 }
 
-/* Ignore old cached section-collapse controls. */
+/* Main sections are always open and never have arrows. */
 .md-sidebar--primary .rh-section-toggle {
     display: none !important;
+}
+
+.md-sidebar--primary .rh-collapsible-section > .md-nav__link {
+    padding-left: inherit !important;
+}
+
+.md-sidebar--primary .rh-collapsible-section.rh-section-collapsed > .md-nav,
+.md-sidebar--primary .rh-collapsible-section.rh-section-collapsed > .md-nav__list {
+    display: block !important;
 }
 
 /* Keep the header title fixed as RedHub. */
@@ -358,197 +366,29 @@
     transform: none !important;
 }
 
-/* Main category collapse controls. */
-.md-sidebar--primary .rh-collapsible-section {
-    position: relative !important;
-}
-
-.md-sidebar--primary .rh-collapsible-section > .md-nav__link {
-    padding-left: 1.45rem !important;
-}
-
-.md-sidebar--primary .rh-section-toggle {
-    position: absolute !important;
-    left: 0.22rem !important;
-    top: 0 !important;
-    width: 0.95rem !important;
-    height: 1.72rem !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: 0 !important;
-    background: transparent !important;
-    color: rgba(224, 155, 167, 0.78) !important;
-    cursor: pointer !important;
-    z-index: 5 !important;
-    opacity: 0.9 !important;
-}
-
-.md-sidebar--primary .rh-section-toggle:hover {
-    color: rgba(224, 155, 167, 0.98) !important;
-    opacity: 1 !important;
-}
-
-.md-sidebar--primary .rh-section-toggle::before {
-    content: "" !important;
-    width: 0 !important;
-    height: 0 !important;
-    border-left: 0.28rem solid transparent !important;
-    border-right: 0.28rem solid transparent !important;
-    border-top: 0.38rem solid currentColor !important;
+/* Injected inactive-page headings are plain links, never collapsible. */
+.md-sidebar--primary .rh-generated-nav {
     display: block !important;
-    transform: translateY(-0.06rem) !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-.md-sidebar--primary .rh-section-collapsed > .rh-section-toggle::before {
-    border-top: 0.28rem solid transparent !important;
-    border-bottom: 0.28rem solid transparent !important;
-    border-left: 0.38rem solid currentColor !important;
-    border-right: 0 !important;
-    transform: translateX(0.03rem) translateY(-0.07rem) !important;
+.md-sidebar--primary .rh-generated-heading {
+    position: static !important;
 }
 
-.md-sidebar--primary .rh-collapsible-section.rh-section-collapsed > .md-nav,
-.md-sidebar--primary .rh-collapsible-section.rh-section-collapsed > .md-nav__list {
+.md-sidebar--primary .rh-generated-heading > .rh-page-toggle {
     display: none !important;
 }
 
-/* Page-level collapse controls. */
-.md-sidebar--primary .rh-collapsible-page {
-    position: relative !important;
-}
-
-/* Page names: Initial Reconnaissance, SQL Injection, XSS, Priv Esc. */
-.md-sidebar--primary .rh-collapsible-page > .md-nav__link {
-    padding-left: 1.85rem !important;
-}
-
-/* Arrow aligned to the second indentation level. */
-.md-sidebar--primary .rh-page-toggle {
-    position: absolute !important;
-    left: 0.62rem !important;
-    top: 0 !important;
-    width: 0.95rem !important;
-    height: 1.72rem !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: 0 !important;
-    background: transparent !important;
-    color: rgba(224, 155, 167, 0.78) !important;
-    cursor: pointer !important;
-    z-index: 5 !important;
-    opacity: 0.9 !important;
-}
-
-.md-sidebar--primary .rh-page-toggle:hover {
-    color: rgba(224, 155, 167, 0.98) !important;
-    opacity: 1 !important;
-}
-
-.md-sidebar--primary .rh-page-toggle::before {
-    content: "" !important;
-    width: 0 !important;
-    height: 0 !important;
-    border-left: 0.28rem solid transparent !important;
-    border-right: 0.28rem solid transparent !important;
-    border-top: 0.38rem solid currentColor !important;
-    display: block !important;
-    transform: translateY(-0.06rem) !important;
-}
-
-.md-sidebar--primary .rh-page-collapsed > .rh-page-toggle::before {
-    border-top: 0.28rem solid transparent !important;
-    border-bottom: 0.28rem solid transparent !important;
-    border-left: 0.38rem solid currentColor !important;
-    border-right: 0 !important;
-    transform: translateX(0.03rem) translateY(-0.07rem) !important;
-}
-
-.md-sidebar--primary .rh-collapsible-page.rh-page-collapsed > .md-nav,
-.md-sidebar--primary .rh-collapsible-page.rh-page-collapsed > .md-nav__list {
-    display: none !important;
-}
-
-/* Heading items under a page. */
-.md-sidebar--primary .rh-collapsible-page > .md-nav .md-nav__link,
-.md-sidebar--primary .rh-collapsible-page > .md-nav__list .md-nav__link {
+.md-sidebar--primary .rh-generated-heading .md-nav__link {
+    font-size: 0.75rem !important;
     padding-left: 2.65rem !important;
-}
-
-/* Main sections stay open and never get arrows. */
-.md-sidebar--primary .rh-section-toggle {
-    display: none !important;
-}
-
-/* Page-level collapse controls. */
-.md-sidebar--primary .rh-collapsible-page {
-    position: relative !important;
-}
-
-.md-sidebar--primary .rh-collapsible-page > .md-nav__link {
-    padding-left: 1.85rem !important;
-}
-
-.md-sidebar--primary .rh-page-toggle {
-    position: absolute !important;
-    left: 0.62rem !important;
-    top: 0 !important;
-    width: 0.95rem !important;
-    height: 1.72rem !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: 0 !important;
+    color: rgba(255, 255, 255, 0.45) !important;
     background: transparent !important;
-    color: rgba(224, 155, 167, 0.78) !important;
-    cursor: pointer !important;
-    z-index: 5 !important;
-    opacity: 0.9 !important;
 }
 
-.md-sidebar--primary .rh-page-toggle:hover {
-    color: rgba(224, 155, 167, 0.98) !important;
-    opacity: 1 !important;
-}
-
-.md-sidebar--primary .rh-page-toggle::before {
-    content: "" !important;
-    width: 0 !important;
-    height: 0 !important;
-    border-left: 0.28rem solid transparent !important;
-    border-right: 0.28rem solid transparent !important;
-    border-top: 0.38rem solid currentColor !important;
-    display: block !important;
-    transform: translateY(-0.06rem) !important;
-}
-
-.md-sidebar--primary .rh-page-collapsed > .rh-page-toggle::before {
-    border-top: 0.28rem solid transparent !important;
-    border-bottom: 0.28rem solid transparent !important;
-    border-left: 0.38rem solid currentColor !important;
-    border-right: 0 !important;
-    transform: translateX(0.03rem) translateY(-0.07rem) !important;
-}
-
-.md-sidebar--primary .rh-collapsible-page.rh-page-collapsed > .md-nav,
-.md-sidebar--primary .rh-collapsible-page.rh-page-collapsed > .md-nav__list {
-    display: none !important;
-}
-
-/* Keep headings under an active page properly indented. */
-.md-sidebar--primary .rh-collapsible-page > .md-nav .md-nav__link,
-.md-sidebar--primary .rh-collapsible-page > .md-nav__list .md-nav__link {
-    padding-left: 2.65rem !important;
-}
-
-/* Main sections stay open and never get arrows. */
-.md-sidebar--primary .rh-section-toggle {
-    display: none !important;
+.md-sidebar--primary .rh-generated-heading.rh-heading-h3 .md-nav__link {
+    padding-left: 3.2rem !important;
+    font-size: 0.72rem !important;
 }

@@ -1415,7 +1415,7 @@
 </table>
 <hr />
 <h2 id="core-testing-methodology">Core testing methodology</h2>
-<h3 id="step-1-find-controllable-input">Step 1 — Find controllable input</h3>
+<h4 id="step-1-find-controllable-input">Step 1 — Find controllable input</h4>
 <p>Test all input locations, not only obvious form fields:</p>
 <ul>
 <li>
@@ -1476,7 +1476,7 @@
 <p>Admin/report views if in scope.</p>
 </li>
 </ul>
-<h3 id="step-2-identify-the-context">Step 2 — Identify the context</h3>
+<h4 id="step-2-identify-the-context">Step 2 — Identify the context</h4>
 <p>Do not throw random payloads. First identify where your input lands:</p>
 <table>
 <thead>
@@ -1529,7 +1529,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="step-3-test-which-characters-survive">Step 3 — Test which characters survive</h3>
+<h4 id="step-3-test-which-characters-survive">Step 3 — Test which characters survive</h4>
 <p>Check how the application handles important characters:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&lt; &gt; &quot; &#39; ` / \ = ( ) { } [ ] ; : &amp; # %
 </span></code></pre></div>
@@ -1557,7 +1557,7 @@
 <p>Sanitizes before later modifying the HTML again.</p>
 </li>
 </ul>
-<h3 id="step-4-use-a-safe-proof-of-execution">Step 4 — Use a safe proof of execution</h3>
+<h4 id="step-4-use-a-safe-proof-of-execution">Step 4 — Use a safe proof of execution</h4>
 <p>Good safe proof-of-concept payloads:</p>
 <div class="language-html highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">domain</span><span class="p">)&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
