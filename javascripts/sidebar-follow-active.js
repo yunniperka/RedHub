@@ -2,16 +2,23 @@
   "use strict";
 
   const STORAGE_PREFIX = "redhub.nav.page.collapsed.";
-  const MANUAL_PAUSE_MS = 3500;
+  const GENERATED_NAV_CLASS = "rh-generated-nav";
+  const GENERATED_HEADING_CLASS = "rh-generated-heading";
+  const LOADED_CLASS = "rh-page-headings-loaded";
+  const LOADING_CLASS = "rh-page-headings-loading";
 
+  const MANUAL_PAUSE_MS = 3500;
   const SAFE_ZONE_TOP_RATIO = 0.28;
   const SAFE_ZONE_BOTTOM_RATIO = 0.58;
   const TARGET_RATIO = 0.22;
 
+  const headingCache = new Map();
+
   let followRaf = null;
+  let navRaf = null;
   let lastActiveHref = null;
   let manualSidebarUntil = 0;
-  let collapseObserver = null;
+  let navObserver = null;
   let followObserver = null;
 
   function visible(el) {
@@ -28,6 +35,12 @@
   function sidebarScrollwrap() {
     return document.querySelector(
       ".md-sidebar--primary .md-sidebar__scrollwrap"
+    );
+  }
+
+  function rootPrimaryList() {
+    return document.querySelector(
+      ".md-sidebar--primary .md-nav--primary > .md-nav__list"
     );
   }
 
@@ -84,12 +97,10 @@
     const href = link.getAttribute("href") || "";
     const linkRect = link.getBoundingClientRect();
     const wrapRect = wrap.getBoundingClientRect();
-
     const wrapHeight = wrap.clientHeight;
 
     const safeTop = wrapRect.top + wrapHeight * SAFE_ZONE_TOP_RATIO;
     const safeBottom = wrapRect.top + wrapHeight * SAFE_ZONE_BOTTOM_RATIO;
-
     const linkMiddle = linkRect.top + linkRect.height / 2;
 
     const inSafeZone =
@@ -104,7 +115,6 @@
     }
 
     const targetMiddle = wrapRect.top + wrapHeight * TARGET_RATIO;
-
     const delta = linkMiddle - targetMiddle;
 
     if (Math.abs(delta) < 8) {
@@ -159,21 +169,13 @@
       attributeFilter: ["class", "aria-current"]
     });
 
-    window.addEventListener(
-      "scroll",
-      function () {
-        scheduleFollow(false);
-      },
-      { passive: true }
-    );
+    window.addEventListener("scroll", function () {
+      scheduleFollow(false);
+    }, { passive: true });
 
-    window.addEventListener(
-      "resize",
-      function () {
-        scheduleFollow(true);
-      },
-      { passive: true }
-    );
+    window.addEventListener("resize", function () {
+      scheduleFollow(true);
+    }, { passive: true });
 
     window.addEventListener("hashchange", function () {
       setTimeout(function () {
@@ -190,10 +192,31 @@
     }, 300);
   }
 
-  function rootPrimaryList() {
-    return document.querySelector(
-      ".md-sidebar--primary .md-nav--primary > .md-nav__list"
-    );
+  function observeNav() {
+    const sidebar = primarySidebar();
+
+    if (!sidebar || !navObserver) {
+      return;
+    }
+
+    navObserver.disconnect();
+
+    navObserver.observe(sidebar, {
+      childList: true,
+      subtree: true
+    });
+  }
+
+  function mutateNav(callback) {
+    if (navObserver) {
+      navObserver.disconnect();
+    }
+
+    try {
+      callback();
+    } finally {
+      observeNav();
+    }
   }
 
   function depthFromRootList(item, rootList) {
@@ -211,7 +234,33 @@
     return parent === rootList ? depth : -1;
   }
 
-  function pageLevelItems() {
+  function isRealPageLink(link) {
+    const href = (link.getAttribute("href") || "").trim();
+
+    if (!href || href === "#" || href.startsWith("#")) {
+      return false;
+    }
+
+    if (href.includes("#")) {
+      return false;
+    }
+
+    if (/^(javascript:|mailto:|tel:)/i.test(href)) {
+      return false;
+    }
+
+    if (link.closest("." + GENERATED_NAV_CLASS)) {
+      return false;
+    }
+
+    if (link.closest(".md-nav--secondary")) {
+      return false;
+    }
+
+    return true;
+  }
+
+  function pageEntries() {
     const sidebar = primarySidebar();
     const rootList = rootPrimaryList();
 
@@ -219,43 +268,188 @@
       return [];
     }
 
-    return Array.from(sidebar.querySelectorAll(".md-nav__item")).filter(function (item) {
-      const depth = depthFromRootList(item, rootList);
+    return Array.from(
+      rootList.querySelectorAll(".md-nav__item")
+    )
+      .filter(function (item) {
+        if (item.classList.contains(GENERATED_HEADING_CLASS)) {
+          return false;
+        }
 
-      /*
-        depth 0 = main groups, e.g. Web Security
-        depth 1 = pages under those groups, e.g. Initial Reconnaissance / SQL Injection
-      */
-      if (depth !== 1) {
+        return depthFromRootList(item, rootList) === 1;
+      })
+      .map(function (item) {
+        return {
+          item: item,
+          link: directChild(item, ".md-nav__link[href]")
+        };
+      })
+      .filter(function (entry) {
+        return entry.item && entry.link && isRealPageLink(entry.link);
+      });
+  }
+
+  function pageUrl(link) {
+    const url = new URL(link.getAttribute("href"), window.location.href);
+    url.hash = "";
+    return url;
+  }
+
+  function pageStorageKey(link) {
+    return STORAGE_PREFIX + pageUrl(link).href;
+  }
+
+  function isActivePage(item, link) {
+    return (
+      item.classList.contains("md-nav__item--active") ||
+      link.classList.contains("md-nav__link--active") ||
+      link.getAttribute("aria-current") === "page"
+    );
+  }
+
+  function nativeNestedNav(item) {
+    return Array.from(item.children).find(function (child) {
+      if (!child.matches) {
         return false;
       }
 
-      const link = directChild(item, ".md-nav__link");
-      const nested =
-        directChild(item, ".md-nav") ||
-        directChild(item, ".md-nav__list");
+      if (child.matches(".md-nav") && !child.classList.contains(GENERATED_NAV_CLASS)) {
+        return true;
+      }
 
-      return !!(link && nested);
-    });
+      return child.matches(".md-nav__list");
+    }) || null;
   }
 
-  function storageKey(link, index) {
-    const href = link ? link.getAttribute("href") : "";
-    const text = link ? link.textContent.trim().replace(/\s+/g, " ") : "";
+  function generatedNav(item) {
+    return directChild(item, "." + GENERATED_NAV_CLASS);
+  }
 
-    return STORAGE_PREFIX + (href || text || String(index));
+  function cleanHeadingText(heading) {
+    return heading.textContent.trim().replace(/\s+/g, " ");
+  }
+
+  function extractHeadings(doc) {
+    return Array.from(
+      doc.querySelectorAll(
+        ".md-content .md-typeset h2[id], .md-content .md-typeset h3[id]"
+      )
+    )
+      .filter(function (heading) {
+        return cleanHeadingText(heading).length > 0;
+      })
+      .map(function (heading) {
+        return {
+          id: heading.id,
+          text: cleanHeadingText(heading),
+          level: heading.tagName.toLowerCase()
+        };
+      });
+  }
+
+  function createGeneratedNav(link, headings) {
+    const baseUrl = pageUrl(link);
+    const nav = document.createElement("nav");
+    const list = document.createElement("ul");
+
+    nav.className = "md-nav " + GENERATED_NAV_CLASS;
+    list.className = "md-nav__list";
+
+    headings.forEach(function (heading) {
+      const item = document.createElement("li");
+      const anchor = document.createElement("a");
+      const headingUrl = new URL(baseUrl.href);
+
+      headingUrl.hash = heading.id;
+
+      item.className =
+        "md-nav__item " +
+        GENERATED_HEADING_CLASS +
+        " rh-heading-" +
+        heading.level;
+
+      anchor.className = "md-nav__link";
+      anchor.href = headingUrl.href;
+      anchor.textContent = heading.text;
+
+      item.appendChild(anchor);
+      list.appendChild(item);
+    });
+
+    nav.appendChild(list);
+
+    return nav;
+  }
+
+  async function loadHeadings(item, link) {
+    if (item.classList.contains(LOADED_CLASS)) {
+      return;
+    }
+
+    if (item.classList.contains(LOADING_CLASS)) {
+      return;
+    }
+
+    if (nativeNestedNav(item)) {
+      item.classList.add(LOADED_CLASS);
+      return;
+    }
+
+    if (generatedNav(item)) {
+      item.classList.add(LOADED_CLASS);
+      return;
+    }
+
+    const url = pageUrl(link);
+
+    if (url.origin !== window.location.origin) {
+      return;
+    }
+
+    item.classList.add(LOADING_CLASS);
+
+    try {
+      let headings;
+
+      if (headingCache.has(url.href)) {
+        headings = headingCache.get(url.href);
+      } else {
+        const response = await fetch(url.href, {
+          credentials: "same-origin"
+        });
+
+        if (!response.ok) {
+          throw new Error("HTTP " + response.status);
+        }
+
+        const html = await response.text();
+        const doc = new DOMParser().parseFromString(html, "text/html");
+
+        headings = extractHeadings(doc);
+        headingCache.set(url.href, headings);
+      }
+
+      if (headings.length > 0 && !nativeNestedNav(item) && !generatedNav(item)) {
+        mutateNav(function () {
+          item.appendChild(createGeneratedNav(link, headings));
+        });
+      }
+
+      item.classList.add(LOADED_CLASS);
+    } catch (error) {
+      console.warn("RedHub could not load page headings:", link.href, error);
+    } finally {
+      item.classList.remove(LOADING_CLASS);
+    }
   }
 
   function setCollapsed(item, button, collapsed) {
     item.classList.toggle("rh-page-collapsed", collapsed);
     button.setAttribute("aria-expanded", collapsed ? "false" : "true");
-    button.setAttribute(
-      "title",
-      collapsed ? "Show page contents" : "Hide page contents"
-    );
+    button.setAttribute("title", collapsed ? "Show page contents" : "Hide page contents");
   }
 
-  function removeOldMainSectionToggles() {
+  function removeInvalidControls(validItems) {
     document.querySelectorAll(".rh-section-toggle").forEach(function (button) {
       button.remove();
     });
@@ -263,41 +457,99 @@
     document
       .querySelectorAll(".rh-collapsible-section, .rh-section-collapsed")
       .forEach(function (item) {
-        item.classList.remove(
-          "rh-collapsible-section",
-          "rh-section-collapsed"
-        );
+        item.classList.remove("rh-collapsible-section", "rh-section-collapsed");
       });
+
+    document.querySelectorAll("." + GENERATED_NAV_CLASS + " .rh-page-toggle").forEach(function (button) {
+      button.remove();
+    });
+
+    document.querySelectorAll("." + GENERATED_HEADING_CLASS).forEach(function (item) {
+      const button = directChild(item, ".rh-page-toggle");
+
+      if (button) {
+        button.remove();
+      }
+
+      item.classList.remove(
+        "rh-collapsible-page",
+        "rh-page-collapsed",
+        LOADED_CLASS,
+        LOADING_CLASS
+      );
+    });
+
+    document.querySelectorAll(".rh-collapsible-page").forEach(function (item) {
+      if (validItems.has(item)) {
+        return;
+      }
+
+      const button = directChild(item, ".rh-page-toggle");
+
+      if (button) {
+        button.remove();
+      }
+
+      item.classList.remove(
+        "rh-collapsible-page",
+        "rh-page-collapsed",
+        LOADED_CLASS,
+        LOADING_CLASS
+      );
+    });
   }
 
-  function addPageToggle(item, index) {
-    if (item.classList.contains("rh-collapsible-page")) {
-      return;
-    }
+  function removeOldGeneratedNavs() {
+    document.querySelectorAll("." + GENERATED_NAV_CLASS).forEach(function (nav) {
+      nav.remove();
+    });
 
-    const link = directChild(item, ".md-nav__link");
-    const nested =
-      directChild(item, ".md-nav") ||
-      directChild(item, ".md-nav__list");
+    document.querySelectorAll("." + LOADED_CLASS).forEach(function (item) {
+      item.classList.remove(LOADED_CLASS);
+    });
 
-    if (!link || !nested) {
-      return;
-    }
+    document.querySelectorAll("." + LOADING_CLASS).forEach(function (item) {
+      item.classList.remove(LOADING_CLASS);
+    });
+  }
+
+  function addPageToggle(entry) {
+    const item = entry.item;
+    const link = entry.link;
 
     item.classList.add("rh-collapsible-page");
 
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "rh-page-toggle";
-    button.setAttribute("aria-label", "Toggle page contents");
+    let button = directChild(item, ".rh-page-toggle");
 
-    item.insertBefore(button, link);
+    if (!button) {
+      button = document.createElement("button");
+      button.type = "button";
+      button.className = "rh-page-toggle";
+      button.setAttribute("aria-label", "Toggle page contents");
 
-    const key = storageKey(link, index);
-    const saved = localStorage.getItem(key);
-    const collapsed = saved === "1";
+      item.insertBefore(button, link);
+    }
+
+    const saved = localStorage.getItem(pageStorageKey(link));
+    let collapsed;
+
+    if (saved === "0" || saved === "1") {
+      collapsed = saved === "1";
+    } else {
+      collapsed = !isActivePage(item, link);
+    }
 
     setCollapsed(item, button, collapsed);
+
+    if (!collapsed) {
+      loadHeadings(item, link);
+    }
+
+    if (button.dataset.rhBound === "1") {
+      return;
+    }
+
+    button.dataset.rhBound = "1";
 
     button.addEventListener("click", function (event) {
       event.preventDefault();
@@ -305,11 +557,45 @@
 
       const nextCollapsed = !item.classList.contains("rh-page-collapsed");
 
-      localStorage.setItem(key, nextCollapsed ? "1" : "0");
+      localStorage.setItem(pageStorageKey(link), nextCollapsed ? "1" : "0");
       setCollapsed(item, button, nextCollapsed);
+
+      if (!nextCollapsed) {
+        loadHeadings(item, link);
+      }
 
       markManualSidebarUse();
     });
+  }
+
+  function refreshPageToggles() {
+    navRaf = null;
+
+    const entries = pageEntries();
+    const validItems = new Set(entries.map(function (entry) {
+      return entry.item;
+    }));
+
+    mutateNav(function () {
+      removeInvalidControls(validItems);
+
+      entries.forEach(function (entry) {
+        addPageToggle(entry);
+      });
+    });
+
+    console.info(
+      "RedHub page toggles:",
+      document.querySelectorAll(".rh-page-toggle").length
+    );
+  }
+
+  function scheduleNavRefresh() {
+    if (navRaf !== null) {
+      return;
+    }
+
+    navRaf = requestAnimationFrame(refreshPageToggles);
   }
 
   function initPageCollapsibleNav() {
@@ -319,30 +605,25 @@
       return;
     }
 
-    removeOldMainSectionToggles();
-
-    pageLevelItems().forEach(addPageToggle);
-
-    if (collapseObserver) {
-      collapseObserver.disconnect();
+    if (navObserver) {
+      navObserver.disconnect();
     }
 
-    collapseObserver = new MutationObserver(function () {
-      removeOldMainSectionToggles();
-      pageLevelItems().forEach(addPageToggle);
+    navObserver = new MutationObserver(scheduleNavRefresh);
+
+    mutateNav(function () {
+      removeOldGeneratedNavs();
     });
 
-    collapseObserver.observe(sidebar, {
-      childList: true,
-      subtree: true
-    });
+    refreshPageToggles();
+    observeNav();
   }
 
   function init() {
     initSidebarFollow();
     initPageCollapsibleNav();
 
-    console.info("RedHub sidebar tools loaded - early active follow enabled");
+    console.info("RedHub sidebar tools loaded");
   }
 
   if (typeof document$ !== "undefined") {
