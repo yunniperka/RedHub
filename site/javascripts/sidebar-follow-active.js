@@ -1,19 +1,17 @@
 (function () {
   "use strict";
 
-  /*
-    RedHub sidebar tools:
-    1) Follow the active integrated ToC item, but pause when the user manually scrolls the left sidebar.
-    2) Add collapse arrows to page-level items, e.g. Initial Reconnaissance / SQL Injection.
-  */
+  const STORAGE_PREFIX = "redhub.nav.collapsed.";
+  const MANUAL_PAUSE_MS = 3500;
 
-  const STORAGE_PREFIX = "redhub.nav.page.collapsed.";
-  const MANUAL_PAUSE_MS = 5000;
+  const SAFE_ZONE_TOP_RATIO = 0.28;
+  const SAFE_ZONE_BOTTOM_RATIO = 0.58;
+  const TARGET_RATIO = 0.22;
 
   let followRaf = null;
   let lastActiveHref = null;
   let manualSidebarUntil = 0;
-  let collapseObserver = null;
+  let navObserver = null;
   let followObserver = null;
 
   function visible(el) {
@@ -33,13 +31,21 @@
     );
   }
 
+  function rootPrimaryList() {
+    return document.querySelector(
+      ".md-sidebar--primary .md-nav--primary > .md-nav__list"
+    );
+  }
+
   function directChild(item, selector) {
     try {
       return item.querySelector(":scope > " + selector);
     } catch (e) {
-      return Array.from(item.children).find(function (child) {
-        return child.matches && child.matches(selector);
-      }) || null;
+      return (
+        Array.from(item.children).find(function (child) {
+          return child.matches && child.matches(selector);
+        }) || null
+      );
     }
   }
 
@@ -50,10 +56,6 @@
   function sidebarIsManuallyControlled() {
     return Date.now() < manualSidebarUntil;
   }
-
-  /* -------------------------------------------------------------------------
-     Active ToC follow
-     ------------------------------------------------------------------------- */
 
   function activeTocLink() {
     const sidebar = primarySidebar();
@@ -74,11 +76,6 @@
   function followActiveToc(force) {
     followRaf = null;
 
-    /*
-      Critical behavior:
-      If the user is scrolling the left sidebar, do not yank it back to the
-      active heading. Main content and scrollspy state remain unchanged.
-    */
     if (sidebarIsManuallyControlled()) {
       return;
     }
@@ -93,43 +90,32 @@
     const href = link.getAttribute("href") || "";
     const linkRect = link.getBoundingClientRect();
     const wrapRect = wrap.getBoundingClientRect();
+    const wrapHeight = wrap.clientHeight;
 
-    /*
-      Tuned values:
-      - Higher top threshold makes the sidebar start correcting earlier.
-      - Higher bottom threshold prevents the active item from disappearing
-        near the bottom edge before auto-scroll starts.
-    */
-    const visibleTop = Math.max(wrapRect.top, 0) + 150;
-    const visibleBottom = Math.min(wrapRect.bottom, window.innerHeight) - 160;
+    const safeTop = wrapRect.top + wrapHeight * SAFE_ZONE_TOP_RATIO;
+    const safeBottom = wrapRect.top + wrapHeight * SAFE_ZONE_BOTTOM_RATIO;
+    const linkMiddle = linkRect.top + linkRect.height / 2;
 
-    const inView =
-      linkRect.top >= visibleTop &&
-      linkRect.bottom <= visibleBottom;
+    const inSafeZone =
+      linkMiddle >= safeTop &&
+      linkMiddle <= safeBottom;
 
-    if (!force && href === lastActiveHref && inView) {
-      return;
-    }
-
+    const activeChanged = href !== lastActiveHref;
     lastActiveHref = href;
 
-    if (!force && inView) {
+    if (!force && !activeChanged && inSafeZone) {
       return;
     }
 
-    /*
-      0.25 means the active item is kept around 25% from the top of the
-      sidebar viewport instead of the previous 35%, so the highlight remains
-      visible earlier/higher.
-    */
-    const delta =
-      linkRect.top -
-      wrapRect.top -
-      wrap.clientHeight * 0.25 +
-      linkRect.height / 2;
+    const targetMiddle = wrapRect.top + wrapHeight * TARGET_RATIO;
+    const delta = linkMiddle - targetMiddle;
 
-    wrap.scrollBy({
-      top: delta,
+    if (Math.abs(delta) < 8) {
+      return;
+    }
+
+    wrap.scrollTo({
+      top: wrap.scrollTop + delta,
       behavior: "smooth"
     });
   }
@@ -158,12 +144,7 @@
     wrap.style.scrollBehavior = "smooth";
     wrap.style.paddingBottom = "4rem";
 
-    /*
-      Manual sidebar interaction pause.
-      This prevents the sidebar from jumping back up while the user scrolls it
-      by wheel, touchpad, dragging scrollbar, mouse, or touch.
-    */
-    ["wheel", "touchstart", "pointerdown", "mousedown", "scroll"].forEach(function (eventName) {
+    ["wheel", "touchstart", "pointerdown", "mousedown"].forEach(function (eventName) {
       wrap.addEventListener(eventName, markManualSidebarUse, { passive: true });
     });
 
@@ -172,7 +153,7 @@
     }
 
     followObserver = new MutationObserver(function () {
-      scheduleFollow(true);
+      scheduleFollow(false);
     });
 
     followObserver.observe(sidebar, {
@@ -181,13 +162,21 @@
       attributeFilter: ["class", "aria-current"]
     });
 
-    window.addEventListener("scroll", function () {
-      scheduleFollow(false);
-    }, { passive: true });
+    window.addEventListener(
+      "scroll",
+      function () {
+        scheduleFollow(false);
+      },
+      { passive: true }
+    );
 
-    window.addEventListener("resize", function () {
-      scheduleFollow(true);
-    }, { passive: true });
+    window.addEventListener(
+      "resize",
+      function () {
+        scheduleFollow(true);
+      },
+      { passive: true }
+    );
 
     window.addEventListener("hashchange", function () {
       setTimeout(function () {
@@ -199,23 +188,9 @@
       }, 250);
     });
 
-    /*
-      No setInterval here. Polling was the reason the sidebar kept fighting
-      manual scrolling and moving back to the active item.
-    */
     setTimeout(function () {
       scheduleFollow(true);
     }, 300);
-  }
-
-  /* -------------------------------------------------------------------------
-     Page-level collapsible navigation
-     ------------------------------------------------------------------------- */
-
-  function rootPrimaryList() {
-    return document.querySelector(
-      ".md-sidebar--primary .md-nav--primary > .md-nav__list"
-    );
   }
 
   function depthFromRootList(item, rootList) {
@@ -233,7 +208,7 @@
     return parent === rootList ? depth : -1;
   }
 
-  function pageLevelItems() {
+  function navItemsByDepth(depth) {
     const sidebar = primarySidebar();
     const rootList = rootPrimaryList();
 
@@ -242,107 +217,133 @@
     }
 
     return Array.from(sidebar.querySelectorAll(".md-nav__item")).filter(function (item) {
-      const depth = depthFromRootList(item, rootList);
-
-      /*
-        depth 0 = main groups, e.g. Web Security
-        depth 1 = pages under those groups, e.g. Initial Reconnaissance / SQL Injection
-      */
-      if (depth !== 1) {
+      if (depthFromRootList(item, rootList) !== depth) {
         return false;
       }
 
       const link = directChild(item, ".md-nav__link");
-      const nested = directChild(item, ".md-nav") || directChild(item, ".md-nav__list");
+      const nested =
+        directChild(item, ".md-nav") ||
+        directChild(item, ".md-nav__list");
 
       return !!(link && nested);
     });
   }
 
-  function storageKey(link, index) {
+  function storageKey(type, link, index) {
     const href = link ? link.getAttribute("href") : "";
     const text = link ? link.textContent.trim().replace(/\s+/g, " ") : "";
 
-    return STORAGE_PREFIX + (href || text || String(index));
+    return STORAGE_PREFIX + type + "." + (href || text || String(index));
   }
 
-  function setCollapsed(item, button, collapsed) {
-    item.classList.toggle("rh-page-collapsed", collapsed);
+  function setCollapsed(item, button, className, collapsed) {
+    item.classList.toggle(className, collapsed);
     button.setAttribute("aria-expanded", collapsed ? "false" : "true");
-    button.setAttribute("title", collapsed ? "Show page contents" : "Hide page contents");
+    button.setAttribute("title", collapsed ? "Show contents" : "Hide contents");
   }
 
-  function removeOldMainSectionToggles() {
-    document.querySelectorAll(".rh-section-toggle").forEach(function (button) {
-      button.remove();
-    });
-
-    document.querySelectorAll(".rh-collapsible-section, .rh-section-collapsed").forEach(function (item) {
-      item.classList.remove("rh-collapsible-section", "rh-section-collapsed");
-    });
-  }
-
-  function addPageToggle(item, index) {
-    if (item.classList.contains("rh-collapsible-page")) {
+  function addToggle(item, index, options) {
+    if (item.classList.contains(options.readyClass)) {
       return;
     }
 
     const link = directChild(item, ".md-nav__link");
-    const nested = directChild(item, ".md-nav") || directChild(item, ".md-nav__list");
+    const nested =
+      directChild(item, ".md-nav") ||
+      directChild(item, ".md-nav__list");
 
     if (!link || !nested) {
       return;
     }
 
-    item.classList.add("rh-collapsible-page");
+    item.classList.add(options.readyClass);
 
     const button = document.createElement("button");
     button.type = "button";
-    button.className = "rh-page-toggle";
-    button.setAttribute("aria-label", "Toggle page contents");
+    button.className = options.buttonClass;
+    button.setAttribute("aria-label", "Toggle contents");
 
     item.insertBefore(button, link);
 
-    const key = storageKey(link, index);
+    const key = storageKey(options.type, link, index);
     const saved = localStorage.getItem(key);
-    const collapsed = saved === "1";
 
-    setCollapsed(item, button, collapsed);
+    let collapsed = saved === "1";
+
+    if (options.keepActiveOpen && item.classList.contains("md-nav__item--active")) {
+      collapsed = false;
+    }
+
+    setCollapsed(item, button, options.collapsedClass, collapsed);
 
     button.addEventListener("click", function (event) {
       event.preventDefault();
       event.stopPropagation();
 
-      const nextCollapsed = !item.classList.contains("rh-page-collapsed");
+      const nextCollapsed = !item.classList.contains(options.collapsedClass);
 
       localStorage.setItem(key, nextCollapsed ? "1" : "0");
-      setCollapsed(item, button, nextCollapsed);
+      setCollapsed(item, button, options.collapsedClass, nextCollapsed);
 
       markManualSidebarUse();
     });
   }
 
-  function initPageCollapsibleNav() {
+  function initCollapsibleNav() {
     const sidebar = primarySidebar();
 
     if (!sidebar) {
       return;
     }
 
-    removeOldMainSectionToggles();
-
-    pageLevelItems().forEach(addPageToggle);
-
-    if (collapseObserver) {
-      collapseObserver.disconnect();
-    }
-
-    collapseObserver = new MutationObserver(function () {
-      removeOldMainSectionToggles();
-      pageLevelItems().forEach(addPageToggle);
+    navItemsByDepth(0).forEach(function (item, index) {
+      addToggle(item, index, {
+        type: "section",
+        readyClass: "rh-collapsible-section",
+        collapsedClass: "rh-section-collapsed",
+        buttonClass: "rh-section-toggle",
+        keepActiveOpen: true
+      });
     });
 
-    collapseObserver.observe(sidebar, {
+    navItemsByDepth(1).forEach(function (item, index) {
+      addToggle(item, index, {
+        type: "page",
+        readyClass: "rh-collapsible-page",
+        collapsedClass: "rh-page-collapsed",
+        buttonClass: "rh-page-toggle",
+        keepActiveOpen: false
+      });
+    });
+
+    if (navObserver) {
+      navObserver.disconnect();
+    }
+
+    navObserver = new MutationObserver(function () {
+      navItemsByDepth(0).forEach(function (item, index) {
+        addToggle(item, index, {
+          type: "section",
+          readyClass: "rh-collapsible-section",
+          collapsedClass: "rh-section-collapsed",
+          buttonClass: "rh-section-toggle",
+          keepActiveOpen: true
+        });
+      });
+
+      navItemsByDepth(1).forEach(function (item, index) {
+        addToggle(item, index, {
+          type: "page",
+          readyClass: "rh-collapsible-page",
+          collapsedClass: "rh-page-collapsed",
+          buttonClass: "rh-page-toggle",
+          keepActiveOpen: false
+        });
+      });
+    });
+
+    navObserver.observe(sidebar, {
       childList: true,
       subtree: true
     });
@@ -350,9 +351,9 @@
 
   function init() {
     initSidebarFollow();
-    initPageCollapsibleNav();
+    initCollapsibleNav();
 
-    console.info("RedHub sidebar tools loaded - manual sidebar scroll preserved");
+    console.info("RedHub sidebar tools loaded");
   }
 
   if (typeof document$ !== "undefined") {

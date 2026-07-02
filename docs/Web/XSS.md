@@ -70,7 +70,7 @@ Important nuance:
 
   
 
-### Step 1 — Find controllable input
+#### Step 1 — Find controllable input
 
   
 
@@ -132,7 +132,7 @@ Then search for it in:
 
   
 
-### Step 2 — Identify the context
+#### Step 2 — Identify the context
 
   
 
@@ -154,7 +154,7 @@ Do not throw random payloads. First identify where your input lands:
 
   
 
-### Step 3 — Test which characters survive
+#### Step 3 — Test which characters survive
 
   
 
@@ -190,7 +190,7 @@ Also check whether the application:
 
   
 
-### Step 4 — Use a safe proof of execution
+#### Step 4 — Use a safe proof of execution
 
   
 
