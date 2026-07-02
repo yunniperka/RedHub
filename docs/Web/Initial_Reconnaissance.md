@@ -1,4 +1,4 @@
-# Initial Reconnaissance for Web Application Penetration Testing
+# Initial Reconnaissance for Web Applications
 
 ## Purpose
 

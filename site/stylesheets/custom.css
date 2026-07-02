@@ -132,7 +132,8 @@
     font-weight: 400 !important;
 }
 
-.md-nav__list .md-nav__list .md-nav__link {
+/* Nested links, but don't override active/current state */
+.md-nav__list .md-nav__list .md-nav__link:not(.md-nav__link--active):not([aria-current]) {
     font-weight: 400 !important;
     font-size: 0.75rem !important;
     padding-left: 1rem !important;
@@ -275,29 +276,119 @@
 }
 
 /* ==========================================================================
-   SIDEBAR VIEWPORT FIX
-   Keeps left sidebar inside visible browser height
+   7. LEFT SIDEBAR — SAFE SCROLL AREA
    ========================================================================== */
 
 @media screen and (min-width: 76.25em) {
-    .md-sidebar--primary {
-        position: sticky !important;
-        top: var(--md-header-height, 2.4rem) !important;
-        height: calc(100vh - var(--md-header-height, 2.4rem)) !important;
-        max-height: calc(100vh - var(--md-header-height, 2.4rem)) !important;
-        align-self: flex-start !important;
-    }
-
     .md-sidebar--primary .md-sidebar__scrollwrap {
-        height: calc(100vh - var(--md-header-height, 2.4rem)) !important;
-        max-height: calc(100vh - var(--md-header-height, 2.4rem)) !important;
         overflow-y: auto !important;
+        overflow-x: hidden !important;
         overscroll-behavior: contain !important;
-        scroll-behavior: auto !important;
-        padding-bottom: 1.25rem !important;
+        scroll-behavior: smooth !important;
+        padding-bottom: 4rem !important;
     }
+}
 
-    .md-sidebar--primary .md-sidebar__inner {
-        max-height: none !important;
-    }
+/* ==========================================================================
+   8. LEFT SIDEBAR — COLLAPSIBLE PAGE CONTENTS
+   Collapses page-level items like Initial Reconnaissance / SQL Injection,
+   not main groups like Web Security.
+   ========================================================================== */
+
+.md-sidebar--primary .rh-collapsible-page {
+    position: relative !important;
+}
+
+/* Make room for the arrow before page names */
+.md-sidebar--primary .rh-collapsible-page > .md-nav__link {
+    padding-left: 1.75rem !important;
+}
+
+/* Arrow button aligned to the page title row */
+.md-sidebar--primary .rh-page-toggle {
+    position: absolute !important;
+
+    left: 0.42rem !important;
+    top: 0 !important;
+
+    width: 0.95rem !important;
+    height: 1.72rem !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+
+    color: rgba(224, 155, 167, 0.78) !important;
+    cursor: pointer !important;
+    z-index: 5 !important;
+    opacity: 0.9 !important;
+}
+
+.md-sidebar--primary .rh-page-toggle:hover {
+    color: rgba(224, 155, 167, 0.98) !important;
+    opacity: 1 !important;
+}
+
+/*
+   Expanded state: filled down arrow.
+*/
+.md-sidebar--primary .rh-page-toggle::before {
+    content: "" !important;
+
+    width: 0 !important;
+    height: 0 !important;
+
+    border-left: 0.28rem solid transparent !important;
+    border-right: 0.28rem solid transparent !important;
+    border-top: 0.38rem solid currentColor !important;
+
+    display: block !important;
+
+    /*
+       Move arrow slightly up.
+    */
+    transform: translateY(-0.06rem) !important;
+}
+
+/*
+   Collapsed state: filled right arrow.
+*/
+.md-sidebar--primary .rh-page-collapsed > .rh-page-toggle::before {
+    content: "" !important;
+
+    width: 0 !important;
+    height: 0 !important;
+
+    border-top: 0.28rem solid transparent !important;
+    border-bottom: 0.28rem solid transparent !important;
+    border-left: 0.38rem solid currentColor !important;
+    border-right: 0 !important;
+
+    display: block !important;
+
+    /*
+       Keep the right arrow horizontally aligned and move it slightly up.
+    */
+    transform: translateX(0.03rem) translateY(-0.07rem) !important;
+}
+
+/* Hide headings/contents under the selected page */
+.md-sidebar--primary .rh-collapsible-page.rh-page-collapsed > .md-nav,
+.md-sidebar--primary .rh-collapsible-page.rh-page-collapsed > .md-nav__list {
+    display: none !important;
+}
+
+/* Keep collapsed page visually subtle */
+.md-sidebar--primary .rh-page-collapsed > .md-nav__link {
+    background-color: rgba(176, 102, 116, 0.06) !important;
+}
+
+/* Safety cleanup if old main-section collapse CSS/JS is still cached */
+.md-sidebar--primary .rh-section-toggle {
+    display: none !important;
 }

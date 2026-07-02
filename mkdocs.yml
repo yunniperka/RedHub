@@ -1,6 +1,7 @@
+use_directory_urls: true
 site_name: RedHub
 site_url: https://yunniperka.github.io/RedHub/
-site_author: yunniperka
+site_author: yunni
 
 theme:
   name: material
@@ -69,5 +70,6 @@ extra:
 
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js
-  - "data:text/javascript,$(document).ready(function(){var search=$('.md-search');if(search.length){var minX=240;var batCont=$('<div id=\"runaway-pixel-bat\" class=\"go-right\" style=\"position:absolute;left:'+minX+'px;top:2px;width:70px;height:50px;cursor:default;z-index:9999;user-select:none;\"></div>');$('.md-header__inner').append(batCont);batCont.on('mouseenter',function(){var maxX=search.position().left-110;if(maxX<=minX){maxX=minX+100;}var randomX=Math.floor(Math.random()*(maxX-minX))+minX;var randomY=Math.floor(Math.random()*10)-5;var currentX=batCont.position().left;if(randomX<currentX){batCont.removeClass('go-right').addClass('go-left');}else{batCont.removeClass('go-left').addClass('go-right');}batCont.css({left:randomX+'px',top:randomY+'px'});});}});"
+
+  - javascripts/runaway-bat.js
   - javascripts/sidebar-follow-active.js
