@@ -392,3 +392,46 @@
     padding-left: 3.2rem !important;
     font-size: 0.72rem !important;
 }
+
+/* Bottom-right page-up button. */
+#rh-page-up {
+    position: fixed !important;
+    right: 1.4rem !important;
+    bottom: 1.4rem !important;
+    width: 2.6rem !important;
+    height: 2.6rem !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: rgba(176, 102, 116, 0.9) !important;
+    color: #fff !important;
+    font-size: 1.35rem !important;
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    z-index: 9999 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(0.5rem) !important;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        background-color 0.2s ease !important;
+    box-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.28) !important;
+}
+
+#rh-page-up.rh-page-up-visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+}
+
+#rh-page-up:hover {
+    background: rgba(207, 160, 169, 0.95) !important;
+}
+
+/* Hide MkDocs Material native back-to-top button if enabled. */
+.md-top {
+    display: none !important;
+}
