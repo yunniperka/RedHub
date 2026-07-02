@@ -30,7 +30,7 @@ extra_css:
 
 nav:
   - Home: index.md
-  - Windows Infrastructure:
+  - Windows:
     - Dupa: dupa
   - Linux:
     - Dupa: dupa
