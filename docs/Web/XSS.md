@@ -953,31 +953,19 @@ Good additional controls:
 
   
 
-- Crawled application manually and automatically.
-
-- Tested query parameters.
-
-- Tested path parameters.
-
-- Tested POST/form/JSON fields.
-
-- Tested file names and metadata.
-
-- Tested profile/comment/ticket fields.
-
-- Tested admin/backend rendering if in scope.
-
-- Tested headers that may be logged or reflected.
-
-- Tested Markdown/WYSIWYG fields.
-
-- Tested uploaded SVG/HTML behavior.
-
-- Tested client-side route/hash inputs.
-
-- Reviewed JavaScript for DOM sources and sinks.
-
-- Reviewed `postMessage` handlers.
+- [ ]  Crawled application manually and automatically.
+- [ ]  Tested query parameters.
+- [ ]  Tested path parameters. 
+- [ ]  Tested POST/form/JSON fields.
+- [ ]  Tested file names and metadata. 
+- [ ]  Tested profile/comment/ticket fields.
+- [ ]  Tested admin/backend rendering if in scope.
+- [ ]  Tested headers that may be logged or reflected.
+- [ ]  Tested Markdown/WYSIWYG fields.
+- [ ]  Tested uploaded SVG/HTML behavior.
+- [ ]  Tested client-side route/hash inputs.
+- [ ]  Reviewed JavaScript for DOM sources and sinks.
+- [ ]  Reviewed `postMessage` handlers.
 
   
 
@@ -985,17 +973,12 @@ Good additional controls:
 
   
 
-- Located canary in raw response.
-
-- Located canary in live DOM.
-
-- Identified HTML/attribute/URL/JS/CSS/comment context.
-
-- Tested quote and angle bracket handling.
-
-- Tested encoding/decoding behavior.
-
-- Tested whether stored value appears in other views.
+- [ ] Located canary in raw response.
+- [ ] Located canary in live DOM.
+- [ ] Identified HTML/attribute/URL/JS/CSS/comment context.
+- [ ] Tested quote and angle bracket handling.
+- [ ] Tested encoding/decoding behavior.
+- [ ] Tested whether stored value appears in other views.
 
   
 
@@ -1003,19 +986,13 @@ Good additional controls:
 
   
 
-- Used harmless proof of execution.
-
-- Confirmed affected origin.
-
-- Confirmed victim role required.
-
-- Confirmed whether interaction is required.
-
-- Checked CSP behavior.
-
-- Checked token/cookie exposure without collecting secrets.
-
-- Confirmed whether same-origin requests are possible on a test account.
+- [ ] Used harmless proof of execution.
+- [ ] Confirmed affected origin.
+- [ ] Confirmed victim role required.
+- [ ] Confirmed whether interaction is required.
+- [ ] Checked CSP behavior.
+- [ ] Checked token/cookie exposure without collecting secrets.
+- [ ] Confirmed whether same-origin requests are possible on a test account.
 
   
   

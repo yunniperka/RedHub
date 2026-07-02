@@ -1154,6 +1154,89 @@ Use only in labs or when explicitly authorized.
 
   
 
+---
+
+## Practical SQLi Checklist
+
+### Discovery
+
+- [ ] Confirmed scope and authorization before testing.
+- [ ] Captured a clean baseline request and response.
+- [ ] Identified all candidate input locations: query parameters, path parameters, POST/form fields, JSON fields, cookies, headers, and file/import fields.
+- [ ] Tested only one parameter at a time.
+- [ ] Used a unique marker such as `sqli_probe_73921` before sending SQL syntax probes.
+- [ ] Checked whether the marker appears in the response, error message, later page, admin view, export, report, or background job.
+
+### Context identification
+
+- [ ] Determined whether the input is used in a string, numeric, `LIKE`, `ORDER BY`, `LIMIT`, `IN`, JSON, cookie, or header context.
+- [ ] Tested quote handling with `'`, `"`, and backtick where relevant.
+- [ ] Tested whether comments such as `-- -`, `#`, or `/* */` affect the response.
+- [ ] Compared true and false conditions, for example `' AND '1'='1` vs `' AND '1'='2`.
+- [ ] Checked for consistent differences in status code, response length, page content, redirects, JSON values, and error messages.
+
+### Error-based and boolean validation
+
+- [ ] Checked for SQL syntax errors, stack traces, ORM errors, or database driver messages.
+- [ ] Confirmed whether a broken query can be repaired with a second quote or comment.
+- [ ] Used paired true/false tests instead of broad destructive conditions like `OR 1=1`.
+- [ ] Verified the behavior at least twice to avoid false positives caused by caching, rate limits, or dynamic content.
+- [ ] Checked whether the vulnerable input is reused in multiple backend queries.
+
+### UNION-based validation
+
+- [ ] Confirmed that query results are reflected in the HTTP response.
+- [ ] Identified the number of columns using `ORDER BY` or `UNION SELECT NULL` tests.
+- [ ] Identified which returned column is visible in the response.
+- [ ] Used a harmless marker such as `sqli_probe_73921` to prove reflection.
+- [ ] Used minimal proof such as database version or current user only when allowed.
+- [ ] Avoided dumping sensitive tables unless explicitly authorized.
+
+### Blind SQLi validation
+
+- [ ] Tested boolean-based blind behavior with safe true/false conditions.
+- [ ] Tested short time delays only when needed and authorized.
+- [ ] Used short delays, usually 3 to 5 seconds, to reduce service impact.
+- [ ] Accounted for normal latency, caching, and application noise.
+- [ ] Considered OAST/DNS callbacks only if allowed by the engagement scope.
+- [ ] Avoided high-concurrency time-based testing.
+
+### Second-order SQLi
+
+- [ ] Tested stored fields such as registration data, profile fields, display names, support tickets, imports, and product fields.
+- [ ] Submitted unique payload IDs per field to track where execution happens later.
+- [ ] Triggered later workflows that may reuse the stored value, such as profile views, admin panels, exports, emails, reports, and background jobs.
+- [ ] Checked whether stored input appears in a different SQL context later.
+- [ ] Cleaned up test accounts, stored payloads, and generated records after testing.
+
+### SQLMap usage
+
+- [ ] Used `-r req.txt` when possible to preserve method, headers, cookies, body, and CSRF tokens.
+- [ ] Used `-p parameter` to limit testing to the intended parameter.
+- [ ] Started with low-risk settings before increasing `--level` or `--risk`.
+- [ ] Used rate limits, delays, timeouts, and retries when testing production-like systems.
+- [ ] Avoided `--dump-all`, `--os-shell`, `--file-write`, and destructive options unless explicitly authorized.
+- [ ] Manually verified important sqlmap findings.
+
+### NoSQL injection
+
+- [ ] Checked whether API fields expect strings but accept JSON objects or operators.
+- [ ] Tested safe operator behavior such as `$ne`, `$gt`, `$regex`, and `$exists` only where appropriate.
+- [ ] Checked for login bypass, changed record counts, different JSON responses, operator errors, or timing changes.
+- [ ] Verified that authorization is enforced after querying, not only through user-controlled filters.
+- [ ] Avoided expensive regex or server-side expression tests that could degrade service.
+
+### Impact and reporting
+
+- [ ] Identified the affected endpoint, method, parameter, role, and authentication requirement.
+- [ ] Recorded baseline, true-condition, false-condition, error, timing, or OAST evidence.
+- [ ] Proved impact with the minimum necessary data.
+- [ ] Assessed whether the database user can read, modify, delete, write files, or execute OS-level actions.
+- [ ] Documented business impact clearly.
+- [ ] Recommended parameterized queries, allow-list validation for dynamic identifiers, least privilege, and generic user-facing errors.
+- [ ] Listed cleanup actions for test data, accounts, stored payloads, and logs.
+
+
 ## NoSQL Injection
 
   
