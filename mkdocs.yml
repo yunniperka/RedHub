@@ -56,6 +56,8 @@ nav:
   - Enterprise Environments:
     - Active Directory: AD/README.md
   - Web Security:
+    - Initial Reconnaissance: Web/Initial_Reconnaissance.md
+    - SQL Injection: Web/SQL_Injection.md
     - XSS: Web/XSS.md
   - Networking & Infrastructure:
     - Network Architecture: Networking/README.md

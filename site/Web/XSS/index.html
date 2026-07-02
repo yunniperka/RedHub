@@ -48,8 +48,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains+Mono:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"JetBrains Mono";--md-code-font:"Fira Code"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Fira Code"}</style>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cross-site-scripting-xss-enhanced-notes" class="md-skip">
+        <a href="#cross-site-scripting-xss" class="md-skip">
           Skip to content
         </a>
       
@@ -1884,7 +1884,7 @@
 
 
 
-<h1 id="cross-site-scripting-xss-enhanced-notes">Cross-Site Scripting (XSS) — Enhanced Notes</h1>
+<h1 id="cross-site-scripting-xss">Cross-Site Scripting (XSS)</h1>
 <h2 id="what-xss-is">What XSS is</h2>
 <p>Cross-Site Scripting (XSS) happens when an application lets attacker-controlled input become executable code in a victim's browser. The browser runs the injected code that can usually do anything the real page can do for that user.</p>
 <p>Typical impact:</p>
@@ -2002,7 +2002,7 @@
 </li>
 </ul>
 <p>Use a unique canary string first:</p>
-<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>xssprobe-73921
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>xssprobe-73921
 </span></code></pre></div>
 <p>Then search for it in:</p>
 <ul>
@@ -2074,7 +2074,7 @@
 </table>
 <h3 id="step-3-test-which-characters-survive">Step 3 — Test which characters survive</h3>
 <p>Check how the application handles important characters:</p>
-<div class="language-text highlight"><span class="filename">Text Only</span><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&lt; &gt; &quot; &#39; ` / \ = ( ) { } [ ] ; : &amp; # %
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&lt; &gt; &quot; &#39; ` / \ = ( ) { } [ ] ; : &amp; # %
 </span></code></pre></div>
 <p>Also check whether the application:</p>
 <ul>
@@ -2102,7 +2102,7 @@
 </ul>
 <h3 id="step-4-use-a-safe-proof-of-execution">Step 4 — Use a safe proof of execution</h3>
 <p>Good safe proof-of-concept payloads:</p>
-<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">domain</span><span class="p">)&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">domain</span><span class="p">)&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">&lt;</span><span class="nt">img</span>  <span class="na">src</span><span class="o">=</span><span class="s">x</span>  <span class="na">onerror</span><span class="o">=</span><span class="s">alert(1)</span><span class="p">&gt;</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
@@ -2111,19 +2111,19 @@
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">print</span><span class="p">()&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></code></pre></div>
 <p>For professional reports, <code>alert(1)</code> is often enough to prove execution. For stronger proof without stealing data, show:</p>
-<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nx">alert</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">origin</span><span class="p">)</span>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nx">alert</span><span class="p">(</span><span class="nx">location</span><span class="p">.</span><span class="nx">origin</span><span class="p">)</span>
 </span></code></pre></div>
 <p>or modify harmless page text:</p>
-<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;XSS confirmed on &#39;</span><span class="w">  </span><span class="o">+</span><span class="w">  </span><span class="nx">location</span><span class="p">.</span><span class="nx">origin</span><span class="p">)</span>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;XSS confirmed on &#39;</span><span class="w">  </span><span class="o">+</span><span class="w">  </span><span class="nx">location</span><span class="p">.</span><span class="nx">origin</span><span class="p">)</span>
 </span></code></pre></div>
 <hr />
 <h2 id="useful-safe-payloads-by-context">Useful safe payloads by context</h2>
 <h3 id="html-body-context">HTML body context</h3>
 <p>Reflection:</p>
-<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>INPUT<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>INPUT<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 </span></code></pre></div>
 <p>Payloads:</p>
-<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="mf">1</span><span class="p">)&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">alert</span><span class="p">(</span><span class="mf">1</span><span class="p">)&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
 </span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="p">&lt;</span><span class="nt">img</span>  <span class="na">src</span><span class="o">=</span><span class="s">x</span>  <span class="na">onerror</span><span class="o">=</span><span class="s">alert(1)</span><span class="p">&gt;</span>
 </span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
@@ -2131,10 +2131,10 @@
 </span></code></pre></div>
 <h3 id="inside-an-html-attribute">Inside an HTML attribute</h3>
 <p>Reflection:</p>
-<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">&lt;</span><span class="nt">input</span>  <span class="na">value</span><span class="o">=</span><span class="s">&quot;INPUT&quot;</span><span class="p">&gt;</span>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="p">&lt;</span><span class="nt">input</span>  <span class="na">value</span><span class="o">=</span><span class="s">&quot;INPUT&quot;</span><span class="p">&gt;</span>
 </span></code></pre></div>
 <p>Payloads:</p>
-<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>&quot; autofocus onfocus=alert(1) x=&quot;
+<div class="language-html highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>&quot; autofocus onfocus=alert(1) x=&quot;
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>&quot;&gt;<span class="p">&lt;</span><span class="nt">img</span>  <span class="na">src</span><span class="o">=</span><span class="s">x</span>  <span class="na">onerror</span><span class="o">=</span><span class="s">alert(1)</span><span class="p">&gt;</span>
 </span></code></pre></div>
@@ -2152,22 +2152,22 @@
 </ul>
 <h3 id="url-attribute-context">URL attribute context</h3>
 <p>Reflection:</p>
-<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">&lt;</span><span class="nt">a</span>  <span class="na">href</span><span class="o">=</span><span class="s">&quot;INPUT&quot;</span><span class="p">&gt;</span>link<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="p">&lt;</span><span class="nt">a</span>  <span class="na">href</span><span class="o">=</span><span class="s">&quot;INPUT&quot;</span><span class="p">&gt;</span>link<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
 </span></code></pre></div>
 <p>Payload:</p>
-<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>javascript:alert(1)
+<div class="language-html highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>javascript:alert(1)
 </span></code></pre></div>
 <p>Defensive note: applications should validate URL schemes. Usually allow only <code>http:</code>, <code>https:</code>, and sometimes relative URLs. Block <code>javascript:</code>, dangerous <code>data:</code> values, and malformed protocol tricks.</p>
 <h3 id="javascript-string-context">JavaScript string context</h3>
 <p>Reflection:</p>
-<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
 </span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
 </span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kd">var</span><span class="w">  </span><span class="nx">name</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="s1">&#39;INPUT&#39;</span><span class="p">;</span>
 </span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
 </span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 </span></code></pre></div>
 <p>Payload examples:</p>
-<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="s1">&#39;;alert(1);//</span>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="s1">&#39;;alert(1);//</span>
 </span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
 </span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="s1">&#39;</span><span class="o">-</span><span class="nx">alert</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span><span class="o">-</span><span class="err">&#39;</span>
 </span></code></pre></div>
@@ -2185,25 +2185,25 @@
 </ul>
 <h3 id="javascript-template-literal-context">JavaScript template literal context</h3>
 <p>Reflection:</p>
-<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kd">const</span><span class="w">  </span><span class="nx">message</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="sb">`Welcome INPUT`</span><span class="p">;</span>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kd">const</span><span class="w">  </span><span class="nx">message</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="sb">`Welcome INPUT`</span><span class="p">;</span>
 </span></code></pre></div>
 <p>Payload:</p>
-<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nx">$</span><span class="p">{</span><span class="nx">alert</span><span class="p">(</span><span class="mf">1</span><span class="p">)}</span>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nx">$</span><span class="p">{</span><span class="nx">alert</span><span class="p">(</span><span class="mf">1</span><span class="p">)}</span>
 </span></code></pre></div>
 <p>Template literals are important because code inside <code>${...}</code> is evaluated as JavaScript.</p>
 <h3 id="html-comment-context">HTML comment context</h3>
 <p>Reflection:</p>
-<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="cm">&lt;!-- INPUT --&gt;</span>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="cm">&lt;!-- INPUT --&gt;</span>
 </span></code></pre></div>
 <p>Payload:</p>
-<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>--&gt;<span class="p">&lt;</span><span class="nt">img</span>  <span class="na">src</span><span class="o">=</span><span class="s">x</span>  <span class="na">onerror</span><span class="o">=</span><span class="s">alert(1)</span><span class="p">&gt;</span>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>--&gt;<span class="p">&lt;</span><span class="nt">img</span>  <span class="na">src</span><span class="o">=</span><span class="s">x</span>  <span class="na">onerror</span><span class="o">=</span><span class="s">alert(1)</span><span class="p">&gt;</span>
 </span></code></pre></div>
 <h3 id="markdown-or-rich-text-context">Markdown or rich text context</h3>
 <p>Test whether raw HTML is allowed:</p>
-<div class="language-markdown highlight"><span class="filename">Markdown</span><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>&lt;img  src=x  onerror=alert(1)&gt;
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>&lt;img  src=x  onerror=alert(1)&gt;
 </span></code></pre></div>
 <p>Test unsafe links:</p>
-<div class="language-markdown highlight"><span class="filename">Markdown</span><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>[<span class="nt">click</span>](<span class="na">javascript:alert(1</span>))
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>[<span class="nt">click</span>](<span class="na">javascript:alert(1</span>))
 </span></code></pre></div>
 <p>Defensive note: safe Markdown renderers should block raw HTML by default or sanitize it, and they must validate link protocols.</p>
 <hr />
@@ -2333,7 +2333,7 @@
 </table>
 <h3 id="safer-alternatives">Safer alternatives</h3>
 <p>Prefer APIs that treat data as text:</p>
-<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1">// Unsafe</span>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1">// Unsafe</span>
 </span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
 </span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">userInput</span><span class="p">;</span>
 </span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
@@ -2342,7 +2342,7 @@
 </span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="nx">element</span><span class="p">.</span><span class="nx">textContent</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">userInput</span><span class="p">;</span>
 </span></code></pre></div>
 <p>Other safer sinks:</p>
-<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nx">element</span><span class="p">.</span><span class="nx">textContent</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">value</span><span class="p">;</span>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nx">element</span><span class="p">.</span><span class="nx">textContent</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">value</span><span class="p">;</span>
 </span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
 </span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="nx">element</span><span class="p">.</span><span class="nx">insertAdjacentText</span><span class="p">(</span><span class="s1">&#39;beforeend&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">);</span>
 </span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
@@ -2355,7 +2355,7 @@
 </span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="nx">element</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">safeId</span><span class="p">);</span><span class="w"> </span><span class="c1">// only with hardcoded safe attribute names</span>
 </span></code></pre></div>
 <p>If HTML is genuinely required, sanitize it first:</p>
-<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kd">const</span><span class="w">  </span><span class="nx">clean</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">DOMPurify</span><span class="p">.</span><span class="nx">sanitize</span><span class="p">(</span><span class="nx">dirtyHtml</span><span class="p">);</span>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="kd">const</span><span class="w">  </span><span class="nx">clean</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">DOMPurify</span><span class="p">.</span><span class="nx">sanitize</span><span class="p">(</span><span class="nx">dirtyHtml</span><span class="p">);</span>
 </span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>
 </span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">clean</span><span class="p">;</span>
 </span></code></pre></div>
@@ -2364,7 +2364,7 @@
 <h2 id="postmessage-xss-checks"><code>postMessage</code> XSS checks</h2>
 <p><code>postMessage</code> is common in widgets, SSO flows, embedded tools, analytics scripts, and iframes.</p>
 <p>Look for code like this:</p>
-<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
 </span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;output&#39;</span><span class="p">).</span><span class="nx">innerHTML</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="nx">event</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
 </span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
@@ -2389,7 +2389,7 @@
 </li>
 </ul>
 <p>Safer pattern:</p>
-<div class="language-js highlight"><span class="filename">JavaScript</span><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kd">const</span><span class="w">  </span><span class="nx">allowedOrigins</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="ow">new</span><span class="w">  </span><span class="nb">Set</span><span class="p">([</span><span class="s1">&#39;https://trusted.example&#39;</span><span class="p">]);</span>
+<div class="language-js highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kd">const</span><span class="w">  </span><span class="nx">allowedOrigins</span><span class="w">  </span><span class="o">=</span><span class="w">  </span><span class="ow">new</span><span class="w">  </span><span class="nb">Set</span><span class="p">([</span><span class="s1">&#39;https://trusted.example&#39;</span><span class="p">]);</span>
 </span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>
 </span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
 </span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
@@ -2458,7 +2458,7 @@
 </li>
 </ol>
 <p>Example harmless callback idea:</p>
-<div class="language-html highlight"><span class="filename">HTML</span><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="p">&lt;</span><span class="nt">img</span>  <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://your-callback.example/xss?id=contact-name-001&quot;</span><span class="p">&gt;</span>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="p">&lt;</span><span class="nt">img</span>  <span class="na">src</span><span class="o">=</span><span class="s">&quot;https://your-callback.example/xss?id=contact-name-001&quot;</span><span class="p">&gt;</span>
 </span></code></pre></div>
 <p>This proves that HTML injection rendered, but it does not prove JavaScript execution. To prove JavaScript execution in an authorized lab, use a callback that only sends a non-sensitive marker.</p>
 <hr />

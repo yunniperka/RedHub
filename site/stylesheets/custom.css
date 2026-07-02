@@ -9,14 +9,14 @@
 }
 
 .md-header {
-    background-color: var(--md-primary-fg-color) !important; 
+    background-color: var(--md-primary-fg-color) !important;
 }
 
 /* ==========================================================================
-   2. BEZWZGLĘDNA UNIFIKACJA CZCIONEK (Wszystko identycznej wielkości)
+   2. TYPOGRAFIA I CZYTELNOŚĆ
    ========================================================================== */
 
-/* Wymuszenie identycznego rozmiaru (0.85rem) i interlinii (1.5) dla absolutnie każdego elementu tekstowego */
+/* Wspólny rozmiar tekstu dla treści głównej */
 .md-typeset,
 .md-typeset p,
 .md-typeset ul,
@@ -29,16 +29,28 @@
     font-size: 0.85rem !important;
     line-height: 1.5 !important;
 }
-.md-typeset code {
-    font-size: 0.78rem !important; 
-    line-height: 1.5 !important;
-    color: #e09ba7 !important; 
-    background-color: rgba(176, 102, 116, 0.12) !important; 
-    padding: 0.05rem 0.2rem !important; 
+
+/* Inline code: krótkie wartości typu `xssprobe-73921`, `location.hash`, `href` */
+.md-typeset p code,
+.md-typeset li code,
+.md-typeset td code,
+.md-typeset a code {
+    font-size: 0.82em !important;
+    line-height: 1.45 !important;
+    color: #e09ba7 !important;
+    background-color: rgba(176, 102, 116, 0.12) !important;
+    padding: 0.12rem 0.35rem !important;
     margin: 0 !important;
     border-radius: 4px !important;
+    white-space: nowrap !important;
+    word-break: normal !important;
+    vertical-align: baseline !important;
+}
+
+/* Pozwala zawijać długie inline code w tabelach na małych ekranach */
+.md-typeset td code {
+    white-space: normal !important;
     word-break: break-word !important;
-    vertical-align: baseline !important; 
 }
 
 .md-typeset a code:hover {
@@ -46,13 +58,51 @@
     color: #fff !important;
 }
 
-.md-typeset pre code {
-    font-size: 0.78rem !important; 
-    line-height: 1.4 !important;
-    background-color: transparent !important; 
+/* ==========================================================================
+   3. BLOKI KODU — CZYSTSZY WYGLĄD BEZ BRZYDKICH TYTUŁÓW
+   ========================================================================== */
+
+.md-typeset .highlight {
+    margin: 0.7em 0 !important;
+    border-radius: 8px !important;
+    background-color: rgba(176, 102, 116, 0.06) !important;
+}
+
+.md-typeset .highlight pre {
+    padding: 0.85rem 1rem !important;
+    border-radius: 8px !important;
+    font-size: 0.85rem !important;
+    line-height: 1.55 !important;
+    overflow-x: auto !important;
+    background-color: rgba(255, 255, 255, 0.025) !important;
+}
+
+/* Code inside fenced blocks */
+.md-typeset pre code,
+.md-typeset .highlight code {
+    font-size: 0.82rem !important;
+    line-height: 1.55 !important;
+    background-color: transparent !important;
     color: inherit !important;
     padding: 0 !important;
+    white-space: pre !important;
+    word-break: normal !important;
 }
+
+/* Ukrywa automatyczne etykiety typu "Text Only", jeżeli gdzieś jeszcze zostaną wygenerowane */
+.md-typeset .highlight span.filename,
+.md-typeset .highlight .filename {
+    display: none !important;
+}
+
+/* Nie pokazuj dużego paska tytułu nad prostymi blokami kodu */
+.md-typeset .highlighttable .filename,
+.md-typeset .highlight .filename {
+    display: none !important;
+}
+/* ==========================================================================
+   4. NAWIGACJA
+   ========================================================================== */
 
 .md-nav__title {
     font-weight: 700 !important;
@@ -71,7 +121,7 @@
     font-size: 0.78rem !important;
     padding-top: 0.25rem !important;
     padding-bottom: 0.25rem !important;
-    color: rgba(255, 255, 255, 0.55); 
+    color: rgba(255, 255, 255, 0.55);
     border-left: none !important;
 }
 
@@ -86,7 +136,8 @@
 .md-nav__list {
     border-left: none !important;
 }
-.md-nav__list::before, 
+
+.md-nav__list::before,
 .md-nav__list::after,
 .md-nav__item::before,
 .md-nav__item::after {
@@ -96,7 +147,7 @@
 }
 
 /* ==========================================================================
-   Scrollspy
+   5. SCROLLSPY
    ========================================================================== */
 
 .md-nav__item--active > .md-nav__link:not(.md-nav__link--active) {
@@ -107,7 +158,7 @@
 
 .md-nav__item--active > .md-nav__link--active {
     font-weight: 600 !important;
-    background-color: rgba(176, 102, 116, 0.08) !important; 
+    background-color: rgba(176, 102, 116, 0.08) !important;
 }
 
 .md-nav__link--passed {
@@ -131,8 +182,9 @@
 }
 
 /* ==========================================================================
-   PIXEL BAT
-   ========================================================================= */
+   6. PIXEL BAT
+   ========================================================================== */
+
 .md-header__inner {
     position: relative !important;
 }
@@ -146,19 +198,30 @@
     background-position: center !important;
     image-rendering: pixelated !important;
     image-rendering: crisp-edges !important;
-    
-    /* Płynny lot (lewo/prawo i góra/dół przy zmianie pozycji) */
+
+    /* Płynny lot */
     transition: left 0.45s ease-out, top 0.45s ease-out !important;
 }
 
-/* Obroty bez psucia animacji lotu */
-#runaway-pixel-bat.go-right { transform: scaleX(1); }
-#runaway-pixel-bat.go-left { transform: scaleX(-1); }
+/* Obrót nietoperza */
+#runaway-pixel-bat.go-right {
+    scale: 1 1;
+}
+
+#runaway-pixel-bat.go-left {
+    scale: -1 1;
+}
 
 @keyframes batSmoothFloat {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-4px); }
-    100% { transform: translateY(0px); }
+    0% {
+        translate: 0 0;
+    }
+    50% {
+        translate: 0 -4px;
+    }
+    100% {
+        translate: 0 0;
+    }
 }
 
 .md-header__button.md-logo {
