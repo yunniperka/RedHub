@@ -31,28 +31,7 @@ extra_css:
 nav:
   - Home: index.md
   - Windows Infrastructure:
-    - Privilege Escalation:
-        - Enumerating Attack Vectors: Windows/privilege-escalation/Enumerating_Attack_Vectors.md
-        - Built-in-Groups Abuse: Windows/privilege-escalation/Built-in-Groups_Abuse.md
-        - Excessive User Rights Abuse: Windows/privilege-escalation/Excessive_User_Rights_Abuse.md
-        - File System ACLs: Windows/privilege-escalation/File_System_ACLs.md
-        - Living-off-the-Land: Windows/privilege-escalation/Living_off_the_Land.md
-        - Services Hijacking: Windows/privilege-escalation/Services_Hijacking.md
-        - User Account Control (UAC): Windows/privilege-escalation/User_Account_Control_(UAC).md
-    - Persistence: Windows/persistence.md
-    - Lateral Movement: Windows/lateral-movement.md
-    - Evasion: Windows/evasion.md
   - Linux:
-    - Evasion: Linux/evasion.md
-    - Lateral Movement: Linux/lateral-movement.md
-    - Persistence: Linux/persistence.md
-    - Privilege Escalation:
-        - Enumerating Attack Vectors: Linux/privilege-escalation/Enumerating_Attack_Vectors.md
-        - Privileged Groups: Linux/privilege-escalation/Privileged_Groups.md
-        - Environment Variables Abuse: Linux/privilege-escalation/Environment_Variables_Abuse.md
-        - Capabilities Abuse: Linux/privilege-escalation/Capabilities_Abuse.md
-        - Programs, Jobs and Services: Linux/privilege-escalation/Programs_Jobs_and_Services.md
-        - Miscellaneous Techniques: Linux/privilege-escalation/Miscellaneous_Techniques.md
   - Enterprise Environments:
     - Active Directory: AD/README.md
   - Web Security:
@@ -60,10 +39,9 @@ nav:
     - SQL Injection: Web/SQL_Injection.md
     - XSS: Web/XSS.md
   - Networking & Infrastructure:
-    - Network Architecture: Networking/README.md
   - Modern Architecture:
-    - Cloud Platforms: Cloud/README.md
-    - Containers & Docker: Containers/README.md
+    - Cloud : Cloud/README.md
+    - Containers : Containers/README.md
     - Virtualization: Virtualization/README.md
 
 markdown_extensions:
