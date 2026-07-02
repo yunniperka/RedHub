@@ -1455,19 +1455,6 @@ internal service endpoints
 * [ ] Documented minimum safe proof.
 * [ ] Avoided DoS payloads on production.
 
-### Remediation Review
-
-* [ ] DTDs disabled.
-* [ ] External general entities disabled.
-* [ ] External parameter entities disabled.
-* [ ] External DTD loading disabled.
-* [ ] XInclude disabled unless required.
-* [ ] Safe resolver configured.
-* [ ] Parser-specific settings applied to all XML paths.
-* [ ] XML workers isolated.
-* [ ] Egress restricted.
-* [ ] File size and parse limits enforced.
-* [ ] Raw parser errors hidden from users.
 
 ---
 

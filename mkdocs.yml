@@ -48,6 +48,10 @@ nav:
       - XSS (Cross-Site Scripting): Web/XSS.md
       - SSRF (Server-Side Request Forgery): Web/SSRF.md
       - CSRF (Cross-Site Request Forgery): Web/CSRF.md
+      - File Inclusion: Web/File_Inclusion.md
+      - File Upload: Web/File_Upload.md
+      - IDOR (Insecure Direct Object Reference): Web/IDOR.md
+      
   - Networking & Infrastructure:
       - Network Architecture: Networking/README.md
   - Modern Architecture:
