@@ -2108,91 +2108,39 @@
 <hr />
 <h2 id="practical-checklist">Practical checklist</h2>
 <h3 id="discovery">Discovery</h3>
-<ul>
-<li>
-<p>Crawled application manually and automatically.</p>
-</li>
-<li>
-<p>Tested query parameters.</p>
-</li>
-<li>
-<p>Tested path parameters.</p>
-</li>
-<li>
-<p>Tested POST/form/JSON fields.</p>
-</li>
-<li>
-<p>Tested file names and metadata.</p>
-</li>
-<li>
-<p>Tested profile/comment/ticket fields.</p>
-</li>
-<li>
-<p>Tested admin/backend rendering if in scope.</p>
-</li>
-<li>
-<p>Tested headers that may be logged or reflected.</p>
-</li>
-<li>
-<p>Tested Markdown/WYSIWYG fields.</p>
-</li>
-<li>
-<p>Tested uploaded SVG/HTML behavior.</p>
-</li>
-<li>
-<p>Tested client-side route/hash inputs.</p>
-</li>
-<li>
-<p>Reviewed JavaScript for DOM sources and sinks.</p>
-</li>
-<li>
-<p>Reviewed <code>postMessage</code> handlers.</p>
-</li>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Crawled application manually and automatically.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested query parameters.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested path parameters. </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested POST/form/JSON fields.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested file names and metadata. </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested profile/comment/ticket fields.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested admin/backend rendering if in scope.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested headers that may be logged or reflected.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested Markdown/WYSIWYG fields.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested uploaded SVG/HTML behavior.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested client-side route/hash inputs.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Reviewed JavaScript for DOM sources and sinks.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Reviewed <code>postMessage</code> handlers.</li>
 </ul>
 <h3 id="context-analysis">Context analysis</h3>
-<ul>
-<li>
-<p>Located canary in raw response.</p>
-</li>
-<li>
-<p>Located canary in live DOM.</p>
-</li>
-<li>
-<p>Identified HTML/attribute/URL/JS/CSS/comment context.</p>
-</li>
-<li>
-<p>Tested quote and angle bracket handling.</p>
-</li>
-<li>
-<p>Tested encoding/decoding behavior.</p>
-</li>
-<li>
-<p>Tested whether stored value appears in other views.</p>
-</li>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Located canary in raw response.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Located canary in live DOM.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Identified HTML/attribute/URL/JS/CSS/comment context.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested quote and angle bracket handling.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested encoding/decoding behavior.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Tested whether stored value appears in other views.</li>
 </ul>
 <h3 id="exploit-validation">Exploit validation</h3>
-<ul>
-<li>
-<p>Used harmless proof of execution.</p>
-</li>
-<li>
-<p>Confirmed affected origin.</p>
-</li>
-<li>
-<p>Confirmed victim role required.</p>
-</li>
-<li>
-<p>Confirmed whether interaction is required.</p>
-</li>
-<li>
-<p>Checked CSP behavior.</p>
-</li>
-<li>
-<p>Checked token/cookie exposure without collecting secrets.</p>
-</li>
-<li>
-<p>Confirmed whether same-origin requests are possible on a test account.</p>
-</li>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Used harmless proof of execution.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Confirmed affected origin.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Confirmed victim role required.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Confirmed whether interaction is required.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked CSP behavior.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Checked token/cookie exposure without collecting secrets.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Confirmed whether same-origin requests are possible on a test account.</li>
 </ul>
 <hr />
 <h2 id="tools-and-labs">Tools and labs</h2>
