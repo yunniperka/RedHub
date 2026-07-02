@@ -79,6 +79,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#initial-reconnaissance-for-web-application-penetration-testing" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -89,7 +94,7 @@
 
   
 
-<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
       
@@ -180,13 +185,13 @@
     
   </nav>
   
-    
-  
 </header>
     
     <div class="md-container" data-md-component="container">
       
       
+        
+          
         
       
       <main class="md-main" data-md-component="main">
@@ -251,10 +256,6 @@
   
     
     
-      
-        
-      
-    
     
     
       
@@ -306,7 +307,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dupa" class="md-nav__link">
+      <a href="../../dupa.md" class="md-nav__link">
         
   
   
@@ -341,10 +342,6 @@
   
   
     
-    
-      
-        
-      
     
     
     
@@ -397,7 +394,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../dupa" class="md-nav__link">
+      <a href="../../dupa.md" class="md-nav__link">
         
   
   
@@ -433,12 +430,6 @@
   
     
     
-      
-        
-          
-        
-      
-    
     
     
       
@@ -454,9 +445,8 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <div class="md-nav__link md-nav__container">
-            <a href="../../AD/" class="md-nav__link ">
-              
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
   
   
   <span class="md-ellipsis">
@@ -470,9 +460,8 @@
   
   
 
-            </a>
-            
-          </div>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
@@ -485,6 +474,32 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../AD/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
           </ul>
@@ -503,14 +518,6 @@
   
   
     
-    
-      
-        
-      
-        
-      
-        
-      
     
     
     
@@ -569,6 +576,26 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -586,6 +613,939 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#main-outputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Main Outputs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#passive-reconnaissance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Passive Reconnaissance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Passive Reconnaissance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#search-engine-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search Engine Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#public-code-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Public Code Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#certificate-transparency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Certificate Transparency
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#archived-urls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Archived URLs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subdomain-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Subdomain Enumeration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Subdomain Enumeration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#passive-subdomain-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Passive Subdomain Enumeration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#active-subdomain-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active Subdomain Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#permutation-and-alteration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Permutation and Alteration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wildcard-dns-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wildcard DNS Handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validate-live-web-hosts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validate Live Web Hosts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#screenshot-and-triage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Screenshot and Triage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-application-fingerprinting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Web Application Fingerprinting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Web Application Fingerprinting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-to-fingerprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to Fingerprint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technology-to-next-test-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technology to Next Test Mapping
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual-application-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Application Mapping
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crawling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Crawling
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Crawling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#standard-crawl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Standard Crawl
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#headless-crawl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Headless Crawl
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#directory-and-file-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directory and File Discovery
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Directory and File Discovery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-to-look-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to Look For
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ffuf-directory-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ffuf Directory Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feroxbuster-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        feroxbuster Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-codes-during-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response Codes During Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#avoid-common-fuzzing-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Avoid Common Fuzzing Mistakes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtual-host-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtual Host Discovery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parameter-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter Discovery
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parameter Discovery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sources-of-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sources of Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interesting-parameter-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interesting Parameter Names
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extract-parameters-from-urls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Extract Parameters from URLs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-fuzzing-with-ffuf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter Fuzzing with ffuf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-discovery-with-arjun" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter Discovery with Arjun
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#routing-infrastructure-parameter-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Routing &amp; Infrastructure Parameter Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#javascript-reconnaissance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        JavaScript Reconnaissance
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="JavaScript Reconnaissance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#collect-javascript-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Collect JavaScript Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-to-search-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to Search For
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What to Search For">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#client-side-secrets-obfuscated-routes-code-auditing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Client-Side Secrets &amp; Obfuscated Routes Code Auditing
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#source-maps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Source Maps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Discovery
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="API Discovery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-api-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common API Paths
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-recon-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Recon Checklist
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#swaggeropenapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Swagger/OpenAPI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphql" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GraphQL
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GraphQL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introspection-blindspots-bypasses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introspection Blindspots &amp; Bypasses
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-and-role-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication and Role Mapping
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication and Role Mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#authentication-areas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication Areas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#role-and-tenant-mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Role and Tenant Mapping
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#webserver-metafiles-and-public-policy-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Webserver Metafiles and Public Policy Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#information-leakage-in-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Information Leakage in Content
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hidden-and-high-value-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hidden and High-Value Paths
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-and-external-asset-hints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud and External Asset Hints
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cors-and-security-headers-recon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CORS and Security Headers Recon
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recon-data-triage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recon Data Triage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mapping-findings-to-next-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapping Findings to Next Tests
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recommended-wordlists" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recommended Wordlists
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-command-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical Command Pipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Practical Command Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-define-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Define Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-passive-subdomain-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Passive Subdomain Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-resolve-subdomains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Resolve Subdomains
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-probe-httphttps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Probe HTTP/HTTPS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-crawl-live-apps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Crawl Live Apps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-collect-archived-urls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Collect Archived URLs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-merge-urls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Merge URLs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-extract-javascript" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Extract JavaScript
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-extract-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Extract Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-find-interesting-urls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Find Interesting URLs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#minimal-ffuf-recipes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal ffuf Recipes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Minimal ffuf Recipes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#advanced-directory-context-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Directory &amp; Context Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-discovery-with-extensions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File Discovery with Extensions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parameter-name-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parameter Name Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-host-discovery_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtual Host Discovery
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manual-review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Review Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quick-recon-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Recon Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        References
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -663,12 +1623,6 @@
   
     
     
-      
-        
-          
-        
-      
-    
     
     
       
@@ -684,9 +1638,8 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
           
-          <div class="md-nav__link md-nav__container">
-            <a href="../../Networking/" class="md-nav__link ">
-              
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
   
   
   <span class="md-ellipsis">
@@ -700,9 +1653,8 @@
   
   
 
-            </a>
-            
-          </div>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
@@ -715,6 +1667,32 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Networking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
           </ul>
@@ -732,16 +1710,6 @@
   
     
     
-      
-        
-          
-        
-      
-        
-      
-        
-      
-    
     
     
       
@@ -757,9 +1725,8 @@
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
-          <div class="md-nav__link md-nav__container">
-            <a href="../../Cloud/" class="md-nav__link ">
-              
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
   
   
   <span class="md-ellipsis">
@@ -773,14 +1740,8 @@
   
   
 
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_7" id="__nav_7_label" tabindex="">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
+            <span class="md-nav__icon md-icon"></span>
+          </label>
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
@@ -793,6 +1754,32 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
               
             
               
@@ -875,9 +1862,2028 @@
 
 
 
-  <h1>Initial Reconnaissance</h1>
-
-
+<h1 id="initial-reconnaissance-for-web-application-penetration-testing">Initial Reconnaissance for Web Application Penetration Testing</h1>
+<h2 id="purpose">Purpose</h2>
+<p>Initial reconnaissance is the first web-focused phase of a penetration test. The goal is not to exploit the target yet. The goal is to build a useful map of the web attack surface so the next testing phases are focused and efficient.</p>
+<p>These notes intentionally focus on web application reconnaissance only:</p>
+<ul>
+<li>subdomains</li>
+<li>live web applications</li>
+<li>directories and files</li>
+<li>URLs and endpoints</li>
+<li>parameters</li>
+<li>JavaScript-discovered endpoints</li>
+<li>APIs</li>
+<li>authentication and roles</li>
+<li>technology fingerprinting</li>
+<li>public information leakage</li>
+<li>inputs that suggest next vulnerability tests</li>
+</ul>
+<p>Network service scanning, broad port scanning, and generic Nmap methodology are intentionally excluded.</p>
+<hr />
+<h2 id="main-outputs">Main Outputs</h2>
+<p>At the end of initial recon, you should have:</p>
+<table>
+<thead>
+<tr>
+<th>Output</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>In-scope domains and subdomains</td>
+<td>Defines what can be tested.</td>
+</tr>
+<tr>
+<td>Live HTTP/HTTPS services</td>
+<td>Shows which assets are reachable as web apps.</td>
+</tr>
+<tr>
+<td>Application inventory</td>
+<td>Groups targets by app, environment, owner, and technology.</td>
+</tr>
+<tr>
+<td>URL and endpoint list</td>
+<td>Drives crawling, fuzzing, and manual testing.</td>
+</tr>
+<tr>
+<td>Parameter list</td>
+<td>Drives injection, access control, IDOR, and logic testing.</td>
+</tr>
+<tr>
+<td>Directory and file discovery results</td>
+<td>Finds hidden panels, old files, backups, APIs, and debug endpoints.</td>
+</tr>
+<tr>
+<td>JavaScript endpoint list</td>
+<td>Finds API routes, feature flags, source maps, and hidden client-side routes.</td>
+</tr>
+<tr>
+<td>Authentication and role map</td>
+<td>Drives access control and privilege testing.</td>
+</tr>
+<tr>
+<td>Technology stack</td>
+<td>Drives framework-specific and version-specific checks.</td>
+</tr>
+<tr>
+<td>Interesting findings list</td>
+<td>Prioritized next steps for the actual pentest.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="passive-reconnaissance">Passive Reconnaissance</h2>
+<p>Passive recon uses public information and normally does not send traffic directly to the target application.</p>
+<h3 id="search-engine-discovery">Search Engine Discovery</h3>
+<p>Use search engines to find indexed content and leaks.</p>
+<p>Useful queries:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>site:example.com
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>site:example.com filetype:pdf
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>site:example.com filetype:xls OR filetype:xlsx
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>site:example.com filetype:doc OR filetype:docx
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>site:example.com inurl:admin
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>site:example.com inurl:login
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>site:example.com inurl:api
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>site:example.com inurl:swagger
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>site:example.com inurl:backup
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>site:example.com ext:sql OR ext:bak OR ext:zip
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>site:example.com &quot;password&quot;
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>site:example.com &quot;api_key&quot;
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>site:example.com &quot;BEGIN PRIVATE KEY&quot;
+</span></code></pre></div>
+<p>Look for:</p>
+<ul>
+<li>old endpoints</li>
+<li>admin portals</li>
+<li>indexed documents</li>
+<li>email addresses and usernames</li>
+<li>staging/dev/test environments</li>
+<li>exposed backups</li>
+<li>API documentation</li>
+<li>error pages</li>
+<li>public support or issue tracker links</li>
+</ul>
+<h3 id="public-code-search">Public Code Search</h3>
+<p>Search public repositories for:</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domains and subdomains</td>
+<td><code>example.com</code>, <code>api.example.com</code></td>
+</tr>
+<tr>
+<td>API routes</td>
+<td><code>/api/v1/users</code>, <code>/graphql</code>, <code>/internal</code></td>
+</tr>
+<tr>
+<td>Secrets</td>
+<td>API keys, tokens, private keys, <code>.env</code> values</td>
+</tr>
+<tr>
+<td>Cloud assets</td>
+<td>S3 buckets, Azure Blob names, GCS buckets</td>
+</tr>
+<tr>
+<td>Technology hints</td>
+<td>package files, Dockerfiles, CI/CD files</td>
+</tr>
+<tr>
+<td>Internal names</td>
+<td>project names, environment names, tenant names</td>
+</tr>
+</tbody>
+</table>
+<p>Useful search targets:</p>
+<ul>
+<li>GitHub</li>
+<li>GitLab</li>
+<li>Bitbucket</li>
+<li>public package registries</li>
+<li>Docker Hub</li>
+<li>npm</li>
+<li>PyPI</li>
+<li>public CI logs</li>
+</ul>
+<p>Example GitHub searches:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&quot;example.com&quot;
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>&quot;api.example.com&quot;
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>&quot;example.com&quot; &quot;password&quot;
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>&quot;example.com&quot; &quot;Authorization&quot;
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>&quot;example.com&quot; &quot;Bearer&quot;
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>&quot;example.com&quot; &quot;aws_access_key_id&quot;
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>&quot;example.com&quot; &quot;s3.amazonaws.com&quot;
+</span></code></pre></div>
+<h3 id="certificate-transparency">Certificate Transparency</h3>
+<p>Certificate Transparency logs often reveal subdomains that were never linked from the main site.</p>
+<p>Common sources:</p>
+<ul>
+<li>crt.sh</li>
+<li>Censys</li>
+<li>CertSpotter</li>
+<li>SecurityTrails</li>
+<li>Shodan certificate data</li>
+</ul>
+<p>Look for:</p>
+<ul>
+<li><code>dev.example.com</code></li>
+<li><code>staging.example.com</code></li>
+<li><code>test.example.com</code></li>
+<li><code>admin.example.com</code></li>
+<li><code>vpn.example.com</code></li>
+<li><code>api.example.com</code></li>
+<li><code>old.example.com</code></li>
+<li>wildcard certificates</li>
+</ul>
+<h3 id="archived-urls">Archived URLs</h3>
+<p>Archived URLs are valuable because they may reveal old endpoints, retired API routes, parameters, and hidden files.</p>
+<p>Useful sources:</p>
+<ul>
+<li>Wayback Machine</li>
+<li>Common Crawl</li>
+<li>URLScan</li>
+<li>AlienVault OTX</li>
+</ul>
+<p>Example with <code>gau</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>gau<span class="w"> </span>example.com<span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>urls/archived.txt
+</span></code></pre></div>
+<p>Useful filtering:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>cat<span class="w"> </span>urls/archived.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>urls/archived_unique.txt
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>cat<span class="w"> </span>urls/archived_unique.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">&#39;\.js($|\?)&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>js/js_files_archived.txt
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>cat<span class="w"> </span>urls/archived_unique.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">&#39;(\?|=)&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>params/urls_with_params.txt
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>cat<span class="w"> </span>urls/archived_unique.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">&#39;(admin|login|debug|backup|api|graphql|swagger|internal)&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>urls/interesting_urls.txt
+</span></code></pre></div>
+<hr />
+<h2 id="subdomain-enumeration">Subdomain Enumeration</h2>
+<p>Subdomain enumeration expands the target list beyond the main website.</p>
+<h3 id="passive-subdomain-enumeration">Passive Subdomain Enumeration</h3>
+<p>Passive enumeration uses public data sources.</p>
+<p>Example tools:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>subfinder<span class="w"> </span>-d<span class="w"> </span>example.com<span class="w"> </span>-all<span class="w"> </span>-silent<span class="w"> </span>-o<span class="w"> </span>subdomains/subfinder.txt
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>amass<span class="w"> </span>enum<span class="w"> </span>-passive<span class="w"> </span>-d<span class="w"> </span>example.com<span class="w"> </span>-o<span class="w"> </span>subdomains/amass_passive.txt
+</span></code></pre></div>
+<p>Merge and deduplicate:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>cat<span class="w"> </span>subdomains/*.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/^\*\.//&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>subdomains/all.txt
+</span></code></pre></div>
+<h3 id="active-subdomain-discovery">Active Subdomain Discovery</h3>
+<p>Active discovery guesses names and resolves them.</p>
+<p>Common word themes:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>admin
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>api
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>app
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>auth
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>backup
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>beta
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>cdn
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>cms
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>crm
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>dashboard
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>dev
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>files
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>internal
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>login
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>mail
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>mobile
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>old
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>portal
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>preprod
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>prod
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>sso
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>stage
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>staging
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>static
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>test
+</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>uat
+</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>vpn
+</span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>www
+</span></code></pre></div>
+<p>Example with DNS resolver tooling:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>dnsx<span class="w"> </span>-l<span class="w"> </span>subdomains/all.txt<span class="w"> </span>-silent<span class="w"> </span>-resp<span class="w"> </span>-o<span class="w"> </span>subdomains/resolved.txt
+</span></code></pre></div>
+<h3 id="permutation-and-alteration">Permutation and Alteration</h3>
+<p>If you find:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>api.example.com
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>dev-api.example.com
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>portal-staging.example.com
+</span></code></pre></div>
+<p>generate variations such as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>api-dev.example.com
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>api-staging.example.com
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>api-test.example.com
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>portal-dev.example.com
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>portal-uat.example.com
+</span></code></pre></div>
+<p>Good candidates for deeper review:</p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Why interesting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dev</code>, <code>test</code>, <code>stage</code>, <code>uat</code></td>
+<td>Often weaker controls or debug features.</td>
+</tr>
+<tr>
+<td><code>admin</code>, <code>portal</code>, <code>dashboard</code></td>
+<td>Authentication and authorization targets.</td>
+</tr>
+<tr>
+<td><code>api</code>, <code>graphql</code>, <code>mobile</code></td>
+<td>Direct backend functionality.</td>
+</tr>
+<tr>
+<td><code>old</code>, <code>legacy</code>, <code>backup</code></td>
+<td>Unmaintained code and forgotten files.</td>
+</tr>
+<tr>
+<td><code>internal</code>, <code>intranet</code></td>
+<td>Possible access control mistakes.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="wildcard-dns-handling">Wildcard DNS Handling</h3>
+<p>Some domains resolve every subdomain to the same IP. This creates false positives.</p>
+<p>Check with random names:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>dnsx<span class="w"> </span>-silent<span class="w"> </span>-a<span class="w"> </span>-resp-only<span class="w"> </span>-l<span class="w"> </span>&lt;<span class="o">(</span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;doesnotexist-73921.example.com\nrandom-88421.example.com\n&quot;</span><span class="o">)</span>
+</span></code></pre></div>
+<p>If random names resolve, you need to filter wildcard responses.</p>
+<hr />
+<h2 id="validate-live-web-hosts">Validate Live Web Hosts</h2>
+<p>After subdomain enumeration, identify which hosts serve HTTP or HTTPS.</p>
+<p>Example with <code>httpx</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>httpx<span class="w"> </span>-l<span class="w"> </span>subdomains/all.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span>-silent<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span>-follow-host-redirects<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span>-status-code<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span>-title<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">  </span>-tech-detect<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">  </span>-web-server<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">  </span>-content-length<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">  </span>-location<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">  </span>-json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">  </span>-o<span class="w"> </span>http/httpx.jsonl
+</span></code></pre></div>
+<p>Create a simple live host list:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>cat<span class="w"> </span>http/httpx.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.url&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>http/live.txt
+</span></code></pre></div>
+<p>Useful fields to collect:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>URL</td>
+<td>Defines the live app entry point.</td>
+</tr>
+<tr>
+<td>Status code</td>
+<td>Helps identify login pages, redirects, errors, forbidden areas.</td>
+</tr>
+<tr>
+<td>Title</td>
+<td>Quick app identification.</td>
+</tr>
+<tr>
+<td>Server header</td>
+<td>Helps fingerprint technology.</td>
+</tr>
+<tr>
+<td>Technologies</td>
+<td>Suggests next framework-specific tests.</td>
+</tr>
+<tr>
+<td>Content length</td>
+<td>Helps detect duplicate/default responses.</td>
+</tr>
+<tr>
+<td>Redirect location</td>
+<td>Reveals canonical hosts, SSO, tenants, or hidden paths.</td>
+</tr>
+<tr>
+<td>CDN/WAF info</td>
+<td>Affects testing strategy and rate limits.</td>
+</tr>
+<tr>
+<td>Screenshot</td>
+<td>Helps triage many hosts quickly.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="screenshot-and-triage">Screenshot and Triage</h2>
+<p>Screenshots help quickly group web apps.</p>
+<p>Look for:</p>
+<ul>
+<li>login panels</li>
+<li>admin dashboards</li>
+<li>default pages</li>
+<li>error pages</li>
+<li>documentation pages</li>
+<li>exposed development tools</li>
+<li>staging banners</li>
+<li>maintenance pages</li>
+<li>different apps behind similar domains</li>
+</ul>
+<p>Possible triage categories:</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Main production app</td>
+<td><code>www</code>, <code>app</code>, customer portal</td>
+</tr>
+<tr>
+<td>API/documentation</td>
+<td><code>api</code>, Swagger, Redoc, GraphQL</td>
+</tr>
+<tr>
+<td>Admin or back office</td>
+<td><code>admin</code>, <code>dashboard</code>, <code>cms</code></td>
+</tr>
+<tr>
+<td>Dev/test/staging</td>
+<td><code>dev</code>, <code>test</code>, <code>uat</code>, <code>staging</code></td>
+</tr>
+<tr>
+<td>Default service page</td>
+<td>nginx, Apache, IIS, Tomcat, Laravel, Spring</td>
+</tr>
+<tr>
+<td>Error-only host</td>
+<td>403, 404, 500, cloud provider error</td>
+</tr>
+<tr>
+<td>Potential takeover</td>
+<td>Unclaimed SaaS/cloud service response</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="web-application-fingerprinting">Web Application Fingerprinting</h2>
+<p>Fingerprinting identifies the stack so you can choose relevant tests.</p>
+<h3 id="what-to-fingerprint">What to Fingerprint</h3>
+<table>
+<thead>
+<tr>
+<th>Signal</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headers</td>
+<td><code>Server</code>, <code>X-Powered-By</code>, <code>Set-Cookie</code>, <code>Via</code>, <code>X-Generator</code></td>
+</tr>
+<tr>
+<td>Cookies</td>
+<td><code>PHPSESSID</code>, <code>JSESSIONID</code>, <code>.AspNetCore</code>, <code>laravel_session</code></td>
+</tr>
+<tr>
+<td>HTML</td>
+<td>meta generator tags, comments, script paths</td>
+</tr>
+<tr>
+<td>JavaScript</td>
+<td>framework bundles, source maps, build paths</td>
+</tr>
+<tr>
+<td>Error pages</td>
+<td>stack traces, framework names, versions</td>
+</tr>
+<tr>
+<td>Favicon hash</td>
+<td>Can identify common products or panels.</td>
+</tr>
+<tr>
+<td>Static paths</td>
+<td><code>/wp-content/</code>, <code>/static/</code>, <code>/_next/</code>, <code>/assets/</code></td>
+</tr>
+<tr>
+<td>Login page text</td>
+<td>Product names, SSO provider, tenant names</td>
+</tr>
+<tr>
+<td>TLS certificate</td>
+<td>SANs, issuer, environment names</td>
+</tr>
+<tr>
+<td>Redirects</td>
+<td>SSO, reverse proxies, canonical domains</td>
+</tr>
+</tbody>
+</table>
+<h3 id="technology-to-next-test-mapping">Technology to Next Test Mapping</h3>
+<table>
+<thead>
+<tr>
+<th>Technology signal</th>
+<th>Next tests to plan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WordPress</td>
+<td>Plugins, themes, users, XML-RPC, backups, uploads.</td>
+</tr>
+<tr>
+<td>Drupal/Joomla</td>
+<td>CMS version, modules, admin paths, exposed config.</td>
+</tr>
+<tr>
+<td>Laravel</td>
+<td><code>.env</code>, debug mode, logs, route leaks, storage links.</td>
+</tr>
+<tr>
+<td>Django</td>
+<td>debug mode, admin panel, CSRF/session behavior.</td>
+</tr>
+<tr>
+<td>Rails</td>
+<td>routes, exposed credentials, debug pages, signed cookies.</td>
+</tr>
+<tr>
+<td>Spring Boot</td>
+<td>Actuator endpoints, error pages, API docs.</td>
+</tr>
+<tr>
+<td>ASP.NET</td>
+<td>ViewState, IIS files, debug traces, auth flows.</td>
+</tr>
+<tr>
+<td>Next.js/Nuxt/Vite</td>
+<td>JavaScript routes, source maps, SSR/API endpoints.</td>
+</tr>
+<tr>
+<td>GraphQL</td>
+<td>Schema discovery, introspection, authz, batching, depth.</td>
+</tr>
+<tr>
+<td>Swagger/OpenAPI</td>
+<td>API enumeration, auth requirements, hidden endpoints.</td>
+</tr>
+<tr>
+<td>SSO/SAML/OIDC</td>
+<td>Redirect handling, callback URLs, role mapping.</td>
+</tr>
+<tr>
+<td>WebSocket</td>
+<td>Message schema, auth, cross-site WebSocket risks.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="manual-application-mapping">Manual Application Mapping</h2>
+<p>Manual mapping is essential. Automated crawlers miss business logic, authenticated flows, and multi-step workflows.</p>
+<p>Use a browser through Burp Suite, OWASP ZAP, Caido, or another intercepting proxy.</p>
+<p>Map:</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>What to capture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Landing pages</td>
+<td>Main navigation, public pages, hidden links.</td>
+</tr>
+<tr>
+<td>Registration</td>
+<td>Required fields, email verification, invitation flows.</td>
+</tr>
+<tr>
+<td>Login</td>
+<td>SSO, MFA, remember-me, lockout, password reset.</td>
+</tr>
+<tr>
+<td>User profile</td>
+<td>Editable fields, file upload, IDs, preferences.</td>
+</tr>
+<tr>
+<td>Search/filtering</td>
+<td>Parameters, sorting, pagination, query syntax.</td>
+</tr>
+<tr>
+<td>Object pages</td>
+<td>User IDs, order IDs, invoice IDs, project IDs.</td>
+</tr>
+<tr>
+<td>Admin functions</td>
+<td>User management, role changes, exports, imports.</td>
+</tr>
+<tr>
+<td>File handling</td>
+<td>Upload, download, preview, delete, conversion.</td>
+</tr>
+<tr>
+<td>Payment/checkout</td>
+<td>Cart, coupons, price fields, callbacks.</td>
+</tr>
+<tr>
+<td>Notifications</td>
+<td>Emails, webhooks, templates, message previews.</td>
+</tr>
+<tr>
+<td>API calls</td>
+<td>REST, GraphQL, WebSockets, background XHR/fetch.</td>
+</tr>
+</tbody>
+</table>
+<p>Record:</p>
+<ul>
+<li>endpoint</li>
+<li>method</li>
+<li>parameters</li>
+<li>authentication required</li>
+<li>role required</li>
+<li>content type</li>
+<li>interesting IDs</li>
+<li>response type</li>
+<li>next tests</li>
+</ul>
+<hr />
+<h2 id="crawling">Crawling</h2>
+<p>Crawling discovers linked pages, forms, JavaScript routes, and XHR/fetch endpoints.</p>
+<h3 id="standard-crawl">Standard Crawl</h3>
+<p>Fast but may miss JavaScript-rendered routes.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>katana<span class="w"> </span>-list<span class="w"> </span>http/live.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">  </span>-silent<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">  </span>-jc<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">  </span>-kf<span class="w"> </span>all<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">  </span>-o<span class="w"> </span>urls/katana.txt
+</span></code></pre></div>
+<h3 id="headless-crawl">Headless Crawl</h3>
+<p>Slower, but better for SPAs and JavaScript-heavy apps.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>katana<span class="w"> </span>-list<span class="w"> </span>http/live.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span>-headless<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span>-jc<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">  </span>-js-crawl<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">  </span>-xhr<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">  </span>-d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">  </span>-o<span class="w"> </span>urls/katana_headless.txt
+</span></code></pre></div>
+<p>Merge results:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>cat<span class="w"> </span>urls/katana*.txt<span class="w"> </span>urls/archived*.txt<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>urls/all_urls.txt
+</span></code></pre></div>
+<p>Crawl findings that usually matter:</p>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Forms</td>
+<td>Input handling, CSRF, validation.</td>
+</tr>
+<tr>
+<td>Query parameters</td>
+<td>Injection and access control testing.</td>
+</tr>
+<tr>
+<td>API calls</td>
+<td>Backend attack surface.</td>
+</tr>
+<tr>
+<td>Hidden routes</td>
+<td>Client-side routes not linked from menus.</td>
+</tr>
+<tr>
+<td>JavaScript files</td>
+<td>Endpoint and secret discovery.</td>
+</tr>
+<tr>
+<td>File upload paths</td>
+<td>Upload testing.</td>
+</tr>
+<tr>
+<td>WebSocket URLs</td>
+<td>WebSocket security testing.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="directory-and-file-discovery">Directory and File Discovery</h2>
+<p>Directory and file discovery finds unlinked content.</p>
+<h3 id="what-to-look-for">What to Look For</h3>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Admin paths</td>
+<td><code>/admin</code>, <code>/administrator</code>, <code>/manage</code>, <code>/dashboard</code></td>
+</tr>
+<tr>
+<td>API paths</td>
+<td><code>/api</code>, <code>/api/v1</code>, <code>/graphql</code>, <code>/rest</code>, <code>/backend</code></td>
+</tr>
+<tr>
+<td>Documentation</td>
+<td><code>/swagger</code>, <code>/api-docs</code>, <code>/redoc</code>, <code>/openapi.json</code></td>
+</tr>
+<tr>
+<td>Debug paths</td>
+<td><code>/debug</code>, <code>/trace</code>, <code>/actuator</code>, <code>/phpinfo.php</code></td>
+</tr>
+<tr>
+<td>Backup files</td>
+<td><code>.bak</code>, <code>.old</code>, <code>.zip</code>, <code>.tar.gz</code>, <code>.sql</code></td>
+</tr>
+<tr>
+<td>Config files</td>
+<td><code>.env</code>, <code>config.php</code>, <code>settings.py</code>, <code>web.config</code></td>
+</tr>
+<tr>
+<td>Source control</td>
+<td><code>/.git/</code>, <code>/.svn/</code></td>
+</tr>
+<tr>
+<td>Logs</td>
+<td><code>/logs</code>, <code>/error.log</code>, <code>/access.log</code></td>
+</tr>
+<tr>
+<td>Uploads</td>
+<td><code>/uploads</code>, <code>/files</code>, <code>/media</code>, <code>/storage</code></td>
+</tr>
+<tr>
+<td>Temporary files</td>
+<td><code>/tmp</code>, <code>/temp</code>, <code>/backup</code>, <code>/old</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="ffuf-directory-discovery">ffuf Directory Discovery</h3>
+<p>Basic:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ffuf<span class="w"> </span>-w<span class="w"> </span>wordlists/common.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span>-u<span class="w"> </span>https://example.com/FUZZ<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span>-ac<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">  </span>-o<span class="w"> </span>fuzzing/ffuf_dirs.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">  </span>-of<span class="w"> </span>json
+</span></code></pre></div>
+<p>With extensions:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ffuf<span class="w"> </span>-w<span class="w"> </span>wordlists/common.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span>-u<span class="w"> </span>https://example.com/FUZZ<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span>-e<span class="w"> </span>.php,.aspx,.jsp,.html,.txt,.bak,.old,.zip,.sql<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">  </span>-ac<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">  </span>-o<span class="w"> </span>fuzzing/ffuf_files.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="w">  </span>-of<span class="w"> </span>json
+</span></code></pre></div>
+<p>With rate control:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ffuf<span class="w"> </span>-w<span class="w"> </span>wordlists/common.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="w">  </span>-u<span class="w"> </span>https://example.com/FUZZ<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">  </span>-ac<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="w">  </span>-rate<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">  </span>-t<span class="w"> </span><span class="m">10</span>
+</span></code></pre></div>
+<h3 id="feroxbuster-example">feroxbuster Example</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>feroxbuster<span class="w"> </span>-u<span class="w"> </span>https://example.com<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span>-w<span class="w"> </span>wordlists/common.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span>-x<span class="w"> </span>php,aspx,jsp,html,txt,bak,old,zip,sql<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">  </span>-k<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">  </span>-o<span class="w"> </span>fuzzing/feroxbuster.txt
+</span></code></pre></div>
+<h3 id="response-codes-during-discovery">Response Codes During Discovery</h3>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>Content exists. Review it.</td>
+</tr>
+<tr>
+<td>204</td>
+<td>Exists but empty. Still interesting.</td>
+</tr>
+<tr>
+<td>301/302/307/308</td>
+<td>Redirect. Follow and inspect destination.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Authentication required. Test after login.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden. May still exist and be worth deeper review.</td>
+</tr>
+<tr>
+<td>405</td>
+<td>Method not allowed. Try allowed methods later.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Server error. Could indicate hidden functionality or fragile input handling.</td>
+</tr>
+<tr>
+<td>Soft 404</td>
+<td>Looks like 200 but is actually a fake not-found page. Calibrate filters.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="avoid-common-fuzzing-mistakes">Avoid Common Fuzzing Mistakes</h3>
+<ul>
+<li>Do not trust status code alone.</li>
+<li>Filter by response size, words, and lines.</li>
+<li>Compare against random paths.</li>
+<li>Use recursion carefully.</li>
+<li>Keep rates reasonable.</li>
+<li>Use smaller wordlists first.</li>
+<li>Re-run discovery after authentication.</li>
+<li>Re-run discovery from important subdirectories, not only <code>/</code>.</li>
+</ul>
+<hr />
+<h2 id="virtual-host-discovery">Virtual Host Discovery</h2>
+<p>Virtual host discovery finds hidden apps served by the same IP or reverse proxy.</p>
+<p>Use when:</p>
+<ul>
+<li>a server responds differently based on <code>Host</code></li>
+<li>DNS does not show all apps</li>
+<li>you found a shared IP</li>
+<li>you suspect internal/staging vhosts</li>
+</ul>
+<p>Example:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>ffuf<span class="w"> </span>-w<span class="w"> </span>wordlists/subdomains.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span>-u<span class="w"> </span>https://target-ip-or-host/<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Host: FUZZ.example.com&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">  </span>-ac<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">  </span>-o<span class="w"> </span>fuzzing/vhosts.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">  </span>-of<span class="w"> </span>json
+</span></code></pre></div>
+<p>Interesting signals:</p>
+<ul>
+<li>different title</li>
+<li>different content length</li>
+<li>different redirect</li>
+<li>different status code</li>
+<li>login panel appears</li>
+<li>environment banner appears</li>
+</ul>
+<hr />
+<h2 id="parameter-discovery">Parameter Discovery</h2>
+<p>Parameters drive most web application testing.</p>
+<h3 id="sources-of-parameters">Sources of Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Crawled URLs</td>
+<td><code>/search?q=test</code>, <code>/item?id=123</code></td>
+</tr>
+<tr>
+<td>Archived URLs</td>
+<td>Old API routes and retired parameters.</td>
+</tr>
+<tr>
+<td>HTML forms</td>
+<td>Input names, hidden fields, CSRF tokens.</td>
+</tr>
+<tr>
+<td>JavaScript</td>
+<td>Fetch/XHR calls, route builders, GraphQL variables.</td>
+</tr>
+<tr>
+<td>API docs</td>
+<td>OpenAPI, Swagger, Postman collections.</td>
+</tr>
+<tr>
+<td>Mobile endpoints</td>
+<td><code>/mobile/api</code>, app-specific routes.</td>
+</tr>
+<tr>
+<td>Cookies</td>
+<td>tracking IDs, feature flags, tenant IDs.</td>
+</tr>
+<tr>
+<td>Headers</td>
+<td>custom <code>X-*</code> headers, API version headers.</td>
+</tr>
+<tr>
+<td>WebSockets</td>
+<td>JSON message keys.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interesting-parameter-names">Interesting Parameter Names</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Possible next test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code>, <code>user_id</code>, <code>account_id</code>, <code>order_id</code></td>
+<td>IDOR, access control, SQLi.</td>
+</tr>
+<tr>
+<td><code>file</code>, <code>path</code>, <code>folder</code>, <code>template</code></td>
+<td>Path traversal, LFI, file disclosure.</td>
+</tr>
+<tr>
+<td><code>url</code>, <code>uri</code>, <code>redirect</code>, <code>next</code>, <code>return</code></td>
+<td>Open redirect, SSRF.</td>
+</tr>
+<tr>
+<td><code>search</code>, <code>q</code>, <code>query</code>, <code>keyword</code></td>
+<td>SQLi, XSS, search injection.</td>
+</tr>
+<tr>
+<td><code>sort</code>, <code>order</code>, <code>filter</code></td>
+<td>SQLi, logic bugs, mass assignment.</td>
+</tr>
+<tr>
+<td><code>callback</code>, <code>jsonp</code></td>
+<td>JSONP issues, XSS.</td>
+</tr>
+<tr>
+<td><code>debug</code>, <code>test</code>, <code>preview</code></td>
+<td>Debug exposure, auth bypass.</td>
+</tr>
+<tr>
+<td><code>role</code>, <code>admin</code>, <code>is_admin</code></td>
+<td>Privilege escalation, mass assignment.</td>
+</tr>
+<tr>
+<td><code>price</code>, <code>amount</code>, <code>discount</code>, <code>coupon</code></td>
+<td>Business logic testing.</td>
+</tr>
+<tr>
+<td><code>email</code>, <code>username</code>, <code>phone</code></td>
+<td>Account enumeration, injection.</td>
+</tr>
+<tr>
+<td><code>token</code>, <code>code</code>, <code>otp</code></td>
+<td>Token handling, brute force resistance.</td>
+</tr>
+<tr>
+<td><code>lang</code>, <code>locale</code>, <code>theme</code></td>
+<td>File inclusion, template issues.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="extract-parameters-from-urls">Extract Parameters from URLs</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>cat<span class="w"> </span>urls/all_urls.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;?&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/.*?//&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;&amp;&#39;</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="w"> </span>-f<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>params/parameters.txt
+</span></code></pre></div>
+<h3 id="parameter-fuzzing-with-ffuf">Parameter Fuzzing with ffuf</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ffuf<span class="w"> </span>-w<span class="w"> </span>wordlists/parameters.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span>-u<span class="w"> </span><span class="s2">&quot;https://example.com/search?FUZZ=test&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="w">  </span>-ac<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="w">  </span>-o<span class="w"> </span>params/ffuf_params.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">  </span>-of<span class="w"> </span>json
+</span></code></pre></div>
+<h3 id="parameter-discovery-with-arjun">Parameter Discovery with Arjun</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>arjun<span class="w"> </span>-u<span class="w"> </span>https://example.com/search<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">  </span>-m<span class="w"> </span>GET<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">  </span>-oT<span class="w"> </span>params/arjun_get.txt
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>arjun<span class="w"> </span>-u<span class="w"> </span>https://example.com/api/search<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">  </span>-m<span class="w"> </span>POST<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="w">  </span>-oT<span class="w"> </span>params/arjun_post.txt
+</span></code></pre></div>
+<h3 id="routing-infrastructure-parameter-discovery">Routing &amp; Infrastructure Parameter Discovery</h3>
+<p>When mapping parameters, prioritize headers and parameters targeting underlying routing topology, reverse proxies, and caching layers. Misconfigurations here map to <strong>HTTP Request Smuggling, Web Cache Poisoning, and Access Control Bypasses</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Header / Parameter</th>
+<th>Target Behavior / Next Test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>X-Forwarded-Host</code> / <code>X-Forwarded-For</code></td>
+<td>Test for regional/IP restriction bypasses and Web Cache Poisoning.</td>
+</tr>
+<tr>
+<td><code>X-Original-URL</code> / <code>X-Rewrite-URL</code></td>
+<td>Exploits routing discrepancies to bypass local proxy rule restrictions (e.g., matching <code>/admin</code> access rules using <code>/public?X-Original-URL=/admin</code>).</td>
+</tr>
+<tr>
+<td><code>?cb=12345</code> (Cache Buster)</td>
+<td>Append unique cache-busting strings to force edge environments to fetch clean responses during fuzzing.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="javascript-reconnaissance">JavaScript Reconnaissance</h2>
+<p>Modern web apps often expose useful information in JavaScript files.</p>
+<h3 id="collect-javascript-files">Collect JavaScript Files</h3>
+<p>From crawled and archived URLs:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>cat<span class="w"> </span>urls/all_urls.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">&#39;\.js($|\?)&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>js/js_files.txt
+</span></code></pre></div>
+<p>Download for review:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>js/files
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>cat<span class="w"> </span>js/js_files.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>url<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="w">  </span><span class="nv">name</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$url</span><span class="s2">&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s#[/:?&amp;=]#_#g&#39;</span><span class="k">)</span>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="w">  </span>curl<span class="w"> </span>-sk<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$url</span><span class="s2">&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="s2">&quot;js/files/</span><span class="nv">$name</span><span class="s2">&quot;</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="k">done</span>
+</span></code></pre></div>
+<h3 id="what-to-search-for">What to Search For</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API endpoints</td>
+<td>Hidden backend routes.</td>
+</tr>
+<tr>
+<td>Full URLs</td>
+<td>Other subdomains or third-party services.</td>
+</tr>
+<tr>
+<td>Source maps</td>
+<td>May reveal readable source code.</td>
+</tr>
+<tr>
+<td>Secrets</td>
+<td>API keys, tokens, credentials, private endpoints.</td>
+</tr>
+<tr>
+<td>Feature flags</td>
+<td>Hidden features or roles.</td>
+</tr>
+<tr>
+<td>Route names</td>
+<td>Client-side-only paths.</td>
+</tr>
+<tr>
+<td>GraphQL queries</td>
+<td>Schema hints and operation names.</td>
+</tr>
+<tr>
+<td>WebSocket URLs</td>
+<td>Real-time API attack surface.</td>
+</tr>
+<tr>
+<td>Cloud bucket names</td>
+<td>Storage exposure testing.</td>
+</tr>
+<tr>
+<td>Comments/TODOs</td>
+<td>Developer notes and unfinished features.</td>
+</tr>
+<tr>
+<td>Environment names</td>
+<td>dev, staging, internal APIs.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="client-side-secrets-obfuscated-routes-code-auditing">Client-Side Secrets &amp; Obfuscated Routes Code Auditing</h4>
+<p>Modern web single-page applications (SPAs) build components into highly minified chunks. Supplement typical manual lookups with specialized static extractors to filter structural endpoints out of client code cleanly.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># Scan downloaded client assets via automated file-system secret scanners</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>trufflehog<span class="w"> </span>filesystem<span class="w"> </span>js/files/
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="c1"># Extract structural endpoints and implicit SPA routing trees via tailored regex strings</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>cat<span class="w"> </span>js/files/*<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-oE<span class="w"> </span><span class="s2">&quot;([&#39;\&quot;])/[a-zA-Z0-9_\-\/]+([&#39;\&quot;])&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>js/extracted_routes.txt
+</span></code></pre></div>
+<h3 id="source-maps">Source Maps</h3>
+<p>Look for:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>app.js.map
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>main.js.map
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>bundle.js.map
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a>/_next/static/chunks/*.js.map
+</span></code></pre></div>
+<p>Source maps can expose:</p>
+<ul>
+<li>original source code</li>
+<li>route structure</li>
+<li>comments</li>
+<li>internal package names</li>
+<li>API endpoints</li>
+<li>sometimes secrets</li>
+</ul>
+<blockquote>
+<p><strong>Tactical Tip:</strong> If a <code>.js.map</code> exposure is identified, do not simply parse it through text viewers. Leverage dedicated source map reconstructors like <code>unwebpack-sourcemap</code> to unpack original functional templates into their native code tree locally, giving you parity with looking at a developer's private repository.</p>
+</blockquote>
+<p>Do not treat a secret as valid until verified safely and within scope.</p>
+<hr />
+<h2 id="api-discovery">API Discovery</h2>
+<p>APIs usually provide the most valuable next-step testing targets.</p>
+<h3 id="common-api-paths">Common API Paths</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>/api
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>/api/v1
+</span><span id="__span-28-3"><a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>/api/v2
+</span><span id="__span-28-4"><a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>/rest
+</span><span id="__span-28-5"><a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>/graphql
+</span><span id="__span-28-6"><a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a>/gql
+</span><span id="__span-28-7"><a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a>/rpc
+</span><span id="__span-28-8"><a id="__codelineno-28-8" name="__codelineno-28-8" href="#__codelineno-28-8"></a>/backend
+</span><span id="__span-28-9"><a id="__codelineno-28-9" name="__codelineno-28-9" href="#__codelineno-28-9"></a>/internal
+</span><span id="__span-28-10"><a id="__codelineno-28-10" name="__codelineno-28-10" href="#__codelineno-28-10"></a>/mobile
+</span><span id="__span-28-11"><a id="__codelineno-28-11" name="__codelineno-28-11" href="#__codelineno-28-11"></a>/admin/api
+</span><span id="__span-28-12"><a id="__codelineno-28-12" name="__codelineno-28-12" href="#__codelineno-28-12"></a>/swagger
+</span><span id="__span-28-13"><a id="__codelineno-28-13" name="__codelineno-28-13" href="#__codelineno-28-13"></a>/swagger-ui
+</span><span id="__span-28-14"><a id="__codelineno-28-14" name="__codelineno-28-14" href="#__codelineno-28-14"></a>/api-docs
+</span><span id="__span-28-15"><a id="__codelineno-28-15" name="__codelineno-28-15" href="#__codelineno-28-15"></a>/openapi.json
+</span><span id="__span-28-16"><a id="__codelineno-28-16" name="__codelineno-28-16" href="#__codelineno-28-16"></a>/openapi.yaml
+</span><span id="__span-28-17"><a id="__codelineno-28-17" name="__codelineno-28-17" href="#__codelineno-28-17"></a>/redoc
+</span><span id="__span-28-18"><a id="__codelineno-28-18" name="__codelineno-28-18" href="#__codelineno-28-18"></a>/docs
+</span><span id="__span-28-19"><a id="__codelineno-28-19" name="__codelineno-28-19" href="#__codelineno-28-19"></a>/postman.json
+</span></code></pre></div>
+<h3 id="api-recon-checklist">API Recon Checklist</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>What to record</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base URL</td>
+<td><code>https://api.example.com</code>, <code>/api/v1</code></td>
+</tr>
+<tr>
+<td>Auth type</td>
+<td>Cookie, Bearer token, API key, mTLS, SSO</td>
+</tr>
+<tr>
+<td>Content type</td>
+<td>JSON, XML, GraphQL, multipart, protobuf</td>
+</tr>
+<tr>
+<td>Versioning</td>
+<td>URL version, header version, query version</td>
+</tr>
+<tr>
+<td>Object IDs</td>
+<td>UUID, integer, hashid, slug</td>
+</tr>
+<tr>
+<td>Rate limits</td>
+<td>Headers and observed behavior</td>
+</tr>
+<tr>
+<td>Error format</td>
+<td>Stack traces, validation errors, internal codes</td>
+</tr>
+<tr>
+<td>CORS</td>
+<td>Origins, credentials, methods, headers</td>
+</tr>
+<tr>
+<td>Documentation</td>
+<td>Swagger, OpenAPI, Redoc, GraphQL schema</td>
+</tr>
+<tr>
+<td>Hidden methods</td>
+<td>GET/POST/PUT/PATCH/DELETE differences</td>
+</tr>
+<tr>
+<td>Role behavior</td>
+<td>Guest, user, admin, tenant admin</td>
+</tr>
+</tbody>
+</table>
+<h3 id="swaggeropenapi">Swagger/OpenAPI</h3>
+<p>Look for:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>/swagger.json
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>/openapi.json
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>/v3/api-docs
+</span><span id="__span-29-4"><a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>/api-docs
+</span><span id="__span-29-5"><a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>/swagger-ui/index.html
+</span></code></pre></div>
+<p>If found, extract:</p>
+<ul>
+<li>endpoints</li>
+<li>parameters</li>
+<li>schemas</li>
+<li>auth requirements</li>
+<li>admin-only routes</li>
+<li>deprecated routes</li>
+<li>file upload operations</li>
+</ul>
+<h3 id="graphql">GraphQL</h3>
+<p>Common endpoints:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>/graphql
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>/gql
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>/api/graphql
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>/v1/graphql
+</span></code></pre></div>
+<p>Initial recon questions:</p>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Is GraphQL exposed?</td>
+<td>Defines a dedicated test area.</td>
+</tr>
+<tr>
+<td>Is introspection enabled?</td>
+<td>May reveal schema and operations.</td>
+</tr>
+<tr>
+<td>Is authentication required?</td>
+<td>Determines public attack surface.</td>
+</tr>
+<tr>
+<td>Are errors verbose?</td>
+<td>May leak resolver names and stack traces.</td>
+</tr>
+<tr>
+<td>Are IDs global or guessable?</td>
+<td>Useful for authorization testing.</td>
+</tr>
+<tr>
+<td>Are mutations exposed?</td>
+<td>Higher-risk functionality.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="introspection-blindspots-bypasses">Introspection Blindspots &amp; Bypasses</h4>
+<p>If an infrastructure returns an introspection validation error, it does not mark the conclusion of the API mapping. Modern GraphQL engines utilize "Field Suggestions" algorithms that reveal structural schemas when queried close to valid inputs.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>                  ┌─────────────── GraphQL Endpoint ──────────────┐
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>                  │                                               │
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>                  ▼                                               ▼
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>     [Introspection Enabled]                          [Introspection Disabled]
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>                  │                                               │
+</span><span id="__span-31-6"><a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>                  ▼                                               ▼
+</span><span id="__span-31-7"><a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a>   • Dump full schema using InQL.                 • Use Clairvoyance / Graphw00f.
+</span><span id="__span-31-8"><a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>   • Map mutations and queries.                   • Exploit &quot;Field Suggestions&quot; errors.
+</span><span id="__span-31-9"><a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a>   • Target Authorization (BOLA).                 • Reconstruct schema via brute-force.
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="c1"># Brute-force schema models via error suggestion enumeration algorithms</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>clairvoyance<span class="w"> </span>-o<span class="w"> </span>graphql_schema.json<span class="w"> </span>https://example.com/graphql
+</span></code></pre></div>
+<hr />
+<h2 id="authentication-and-role-mapping">Authentication and Role Mapping</h2>
+<p>Recon should create a map of how users enter and move through the app.</p>
+<h3 id="authentication-areas">Authentication Areas</h3>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>What to collect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Login</td>
+<td>Endpoint, method, parameters, cookies.</td>
+</tr>
+<tr>
+<td>Registration</td>
+<td>Required fields, email verification, invitation flows.</td>
+</tr>
+<tr>
+<td>Password reset</td>
+<td>Token format, delivery channel, expiration hints.</td>
+</tr>
+<tr>
+<td>MFA</td>
+<td>Methods, backup codes, remember device behavior.</td>
+</tr>
+<tr>
+<td>SSO</td>
+<td>OIDC/SAML endpoints, callback URLs, tenant selection.</td>
+</tr>
+<tr>
+<td>Logout</td>
+<td>Token invalidation, session cookie clearing.</td>
+</tr>
+<tr>
+<td>Session cookies</td>
+<td>Flags, names, scope, SameSite, domain.</td>
+</tr>
+<tr>
+<td>CSRF tokens</td>
+<td>Location, rotation behavior, per-form or per-session.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="role-and-tenant-mapping">Role and Tenant Mapping</h3>
+<p>Create a simple matrix:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Guest</th>
+<th>User</th>
+<th>Manager</th>
+<th>Admin</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>View profile</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Record object IDs.</td>
+</tr>
+<tr>
+<td>Edit profile</td>
+<td>No</td>
+<td>Own only</td>
+<td>Team</td>
+<td>Any</td>
+<td>Good access control target.</td>
+</tr>
+<tr>
+<td>Export data</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Check file generation.</td>
+</tr>
+<tr>
+<td>User management</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+<td>High-value endpoint.</td>
+</tr>
+<tr>
+<td>API docs</td>
+<td>Maybe</td>
+<td>Maybe</td>
+<td>Maybe</td>
+<td>Maybe</td>
+<td>Verify each role.</td>
+</tr>
+</tbody>
+</table>
+<p>This prepares the next phase:</p>
+<ul>
+<li>IDOR testing</li>
+<li>horizontal privilege escalation</li>
+<li>vertical privilege escalation</li>
+<li>tenant isolation testing</li>
+<li>workflow bypass testing</li>
+</ul>
+<hr />
+<h2 id="webserver-metafiles-and-public-policy-files">Webserver Metafiles and Public Policy Files</h2>
+<p>These files are not vulnerabilities by themselves, but they reveal routes, policies, and app structure.</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/robots.txt</code></td>
+<td>Disallowed paths can reveal admin or private areas.</td>
+</tr>
+<tr>
+<td><code>/sitemap.xml</code></td>
+<td>Lists routes that may not be linked visibly.</td>
+</tr>
+<tr>
+<td><code>/.well-known/security.txt</code></td>
+<td>Security contact and sometimes asset hints.</td>
+</tr>
+<tr>
+<td><code>/.well-known/assetlinks.json</code></td>
+<td>Android app associations and package names.</td>
+</tr>
+<tr>
+<td><code>/.well-known/apple-app-site-association</code></td>
+<td>iOS app associations and routes.</td>
+</tr>
+<tr>
+<td><code>/crossdomain.xml</code></td>
+<td>Legacy Flash cross-domain policy.</td>
+</tr>
+<tr>
+<td><code>/clientaccesspolicy.xml</code></td>
+<td>Legacy Silverlight policy.</td>
+</tr>
+<tr>
+<td><code>/humans.txt</code></td>
+<td>Developer/team hints.</td>
+</tr>
+<tr>
+<td><code>/ads.txt</code></td>
+<td>Related domains and business context.</td>
+</tr>
+</tbody>
+</table>
+<p>Check quickly:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="k">for</span><span class="w"> </span>path<span class="w"> </span><span class="k">in</span><span class="w"> </span>robots.txt<span class="w"> </span>sitemap.xml<span class="w"> </span>.well-known/security.txt<span class="w"> </span>.well-known/assetlinks.json<span class="w"> </span>.well-known/apple-app-site-association<span class="w"> </span>crossdomain.xml<span class="w"> </span>clientaccesspolicy.xml<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="w">  </span>curl<span class="w"> </span>-sk<span class="w"> </span><span class="s2">&quot;https://example.com/</span><span class="nv">$path</span><span class="s2">&quot;</span><span class="w"> </span>-I
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="k">done</span>
+</span></code></pre></div>
+<hr />
+<h2 id="information-leakage-in-content">Information Leakage in Content</h2>
+<p>Review public content for:</p>
+<table>
+<thead>
+<tr>
+<th>Leak</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Usernames</td>
+<td>emails, author names, support staff.</td>
+</tr>
+<tr>
+<td>Internal hostnames</td>
+<td><code>internal-api</code>, <code>corp-db</code>, <code>staging</code>.</td>
+</tr>
+<tr>
+<td>Software versions</td>
+<td>framework, CMS, server versions.</td>
+</tr>
+<tr>
+<td>Stack traces</td>
+<td>file paths, package names, line numbers.</td>
+</tr>
+<tr>
+<td>Comments</td>
+<td>TODO, debug notes, disabled links.</td>
+</tr>
+<tr>
+<td>Documents</td>
+<td>metadata in PDFs, spreadsheets, Word files.</td>
+</tr>
+<tr>
+<td>Backup names</td>
+<td>old URLs, database names, project names.</td>
+</tr>
+<tr>
+<td>Environment banners</td>
+<td>staging, development, QA.</td>
+</tr>
+<tr>
+<td>Tenant or org IDs</td>
+<td>useful for authorization testing.</td>
+</tr>
+</tbody>
+</table>
+<p>Document metadata may reveal:</p>
+<ul>
+<li>usernames</li>
+<li>internal paths</li>
+<li>software versions</li>
+<li>template names</li>
+<li>email addresses</li>
+</ul>
+<hr />
+<h2 id="hidden-and-high-value-paths">Hidden and High-Value Paths</h2>
+<p>Prioritize these during discovery:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>/admin
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>/administrator
+</span><span id="__span-34-3"><a id="__codelineno-34-3" name="__codelineno-34-3" href="#__codelineno-34-3"></a>/backend
+</span><span id="__span-34-4"><a id="__codelineno-34-4" name="__codelineno-34-4" href="#__codelineno-34-4"></a>/manage
+</span><span id="__span-34-5"><a id="__codelineno-34-5" name="__codelineno-34-5" href="#__codelineno-34-5"></a>/dashboard
+</span><span id="__span-34-6"><a id="__codelineno-34-6" name="__codelineno-34-6" href="#__codelineno-34-6"></a>/cms
+</span><span id="__span-34-7"><a id="__codelineno-34-7" name="__codelineno-34-7" href="#__codelineno-34-7"></a>/login
+</span><span id="__span-34-8"><a id="__codelineno-34-8" name="__codelineno-34-8" href="#__codelineno-34-8"></a>/logout
+</span><span id="__span-34-9"><a id="__codelineno-34-9" name="__codelineno-34-9" href="#__codelineno-34-9"></a>/register
+</span><span id="__span-34-10"><a id="__codelineno-34-10" name="__codelineno-34-10" href="#__codelineno-34-10"></a>/signup
+</span><span id="__span-34-11"><a id="__codelineno-34-11" name="__codelineno-34-11" href="#__codelineno-34-11"></a>/password-reset
+</span><span id="__span-34-12"><a id="__codelineno-34-12" name="__codelineno-34-12" href="#__codelineno-34-12"></a>/reset
+</span><span id="__span-34-13"><a id="__codelineno-34-13" name="__codelineno-34-13" href="#__codelineno-34-13"></a>/api
+</span><span id="__span-34-14"><a id="__codelineno-34-14" name="__codelineno-34-14" href="#__codelineno-34-14"></a>/api/v1
+</span><span id="__span-34-15"><a id="__codelineno-34-15" name="__codelineno-34-15" href="#__codelineno-34-15"></a>/graphql
+</span><span id="__span-34-16"><a id="__codelineno-34-16" name="__codelineno-34-16" href="#__codelineno-34-16"></a>/swagger
+</span><span id="__span-34-17"><a id="__codelineno-34-17" name="__codelineno-34-17" href="#__codelineno-34-17"></a>/api-docs
+</span><span id="__span-34-18"><a id="__codelineno-34-18" name="__codelineno-34-18" href="#__codelineno-34-18"></a>/redoc
+</span><span id="__span-34-19"><a id="__codelineno-34-19" name="__codelineno-34-19" href="#__codelineno-34-19"></a>/openapi.json
+</span><span id="__span-34-20"><a id="__codelineno-34-20" name="__codelineno-34-20" href="#__codelineno-34-20"></a>/debug
+</span><span id="__span-34-21"><a id="__codelineno-34-21" name="__codelineno-34-21" href="#__codelineno-34-21"></a>/trace
+</span><span id="__span-34-22"><a id="__codelineno-34-22" name="__codelineno-34-22" href="#__codelineno-34-22"></a>/actuator
+</span><span id="__span-34-23"><a id="__codelineno-34-23" name="__codelineno-34-23" href="#__codelineno-34-23"></a>/phpinfo.php
+</span><span id="__span-34-24"><a id="__codelineno-34-24" name="__codelineno-34-24" href="#__codelineno-34-24"></a>/server-status
+</span><span id="__span-34-25"><a id="__codelineno-34-25" name="__codelineno-34-25" href="#__codelineno-34-25"></a>/uploads
+</span><span id="__span-34-26"><a id="__codelineno-34-26" name="__codelineno-34-26" href="#__codelineno-34-26"></a>/files
+</span><span id="__span-34-27"><a id="__codelineno-34-27" name="__codelineno-34-27" href="#__codelineno-34-27"></a>/media
+</span><span id="__span-34-28"><a id="__codelineno-34-28" name="__codelineno-34-28" href="#__codelineno-34-28"></a>/storage
+</span><span id="__span-34-29"><a id="__codelineno-34-29" name="__codelineno-34-29" href="#__codelineno-34-29"></a>/backup
+</span><span id="__span-34-30"><a id="__codelineno-34-30" name="__codelineno-34-30" href="#__codelineno-34-30"></a>/backups
+</span><span id="__span-34-31"><a id="__codelineno-34-31" name="__codelineno-34-31" href="#__codelineno-34-31"></a>/old
+</span><span id="__span-34-32"><a id="__codelineno-34-32" name="__codelineno-34-32" href="#__codelineno-34-32"></a>/dev
+</span><span id="__span-34-33"><a id="__codelineno-34-33" name="__codelineno-34-33" href="#__codelineno-34-33"></a>/test
+</span><span id="__span-34-34"><a id="__codelineno-34-34" name="__codelineno-34-34" href="#__codelineno-34-34"></a>/staging
+</span><span id="__span-34-35"><a id="__codelineno-34-35" name="__codelineno-34-35" href="#__codelineno-34-35"></a>/.git
+</span><span id="__span-34-36"><a id="__codelineno-34-36" name="__codelineno-34-36" href="#__codelineno-34-36"></a>/.env
+</span></code></pre></div>
+<p>High-value file extensions:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>.bak
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>.old
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>.orig
+</span><span id="__span-35-4"><a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a>.save
+</span><span id="__span-35-5"><a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a>.swp
+</span><span id="__span-35-6"><a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a>.tmp
+</span><span id="__span-35-7"><a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a>.zip
+</span><span id="__span-35-8"><a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a>.tar
+</span><span id="__span-35-9"><a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a>.tar.gz
+</span><span id="__span-35-10"><a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a>.7z
+</span><span id="__span-35-11"><a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a>.rar
+</span><span id="__span-35-12"><a id="__codelineno-35-12" name="__codelineno-35-12" href="#__codelineno-35-12"></a>.sql
+</span><span id="__span-35-13"><a id="__codelineno-35-13" name="__codelineno-35-13" href="#__codelineno-35-13"></a>.db
+</span><span id="__span-35-14"><a id="__codelineno-35-14" name="__codelineno-35-14" href="#__codelineno-35-14"></a>.sqlite
+</span><span id="__span-35-15"><a id="__codelineno-35-15" name="__codelineno-35-15" href="#__codelineno-35-15"></a>.log
+</span><span id="__span-35-16"><a id="__codelineno-35-16" name="__codelineno-35-16" href="#__codelineno-35-16"></a>.conf
+</span><span id="__span-35-17"><a id="__codelineno-35-17" name="__codelineno-35-17" href="#__codelineno-35-17"></a>.config
+</span><span id="__span-35-18"><a id="__codelineno-35-18" name="__codelineno-35-18" href="#__codelineno-35-18"></a>.yml
+</span><span id="__span-35-19"><a id="__codelineno-35-19" name="__codelineno-35-19" href="#__codelineno-35-19"></a>.yaml
+</span><span id="__span-35-20"><a id="__codelineno-35-20" name="__codelineno-35-20" href="#__codelineno-35-20"></a>.json
+</span><span id="__span-35-21"><a id="__codelineno-35-21" name="__codelineno-35-21" href="#__codelineno-35-21"></a>.env
+</span></code></pre></div>
+<hr />
+<h2 id="cloud-and-external-asset-hints">Cloud and External Asset Hints</h2>
+<p>Web apps often expose cloud resources indirectly.</p>
+<p>Look for:</p>
+<table>
+<thead>
+<tr>
+<th>Asset</th>
+<th>Where it appears</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S3 buckets</td>
+<td>JavaScript, HTML, upload URLs, CNAMEs.</td>
+</tr>
+<tr>
+<td>Azure Blob containers</td>
+<td>JS files, image URLs, documents.</td>
+</tr>
+<tr>
+<td>GCS buckets</td>
+<td>Static assets, download links.</td>
+</tr>
+<tr>
+<td>Firebase projects</td>
+<td>JS config, mobile app files.</td>
+</tr>
+<tr>
+<td>CDN origins</td>
+<td>Headers, CNAMEs, error pages.</td>
+</tr>
+<tr>
+<td>SaaS apps</td>
+<td>CNAMEs, SSO links, login redirects.</td>
+</tr>
+<tr>
+<td>Webhooks</td>
+<td>JS, API docs, admin UI.</td>
+</tr>
+</tbody>
+</table>
+<p>Next steps depend on scope:</p>
+<ul>
+<li>check public listing/read access</li>
+<li>check upload permissions</li>
+<li>check CORS</li>
+<li>check signed URL behavior</li>
+<li>check tenant isolation</li>
+<li>check subdomain takeover risk</li>
+</ul>
+<hr />
+<h2 id="cors-and-security-headers-recon">CORS and Security Headers Recon</h2>
+<p>During recon, collect headers. Full exploitation comes later.</p>
+<p>Important headers:</p>
+<table>
+<thead>
+<tr>
+<th>Header</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Access-Control-Allow-Origin</code></td>
+<td>May indicate CORS issues.</td>
+</tr>
+<tr>
+<td><code>Access-Control-Allow-Credentials</code></td>
+<td>Higher risk if combined with permissive origin.</td>
+</tr>
+<tr>
+<td><code>Content-Security-Policy</code></td>
+<td>Helps plan XSS testing.</td>
+</tr>
+<tr>
+<td><code>Set-Cookie</code></td>
+<td>Check <code>HttpOnly</code>, <code>Secure</code>, <code>SameSite</code>, domain, path.</td>
+</tr>
+<tr>
+<td><code>Strict-Transport-Security</code></td>
+<td>TLS enforcement.</td>
+</tr>
+<tr>
+<td><code>X-Frame-Options</code> / <code>frame-ancestors</code></td>
+<td>Clickjacking exposure.</td>
+</tr>
+<tr>
+<td><code>X-Content-Type-Options</code></td>
+<td>MIME sniffing protection.</td>
+</tr>
+<tr>
+<td><code>Referrer-Policy</code></td>
+<td>Information leakage through referrers.</td>
+</tr>
+<tr>
+<td><code>Permissions-Policy</code></td>
+<td>Browser feature restrictions.</td>
+</tr>
+</tbody>
+</table>
+<p>Collect headers:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>curl<span class="w"> </span>-skI<span class="w"> </span>https://example.com
+</span></code></pre></div>
+<p>or at scale with httpx:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>httpx<span class="w"> </span>-l<span class="w"> </span>http/live.txt<span class="w"> </span>-silent<span class="w"> </span>-json<span class="w"> </span>-include-response-header<span class="w"> </span>-o<span class="w"> </span>http/headers.jsonl
+</span></code></pre></div>
+<hr />
+<h2 id="recon-data-triage">Recon Data Triage</h2>
+<p>Not every discovered item deserves the same time. Prioritize based on impact and testability.</p>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Priority</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unauthenticated admin panel</td>
+<td>High</td>
+<td>May expose weak auth or default credentials.</td>
+</tr>
+<tr>
+<td>Staging app with real data</td>
+<td>High</td>
+<td>Often weaker controls.</td>
+</tr>
+<tr>
+<td>API documentation</td>
+<td>High</td>
+<td>Gives complete endpoint and parameter map.</td>
+</tr>
+<tr>
+<td>GraphQL endpoint</td>
+<td>High</td>
+<td>Dedicated testing surface.</td>
+</tr>
+<tr>
+<td>File upload endpoint</td>
+<td>High</td>
+<td>Usually high-impact if vulnerable.</td>
+</tr>
+<tr>
+<td>Object IDs in URLs</td>
+<td>High</td>
+<td>IDOR and access control testing.</td>
+</tr>
+<tr>
+<td>Hidden backup/config file</td>
+<td>High</td>
+<td>Possible sensitive data exposure.</td>
+</tr>
+<tr>
+<td>Verbose error page</td>
+<td>Medium</td>
+<td>Helps fingerprint and find injection points.</td>
+</tr>
+<tr>
+<td>Old archived endpoint</td>
+<td>Medium</td>
+<td>May still exist or reveal parameters.</td>
+</tr>
+<tr>
+<td>Static marketing page</td>
+<td>Low</td>
+<td>Usually limited attack surface.</td>
+</tr>
+<tr>
+<td>CDN-only static host</td>
+<td>Low</td>
+<td>Still check for source maps and bucket hints.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="mapping-findings-to-next-tests">Mapping Findings to Next Tests</h2>
+<p>Use this table to convert recon findings into the next pentest actions.</p>
+<table>
+<thead>
+<tr>
+<th>Recon finding</th>
+<th>Next tests</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search fields or filter parameters</td>
+<td>SQLi, NoSQLi, XSS, template injection.</td>
+</tr>
+<tr>
+<td>Reflected parameters</td>
+<td>XSS, open redirect, HTML injection.</td>
+</tr>
+<tr>
+<td><code>id</code>, <code>user_id</code>, <code>order_id</code></td>
+<td>IDOR, authorization bypass, SQLi.</td>
+</tr>
+<tr>
+<td><code>file</code>, <code>path</code>, <code>template</code></td>
+<td>Path traversal, LFI, file disclosure.</td>
+</tr>
+<tr>
+<td><code>url</code>, <code>redirect</code>, <code>next</code>, <code>return</code></td>
+<td>Open redirect, SSRF.</td>
+</tr>
+<tr>
+<td>File upload endpoint</td>
+<td>Upload bypass, content-type checks, storage access.</td>
+</tr>
+<tr>
+<td>API docs</td>
+<td>Auth bypass, BOLA/IDOR, mass assignment, rate limits.</td>
+</tr>
+<tr>
+<td>GraphQL endpoint</td>
+<td>Introspection, authorization, batching, depth, complexity.</td>
+</tr>
+<tr>
+<td>WebSocket endpoint</td>
+<td>Auth, origin checks, message tampering.</td>
+</tr>
+<tr>
+<td>Admin panel</td>
+<td>Access control, default creds if allowed, session handling.</td>
+</tr>
+<tr>
+<td>Password reset flow</td>
+<td>Token entropy, expiration, account enumeration.</td>
+</tr>
+<tr>
+<td>SSO/OIDC/SAML</td>
+<td>Redirect URI, state/nonce, role mapping, callback handling.</td>
+</tr>
+<tr>
+<td>Verbose errors</td>
+<td>Injection, path leakage, framework-specific tests.</td>
+</tr>
+<tr>
+<td>Source maps</td>
+<td>Source review, hidden routes, secrets review.</td>
+</tr>
+<tr>
+<td>CORS wildcard</td>
+<td>CORS exploitation testing.</td>
+</tr>
+<tr>
+<td>Missing security headers</td>
+<td>XSS/clickjacking/session hardening review.</td>
+</tr>
+<tr>
+<td>Cloud bucket names</td>
+<td>Storage permission testing.</td>
+</tr>
+<tr>
+<td>CNAME to SaaS error page</td>
+<td>Subdomain takeover check.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="recommended-wordlists">Recommended Wordlists</h2>
+<p>Good wordlist categories:</p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Directories/files</td>
+<td>common web paths, technology-specific paths.</td>
+</tr>
+<tr>
+<td>API paths</td>
+<td><code>api</code>, <code>v1</code>, <code>graphql</code>, <code>swagger</code>, <code>openapi</code>.</td>
+</tr>
+<tr>
+<td>Parameters</td>
+<td>generic parameter names, framework-specific names.</td>
+</tr>
+<tr>
+<td>Subdomains</td>
+<td>common names and environment names.</td>
+</tr>
+<tr>
+<td>Extensions</td>
+<td>based on technology: <code>.php</code>, <code>.aspx</code>, <code>.jsp</code>, <code>.js</code>, <code>.json</code>.</td>
+</tr>
+<tr>
+<td>Backup names</td>
+<td><code>.bak</code>, <code>.old</code>, <code>.zip</code>, <code>.tar.gz</code>, <code>.sql</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Common sources:</p>
+<ul>
+<li>SecLists</li>
+<li>Assetnote wordlists</li>
+<li>custom wordlists built from the target</li>
+<li>words extracted from page content and JavaScript</li>
+<li>words extracted from URLs and route names</li>
+</ul>
+<p>Build a target-specific wordlist:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>cat<span class="w"> </span>urls/all_urls.txt<span class="w"> </span>js/endpoints.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;/?&amp;=._-:&#39;</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;^[a-zA-Z0-9]{3,}$&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-38-4"><a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>fuzzing/target_words.txt
+</span></code></pre></div>
+<hr />
+<h2 id="practical-command-pipeline">Practical Command Pipeline</h2>
+<p>This is a simple web-focused recon pipeline. Adjust rate limits and scope before running.</p>
+<h3 id="1-define-scope">1. Define Scope</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>recon/<span class="o">{</span>scope,subdomains,http,urls,params,js,fuzzing,report<span class="o">}</span>
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>cat<span class="w"> </span>&gt;<span class="w"> </span>recon/scope/domains.txt<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="s">example.com</span>
+</span><span id="__span-39-5"><a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="s">EOF</span>
+</span></code></pre></div>
+<h3 id="2-passive-subdomain-discovery">2. Passive Subdomain Discovery</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>subfinder<span class="w"> </span>-dL<span class="w"> </span>recon/scope/domains.txt<span class="w"> </span>-all<span class="w"> </span>-silent<span class="w"> </span>-o<span class="w"> </span>recon/subdomains/subfinder.txt
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>domain<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="w">  </span>amass<span class="w"> </span>enum<span class="w"> </span>-passive<span class="w"> </span>-d<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$domain</span><span class="s2">&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="s2">&quot;recon/subdomains/amass_</span><span class="nv">$domain</span><span class="s2">.txt&quot;</span>
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="k">done</span><span class="w"> </span>&lt;<span class="w"> </span>recon/scope/domains.txt
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>
+</span><span id="__span-40-7"><a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a>cat<span class="w"> </span>recon/subdomains/*.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/^\*\.//&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>recon/subdomains/all.txt
+</span></code></pre></div>
+<h3 id="3-resolve-subdomains">3. Resolve Subdomains</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>dnsx<span class="w"> </span>-l<span class="w"> </span>recon/subdomains/all.txt<span class="w"> </span>-silent<span class="w"> </span>-o<span class="w"> </span>recon/subdomains/resolved.txt
+</span></code></pre></div>
+<h3 id="4-probe-httphttps">4. Probe HTTP/HTTPS</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>httpx<span class="w"> </span>-l<span class="w"> </span>recon/subdomains/resolved.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="w">  </span>-silent<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="w">  </span>-follow-host-redirects<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="w">  </span>-status-code<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="w">  </span>-title<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a><span class="w">  </span>-tech-detect<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a><span class="w">  </span>-web-server<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a><span class="w">  </span>-content-length<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-9"><a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a><span class="w">  </span>-location<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-10"><a id="__codelineno-42-10" name="__codelineno-42-10" href="#__codelineno-42-10"></a><span class="w">  </span>-json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-11"><a id="__codelineno-42-11" name="__codelineno-42-11" href="#__codelineno-42-11"></a><span class="w">  </span>-o<span class="w"> </span>recon/http/httpx.jsonl
+</span><span id="__span-42-12"><a id="__codelineno-42-12" name="__codelineno-42-12" href="#__codelineno-42-12"></a>
+</span><span id="__span-42-13"><a id="__codelineno-42-13" name="__codelineno-42-13" href="#__codelineno-42-13"></a>cat<span class="w"> </span>recon/http/httpx.jsonl<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;.url&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>recon/http/live.txt
+</span></code></pre></div>
+<h3 id="5-crawl-live-apps">5. Crawl Live Apps</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>katana<span class="w"> </span>-list<span class="w"> </span>recon/http/live.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a><span class="w">  </span>-silent<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-43-4"><a id="__codelineno-43-4" name="__codelineno-43-4" href="#__codelineno-43-4"></a><span class="w">  </span>-jc<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-43-5"><a id="__codelineno-43-5" name="__codelineno-43-5" href="#__codelineno-43-5"></a><span class="w">  </span>-kf<span class="w"> </span>all<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-43-6"><a id="__codelineno-43-6" name="__codelineno-43-6" href="#__codelineno-43-6"></a><span class="w">  </span>-o<span class="w"> </span>recon/urls/katana.txt
+</span></code></pre></div>
+<h3 id="6-collect-archived-urls">6. Collect Archived URLs</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>domain<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="w">  </span>gau<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$domain</span><span class="s2">&quot;</span>
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="k">done</span><span class="w"> </span>&lt;<span class="w"> </span>recon/scope/domains.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>recon/urls/archived.txt
+</span></code></pre></div>
+<h3 id="7-merge-urls">7. Merge URLs</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>cat<span class="w"> </span>recon/urls/katana.txt<span class="w"> </span>recon/urls/archived.txt<span class="w"> </span><span class="m">2</span>&gt;/dev/null<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>recon/urls/all_urls.txt
+</span></code></pre></div>
+<h3 id="8-extract-javascript">8. Extract JavaScript</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>cat<span class="w"> </span>recon/urls/all_urls.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">&#39;\.js($|\?)&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>recon/js/js_files.txt
+</span></code></pre></div>
+<h3 id="9-extract-parameters">9. Extract Parameters</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>cat<span class="w"> </span>recon/urls/all_urls.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s1">&#39;?&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/.*?//&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-47-4"><a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;&amp;&#39;</span><span class="w"> </span><span class="s1">&#39;\n&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-47-5"><a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;=&#39;</span><span class="w"> </span>-f<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-47-6"><a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>recon/params/parameters.txt
+</span></code></pre></div>
+<h3 id="10-find-interesting-urls">10. Find Interesting URLs</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>cat<span class="w"> </span>recon/urls/all_urls.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-Ei<span class="w"> </span><span class="s1">&#39;(admin|login|signup|register|reset|api|graphql|swagger|openapi|debug|actuator|upload|download|export|import|backup|old|dev|staging|test)&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a><span class="w">  </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>recon/urls/interesting_urls.txt
+</span></code></pre></div>
+<hr />
+<h2 id="minimal-ffuf-recipes">Minimal ffuf Recipes</h2>
+<h3 id="advanced-directory-context-discovery">Advanced Directory &amp; Context Discovery</h3>
+<p>Using automatic calibration (<code>-ac</code>) can fail in WAF environments or environments that return dynamic components (such as timestamps, random session hashes, or rotating nonces) on custom 404 views. Use explicit regex filtering rules and automated nested depth structures to discover deep trees cleanly.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>ffuf<span class="w"> </span>-w<span class="w"> </span>wordlists/common.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a><span class="w">  </span>-u<span class="w"> </span>https://example.com/FUZZ<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a><span class="w">  </span>-recursion<span class="w"> </span>-recursion-depth<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a><span class="w">  </span>-extension-auth<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-49-5"><a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a><span class="w">  </span>-fr<span class="w"> </span><span class="s2">&quot;timestamp|nonce|session|time&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-49-6"><a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a><span class="w">  </span>-rate<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-49-7"><a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a><span class="w">  </span>-t<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-49-8"><a id="__codelineno-49-8" name="__codelineno-49-8" href="#__codelineno-49-8"></a><span class="w">  </span>-o<span class="w"> </span>fuzzing/dirs.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-49-9"><a id="__codelineno-49-9" name="__codelineno-49-9" href="#__codelineno-49-9"></a><span class="w">  </span>-of<span class="w"> </span>json
+</span></code></pre></div>
+<h3 id="file-discovery-with-extensions">File Discovery with Extensions</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>ffuf<span class="w"> </span>-w<span class="w"> </span>wordlists/common.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a><span class="w">  </span>-u<span class="w"> </span>https://example.com/FUZZ<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a><span class="w">  </span>-e<span class="w"> </span>.php,.aspx,.jsp,.html,.js,.json,.txt,.bak,.old,.zip,.sql<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-50-4"><a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a><span class="w">  </span>-ac<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-50-5"><a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a><span class="w">  </span>-rate<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-50-6"><a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a><span class="w">  </span>-t<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-50-7"><a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a><span class="w">  </span>-o<span class="w"> </span>fuzzing/files.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-50-8"><a id="__codelineno-50-8" name="__codelineno-50-8" href="#__codelineno-50-8"></a><span class="w">  </span>-of<span class="w"> </span>json
+</span></code></pre></div>
+<h3 id="parameter-name-discovery">Parameter Name Discovery</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>ffuf<span class="w"> </span>-w<span class="w"> </span>wordlists/parameters.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="w">  </span>-u<span class="w"> </span><span class="s2">&quot;https://example.com/search?FUZZ=test&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="w">  </span>-ac<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-51-4"><a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="w">  </span>-rate<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-51-5"><a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a><span class="w">  </span>-t<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-51-6"><a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a><span class="w">  </span>-o<span class="w"> </span>params/ffuf_params.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-51-7"><a id="__codelineno-51-7" name="__codelineno-51-7" href="#__codelineno-51-7"></a><span class="w">  </span>-of<span class="w"> </span>json
+</span></code></pre></div>
+<h3 id="virtual-host-discovery_1">Virtual Host Discovery</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>ffuf<span class="w"> </span>-w<span class="w"> </span>wordlists/subdomains.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a><span class="w">  </span>-u<span class="w"> </span>https://example.com/<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Host: FUZZ.example.com&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-52-4"><a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a><span class="w">  </span>-ac<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-52-5"><a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a><span class="w">  </span>-rate<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-52-6"><a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a><span class="w">  </span>-t<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-52-7"><a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a><span class="w">  </span>-o<span class="w"> </span>fuzzing/vhosts.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-52-8"><a id="__codelineno-52-8" name="__codelineno-52-8" href="#__codelineno-52-8"></a><span class="w">  </span>-of<span class="w"> </span>json
+</span></code></pre></div>
+<hr />
+<h2 id="manual-review-checklist">Manual Review Checklist</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Questions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Authentication Flow</strong></td>
+<td>Are sessions invalidated cleanly across both front and backend frameworks during logout?</td>
+</tr>
+<tr>
+<td><strong>Input Surface</strong></td>
+<td>Do exposed search parameters and filter workflows accept or explicitly display user input inside source tags?</td>
+</tr>
+<tr>
+<td><strong>Multi-Tenancy</strong></td>
+<td>Do headers or parameter keys reveal clear ID values tracking tenant boundaries (e.g., <code>?tenant_id=X</code>)?</td>
+</tr>
+<tr>
+<td><strong>File Logic</strong></td>
+<td>Does the application accept uploads, and what frameworks handle extension filtering on data streams?</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="quick-recon-checklist">Quick Recon Checklist</h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Scope confirmed</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Exclusions recorded</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Passive subdomain enumeration done</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Active subdomain discovery done if allowed</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Wildcard DNS handled</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Live HTTP/HTTPS hosts identified</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Screenshots reviewed</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Technologies fingerprinted</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Main apps grouped</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Manual browsing performed through proxy</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Crawling completed</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Archived URLs collected</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Directory/file discovery completed</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Parameter list built</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> JavaScript files collected</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Source maps checked</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> API documentation checked</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> GraphQL checked</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> WebSockets checked</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Auth and roles mapped</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Interesting files checked</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Headers collected</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Cloud/SaaS hints reviewed</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Subdomain takeover candidates noted</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> Findings mapped to next tests</li>
+</ul>
+<hr />
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://hacktricks.wiki/en/pentesting-web/web-vulnerabilities-methodology.html">https://hacktricks.wiki/en/pentesting-web/web-vulnerabilities-methodology.html</a></li>
+<li><a href="https://hacktricks.wiki/en/generic-methodologies-and-resources/pentesting-methodology.html">https://hacktricks.wiki/en/generic-methodologies-and-resources/pentesting-methodology.html</a></li>
+<li><a href="https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/01-Information_Gathering/">https://owasp.org/www-project-web-security-testing-guide/stable/4-Web_Application_Security_Testing/01-Information_Gathering/</a></li>
+<li><a href="https://portswigger.net/support/recon-and-analysis-with-burp-suite">https://portswigger.net/support/recon-and-analysis-with-burp-suite</a></li>
+<li><a href="https://portswigger.net/burp/documentation/desktop/tools/engagement-tools/content-discovery">https://portswigger.net/burp/documentation/desktop/tools/engagement-tools/content-discovery</a></li>
+<li><a href="https://github.com/owasp-amass/amass">https://github.com/owasp-amass/amass</a></li>
+<li><a href="https://owasp-amass.github.io/docs/">https://owasp-amass.github.io/docs/</a></li>
+<li><a href="https://github.com/ffuf/ffuf">https://github.com/ffuf/ffuf</a></li>
+</ul>
 
 
 
@@ -968,7 +3974,7 @@
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.indexes", "toc.integrate", "navigation.tabs.sticky", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "toc.integrate", "toc.follow", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
       <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
@@ -976,6 +3982,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
       
         <script src="data:text/javascript,$(document).ready(function(){var search=$(&#39;.md-search&#39;);if(search.length){var minX=240;var batCont=$(&#39;&lt;div id=&#34;runaway-pixel-bat&#34; class=&#34;go-right&#34; style=&#34;position:absolute;left:&#39;+minX+&#39;px;top:2px;width:70px;height:50px;cursor:default;z-index:9999;user-select:none;&#34;&gt;&lt;/div&gt;&#39;);$(&#39;.md-header__inner&#39;).append(batCont);batCont.on(&#39;mouseenter&#39;,function(){var maxX=search.position().left-110;if(maxX&lt;=minX){maxX=minX+100;}var randomX=Math.floor(Math.random()*(maxX-minX))+minX;var randomY=Math.floor(Math.random()*10)-5;var currentX=batCont.position().left;if(randomX&lt;currentX){batCont.removeClass(&#39;go-right&#39;).addClass(&#39;go-left&#39;);}else{batCont.removeClass(&#39;go-left&#39;).addClass(&#39;go-right&#39;);}batCont.css({left:randomX+&#39;px&#39;,top:randomY+&#39;px&#39;});});}});"></script>
+      
+        <script src="../../javascripts/sidebar-follow-active.js"></script>
       
     
   </body>
