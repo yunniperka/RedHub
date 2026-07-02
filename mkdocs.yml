@@ -56,7 +56,7 @@ nav:
   - Enterprise Environments:
     - Active Directory: AD/README.md
   - Web Security:
-    - Different Attacks: Web/attacks.md
+    - XSS: Web/XSS.md
   - Networking & Infrastructure:
     - Network Architecture: Networking/README.md
   - Modern Architecture:
