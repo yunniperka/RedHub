@@ -81,7 +81,7 @@ Use these notes only for authorized testing, labs, CTFs, bug bounty scopes, or i
 
   
 
-## Basic Mental Model
+## Basics
 
   
 

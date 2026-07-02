@@ -41,7 +41,13 @@ nav:
   - Web Security:
       - Initial Reconnaissance: Web/Initial_Reconnaissance.md
       - SQL Injection: Web/SQL_Injection.md
-      - XSS: Web/XSS.md
+      - SSTI (Server Side Template Injection): Web/SSTI.md
+      - Command Injection: Web/Command_Injection.md
+      - XXE (XML External Entity Injection): Web/XXE.md
+      - Cypher Injection: Web/Cypher_Injection.md
+      - XSS (Cross-Site Scripting): Web/XSS.md
+      - SSRF (Server-Side Request Forgery): Web/SSRF.md
+      - CSRF (Cross-Site Request Forgery): Web/CSRF.md
   - Networking & Infrastructure:
       - Network Architecture: Networking/README.md
   - Modern Architecture:

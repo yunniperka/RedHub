@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  const STORAGE_PREFIX = "redhub.nav.page.collapsed.";
+  const OPEN_PAGE_KEY = "redhub.nav.page.open";
   const GENERATED_NAV_CLASS = "rh-generated-nav";
   const GENERATED_HEADING_CLASS = "rh-generated-heading";
   const LOADED_CLASS = "rh-page-headings-loaded";
@@ -268,9 +268,7 @@
       return [];
     }
 
-    return Array.from(
-      rootList.querySelectorAll(".md-nav__item")
-    )
+    return Array.from(rootList.querySelectorAll(".md-nav__item"))
       .filter(function (item) {
         if (item.classList.contains(GENERATED_HEADING_CLASS)) {
           return false;
@@ -295,15 +293,22 @@
     return url;
   }
 
-  function pageStorageKey(link) {
-    return STORAGE_PREFIX + pageUrl(link).href;
+  function pageKey(link) {
+    return pageUrl(link).href;
+  }
+
+  function currentPageKey() {
+    const url = new URL(window.location.href);
+    url.hash = "";
+    return url.href;
   }
 
   function isActivePage(item, link) {
     return (
       item.classList.contains("md-nav__item--active") ||
       link.classList.contains("md-nav__link--active") ||
-      link.getAttribute("aria-current") === "page"
+      link.getAttribute("aria-current") === "page" ||
+      pageKey(link) === currentPageKey()
     );
   }
 
@@ -449,6 +454,40 @@
     button.setAttribute("title", collapsed ? "Show page contents" : "Hide page contents");
   }
 
+  function collapsePage(item) {
+    const button = directChild(item, ".rh-page-toggle");
+
+    if (!button) {
+      return;
+    }
+
+    setCollapsed(item, button, true);
+  }
+
+  function expandPage(item, link) {
+    const button = directChild(item, ".rh-page-toggle");
+
+    if (!button) {
+      return;
+    }
+
+    collapseAllExcept(item);
+
+    localStorage.setItem(OPEN_PAGE_KEY, pageKey(link));
+    setCollapsed(item, button, false);
+    loadHeadings(item, link);
+  }
+
+  function collapseAllExcept(activeItem) {
+    document.querySelectorAll(".rh-collapsible-page").forEach(function (item) {
+      if (item === activeItem) {
+        return;
+      }
+
+      collapsePage(item);
+    });
+  }
+
   function removeInvalidControls(validItems) {
     document.querySelectorAll(".rh-section-toggle").forEach(function (button) {
       button.remove();
@@ -513,6 +552,30 @@
     });
   }
 
+  function shouldStartOpen(item, link) {
+    const savedOpenPage = localStorage.getItem(OPEN_PAGE_KEY);
+
+    if (savedOpenPage) {
+      return savedOpenPage === pageKey(link);
+    }
+
+    return isActivePage(item, link);
+  }
+
+  function isPlainLeftClick(event) {
+    return (
+      event.button === 0 &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.shiftKey &&
+      !event.altKey
+    );
+  }
+
+  function sameCurrentPage(link) {
+    return pageKey(link) === currentPageKey();
+  }
+
   function addPageToggle(entry) {
     const item = entry.item;
     const link = entry.link;
@@ -530,42 +593,49 @@
       item.insertBefore(button, link);
     }
 
-    const saved = localStorage.getItem(pageStorageKey(link));
-    let collapsed;
-
-    if (saved === "0" || saved === "1") {
-      collapsed = saved === "1";
-    } else {
-      collapsed = !isActivePage(item, link);
-    }
-
-    setCollapsed(item, button, collapsed);
-
-    if (!collapsed) {
+    if (shouldStartOpen(item, link)) {
+      setCollapsed(item, button, false);
       loadHeadings(item, link);
+    } else {
+      setCollapsed(item, button, true);
     }
 
-    if (button.dataset.rhBound === "1") {
-      return;
+    if (button.dataset.rhBound !== "1") {
+      button.dataset.rhBound = "1";
+
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const isCollapsed = item.classList.contains("rh-page-collapsed");
+
+        if (isCollapsed) {
+          expandPage(item, link);
+        } else {
+          localStorage.removeItem(OPEN_PAGE_KEY);
+          setCollapsed(item, button, true);
+        }
+
+        markManualSidebarUse();
+      });
     }
 
-    button.dataset.rhBound = "1";
+    if (link.dataset.rhPageBound !== "1") {
+      link.dataset.rhPageBound = "1";
 
-    button.addEventListener("click", function (event) {
-      event.preventDefault();
-      event.stopPropagation();
+      link.addEventListener("click", function (event) {
+        if (!isPlainLeftClick(event)) {
+          return;
+        }
 
-      const nextCollapsed = !item.classList.contains("rh-page-collapsed");
+        expandPage(item, link);
+        markManualSidebarUse();
 
-      localStorage.setItem(pageStorageKey(link), nextCollapsed ? "1" : "0");
-      setCollapsed(item, button, nextCollapsed);
-
-      if (!nextCollapsed) {
-        loadHeadings(item, link);
-      }
-
-      markManualSidebarUse();
-    });
+        if (sameCurrentPage(link)) {
+          event.preventDefault();
+        }
+      });
+    }
   }
 
   function refreshPageToggles() {
@@ -582,6 +652,16 @@
       entries.forEach(function (entry) {
         addPageToggle(entry);
       });
+
+      const openItems = entries.filter(function (entry) {
+        return !entry.item.classList.contains("rh-page-collapsed");
+      });
+
+      if (openItems.length > 1) {
+        openItems.slice(1).forEach(function (entry) {
+          collapsePage(entry.item);
+        });
+      }
     });
 
     console.info(
