@@ -435,3 +435,12 @@
 .md-top {
     display: none !important;
 }
+
+/* Persistent checklist state. */
+.md-typeset input[type="checkbox"] {
+    cursor: pointer !important;
+}
+
+.md-typeset .task-list-item {
+    list-style-type: none !important;
+}
