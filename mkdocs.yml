@@ -39,6 +39,7 @@ nav:
     - SQL Injection: Web/SQL_Injection.md
     - XSS: Web/XSS.md
   - Networking & Infrastructure:
+    - Network Architecture: Networking/README.md
   - Modern Architecture:
     - Cloud : Cloud/README.md
     - Containers : Containers/README.md
