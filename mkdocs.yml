@@ -72,3 +72,4 @@ extra_javascript:
   - javascripts/runaway-bat.js
   - javascripts/sidebar-follow-active.js
   - javascripts/page-up.js
+  - javascripts/checklist-state.js
