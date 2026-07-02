@@ -6,10 +6,9 @@ Server-Side Template Injection, usually shortened to **SSTI**, is a vulnerabilit
 
 The key idea:
 
-```text id="lb72tf"
+```text
 User input  →  template engine  →  server-side evaluation
 ```
-
 This is dangerous because template engines often have access to application objects, configuration values, helper functions, framework internals, file access, and sometimes operating system execution primitives.
 
 SSTI can lead to:
@@ -70,7 +69,7 @@ Most SSTI testing is about answering seven questions:
 
 A vulnerable flow often looks like this:
 
-```text id="itc3yu"
+```text
 User submits:
     name={{7*7}}
 
@@ -80,10 +79,9 @@ Application builds template:
 Template engine renders:
     Hello 49
 ```
-
 A safer flow should look like this:
 
-```text id="1fxlwh"
+```text
 Template:
     Hello {{ name }}
 
@@ -93,14 +91,12 @@ Data:
 Rendered output:
     Hello {{7*7}}
 ```
-
 The difference is critical:
 
-```text id="w6g4n8"
+```text
 Vulnerable: user input becomes part of the template.
 Safe: user input is passed as data into a fixed template.
 ```
-
 ---
 
 ## SSTI vs XSS
@@ -113,16 +109,15 @@ Safe: user input is passed as data into a fixed template.
 
 Important distinction:
 
-```text id="ojflqi"
+```text
 XSS payloads execute in the browser.
 SSTI payloads execute on the server.
 ```
-
 SSTI can be mistaken for XSS because the payload is often reflected in HTML. The important test is whether server-side expressions are evaluated before the response reaches the browser.
 
 Example:
 
-```text id="xe7lw6"
+```text
 Input:
     {{7*7}}
 
@@ -131,7 +126,6 @@ If response contains:
     49            → possible SSTI
     error/stack   → possible SSTI or template parsing issue
 ```
-
 ---
 
 ## Common Template Engines
@@ -149,7 +143,7 @@ If response contains:
 
 Common framework mappings:
 
-```text id="9n606v"
+```text
 Flask       → Jinja2
 Django      → Django Templates, sometimes Jinja2
 Symfony     → Twig
@@ -160,7 +154,6 @@ Rails       → ERB, Slim, Liquid
 Hugo        → Go templates
 Shopify     → Liquid
 ```
-
 ---
 
 ## Main SSTI Types
@@ -204,7 +197,7 @@ Test any place where user input may be merged into a rendered template.
 
 High-value parameter names:
 
-```text id="wuvxds"
+```text
 name
 username
 displayName
@@ -238,10 +231,9 @@ filename
 report
 invoice
 ```
-
 Interesting routes:
 
-```text id="33dwo9"
+```text
 /profile
 /account
 /settings
@@ -264,7 +256,6 @@ Interesting routes:
 /error
 /debug
 ```
-
 ---
 
 ## Safe Testing Workflow
@@ -273,16 +264,14 @@ Interesting routes:
 2. Identify reflected input.
 3. Use a unique harmless marker:
 
-```text id="f2aylz"
+```text
 ssti-test-73921
 ```
-
 4. Test basic template metacharacters:
 
-```text id="8wfqey"
+```text
 ${{<%[%'"}}%\
 ```
-
 5. Test simple arithmetic payloads.
 6. Compare raw input and rendered output.
 7. Identify the template engine.
@@ -294,7 +283,7 @@ ${{<%[%'"}}%\
 
 Good low-impact proof payloads:
 
-```text id="cb9le2"
+```text
 {{7*7}}
 ${7*7}
 <%= 7*7 %>
@@ -302,10 +291,9 @@ ${7*7}
 [[${7*7}]]
 {{"ssti-test-73921"}}
 ```
-
 Avoid as first proof:
 
-```text id="39a5ua"
+```text
 reading sensitive files
 dumping environment secrets
 executing shell commands
@@ -315,14 +303,13 @@ creating users
 modifying templates persistently
 reverse shells
 ```
-
 ---
 
 ## First Probe Payloads
 
 Start with arithmetic and string markers.
 
-```text id="vx6ude"
+```text
 {{7*7}}
 ${7*7}
 <%= 7*7 %>
@@ -335,10 +322,9 @@ ${7*7}
 ${"ssti-test-73921"}
 <%= "ssti-test-73921" %>
 ```
-
 Expected results:
 
-```text id="b8lfy7"
+```text
 49                    → expression evaluated
 7777777               → possible string multiplication, often Python/Jinja-like
 payload unchanged     → probably not evaluated or wrong context
@@ -346,13 +332,11 @@ template error        → possible SSTI, wrong syntax, or blocked characters
 500 response          → possible parser error
 blank output          → payload evaluated but returned null/empty
 ```
-
 Fuzzing string:
 
-```text id="a4gk3q"
+```text
 ${{<%[%'"}}%\
 ```
-
 Use it carefully. It is noisy and may trigger errors.
 
 ---
@@ -375,7 +359,7 @@ Different engines evaluate different syntax.
 
 Basic decision tree:
 
-```text id="3lpbmc"
+```text
 {{7*7}} = 49?
     yes → test {{7*'7'}}
         7777777 → likely Jinja2/Python-like
@@ -389,7 +373,6 @@ ${7*7} = 49?
 [[${7*7}]] = 49?
     yes → test Thymeleaf inline context
 ```
-
 ---
 
 ## Context Matters
@@ -400,82 +383,72 @@ SSTI payloads are context-dependent. The same payload may work in one place and 
 
 Example template:
 
-```text id="xe7bs3"
+```text
 Hello USER_INPUT
 ```
-
 Payload:
 
-```text id="l9wio9"
+```text
 {{7*7}}
 ```
-
 Rendered result:
 
-```text id="xskghc"
+```text
 Hello 49
 ```
-
 ### HTML Attribute Context
 
 Example:
 
-```html id="nzwj3x"
+```html
 <input value="USER_INPUT">
 ```
-
 Payload may need to break out of quotes or remain expression-only.
 
-```text id="45n7cv"
+```text
 {{7*7}}
 "{{7*7}}"
 ```
-
 ### JavaScript String Context
 
 Example:
 
-```html id="czj0gy"
+```html
 <script>
   const name = "USER_INPUT";
 </script>
 ```
-
 This may become XSS, SSTI, or both depending on whether the value is evaluated server-side before being placed into JavaScript.
 
 ### Statement Context
 
 Some engines use statement tags:
 
-```text id="76eomy"
+```text
 {% if condition %}
 {% for item in items %}
 {% set x = 1 %}
 ```
-
 Jinja/Twig-style tests:
 
-```text id="de72rq"
+```text
 {% if 7*7 == 49 %}ssti-test-73921{% endif %}
 {% set x = 7*7 %}{{x}}
 ```
-
 ### Template Attribute Context
 
 Some engines, such as Thymeleaf, evaluate expressions inside special attributes.
 
 Example shape:
 
-```html id="bw17au"
+```html
 <p th:text="${message}">placeholder</p>
 ```
-
 Potential test:
 
-```text id="mzmws2"
+```text
 [[${7*7}]]
 ```
-
 ---
 
 ## Common Detection Signals
@@ -495,7 +468,7 @@ Potential test:
 
 Possible engine names in errors:
 
-```text id="14iosr"
+```text
 Jinja2
 Twig
 FreeMarker
@@ -516,7 +489,6 @@ Razor
 Django
 Pebble
 ```
-
 ---
 
 ## Verbose SSTI
@@ -525,29 +497,25 @@ Verbose SSTI means the evaluated expression appears in the response.
 
 Example vulnerable request:
 
-```http id="er9h0i"
+```http
 GET /hello?name={{7*7}} HTTP/1.1
 Host: vulnerable.example
 ```
-
 Possible response:
 
-```html id="k85rq0"
+```html
 Hello 49
 ```
-
 Safer proof marker:
 
-```text id="r8x3yf"
+```text
 {{"ssti-test-73921"}}
 ```
-
 Possible response:
 
-```text id="ujkwy2"
+```text
 ssti-test-73921
 ```
-
 This is enough to prove server-side template expression evaluation in many cases.
 
 ---
@@ -558,7 +526,7 @@ Template parsing errors are useful for detection and fingerprinting.
 
 Payloads:
 
-```text id="1spuep"
+```text
 {{}
 ${}
 <%=
@@ -567,10 +535,9 @@ ${}
 {% if %}
 ${{<%[%'"}}%\
 ```
-
 Interesting error strings:
 
-```text id="yb0gkq"
+```text
 TemplateSyntaxError
 TemplateRuntimeError
 UndefinedError
@@ -586,7 +553,6 @@ EJS
 Handlebars
 Liquid syntax error
 ```
-
 Do not assume every template error means exploitable SSTI. It may only indicate that a template parser saw your input. Confirm with a controlled expression.
 
 ---
@@ -597,7 +563,7 @@ Blind SSTI occurs when the payload is evaluated but output is not returned.
 
 Detection methods:
 
-```text id="la766v"
+```text
 time delay
 DNS callback
 HTTP callback
@@ -606,22 +572,20 @@ log side effect
 conditional response changes
 template error differences
 ```
-
 ### Time-Based Proof
 
 Use only when a safe time function is available in the engine/context.
 
 Conceptual examples:
 
-```text id="vn9zli"
+```text
 expression causes a 3–5 second delay
 baseline response remains fast
 delay repeats consistently
 ```
-
 Good timing methodology:
 
-```text id="fhj5mg"
+```text
 baseline request
 delay 3 seconds
 baseline request
@@ -629,20 +593,18 @@ delay 5 seconds
 baseline request
 repeat once
 ```
-
 Timing alone can be noisy. Prefer a second signal when possible.
 
 ### OAST Proof
 
 Use a unique controlled domain:
 
-```text id="ofyzzb"
+```text
 ssti-test-73921.oast.example
 ```
-
 Possible signals:
 
-```text id="hk84m5"
+```text
 DNS lookup
 HTTP request
 source IP
@@ -650,7 +612,6 @@ User-Agent
 timestamp
 unique path
 ```
-
 Only use static markers first. Do not exfiltrate secrets unless explicitly authorized.
 
 ---
@@ -661,7 +622,7 @@ Second-order SSTI happens when the payload is stored first and rendered later.
 
 Examples:
 
-```text id="cdv9eo"
+```text
 profile name rendered in email
 company name rendered in invoice
 ticket title rendered in admin panel
@@ -671,29 +632,25 @@ notification template rendered by background worker
 webhook body template rendered later
 Markdown content converted to a template
 ```
-
 Testing approach:
 
-```text id="kjw07f"
+```text
 1. Store a harmless marker payload.
 2. Trigger the feature that renders it.
 3. Check user-facing output, admin output, email, PDF, report, or logs.
 4. Use unique markers per field.
 5. Avoid destructive payloads.
 ```
-
 Example stored payload:
 
-```text id="bdx21w"
+```text
 {{7*7}}-ssti-test-73921
 ```
-
 Possible result later:
 
-```text id="g8eo3j"
+```text
 49-ssti-test-73921
 ```
-
 ---
 
 ## Jinja2 / Python
@@ -702,24 +659,22 @@ Common in Flask and Python applications.
 
 Basic probes:
 
-```text id="y5p01m"
+```text
 {{7*7}}
 {{7*'7'}}
 {{"ssti-test-73921"}}
 {% if 7*7 == 49 %}ssti-test-73921{% endif %}
 ```
-
 Possible signals:
 
-```text id="rfm2bs"
+```text
 {{7*7}}      → 49
 {{7*'7'}}    → 7777777
 {{foobar}}   → empty or undefined behavior
 ```
-
 Common exposed objects in Flask/Jinja contexts:
 
-```text id="lwlw6x"
+```text
 config
 request
 session
@@ -732,41 +687,36 @@ joiner
 namespace
 lipsum
 ```
-
 Safe enumeration examples:
 
-```text id="mqagxn"
+```text
 {{config}}
 {{request}}
 {{self}}
 {{request.method}}
 {{request.path}}
 ```
-
 Statement-style probes:
 
-```text id="pwvv9g"
+```text
 {% set x = 7*7 %}{{x}}
 {% if 7*7 == 49 %}OK{% endif %}
 {% for x in range(3) %}{{x}}{% endfor %}
 ```
-
 Character/filter bypass ideas:
 
-```text id="62fot6"
+```text
 {{request|attr("__class__")}}
 {{request["__class__"]}}
 {{request|attr(["__","class","__"]|join)}}
 ```
-
 Safer impact proof:
 
-```text id="lq6wdr"
+```text
 {{"ssti-test-73921"}}
 {{7*7}}
 {{request.path}}
 ```
-
 Do not jump directly to shell execution. Prove template evaluation first, then assess exposed objects and sandboxing.
 
 ---
@@ -777,42 +727,37 @@ Common in Symfony and PHP applications.
 
 Basic probes:
 
-```text id="vx4i51"
+```text
 {{7*7}}
 {{7*'7'}}
 {{"ssti-test-73921"}}
 ```
-
 Possible signals:
 
-```text id="kq36wy"
+```text
 {{7*7}}      → 49
 {{7*'7'}}    → error or different behavior than Jinja
 ```
-
 Useful safe probes:
 
-```text id="5ty4nt"
+```text
 {{_self}}
 {{app}}
 {{app.request}}
 {{app.environment}}
 ```
-
 Filter-style behavior:
 
-```text id="445pvv"
+```text
 {{"ssti-test-73921"|upper}}
 {{"SSTI-TEST"|lower}}
 ```
-
 Possible result:
 
-```text id="jwkori"
+```text
 SSTI-TEST-73921
 ssti-test
 ```
-
 Twig may be sandboxed depending on configuration. Sandbox escape depends heavily on version, enabled filters, custom functions, and exposed objects.
 
 ---
@@ -823,27 +768,24 @@ Common in Java applications.
 
 Basic probes:
 
-```text id="j4q67c"
+```text
 ${7*7}
 #{7*7}
 ${"ssti-test-73921"}
 ```
-
 Possible signals:
 
-```text id="3toixs"
+```text
 ${7*7}      → 49
 #{7*7}      → 49 in some legacy contexts
 ```
-
 Safe object/probe ideas:
 
-```text id="63vrsf"
+```text
 ${.version}
 ${.now}
 ${"ssti-test-73921"?upper_case}
 ```
-
 FreeMarker impact depends on configuration, object wrapper, exposed classes, template loader, and sandboxing. Dangerous class access should be treated as high impact and tested only with explicit authorization.
 
 ---
@@ -852,27 +794,24 @@ FreeMarker impact depends on configuration, object wrapper, exposed classes, tem
 
 Basic probes:
 
-```text id="w6if2h"
+```text
 #set($x=7*7)$x
 #set($x="ssti-test-73921")$x
 ```
-
 Possible signal:
 
-```text id="t2tnlx"
+```text
 49
 ssti-test-73921
 ```
-
 Common syntax:
 
-```text id="vujj23"
+```text
 $variable
 #set($x = "value")
 #if($x) yes #end
 #foreach($i in [1..3])$i#end
 ```
-
 Velocity risk depends on exposed objects and tools. If dangerous Java objects or reflection helpers are exposed, impact can become severe.
 
 ---
@@ -883,34 +822,30 @@ Common in Java Spring applications.
 
 Basic probes:
 
-```text id="6a17zz"
+```text
 ${7*7}
 [[${7*7}]]
 [( ${7*7} )]
 ```
-
 Possible signal:
 
-```text id="fejy6q"
+```text
 [[${7*7}]]  → 49
 ```
-
 Thymeleaf often evaluates expressions inside template attributes or inline expression contexts.
 
 Example contexts:
 
-```html id="dhje4v"
+```html
 <p th:text="${message}"></p>
 <p>[[${message}]]</p>
 ```
-
 Safe probes:
 
-```text id="m9sna2"
+```text
 [[${"ssti-test-73921"}]]
 [[${7*7}]]
 ```
-
 High-impact exploitation often depends on SpringEL/OGNL expression access and application-specific configuration.
 
 ---
@@ -921,27 +856,24 @@ Common in Ruby/Rails contexts.
 
 Basic probes:
 
-```text id="njy011"
+```text
 <%= 7*7 %>
 <%= "ssti-test-73921" %>
 ```
-
 Possible signal:
 
-```text id="5l04v4"
+```text
 49
 ssti-test-73921
 ```
-
 ERB executes Ruby code in templates, so unsafe user-controlled template construction is high risk.
 
 Safe probes:
 
-```text id="8s08xs"
+```text
 <%= 1 + 1 %>
 <%= "ssti-test-73921" %>
 ```
-
 Avoid destructive Ruby execution payloads unless explicitly authorized.
 
 ---
@@ -952,33 +884,29 @@ Common in Express/Node.js applications.
 
 Basic probes:
 
-```text id="b0c9ju"
+```text
 <%= 7*7 %>
 <%= "ssti-test-73921" %>
 ```
-
 Possible signal:
 
-```text id="n2zm5p"
+```text
 49
 ssti-test-73921
 ```
-
 EJS-like engines may support:
 
-```text id="xuet0y"
+```text
 <%= expression %>
 <%- unescapedExpression %>
 <% code %>
 ```
-
 Safe probes:
 
-```text id="xxcyzv"
+```text
 <%= 7*7 %>
 <%= process.version %>
 ```
-
 `process.version` discloses runtime info and should be considered more sensitive than arithmetic.
 
 ---
@@ -987,24 +915,21 @@ Safe probes:
 
 Basic probes:
 
-```text id="o2g492"
+```text
 #{7*7}
 #{'ssti-test-73921'}
 ```
-
 Possible signal:
 
-```text id="cflyqw"
+```text
 49
 ssti-test-73921
 ```
-
 Pug syntax is indentation-sensitive in full templates. Inline interpolation may work in specific contexts:
 
-```text id="msczb3"
+```text
 p #{7*7}
 ```
-
 Impact depends on whether attacker input becomes a full Pug template or only data inside a fixed template.
 
 ---
@@ -1013,26 +938,23 @@ Impact depends on whether attacker input becomes a full Pug template or only dat
 
 Basic probes:
 
-```text id="75w2up"
+```text
 {{this}}
 {{.}}
 {{name}}
 ```
-
 Handlebars and Mustache are often logic-light, so basic arithmetic may not work:
 
-```text id="tevn75"
+```text
 {{7*7}} may not evaluate
 ```
-
 Test whether variables or helpers are exposed:
 
-```text id="1tco6d"
+```text
 {{constructor}}
 {{lookup this "name"}}
 {{#if this}}OK{{/if}}
 ```
-
 Impact depends on helper functions, unsafe runtime options, prototype access, and custom helpers.
 
 ---
@@ -1043,18 +965,16 @@ Common in Shopify-like templating and some Ruby/CMS environments.
 
 Basic probes:
 
-```text id="ssmxds"
+```text
 {{ 7 | plus: 7 }}
 {{ "ssti-test-73921" }}
 ```
-
 Possible signal:
 
-```text id="q2z4ep"
+```text
 14
 ssti-test-73921
 ```
-
 Liquid is usually more restricted than engines that expose full language execution, but sensitive object exposure may still create impact.
 
 ---
@@ -1065,21 +985,19 @@ Common in Go applications, Hugo-like systems, and internal tools.
 
 Basic probes:
 
-```text id="q64cqm"
+```text
 {{.}}
 {{printf "ssti-test-73921"}}
 {{printf "%d" 49}}
 ```
-
 Go templates are not automatically RCE. Impact depends on exposed functions and data structures.
 
 Safe probes:
 
-```text id="153jxl"
+```text
 {{.}}
 {{printf "ssti-test-73921"}}
 ```
-
 ---
 
 ## Django Templates
@@ -1088,19 +1006,17 @@ Django templates are intentionally more restricted than Jinja2, but SSTI can sti
 
 Basic probes:
 
-```text id="cefw3m"
+```text
 {{7}}
 {{7|add:7}}
 {{"ssti-test-73921"}}
 ```
-
 Possible signal:
 
-```text id="h9xnh2"
+```text
 14
 ssti-test-73921
 ```
-
 Impact depends heavily on available context variables, custom filters, debug mode, and template tags.
 
 ---
@@ -1111,18 +1027,16 @@ Mako can execute Python-like expressions in templates.
 
 Basic probes:
 
-```text id="a34vrl"
+```text
 ${7*7}
 ${"ssti-test-73921"}
 ```
-
 Possible signal:
 
-```text id="t9ky1o"
+```text
 49
 ssti-test-73921
 ```
-
 Mako can be high impact if attacker input becomes a template, because it supports powerful Python expression/code features.
 
 ---
@@ -1131,20 +1045,18 @@ Mako can be high impact if attacker input becomes a template, because it support
 
 Basic probes:
 
-```text id="c72p58"
+```text
 {$smarty.version}
 {7*7}
 {"ssti-test-73921"}
 ```
-
 Possible signals:
 
-```text id="m15wwu"
+```text
 Smarty version appears
 49
 ssti-test-73921
 ```
-
 Smarty impact depends on version, security mode, plugins, and exposed variables.
 
 ---
@@ -1153,19 +1065,17 @@ Smarty impact depends on version, security mode, plugins, and exposed variables.
 
 Basic probes:
 
-```text id="arwv7m"
+```text
 {{7*7}}
 {{"ssti-test-73921"}}
 {% set x = 7*7 %}{{x}}
 ```
-
 Possible signal:
 
-```text id="c4hatv"
+```text
 49
 ssti-test-73921
 ```
-
 Tornado templates support Python expressions and may become high impact if attacker-controlled strings are compiled as templates.
 
 ---
@@ -1174,13 +1084,12 @@ Tornado templates support Python expressions and may become high impact if attac
 
 Use unique markers.
 
-```text id="tsdc7k"
+```text
 ssti-probe-73921.oast.example
 ```
-
 Possible confirmation methods:
 
-```text id="dz4x94"
+```text
 DNS callback
 HTTP callback
 timing difference
@@ -1189,23 +1098,20 @@ email body difference
 PDF content difference
 log entry
 ```
-
 Safe OAST strategy:
 
-```text id="zrn59a"
+```text
 1. First prove expression evaluation with arithmetic.
 2. Then test whether network-capable helpers are exposed.
 3. Use a unique domain per endpoint/parameter.
 4. Do not exfiltrate secrets.
 5. Record timestamp, source IP, User-Agent, and request path.
 ```
-
 Example evidence wording:
 
-```text id="qpnmhx"
+```text
 The payload caused a DNS lookup to ssti-probe-73921.oast.example from the application server. No sensitive data was exfiltrated.
 ```
-
 ---
 
 ## Object Exploration
@@ -1214,7 +1120,7 @@ Once SSTI is confirmed, enumerate carefully.
 
 Safe objects to check:
 
-```text id="7m8drf"
+```text
 self
 this
 request
@@ -1227,10 +1133,9 @@ environment
 settings
 globals
 ```
-
 Safe questions:
 
-```text id="u8w817"
+```text
 What engine is this?
 What framework is this?
 What variables are exposed?
@@ -1239,17 +1144,15 @@ Is sandbox mode enabled?
 Are custom filters/functions exposed?
 Are dangerous helpers present?
 ```
-
 Avoid immediately dumping all configuration if it may contain secrets. Prefer minimal proof such as:
 
-```text id="ktod4c"
+```text
 framework name
 template engine version
 request path
 current username
 non-sensitive test config key
 ```
-
 ---
 
 ## Bypass Techniques
@@ -1258,7 +1161,7 @@ SSTI filters often block obvious characters or strings.
 
 Common blocked items:
 
-```text id="i1v0ry"
+```text
 {{
 }}
 {%
@@ -1279,10 +1182,9 @@ popen
 eval
 exec
 ```
-
 Bypass families:
 
-```text id="3w9gn8"
+```text
 alternate delimiters
 statement tags instead of expression tags
 attribute filters
@@ -1297,7 +1199,6 @@ template comments
 line breaks
 context switching
 ```
-
 ---
 
 ## Delimiter Bypasses
@@ -1306,37 +1207,32 @@ If `{{ }}` is blocked, try statement syntax.
 
 Jinja/Twig-like:
 
-```text id="wsbd6x"
+```text
 {% if 7*7 == 49 %}ssti-test-73921{% endif %}
 {% set x = 7*7 %}{{x}}
 ```
-
 Thymeleaf-like:
 
-```text id="q1qe9c"
+```text
 [[${7*7}]]
 [( ${7*7} )]
 ```
-
 ERB/EJS-like:
 
-```text id="lxe0np"
+```text
 <%= 7*7 %>
 ```
-
 Pug-like:
 
-```text id="v5qprj"
+```text
 #{7*7}
 ```
-
 FreeMarker-like:
 
-```text id="o82jua"
+```text
 ${7*7}
 #{7*7}
 ```
-
 ---
 
 ## Dot / Attribute Bypasses
@@ -1345,30 +1241,26 @@ If `.` is blocked, try bracket or filter-style access.
 
 Jinja-like examples:
 
-```text id="z0x349"
+```text
 {{request["class"]}}
 {{request|attr("path")}}
 {{request|attr("__class__")}}
 ```
-
 String construction:
 
-```text id="lvnc6d"
+```text
 {{request|attr(["__","class","__"]|join)}}
 ```
-
 Header/parameter-sourced attribute names:
 
-```text id="wwsa7n"
+```text
 {{request|attr(request.args.attr)}}
 ```
-
 With request:
 
-```text id="2yrnib"
+```text
 ?attr=path
 ```
-
 This can bypass filters that only inspect the payload body but not auxiliary parameters or headers.
 
 ---
@@ -1377,20 +1269,18 @@ This can bypass filters that only inspect the payload body but not auxiliary par
 
 If `_` is blocked, try encoding or string construction.
 
-```text id="xkzu5k"
+```text
 \x5f
 \u005f
 ["_"*2,"class","_"*2]|join
 request.args.underscore
 request.headers.underscore
 ```
-
 Example idea:
 
-```text id="j4zizy"
+```text
 {{request|attr(["_"*2,"class","_"*2]|join)}}
 ```
-
 Avoid using these directly against production unless you already have authorization to test bypasses.
 
 ---
@@ -1399,7 +1289,7 @@ Avoid using these directly against production unless you already have authorizat
 
 If quotes are blocked:
 
-```text id="stt8rt"
+```text
 use request parameters as strings
 use headers as strings
 use existing variables
@@ -1407,69 +1297,60 @@ use join/concat functions
 use numeric operations
 use template variables already in scope
 ```
-
 Example idea:
 
-```text id="oexfuq"
+```text
 {{request|attr(request.args.x)}}
 ```
-
 With:
 
-```text id="co7z51"
+```text
 ?x=path
 ```
-
 ---
 
 ## Bracket Bypasses
 
 If `[` and `]` are blocked:
 
-```text id="jgd3th"
+```text
 use attr()
 use dot notation
 use first/last filters
 use pop-like helpers if exposed
 use get/list helpers if available
 ```
-
 Example:
 
-```text id="7tx2ix"
+```text
 {{request|attr("path")}}
 ```
-
 ---
 
 ## Encoding Bypasses
 
 URL encoding:
 
-```text id="hm6wsu"
+```text
 %7B%7B7*7%7D%7D
 %24%7B7*7%7D
 %3C%25%3D%207*7%20%25%3E
 ```
-
 Double encoding:
 
-```text id="q7b0kk"
+```text
 %257B%257B7*7%257D%257D
 ```
-
 Unicode escapes where supported:
 
-```text id="uqjbq3"
+```text
 \u007b\u007b7*7\u007d\u007d
 ```
-
 HTML entity encoding may matter if the input is decoded before template rendering:
 
-```text id="vg9xq1"
+```text
 &#123;&#123;7*7&#125;&#125;
 ```
-
 ---
 
 ## Sandbox Notes
@@ -1478,7 +1359,7 @@ A sandboxed template environment may allow harmless expressions but block danger
 
 Possible signs of sandboxing:
 
-```text id="7gj9bn"
+```text
 arithmetic works
 attribute access blocked
 method calls blocked
@@ -1486,10 +1367,9 @@ dangerous filters missing
 class/object access denied
 security exception appears
 ```
-
 Example signals:
 
-```text id="a0h63e"
+```text
 SecurityError
 access to attribute is unsafe
 not allowed to access
@@ -1497,10 +1377,9 @@ sandbox violation
 undefined function
 method not permitted
 ```
-
 Sandbox escape depends on:
 
-```text id="5i6emo"
+```text
 template engine
 engine version
 framework integration
@@ -1511,7 +1390,6 @@ debug extensions
 allowed method calls
 available imports/classes
 ```
-
 Treat sandbox escape testing as higher risk. Use safe probes first.
 
 ---
@@ -1522,28 +1400,25 @@ Email templates are common second-order SSTI locations.
 
 Examples:
 
-```text id="hhq2vc"
+```text
 Hello {{first_name}}
 Your ticket {{ticket_id}} was updated.
 Dear ${customerName}
 ```
-
 Risky feature:
 
-```text id="e197yw"
+```text
 admin can customize email greeting using user-controlled input
 user-controlled profile fields are concatenated into the email template
 ```
-
 Test:
 
-```text id="8vszl2"
+```text
 first_name={{7*7}}-ssti-test-73921
 ```
-
 Check:
 
-```text id="ouhfeo"
+```text
 email body
 email subject
 HTML version
@@ -1551,7 +1426,6 @@ plain-text version
 admin preview
 queued email logs
 ```
-
 ---
 
 ## SSTI in PDF / Document Generation
@@ -1560,7 +1434,7 @@ Document generation often uses templates.
 
 Targets:
 
-```text id="08pu3t"
+```text
 PDF invoices
 DOCX exports
 ODT templates
@@ -1570,16 +1444,14 @@ badges
 shipping labels
 contracts
 ```
-
 Safe test:
 
-```text id="j738z1"
+```text
 {{7*7}}-ssti-test-73921
 ```
-
 Check:
 
-```text id="zjvr0x"
+```text
 generated PDF body
 document metadata
 header/footer
@@ -1587,7 +1459,6 @@ table cells
 email attachment
 background job logs
 ```
-
 PDF generators may also have SSRF or local file read issues. Keep SSTI and renderer issues separated in the report unless chained impact is confirmed.
 
 ---
@@ -1598,7 +1469,7 @@ CMS and admin template editors are tricky because some users are intentionally a
 
 Ask:
 
-```text id="03t2hp"
+```text
 Is the user expected to write templates?
 Is the user trusted?
 Can low-privileged users edit templates?
@@ -1607,17 +1478,15 @@ Is sandbox mode enforced?
 Can templates be used to read secrets or execute code?
 Can template changes affect other users?
 ```
-
 Potential impact:
 
-```text id="c7925b"
+```text
 stored XSS
 privilege escalation
 sensitive data exposure
 RCE
 tenant breakout in multi-tenant systems
 ```
-
 If only full administrators can edit templates, this may be intended functionality, but it can still be a hardening issue if templates expose OS or secret access unnecessarily.
 
 ---
@@ -1628,34 +1497,30 @@ Webhook systems often allow body templates.
 
 Example:
 
-```json id="5x49ry"
+```json
 {
   "text": "Ticket {{ticket.id}} updated by {{user.name}}"
 }
 ```
-
 Risky pattern:
 
-```text id="qkmd2o"
+```text
 user-controlled fields are concatenated into the webhook template before rendering
 ```
-
 Test:
 
-```text id="it7u11"
+```text
 webhookName={{7*7}}-ssti-test-73921
 ```
-
 Check:
 
-```text id="y3me21"
+```text
 webhook body
 webhook headers
 delivery logs
 retry logs
 admin preview
 ```
-
 ---
 
 ## Common False Positives
@@ -1674,7 +1539,7 @@ admin preview
 
 Confirm with:
 
-```text id="p9enrp"
+```text
 server-side arithmetic
 engine-specific syntax
 response before browser execution
@@ -1683,7 +1548,6 @@ raw HTTP response comparison
 second payload with different syntax
 error message naming template engine
 ```
-
 ---
 
 ## Tools
@@ -1692,7 +1556,7 @@ error message naming template engine
 
 Useful for:
 
-```text id="j0jeq9"
+```text
 capturing requests
 Repeater testing
 payload variations
@@ -1701,42 +1565,38 @@ Collaborator/OAST callbacks
 response comparison
 timing comparison
 ```
-
 ### Tplmap
 
 Automated SSTI scanner/exploitation tool.
 
 Example shape:
 
-```bash id="mh61mp"
+```bash
 tplmap -u "https://target.example/?name=INJECT"
 ```
-
 Use carefully:
 
-```text id="ymn2np"
+```text
 authorized scope only
 review payloads first
 rate-limit requests
 avoid destructive modules
 avoid automatic shell modes unless explicitly allowed
 ```
-
 ### Fenjing
 
 Useful for Jinja-focused filter bypass testing.
 
-```bash id="fh2i2w"
+```bash
 python -m fenjing scan --url "https://target.example/"
 ```
-
 Use primarily in labs or authorized environments.
 
 ### Manual Wordlists
 
 Useful categories:
 
-```text id="1ghjr8"
+```text
 basic arithmetic
 engine-specific delimiters
 context-breaking payloads
@@ -1745,7 +1605,6 @@ safe object probes
 filter bypass probes
 blind/OAST probes
 ```
-
 ---
 
 ## Impact Chaining
@@ -1754,7 +1613,7 @@ SSTI is often the start of a deeper compromise.
 
 Common chains:
 
-```text id="14i64j"
+```text
 SSTI → config disclosure
 SSTI → environment variable disclosure
 SSTI → file read
@@ -1767,10 +1626,9 @@ SSTI → stored XSS in rendered output
 SSTI → tenant data exposure
 SSTI → full server compromise
 ```
-
 Cloud/container things to check only in authorized environments:
 
-```text id="hr6q2m"
+```text
 environment variables
 mounted secrets
 service account tokens
@@ -1779,7 +1637,6 @@ application config files
 Kubernetes service account files
 CI/CD variables
 ```
-
 Avoid using discovered credentials unless the rules of engagement explicitly allow it.
 
 
@@ -1874,7 +1731,7 @@ Avoid using discovered credentials unless the rules of engagement explicitly all
 
 Generic probes:
 
-```text id="ys3p4n"
+```text
 {{7*7}}
 ${7*7}
 <%= 7*7 %>
@@ -1884,16 +1741,14 @@ ${7*7}
 ${"ssti-test-73921"}
 <%= "ssti-test-73921" %>
 ```
-
 Fuzzing string:
 
-```text id="j5wj91"
+```text
 ${{<%[%'"}}%\
 ```
-
 Jinja2 / Python:
 
-```text id="8ccf08"
+```text
 {{7*7}}
 {{7*'7'}}
 {{config}}
@@ -1901,125 +1756,109 @@ Jinja2 / Python:
 {% if 7*7 == 49 %}ssti-test-73921{% endif %}
 {% set x = 7*7 %}{{x}}
 ```
-
 Twig / PHP:
 
-```text id="b0gjgq"
+```text
 {{7*7}}
 {{"ssti-test-73921"}}
 {{"ssti-test"|upper}}
 {{_self}}
 ```
-
 FreeMarker / Java:
 
-```text id="jlbiyy"
+```text
 ${7*7}
 #{7*7}
 ${"ssti-test-73921"}
 ${.version}
 ${.now}
 ```
-
 Velocity / Java:
 
-```text id="o18ae2"
+```text
 #set($x=7*7)$x
 #set($x="ssti-test-73921")$x
 ```
-
 Thymeleaf / Spring:
 
-```text id="vbfvts"
+```text
 ${7*7}
 [[${7*7}]]
 [[${"ssti-test-73921"}]]
 ```
-
 ERB / Ruby:
 
-```text id="0lj3y9"
+```text
 <%= 7*7 %>
 <%= "ssti-test-73921" %>
 ```
-
 EJS / Node.js:
 
-```text id="mxhj8h"
+```text
 <%= 7*7 %>
 <%= "ssti-test-73921" %>
 ```
-
 Pug / Jade:
 
-```text id="ds2gwu"
+```text
 #{7*7}
 #{'ssti-test-73921'}
 ```
-
 Liquid:
 
-```text id="e8oyb0"
+```text
 {{ 7 | plus: 7 }}
 {{ "ssti-test-73921" }}
 ```
-
 Go templates:
 
-```text id="ku8zy5"
+```text
 {{.}}
 {{printf "ssti-test-73921"}}
 {{printf "%d" 49}}
 ```
-
 Django templates:
 
-```text id="uq184p"
+```text
 {{7}}
 {{7|add:7}}
 {{"ssti-test-73921"}}
 ```
-
 Mako / Python:
 
-```text id="o5edj0"
+```text
 ${7*7}
 ${"ssti-test-73921"}
 ```
-
 Smarty / PHP:
 
-```text id="hmsveh"
+```text
 {$smarty.version}
 {7*7}
 {"ssti-test-73921"}
 ```
-
 Tornado / Python:
 
-```text id="nzc48y"
+```text
 {{7*7}}
 {{"ssti-test-73921"}}
 {% set x = 7*7 %}{{x}}
 ```
-
 Encoding:
 
-```text id="bqq2q8"
+```text
 %7B%7B7*7%7D%7D
 %24%7B7*7%7D
 %3C%25%3D%207*7%20%25%3E
 %257B%257B7*7%257D%257D
 ```
-
 Second-order marker:
 
-```text id="kgcxq4"
+```text
 {{7*7}}-ssti-test-73921
 ```
-
 OAST marker:
 
-```text id="me25w9"
+```text
 ssti-test-73921.oast.example
 ```
