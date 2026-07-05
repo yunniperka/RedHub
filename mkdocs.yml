@@ -36,8 +36,21 @@ nav:
       - Dupa: dupa.md
   - Linux:
       - Dupa: dupa.md
-  - Enterprise Environments:
-      - Active Directory: AD/README.md
+  - Active Directory:
+      - Fundamentals: AD/AD_Fundamentals.md
+      - Initial Reconnaissance: AD/Initial_Recon.md
+      - Unauthenticated Attacks: AD/Unauth_Attacks.md
+      - Authenticated Attacks: AD/Auth_Attacks.md
+      - Credential Access: AD/Credential_Access.md
+      - Kerberos Attacks: AD/Kerberos_Attacks.md
+      - NTLM Relay & Coercion: AD/NTLM_Relay_and_Coercion.md
+      - ACL Abuse: AD/ACL_Abuse.md
+      - Lateral Movement: AD/Lateral_Movement.md
+      - Privilege Escalation: AD/Priv_Escalation.md
+      - Domain Compromise: AD/Domain_Compromise.md
+      - Persistance: AD/Persistance.md
+      - Cross Forest & Trusts: AD/Cross_Forest_and_Trusts.md
+      - Toolset: AD/Toolset.md
   - Web Security:
       - Initial Reconnaissance: Web/Initial_Reconnaissance.md
       - SQL Injection: Web/SQL_Injection.md

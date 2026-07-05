@@ -43,10 +43,6 @@ SQLi can lead to:
 
   
 
-Use these notes only for authorized testing, labs, CTFs, bug bounty scopes, or internal security work.
-
-  
-
 ---
 
   
