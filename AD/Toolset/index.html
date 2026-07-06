@@ -79,6 +79,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#core-ad-enumeration-and-graphing" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -849,6 +854,24 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toolset
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -865,6 +888,166 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#core-ad-enumeration-and-graphing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core AD Enumeration and Graphing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-protocol-ad-toolkits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Protocol AD Toolkits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ldap-smb-rpc-and-dns-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LDAP, SMB, RPC and DNS Enumeration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kerberos-and-ticket-abuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kerberos and Ticket Abuse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ad-cs-and-certificate-abuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AD CS and Certificate Abuse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ntlm-relay-poisoning-and-coercion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NTLM Relay, Poisoning and Coercion
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credential-access-and-secret-hunting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credential Access and Secret Hunting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acl-gpo-machine-accounts-and-object-abuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ACL, GPO, Machine Accounts and Object Abuse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#laps-and-gmsa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LAPS and gMSA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ad-cs-adfs-exchange-mssql-and-sccm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AD CS, ADFS, Exchange, MSSQL and SCCM
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lateral-movement-and-remote-execution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lateral Movement and Remote Execution
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-windows-privesc-supporting-ad-chains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Windows Privesc Supporting AD Chains
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legacy-duplicates-and-use-with-caution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Legacy, Duplicates and Use With Caution
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1522,7 +1705,752 @@
 
   <h1>Toolset</h1>
 
-
+<h2 id="core-ad-enumeration-and-graphing">Core AD Enumeration and Graphing</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Link</th>
+<th>Purpose</th>
+<th>Functionality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PowerView.ps1</strong></td>
+<td><a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1">GitHub ↗</a></td>
+<td>Classic PowerShell tool for AD enumeration.</td>
+<td>Users, groups, computers, GPOs, ACLs, delegation, sessions, local admin access, trusts.</td>
+</tr>
+<tr>
+<td><strong>SharpView.exe</strong></td>
+<td><a href="https://github.com/tevora-threat/SharpView">GitHub ↗</a></td>
+<td>C# port of PowerView.</td>
+<td>Similar use cases to PowerView, but as a .NET assembly.</td>
+</tr>
+<tr>
+<td><strong>ADModule.dll</strong></td>
+<td><a href="https://github.com/samratashok/ADModule">GitHub ↗</a></td>
+<td>Microsoft Active Directory PowerShell module without installing RSAT.</td>
+<td><code>Get-ADUser</code>, <code>Get-ADGroup</code>, <code>Get-ADComputer</code>, <code>Get-ADObject</code>, domain and object enumeration.</td>
+</tr>
+<tr>
+<td><strong>SharpHound.exe / SharpHound.ps1</strong></td>
+<td><a href="https://github.com/SpecterOps/SharpHound">GitHub ↗</a></td>
+<td>Data collector for BloodHound.</td>
+<td>Collects groups, sessions, local admin rights, ACLs, trusts, GPOs, OUs, and AD objects.</td>
+</tr>
+<tr>
+<td><strong>SharpHound Legacy</strong></td>
+<td><a href="https://github.com/SpecterOps/SharpHound">GitHub ↗</a></td>
+<td>Older collector for classic BloodHound.</td>
+<td>Useful in older labs, but current SharpHound CE is preferred.</td>
+</tr>
+<tr>
+<td><strong>BloodHound</strong></td>
+<td><a href="https://github.com/SpecterOps/BloodHound">GitHub ↗</a></td>
+<td>Graph-based AD attack path analysis.</td>
+<td>Attack paths, shortest paths, group nesting, ACL abuse, session paths, local admin paths, trusts.</td>
+</tr>
+<tr>
+<td><strong>BloodHound.py</strong></td>
+<td><a href="https://github.com/dirkjanm/BloodHound.py">GitHub ↗</a></td>
+<td>Linux collector compatible with BloodHound.</td>
+<td>LDAP/SMB collection from Linux, useful without a Windows foothold.</td>
+</tr>
+<tr>
+<td><strong>RustHound CE</strong></td>
+<td><a href="https://github.com/g0h4n/RustHound-CE">GitHub ↗</a></td>
+<td>Alternative BloodHound CE collector.</td>
+<td>AD data collection from Linux, focused on BloodHound CE.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="multi-protocol-ad-toolkits">Multi-Protocol AD Toolkits</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Link</th>
+<th>Purpose</th>
+<th>Functionality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NetExec / nxc</strong></td>
+<td><a href="https://github.com/Pennyw0rth/NetExec">GitHub ↗</a></td>
+<td>Main tool for enumeration and access validation over SMB, LDAP, WinRM, MSSQL, RDP, and more.</td>
+<td>Spraying, authentication checks, shares, users, groups, local admin checks, sessions, BloodHound collection, Kerberoasting, ASREP roasting, gMSA, AD CS modules.</td>
+</tr>
+<tr>
+<td><strong>CrackMapExec Legacy</strong></td>
+<td><a href="https://github.com/byt3bl33d3r/CrackMapExec">GitHub ↗</a></td>
+<td>Older predecessor of NetExec.</td>
+<td>Similar workflow to NetExec, but treat it as legacy.</td>
+</tr>
+<tr>
+<td><strong>Impacket</strong></td>
+<td><a href="https://github.com/fortra/impacket">GitHub ↗</a></td>
+<td>Protocol toolkit for AD and Windows environments.</td>
+<td><code>secretsdump</code>, <code>psexec</code>, <code>wmiexec</code>, <code>smbexec</code>, <code>atexec</code>, <code>GetUserSPNs</code>, <code>GetNPUsers</code>, <code>getTGT</code>, <code>getST</code>, <code>ntlmrelayx</code>, <code>ticketer</code>, <code>lookupsid</code>.</td>
+</tr>
+<tr>
+<td><strong>BloodyAD</strong></td>
+<td><a href="https://github.com/CravateRouge/bloodyAD">GitHub ↗</a></td>
+<td>Python tool for AD object modification and abuse.</td>
+<td>ACL abuse, password changes, group membership changes, shadow credentials, attribute modification.</td>
+</tr>
+<tr>
+<td><strong>Windows Built-ins</strong></td>
+<td>Microsoft built-in</td>
+<td>Native Windows tools without extra downloads.</td>
+<td><code>net</code>, <code>nltest</code>, <code>setspn</code>, <code>dsquery</code>, <code>whoami</code>, <code>klist</code>, <code>sc</code>, <code>schtasks</code>, <code>reg</code>, <code>wmic</code>, PowerShell AD module.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ldap-smb-rpc-and-dns-enumeration">LDAP, SMB, RPC and DNS Enumeration</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Link</th>
+<th>Purpose</th>
+<th>Functionality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LDAP Search Filters</strong></td>
+<td>note / cheatsheet</td>
+<td>Not a tool, but a reusable set of LDAP filters.</td>
+<td>Filters for users, computers, groups, SPNs, no-preauth users, delegation, LAPS, gMSA, AD CS, ACL-related attributes.</td>
+</tr>
+<tr>
+<td><strong>ldapdomaindump</strong></td>
+<td><a href="https://github.com/dirkjanm/ldapdomaindump">GitHub ↗</a></td>
+<td>Dumps domain information through LDAP into readable files.</td>
+<td>Users, groups, computers, memberships, domain policy, HTML/JSON/grep-friendly output.</td>
+</tr>
+<tr>
+<td><strong>enum4linux-ng</strong></td>
+<td><a href="https://github.com/cddmp/enum4linux-ng">GitHub ↗</a></td>
+<td>SMB/RPC enumeration from Linux.</td>
+<td>Null/guest checks, users, groups, shares, password policy, OS/domain information.</td>
+</tr>
+<tr>
+<td><strong>rpcclient</strong></td>
+<td>Samba suite</td>
+<td>RPC client included with Samba.</td>
+<td><code>enumdomusers</code>, <code>enumdomgroups</code>, <code>queryuser</code>, <code>lsaquery</code>, <code>getdompwinfo</code>, RID cycling.</td>
+</tr>
+<tr>
+<td><strong>smbclient</strong></td>
+<td>Samba suite</td>
+<td>SMB client from Linux.</td>
+<td>List shares, download files, test null/guest/authenticated access.</td>
+</tr>
+<tr>
+<td><strong>dnsrecon</strong></td>
+<td><a href="https://github.com/darkoperator/dnsrecon">GitHub ↗</a></td>
+<td>DNS enumeration.</td>
+<td>SRV records, zones, brute force, zone transfer checks, AD DNS discovery.</td>
+</tr>
+<tr>
+<td><strong>CheckPort.exe</strong></td>
+<td>local utility</td>
+<td>Helper utility, not strictly AD-specific.</td>
+<td>Quick port checks from a Windows foothold. In AD notes, treat it as a utility, not a main AD tool.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="kerberos-and-ticket-abuse">Kerberos and Ticket Abuse</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Link</th>
+<th>Purpose</th>
+<th>Functionality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Rubeus.exe / Rubeus-2.exe</strong></td>
+<td><a href="https://github.com/GhostPack/Rubeus">GitHub ↗</a></td>
+<td>Main C# Kerberos tool for AD.</td>
+<td>ASREP roasting, Kerberoasting, TGT/TGS handling, S4U, Pass the Ticket, Overpass the Hash, golden/silver/diamond tickets, ticket triage.</td>
+</tr>
+<tr>
+<td><strong>SharpRoast.exe</strong></td>
+<td><a href="https://github.com/GhostPack/Rubeus">GitHub ↗</a></td>
+<td>Older or standalone roasting builds, usually replaced by Rubeus.</td>
+<td>Kerberoasting and ASREP roasting in older workflows.</td>
+</tr>
+<tr>
+<td><strong>Kerbrute</strong></td>
+<td><a href="https://github.com/ropnop/kerbrute">GitHub ↗</a></td>
+<td>Kerberos username enumeration and password spraying.</td>
+<td>User enumeration without SMB, Kerberos password spraying, fast username validation.</td>
+</tr>
+<tr>
+<td><strong>Kekeo</strong></td>
+<td><a href="https://github.com/gentilkiwi/kekeo">GitHub ↗</a></td>
+<td>Advanced Kerberos operations.</td>
+<td>TGT/TGS handling, S4U, ticket manipulation, Kerberos research.</td>
+</tr>
+<tr>
+<td><strong>noPac.exe</strong></td>
+<td><a href="https://github.com/Ridter/noPac">GitHub ↗</a></td>
+<td>Abuse of CVE-2021-42278 and CVE-2021-42287 in vulnerable domains.</td>
+<td>sAMAccountName spoofing, KDC confusion, privilege escalation in unpatched environments.</td>
+</tr>
+<tr>
+<td><strong>KrbRelay.exe</strong></td>
+<td><a href="https://github.com/cube0x0/KrbRelay">GitHub ↗</a></td>
+<td>Kerberos relay in specific scenarios.</td>
+<td>Kerberos/LDAP relay, used in machine account and local privesc chains.</td>
+</tr>
+<tr>
+<td><strong>KrbRelayUp.exe</strong></td>
+<td><a href="https://github.com/Dec0ne/KrbRelayUp">GitHub ↗</a></td>
+<td>Automated local privesc chain in domain environments through Kerberos relay.</td>
+<td>Machine account, LDAP relay, RBCD/service creation chain depending on conditions.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ad-cs-and-certificate-abuse">AD CS and Certificate Abuse</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Link</th>
+<th>Purpose</th>
+<th>Functionality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Certipy</strong></td>
+<td><a href="https://github.com/ly4k/Certipy">GitHub ↗</a></td>
+<td>Main Linux tool for AD CS.</td>
+<td>CA/template enumeration, ESC1-ESC16 checks, relay output, shadow credentials, certificate authentication, template analysis.</td>
+</tr>
+<tr>
+<td><strong>Certify.exe</strong></td>
+<td><a href="https://github.com/GhostPack/Certify">GitHub ↗</a></td>
+<td>C# tool for AD CS enumeration and abuse.</td>
+<td>Find CAs, templates, vulnerable templates, request certificates.</td>
+</tr>
+<tr>
+<td><strong>ForgeCert.exe</strong></td>
+<td><a href="https://github.com/GhostPack/ForgeCert">GitHub ↗</a></td>
+<td>Certificate forging in AD CS scenarios.</td>
+<td>Forged certificates and CA private key abuse scenarios.</td>
+</tr>
+<tr>
+<td><strong>PassTheCert</strong></td>
+<td><a href="https://github.com/AlmondOffSec/PassTheCert">GitHub ↗</a></td>
+<td>Use a certificate for LDAP/S over Schannel when PKINIT does not work.</td>
+<td>LDAP authentication with a certificate, LDAP modifications, shadow/cert-based workflows.</td>
+</tr>
+<tr>
+<td><strong>Whisker.exe</strong></td>
+<td><a href="https://github.com/eladshamir/Whisker">GitHub ↗</a></td>
+<td>Shadow Credentials from Windows/C#.</td>
+<td>Add, list, and remove <code>msDS-KeyCredentialLink</code>; certificate-based persistence/authentication.</td>
+</tr>
+<tr>
+<td><strong>PKINITtools</strong></td>
+<td><a href="https://github.com/dirkjanm/PKINITtools">GitHub ↗</a></td>
+<td>PKINIT and certificate authentication tooling.</td>
+<td><code>gettgtpkinit.py</code>, TGT from certificate, U2U, NT hash recovery in selected paths.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ntlm-relay-poisoning-and-coercion">NTLM Relay, Poisoning and Coercion</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Link</th>
+<th>Purpose</th>
+<th>Functionality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ntlmrelayx.py</strong></td>
+<td><a href="https://github.com/fortra/impacket">GitHub ↗</a></td>
+<td>NTLM relay to SMB/LDAP/HTTP/AD CS.</td>
+<td>SMB relay, LDAP relay, RBCD, add-computer, AD CS relay, SOCKS sessions.</td>
+</tr>
+<tr>
+<td><strong>Responder</strong></td>
+<td><a href="https://github.com/lgandx/Responder">GitHub ↗</a></td>
+<td>LLMNR/NBT-NS/WPAD poisoning and NetNTLM capture.</td>
+<td>Hash capture, poisoning, lab initial access; watch for conflicts with <code>ntlmrelayx</code>.</td>
+</tr>
+<tr>
+<td><strong>Inveigh.ps1</strong></td>
+<td><a href="https://github.com/Kevin-Robertson/Inveigh">GitHub ↗</a></td>
+<td>PowerShell/.NET poisoning and capture tool for Windows.</td>
+<td>LLMNR/NBNS/mDNS poisoning, HTTP/SMB authentication capture, Windows-side Responder-like workflow.</td>
+</tr>
+<tr>
+<td><strong>SpoolSample.exe</strong></td>
+<td><a href="https://github.com/leechristensen/SpoolSample">GitHub ↗</a></td>
+<td>PrinterBug / MS-RPRN coercion.</td>
+<td>Forces a machine to authenticate to a chosen listener.</td>
+</tr>
+<tr>
+<td><strong>Coercer</strong></td>
+<td><a href="https://github.com/p0dalirius/Coercer">GitHub ↗</a></td>
+<td>Automatic testing of many RPC coercion primitives.</td>
+<td>PrinterBug, PetitPotam-like methods, DFSCoerce, ShadowCoerce-like paths, reporting working methods.</td>
+</tr>
+<tr>
+<td><strong>PetitPotam</strong></td>
+<td><a href="https://github.com/topotam/PetitPotam">GitHub ↗</a></td>
+<td>MS-EFSRPC coercion.</td>
+<td>Forces authentication from a host/machine, often combined with AD CS relay.</td>
+</tr>
+<tr>
+<td><strong>DFSCoerce</strong></td>
+<td><a href="https://github.com/Wh04m1001/DFSCoerce">GitHub ↗</a></td>
+<td>MS-DFSNM coercion.</td>
+<td>Forces machine account authentication through DFS Namespace RPC.</td>
+</tr>
+<tr>
+<td><strong>ShadowCoerce</strong></td>
+<td><a href="https://github.com/ShutdownRepo/ShadowCoerce">GitHub ↗</a></td>
+<td>MS-FSRVP coercion.</td>
+<td>Forces authentication through File Server Remote VSS Protocol.</td>
+</tr>
+<tr>
+<td><strong>mitm6</strong></td>
+<td><a href="https://github.com/dirkjanm/mitm6">GitHub ↗</a></td>
+<td>IPv6 DNS takeover / relay setup.</td>
+<td>WPAD/IPv6-based authentication capture/relay, often combined with <code>ntlmrelayx</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="credential-access-and-secret-hunting">Credential Access and Secret Hunting</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Link</th>
+<th>Purpose</th>
+<th>Functionality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mimikatz.exe</strong></td>
+<td><a href="https://github.com/gentilkiwi/mimikatz">GitHub ↗</a></td>
+<td>Classic credential access and Kerberos tool.</td>
+<td>LSASS, <code>sekurlsa</code>, tickets, DCSync, Golden Ticket, Skeleton Key, DPAPI.</td>
+</tr>
+<tr>
+<td><strong>SafetyKatz.exe</strong></td>
+<td><a href="https://github.com/GhostPack/SafetyKatz">GitHub ↗</a></td>
+<td>Mimikatz wrapper/variant with minidump workflow.</td>
+<td>Credential dumping from LSASS dump, convenient in .NET/offensive workflows.</td>
+</tr>
+<tr>
+<td><strong>BetterSafetyKatz.exe</strong></td>
+<td><a href="https://github.com/Flangvik/BetterSafetyKatz">GitHub ↗</a></td>
+<td>Alternative SafetyKatz wrapper/build.</td>
+<td>Similar purpose: Mimikatz-like credential extraction with easier staging.</td>
+</tr>
+<tr>
+<td><strong>SharpDump.exe</strong></td>
+<td><a href="https://github.com/GhostPack/SharpDump">GitHub ↗</a></td>
+<td>LSASS dump from .NET.</td>
+<td>Creates LSASS minidumps for offline parsing.</td>
+</tr>
+<tr>
+<td><strong>pypykatz</strong></td>
+<td><a href="https://github.com/skelsec/pypykatz">GitHub ↗</a></td>
+<td>Offline LSASS dump parsing.</td>
+<td>NTLM, Kerberos tickets, DPAPI material, logon sessions.</td>
+</tr>
+<tr>
+<td><strong>SharpDPAPI.exe</strong></td>
+<td><a href="https://github.com/GhostPack/SharpDPAPI">GitHub ↗</a></td>
+<td>DPAPI triage and decryption workflow.</td>
+<td>Credentials, vaults, browser-related DPAPI secrets, masterkeys, domain backup key workflows.</td>
+</tr>
+<tr>
+<td><strong>SharpChrome.exe</strong></td>
+<td><a href="https://github.com/GhostPack/SharpDPAPI">GitHub ↗</a></td>
+<td>Browser credential/cookie extraction, related to SharpDPAPI.</td>
+<td>Chrome/Edge logins, cookies, history; depends on DPAPI context.</td>
+</tr>
+<tr>
+<td><strong>DonPAPI</strong></td>
+<td><a href="https://github.com/login-securite/DonPAPI">GitHub ↗</a></td>
+<td>Collect DPAPI/secrets from many Windows hosts.</td>
+<td>Browser creds, Wi-Fi, CredMan, vaults, certificates, remote collection.</td>
+</tr>
+<tr>
+<td><strong>KeeTheft.exe / KeeThief</strong></td>
+<td><a href="https://github.com/GhostPack/KeeThief">GitHub ↗</a></td>
+<td>KeePass hunting and key extraction scenarios.</td>
+<td>KeePass database discovery, key material, password vault abuse in labs.</td>
+</tr>
+<tr>
+<td><strong>Koh.exe</strong></td>
+<td><a href="https://github.com/GhostPack/Koh">GitHub ↗</a></td>
+<td>Token stealing / token monitoring.</td>
+<td>Token capture/stealing in Windows sessions; useful when admin sessions appear.</td>
+</tr>
+<tr>
+<td><strong>LockLess.exe</strong></td>
+<td><a href="https://github.com/GhostPack/LockLess">GitHub ↗</a></td>
+<td>Read files locked by processes.</td>
+<td>Helpful for copying browser databases, logs, and other locked files.</td>
+</tr>
+<tr>
+<td><strong>Snaffler.exe</strong></td>
+<td><a href="https://github.com/SnaffCon/Snaffler">GitHub ↗</a></td>
+<td>Search for secrets on domain shares.</td>
+<td>Recursive SMB share searching, rules for passwords, configs, keys, <code>.kdbx</code>, connection strings.</td>
+</tr>
+<tr>
+<td><strong>LaZagne</strong></td>
+<td><a href="https://github.com/AlessandroZ/LaZagne">GitHub ↗</a></td>
+<td>Local credential recovery.</td>
+<td>Browser creds, Wi-Fi, apps, credential stores; useful after host access.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="acl-gpo-machine-accounts-and-object-abuse">ACL, GPO, Machine Accounts and Object Abuse</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Link</th>
+<th>Purpose</th>
+<th>Functionality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PowerView.ps1</strong></td>
+<td><a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1">GitHub ↗</a></td>
+<td>ACL/GPO/OU enumeration and abuse.</td>
+<td><code>Find-InterestingDomainAcl</code>, <code>Get-DomainObjectAcl</code>, <code>Add-DomainObjectAcl</code>, GPO/OU mapping.</td>
+</tr>
+<tr>
+<td><strong>Powermad.ps1</strong></td>
+<td><a href="https://github.com/Kevin-Robertson/Powermad">GitHub ↗</a></td>
+<td>Machine account manipulation.</td>
+<td>Add machine accounts, modify machine account attributes, useful in RBCD/KrbRelayUp paths.</td>
+</tr>
+<tr>
+<td><strong>SharpMad.exe / Sharpmad.exe</strong></td>
+<td><a href="https://github.com/Kevin-Robertson/SharpMad">GitHub ↗</a></td>
+<td>C# variant of Powermad.</td>
+<td>Machine account creation/modification as a .NET assembly.</td>
+</tr>
+<tr>
+<td><strong>SharpGPOAbuse.exe</strong></td>
+<td><a href="https://github.com/FSecureLABS/SharpGPOAbuse">GitHub ↗</a></td>
+<td>Abuse writable GPOs.</td>
+<td>Add local admin, scheduled task, startup/logon actions, GPO persistence/lateral movement.</td>
+</tr>
+<tr>
+<td><strong>SharpGPO.exe</strong></td>
+<td><a href="https://github.com/FSecureLABS/SharpGPOAbuse">GitHub ↗</a></td>
+<td>Often a build/variant used in GPO abuse workflows.</td>
+<td>GPO manipulation; verify exact build because the name is used inconsistently.</td>
+</tr>
+<tr>
+<td><strong>GPOddity</strong></td>
+<td><a href="https://github.com/synacktiv/GPOddity">GitHub ↗</a></td>
+<td>Additional GPO abuse tool.</td>
+<td>Create/modify GPOs with focus on offensive GPO workflows.</td>
+</tr>
+<tr>
+<td><strong>BloodyAD</strong></td>
+<td><a href="https://github.com/CravateRouge/bloodyAD">GitHub ↗</a></td>
+<td>LDAP object abuse from Linux.</td>
+<td>Password reset, group add, shadow credentials, ACL/object modifications.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="laps-and-gmsa">LAPS and gMSA</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Link</th>
+<th>Purpose</th>
+<th>Functionality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LAPSToolkit.ps1</strong></td>
+<td><a href="https://github.com/leoloobeek/LAPSToolkit">GitHub ↗</a></td>
+<td>Microsoft LAPS audit and abuse.</td>
+<td>Find LAPS-enabled computers, delegated password readers, groups with LAPS read rights.</td>
+</tr>
+<tr>
+<td><strong>SharpLAPS.exe</strong></td>
+<td><a href="https://github.com/swisskyrepo/SharpLAPS">GitHub ↗</a></td>
+<td>C# tool to read LAPS from LDAP.</td>
+<td>Retrieves <code>ms-Mcs-AdmPwd</code> when the account has the required rights.</td>
+</tr>
+<tr>
+<td><strong>pyLAPS</strong></td>
+<td><a href="https://github.com/p0dalirius/pyLAPS">GitHub ↗</a></td>
+<td>Linux getter/setter for legacy LAPS attributes.</td>
+<td>Reads and modifies <code>ms-Mcs-AdmPwd</code> if permissions allow it.</td>
+</tr>
+<tr>
+<td><strong>GMSAPasswordReader.exe</strong></td>
+<td><a href="https://github.com/rvazarkar/GMSAPasswordReader">GitHub ↗</a></td>
+<td>Read and parse gMSA passwords.</td>
+<td>Retrieves the gMSA blob through LDAP and calculates reusable material.</td>
+</tr>
+<tr>
+<td><strong>gMSADumper</strong></td>
+<td><a href="https://github.com/micahvandeusen/gMSADumper">GitHub ↗</a></td>
+<td>Linux tool for gMSA.</td>
+<td>Reads gMSA password material, NTLM, AES keys, Kerberos/PTH support.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ad-cs-adfs-exchange-mssql-and-sccm">AD CS, ADFS, Exchange, MSSQL and SCCM</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Link</th>
+<th>Purpose</th>
+<th>Functionality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PowerUpSQL.ps1</strong></td>
+<td><a href="https://github.com/NetSPI/PowerUpSQL">GitHub ↗</a></td>
+<td>SQL Server discovery and abuse in AD.</td>
+<td>SQL discovery, login testing, linked servers, impersonation, xp_cmdshell, SQL privilege escalation.</td>
+</tr>
+<tr>
+<td><strong>SharpSQL.exe</strong></td>
+<td><a href="https://github.com/Flangvik/SharpCollection">GitHub ↗</a></td>
+<td>C# SQL tooling build commonly seen in collections.</td>
+<td>SQL enumeration and execution; exact functionality depends on the specific build.</td>
+</tr>
+<tr>
+<td><strong>SharpSCCM.exe</strong></td>
+<td><a href="https://github.com/Mayyhem/SharpSCCM">GitHub ↗</a></td>
+<td>SCCM/MECM enumeration and abuse.</td>
+<td>Site discovery, collections, deployments, client push, SCCM attack paths.</td>
+</tr>
+<tr>
+<td><strong>SCCMHunter</strong></td>
+<td><a href="https://github.com/garrettfoster13/sccmhunter">GitHub ↗</a></td>
+<td>Linux SCCM recon/attack toolkit.</td>
+<td>SCCM discovery, credential paths, shares, policies, admin relationships.</td>
+</tr>
+<tr>
+<td><strong>ADFSDump.exe</strong></td>
+<td><a href="https://github.com/mandiant/ADFSDump">GitHub ↗</a></td>
+<td>AD FS configuration and token signing material discovery.</td>
+<td>Reads AD and AD FS config database data needed for forged token scenarios.</td>
+</tr>
+<tr>
+<td><strong>ADFSpoof</strong></td>
+<td><a href="https://github.com/mandiant/ADFSpoof">GitHub ↗</a></td>
+<td>Companion tool for ADFSDump.</td>
+<td>Creates forged SAML tokens from data collected with ADFSDump.</td>
+</tr>
+<tr>
+<td><strong>Exchange tools / PowerShell</strong></td>
+<td>Microsoft / Exchange shell</td>
+<td>No single GitHub repository; used through Exchange Management Shell.</td>
+<td>Role groups, mailbox permissions, organization management, Exchange Windows Permissions checks.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="lateral-movement-and-remote-execution">Lateral Movement and Remote Execution</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Link</th>
+<th>Purpose</th>
+<th>Functionality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SharpMove.exe</strong></td>
+<td><a href="https://github.com/0xthirteen/SharpMove">GitHub ↗</a></td>
+<td>.NET remote execution toolkit.</td>
+<td>WMI, SCM, scheduled tasks, DCOM-style movement, authenticated remote execution.</td>
+</tr>
+<tr>
+<td><strong>SharpRDP.exe</strong></td>
+<td><a href="https://github.com/0xthirteen/SharpRDP">GitHub ↗</a></td>
+<td>RDP-based authenticated command execution.</td>
+<td>RDP automation and remote process execution through an RDP context.</td>
+</tr>
+<tr>
+<td><strong>SharpWMI.exe</strong></td>
+<td><a href="https://github.com/GhostPack/SharpWMI">GitHub ↗</a></td>
+<td>C# WMI query/execution toolkit.</td>
+<td>Local/remote WMI queries, process creation, WMI event subscriptions, alternate credentials.</td>
+</tr>
+<tr>
+<td><strong>RunasCs.exe</strong></td>
+<td><a href="https://github.com/antonioCoco/RunasCs">GitHub ↗</a></td>
+<td>Runas alternative with more flexible logon types.</td>
+<td>Run a process as another user, network credentials, reverse shell usage in labs.</td>
+</tr>
+<tr>
+<td><strong>RestrictedAdmin.exe</strong></td>
+<td><a href="https://github.com/GhostPack/RestrictedAdmin">GitHub ↗</a></td>
+<td>Restricted Admin mode helper.</td>
+<td>RDP/PTH-related workflow, checking and setting Restricted Admin in labs.</td>
+</tr>
+<tr>
+<td><strong>Impacket psexec/wmiexec/smbexec/atexec</strong></td>
+<td><a href="https://github.com/fortra/impacket">GitHub ↗</a></td>
+<td>Remote execution from Linux.</td>
+<td>SMB service execution, WMI execution, scheduled task execution, Kerberos/PTH support.</td>
+</tr>
+<tr>
+<td><strong>Evil-WinRM</strong></td>
+<td><a href="https://github.com/Hackplayers/evil-winrm">GitHub ↗</a></td>
+<td>Interactive WinRM shell.</td>
+<td>WinRM shell, upload/download, pass-the-hash, certificate authentication in selected workflows.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="local-windows-privesc-supporting-ad-chains">Local Windows Privesc Supporting AD Chains</h2>
+<p>These tools are not strictly AD tools, but they often matter in AD attack chains because local SYSTEM/admin access on domain-joined hosts can lead to admin sessions, tokens, LSASS, DPAPI, SCCM, backups, or lateral movement.</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Link</th>
+<th>Purpose</th>
+<th>Functionality</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PowerUp.ps1</strong></td>
+<td><a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Privesc/PowerUp.ps1">GitHub ↗</a></td>
+<td>Windows local privilege escalation checks.</td>
+<td>Services, permissions, AlwaysInstallElevated, modifiable paths, misconfiguration checks.</td>
+</tr>
+<tr>
+<td><strong>SharpUp.exe</strong></td>
+<td><a href="https://github.com/GhostPack/SharpUp">GitHub ↗</a></td>
+<td>C# port of parts of PowerUp.</td>
+<td>Basic privilege escalation checks as a .NET assembly.</td>
+</tr>
+<tr>
+<td><strong>Seatbelt.exe</strong></td>
+<td><a href="https://github.com/GhostPack/Seatbelt">GitHub ↗</a></td>
+<td>Host survey.</td>
+<td>Local security checks, sessions, environment, installed software, credential-related context.</td>
+</tr>
+<tr>
+<td><strong>winPEAS.exe</strong></td>
+<td><a href="https://github.com/peass-ng/PEASS-ng">GitHub ↗</a></td>
+<td>Automated local Windows enumeration.</td>
+<td>Privileges, services, credentials, files, registry, scheduled tasks, AV checks.</td>
+</tr>
+<tr>
+<td><strong>JuicyPotato.exe</strong></td>
+<td><a href="https://github.com/ohpe/juicy-potato">GitHub ↗</a></td>
+<td>Local privesc through token/COM paths on older Windows.</td>
+<td>Abuse of <code>SeImpersonatePrivilege</code> / <code>SeAssignPrimaryTokenPrivilege</code> in vulnerable configurations.</td>
+</tr>
+<tr>
+<td><strong>PrintSpoofer64.exe</strong></td>
+<td><a href="https://github.com/itm4n/PrintSpoofer">GitHub ↗</a></td>
+<td>Local privesc through named pipe impersonation.</td>
+<td><code>SeImpersonatePrivilege</code> to SYSTEM in vulnerable conditions.</td>
+</tr>
+<tr>
+<td><strong>GodPotato.exe</strong></td>
+<td><a href="https://github.com/BeichenDream/GodPotato">GitHub ↗</a></td>
+<td>Potato-family local privesc.</td>
+<td>DCOM/NTLM local privilege escalation paths.</td>
+</tr>
+<tr>
+<td><strong>SweetPotato.exe</strong></td>
+<td><a href="https://github.com/CCob/SweetPotato">GitHub ↗</a></td>
+<td>Potato-family local privesc.</td>
+<td>Rotten/Juicy/PrintSpoofer-like variants.</td>
+</tr>
+<tr>
+<td><strong>SharpEfsPotato.exe</strong></td>
+<td><a href="https://github.com/bugch3ck/SharpEfsPotato">GitHub ↗</a></td>
+<td>Local privesc through EFSRPC-related abuse.</td>
+<td><code>SeImpersonatePrivilege</code> style chain on selected systems.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="legacy-duplicates-and-use-with-caution">Legacy, Duplicates and Use With Caution</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Link</th>
+<th>Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CrackMapExec_Legacy / crackmapexec.py</strong></td>
+<td><a href="https://github.com/byt3bl33d3r/CrackMapExec">GitHub ↗</a></td>
+<td>Legacy</td>
+<td>Prefer NetExec in new notes. Keep CME for older labs and writeups.</td>
+</tr>
+<tr>
+<td><strong>SharpHound_Legacy.exe</strong></td>
+<td><a href="https://github.com/SpecterOps/SharpHound">GitHub ↗</a></td>
+<td>Legacy</td>
+<td>Use only if an older BloodHound/lab requires it.</td>
+</tr>
+<tr>
+<td><strong>Rubeus-2.exe</strong></td>
+<td><a href="https://github.com/GhostPack/Rubeus">GitHub ↗</a></td>
+<td>Duplicate/build variant</td>
+<td>Treat as a Rubeus variant and document under one Rubeus note.</td>
+</tr>
+<tr>
+<td><strong>SafetyKatz / BetterSafetyKatz / Mimikatz</strong></td>
+<td><a href="https://github.com/gentilkiwi/mimikatz">GitHub ↗</a></td>
+<td>Related family</td>
+<td>Do not create three separate main categories; this is the Mimikatz/credential access family.</td>
+</tr>
+<tr>
+<td><strong>SharpChrome / SharpDPAPI</strong></td>
+<td><a href="https://github.com/GhostPack/SharpDPAPI">GitHub ↗</a></td>
+<td>Related family</td>
+<td>Best documented together under DPAPI/browser credentials.</td>
+</tr>
+<tr>
+<td><strong>SharpGPO / SharpGPOAbuse</strong></td>
+<td><a href="https://github.com/FSecureLABS/SharpGPOAbuse">GitHub ↗</a></td>
+<td>Related family</td>
+<td>In AD notes, the important part is GPO abuse, not the exact build name.</td>
+</tr>
+</tbody>
+</table>
 
 
 
