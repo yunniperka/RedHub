@@ -23,7 +23,6 @@ theme:
     - content.code.copy
     - content.code.annotate
     - navigation.top
-    - navigation.footer
     - search.suggest
     - search.highlight
 
